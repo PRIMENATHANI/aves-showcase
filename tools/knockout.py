@@ -5,8 +5,13 @@ import sys,os,numpy as np
 from PIL import Image, ImageFilter
 from collections import deque
 src,dst=sys.argv[1],sys.argv[2]
+def _opt(flag):
+    if flag in sys.argv: return set(sys.argv[sys.argv.index(flag)+1].split(','))
+    return set()
+KEEP_HOLES=_opt('--keep-holes')   # ids whose enclosed near-white regions must survive (clear shields, cup masks)
+ONLY=_opt('--only')               # process only these ids
 os.makedirs(dst,exist_ok=True)
-def process(path,out):
+def process(path,out,keep_holes=False):
     im=Image.open(path).convert('RGB')
     a=np.asarray(im).astype(np.int16)
     h,w,_=a.shape
@@ -31,7 +36,7 @@ def process(path,out):
     from scipy import ndimage
     inner=near&~mask
     lab,n=ndimage.label(inner)
-    if n:
+    if n and not keep_holes:
         sizes=ndimage.sum(np.ones_like(mn),lab,range(1,n+1))
         pure=ndimage.sum((mn>=250),lab,range(1,n+1))
         for i,(sz,pu) in enumerate(zip(sizes,pure),1):
@@ -53,9 +58,10 @@ def process(path,out):
 import glob
 files=sorted(glob.glob(os.path.join(src,'*')))
 for f in files:
-    name=os.path.splitext(os.path.basename(f))[0]+'.png'
+    stem=os.path.splitext(os.path.basename(f))[0]; name=stem+'.png'
+    if ONLY and stem not in ONLY: continue
     try:
-        cov=process(f,os.path.join(dst,name))
+        cov=process(f,os.path.join(dst,name),keep_holes=(stem in KEEP_HOLES))
         if cov<0.2: print('LOW-BG',name,round(cov,2))
     except Exception as e: print('ERR',name,e)
 print('done',len(files))
