@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AVES Turntable</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07090c; --ink:#f3f5f8; --muted:#9aa3ae; --line:rgba(255,255,255,.12);
+  --green:#00913f; --green-t:#19b45a; --form:#1a2029;
+  --rail:220px; --read:360px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink)}
+body{font-family:Barlow,system-ui,sans-serif;font-size:15px;line-height:1.45;min-height:100vh;overflow-x:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.disp{font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.01em;line-height:1}
+
+/* layout */
+.page{display:grid;grid-template-columns:var(--rail) 1fr var(--read);grid-template-rows:auto 1fr;min-height:100vh;padding:0 32px}
+header{grid-column:1/-1;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding:28px 0 8px}
+.brand{display:flex;flex-direction:column;gap:10px}
+.logo{height:26px;width:auto;filter:brightness(0) invert(1);opacity:.92;align-self:flex-start}
+h1{font-size:44px}
+.count{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:18px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.count b{color:var(--green-t);font-weight:700}
+.rule{height:1px;background:var(--green);width:48px;margin-top:2px}
+
+/* rail */
+.rail{padding-top:40px}
+.rail h2{font-size:14px;color:var(--muted);letter-spacing:.12em;margin-bottom:14px;font-weight:600}
+.rail ul{list-style:none}
+.rail li button{display:flex;justify-content:space-between;align-items:baseline;width:100%;padding:7px 0;text-align:left;color:var(--muted);transition:color .2s}
+.rail li button span:first-child{font-family:"Barlow Condensed";font-weight:600;font-size:19px;text-transform:uppercase;letter-spacing:.02em}
+.rail li button span:last-child{font-variant-numeric:tabular-nums;font-size:13px}
+.rail li button:hover,.rail li button:focus-visible,.rail li button.on{color:var(--ink)}
+.rail li button.on span:last-child,.rail li button:hover span:last-child{color:var(--green-t)}
+.rail .worn{font-size:12px;color:var(--muted);margin-top:18px;max-width:180px}
+
+/* stage */
+.stagewrap{overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;position:relative;min-width:0}
+.stage{position:relative;isolation:isolate;height:min(calc(100vh - 150px),760px);aspect-ratio:520/760;touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab;outline:none}
+.stage.drag{cursor:grabbing}
+.stage:focus-visible ~ .hint .deg,.stage:focus-visible + .hint .deg{text-decoration:underline;text-underline-offset:4px}
+.glow{position:absolute;left:50%;top:44%;width:120%;aspect-ratio:1;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(25,180,90,.10),rgba(255,255,255,.035) 45%,transparent 72%);pointer-events:none}
+.base,.side{position:absolute;inset:0;width:100%;height:100%}
+.side{pointer-events:none}
+svg.base{overflow:visible}
+.it{position:absolute;transform-origin:50% 50%;pointer-events:none;will-change:transform,opacity}
+.it .in{width:100%}
+.it img,.it svg{display:block;width:100%;height:auto;filter:drop-shadow(0 6px 14px rgba(0,0,0,.45))}
+.it .hl{position:absolute;inset:-30%;background:radial-gradient(closest-side,rgba(25,180,90,.32),transparent 70%);opacity:0;pointer-events:none}
+.hint{font-size:12px;color:var(--muted);letter-spacing:.04em;margin-top:-6px;display:flex;gap:14px;align-items:center}
+.hint .ht{display:none} @media (max-width:899px){.hint .hk{display:none}.hint .ht{display:inline}}
+.hint .deg{font-family:"Barlow Condensed";font-weight:600;font-size:16px;color:var(--green-t);font-variant-numeric:tabular-nums;min-width:4ch}
+
+/* readout */
+.read{padding-top:40px;position:relative}
+.sheet{position:relative}
+.ro-cat{font-family:"Barlow Condensed";font-weight:600;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--green-t)}
+.ro-name{font-size:34px;margin:8px 0 6px;overflow-wrap:anywhere}
+.ro-sku{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.ro-std{margin-top:16px;font-size:13px;color:var(--ink)}
+.ro-std span{display:block;color:var(--muted);font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:2px}
+.ro-bul{margin:18px 0 0 0;list-style:none}
+.ro-bul li{position:relative;padding-left:16px;margin-bottom:8px;color:#d6dbe1;font-size:14px}
+.ro-bul li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:1px;background:var(--green-t)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.chip{padding:5px 11px;border-radius:999px;font-size:12px;color:var(--muted);background:rgba(255,255,255,.05);transition:color .15s,background .15s}
+.chip[aria-pressed=true]{color:var(--bg);background:var(--ink)}
+.cta{margin-top:22px;display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border-radius:999px;background:var(--green);color:#fff;font-family:"Barlow Condensed";font-weight:700;font-size:17px;letter-spacing:.06em;text-transform:uppercase;transition:transform .15s}
+.cta:active{transform:scale(.97)}
+.close{position:absolute;right:-6px;top:-6px;width:36px;height:36px;display:grid;place-items:center;color:var(--muted)}
+.close:hover{color:var(--ink)}
+.kit{list-style:none;margin-top:14px}
+.kit li button{display:flex;gap:10px;align-items:baseline;width:100%;text-align:left;padding:6px 0;color:#d6dbe1}
+.kit li button:hover{color:var(--ink)}
+.kit li .c{font-family:"Barlow Condensed";font-weight:600;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);min-width:86px}
+.kit-h{font-size:22px}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);padding:10px 18px;border-radius:999px;background:#151b23;color:var(--ink);font-size:14px;opacity:0;visibility:hidden;z-index:50}
+.scrim{display:none}
+
+/* phone */
+@media (max-width:899px){
+  .page{display:flex;flex-direction:column;padding:0 16px}
+  .stagewrap{order:1;padding-top:8px} .rail{order:2} .read{order:3}
+  header{flex-direction:column;align-items:flex-start;gap:8px;padding-top:20px}
+  h1{font-size:34px}
+  .logo{height:20px}
+  .stage{height:auto;width:100%;max-width:520px}
+  .rail{padding:18px 0 40px}
+  .rail ul{display:grid;grid-template-columns:1fr 1fr;column-gap:20px}
+  .rail .worn{max-width:none}
+  .read{position:fixed;left:0;right:0;bottom:0;padding:0;z-index:40;pointer-events:none}
+  .sheet{background:#0d1117;border-radius:18px 18px 0 0;padding:22px 16px 28px;max-height:78vh;overflow-y:auto;transform:translateY(105%);pointer-events:auto;box-shadow:0 -12px 40px rgba(0,0,0,.5)}
+  .sheet .close{right:8px;top:10px}
+  .ro-name{font-size:28px;padding-right:36px}
+  .read .kitwrap{display:none}
+  .scrim{display:block;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:39;opacity:0;visibility:hidden}
+}
+@media (min-width:900px){ .sheet{transform:none!important} }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="brand">
+      <img class="logo" src="../../assets/aves-logo.png" alt="AVES Safety">
+      <h1 class="disp">Head to toe. One brand.</h1>
+    </div>
+    <div>
+      <div class="count" id="count">&nbsp;</div>
+      <div class="rule"></div>
+    </div>
+  </header>
+
+  <nav class="rail" aria-label="Categories">
+    <h2 class="disp">Categories</h2>
+    <ul id="rail"></ul>
+    <p class="worn">The eyewash station stands beside the figure: it is the one category you do not wear.</p>
+  </nav>
+
+  <main class="stagewrap">
+    <div class="stage" id="stage" tabindex="0" aria-label="Mannequin in AVES kit. Drag or use the arrow keys to turn it.">
+      <div class="glow"></div>
+      <svg class="base" id="base" viewBox="0 0 520 760" aria-hidden="true"></svg>
+      <div class="side" id="front"></div>
+      <div class="side" id="back"></div>
+      <div class="side" id="fixed"></div>
+    </div>
+    <div class="hint"><span class="deg" id="deg">000°</span><span class="hk">Drag or use the arrow keys to turn</span><span class="ht">Drag to turn</span></div>
+  </main>
+
+  <aside class="read" id="read" aria-live="polite">
+    <div class="sheet" id="sheet"></div>
+  </aside>
+</div>
+<div class="scrim" id="scrim"></div>
+<div class="toast" id="toast" role="status">Added to quote (preview)</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script>
+(() => {
+const VW = 520, VH = 760, CX = 260;
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const phone = () => innerWidth < 900;
+const CATS = ['Head','Eye','Face','Hearing','Respiratory','Hand','Cryogenic','Fall & Dropped Objects','Eyewash & Showers'];
+const NS = 'http://www.w3.org/2000/svg';
+
+/* ---- smooth scroll (brief: Lenis wired to the GSAP ticker) ---- */
+gsap.registerPlugin(ScrollTrigger);
+if (!RM && window.Lenis) {
+  const lenis = new Lenis({ lerp: .1, smoothWheel: true });
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(t => lenis.raf(t * 1000));
+  gsap.ticker.lagSmoothing(0);
+}
+
+/* ---- the kit: x = offset from the body axis, y = top, w = width (all in viewBox units), z = depth toward viewer ---- */
+const FRONT = [
+  { id:'av-hm3093-cap-earmuffs',           cat:'Hearing',     x:0,    y:28,  w:122, z:2,  layer:3 },
+  { id:'av-717p',                          cat:'Head',        x:0,    y:22,  w:130, z:6,  layer:9, clipB:.21 },
+  { id:'av-sg18',                          cat:'Eye',         x:0,    y:72,  w:80,  z:20, layer:7 },
+  { id:'n95-av800-particulate-respirator', cat:'Respiratory', x:0,    y:104, w:56,  z:22, layer:6 },
+  { id:'av-fs15-ws5',                      cat:'Face',        x:0,    y:60,  w:92,  z:26, layer:8, alpha:.3, hitLast:true },
+  { id:'full-body-harness', src:'img/full-body-harness.png', cat:'Fall & Dropped Objects', x:0, y:162, w:160, z:22, layer:4 },
+  { id:'single-lanyard-2',                 cat:'Fall & Dropped Objects', x:70, y:276, w:62, z:26, layer:5 },
+  { id:'hg-2846-latnit-ergotex-palm-grip', cat:'Hand',        x:-104, y:378, w:46,  z:4,  layer:2 },
+  { id:'cryo-leather-gloves',              cat:'Cryogenic',   x:104,  y:346, w:46,  z:4,  layer:2, flip:true },
+];
+// Seen from behind: left/right swap, no face items, harness back is drawn (D-ring), lanyard hangs from it.
+const BACK = [
+  { id:'av-hm3093-cap-earmuffs',           cat:'Hearing',     x:0,    y:28,  w:122, z:-2, layer:8, flip:true },
+  { id:'av-717p',                          cat:'Head',        x:0,    y:22,  w:130, z:6,  layer:9, clipB:.21, flip:true },
+  { id:'full-body-harness', svg:'harnessBack', cat:'Fall & Dropped Objects', x:0, y:168, w:150, z:16, layer:4 },
+  { id:'single-lanyard-2',                 cat:'Fall & Dropped Objects', x:0, y:206, w:72, z:24, layer:5 },
+  { id:'hg-2846-latnit-ergotex-palm-grip', cat:'Hand',        x:104,  y:378, w:46,  z:4,  layer:2, flip:true },
+  { id:'cryo-leather-gloves',              cat:'Cryogenic',   x:-104, y:346, w:46,  z:4,  layer:2 },
+];
+const FIXED = [
+  { id:'emergency-eyewash-station-6-gal', cat:'Eyewash & Showers', x:212, y:600, w:76, z:0, layer:1 },
+];
+
+/* ---- mannequin drawing ---- */
+function capsule(x1,y1,x2,y2,r){ // outlined capsule: line-coloured stroke under a form-coloured stroke
+  return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="rgba(255,255,255,.12)" stroke-width="${r*2+2}" stroke-linecap="round"/>`+
+         `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#1a2029" stroke-width="${r*2}" stroke-linecap="round"/>`;
+}
+const E = 'fill="#1a2029" stroke="rgba(255,255,255,.12)" stroke-width="1.2"';
+function joint(x,y,r){ return `<circle cx="${x}" cy="${y}" r="${r}" ${E}/>`; }
+function limbs(){
+  let s='';
+  for (const m of [1,-1]) {
+    const X = v => CX + m*(v-CX);
+    s += capsule(X(184),186,X(168),288,14) + joint(X(168),294,11) + capsule(X(166),300,X(158),384,12)
+       + `<ellipse cx="${X(156)}" cy="${404}" rx="12" ry="20" ${E}/>`
+       + capsule(X(232),410,X(228),522,19) + joint(X(228),528,13) + capsule(X(228),536,X(226),636,15)
+       + `<ellipse cx="${X(226)}" cy="652" rx="18" ry="10" ${E}/>`
+       + joint(X(186),180,13);
+  }
+  return s;
+}
+const torso = `<path d="M196,170 Q260,156 324,170 Q338,176 336,198 Q330,262 312,318 Q304,346 314,388 Q260,402 206,388 Q216,346 208,318 Q190,262 184,198 Q182,176 196,170 Z" ${E}/>
+  <path d="M206,388 Q260,402 314,388 L318,420 Q260,438 202,420 Z" ${E}/>`;
+const neck = `<rect x="247" y="128" width="26" height="40" rx="8" ${E}/>`;
+function bodySVG(back){
+  const head = `<ellipse cx="260" cy="96" rx="33" ry="41" ${E}/>`;
+  const face = back ? '' : `<path d="M240,78 Q260,70 280,78 L282,112 Q260,132 238,112 Z" fill="rgba(255,255,255,.035)"/>`;
+  const detail = back
+    ? `<path d="M260,182 L260,380" stroke="rgba(255,255,255,.08)" stroke-width="1.2"/>
+       <path d="M222,200 Q236,232 230,262 M298,200 Q284,232 290,262" stroke="rgba(255,255,255,.06)" fill="none"/>`
+    : `<path d="M226,200 Q260,214 294,200" stroke="rgba(255,255,255,.06)" fill="none"/>`;
+  return `<g class="body">${limbs()}${neck}${torso}${detail}${head}${face}</g>`;
+}
+// drawn harness back: shoulder straps cross to a dorsal D-ring, then run to the leg loops
+const SVGS = {
+  harnessBack: `<svg viewBox="-75 0 150 260" xmlns="${NS}">
+    <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M-46,2 L-6,46 L-44,150 M46,2 L6,46 L44,150" stroke="#e8c11a" stroke-width="9"/>
+      <path d="M-50,150 Q0,166 50,150" stroke="#e8c11a" stroke-width="9"/>
+      <path d="M-44,150 Q-58,200 -36,246 M44,150 Q58,200 36,246" stroke="#e8c11a" stroke-width="8"/>
+      <path d="M-46,2 L-6,46 L-44,150 M46,2 L6,46 L44,150" stroke="#1d2b3c" stroke-width="2" stroke-dasharray="3 6"/>
+      <rect x="-14" y="36" width="28" height="12" rx="3" fill="#2a3340" stroke="#0c1016" stroke-width="1.5"/>
+      <path d="M-11,46 Q-12,74 0,74 Q12,74 11,46" stroke="#c9ced6" stroke-width="5"/>
+      <path d="M-11,46 Q-12,74 0,74 Q12,74 11,46" stroke="#f3f5f8" stroke-width="1.5" opacity=".7"/>
+    </g></svg>`,
+};
+
+/* ---- build ---- */
+const $ = id => document.getElementById(id);
+const stage = $('stage'), base = $('base');
+let DATA = [], BY = {};
+const items = []; // {def, el, inner, hl, side, img}
+const layers = { front: $('front'), back: $('back'), fixed: $('fixed') };
+
+function mkBody(back){
+  const s = document.createElementNS(NS,'svg');
+  s.setAttribute('viewBox',`0 0 ${VW} ${VH}`); s.setAttribute('class','base'); s.style.zIndex = 1000;
+  s.innerHTML = bodySVG(back); return s;
+}
+function mkItem(def, side){
+  const el = document.createElement('div'); el.className = 'it';
+  el.style.left = ((CX + def.x - def.w/2) / VW * 100) + '%';
+  el.style.top = (def.y / VH * 100) + '%';
+  el.style.width = (def.w / VW * 100) + '%';
+  const inner = document.createElement('div'); inner.className = 'in';
+  const hl = document.createElement('div'); hl.className = 'hl';
+  inner.appendChild(hl);
+  let img = null;
+  if (def.svg) { inner.insertAdjacentHTML('beforeend', SVGS[def.svg]); }
+  else {
+    img = new Image(); img.alt = ''; img.decoding = 'async';
+    img.src = def.src || `../../assets/cut/${def.id}.png`;
+    if (def.clipB) img.style.clipPath = `inset(0 0 ${def.clipB*100}% 0)`;
+    if (def.flip) img.style.transform = 'scaleX(-1)';
+    inner.appendChild(img);
+  }
+  if (def.alpha) inner.style.opacity = def.alpha;
+  el.appendChild(inner); layers[side].appendChild(el);
+  const it = { def, el, inner, hl, side, img, canvas:null };
+  if (img) img.addEventListener('load', () => { // alpha map for hit testing
+    const c = document.createElement('canvas'); c.width = img.naturalWidth; c.height = img.naturalHeight;
+    const cx = c.getContext('2d', { willReadFrequently:true }); cx.drawImage(img,0,0); it.canvas = cx;
+  });
+  items.push(it); return it;
+}
+
+/* ---- pedestal + tick ring (shared by both sides) ---- */
+const PED = { cx:260, cy:668, rx:168, ry:30 };
+function buildBase(){
+  base.innerHTML = `
+  <defs>
+    <radialGradient id="pedTop" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#232b36"/><stop offset="1" stop-color="#141920"/></radialGradient>
+    <linearGradient id="pedSide" x1="0" x2="1"><stop offset="0" stop-color="#0d1116"/><stop offset=".5" stop-color="#1a2029"/><stop offset="1" stop-color="#0d1116"/></linearGradient>
+    <radialGradient id="floor" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="rgba(0,0,0,.6)"/><stop offset="1" stop-color="rgba(0,0,0,0)"/></radialGradient>
+  </defs>
+  <ellipse cx="260" cy="712" rx="220" ry="36" fill="url(#floor)"/>
+  <path d="M${PED.cx-PED.rx},${PED.cy} L${PED.cx-PED.rx},${PED.cy+30} A${PED.rx},${PED.ry} 0 0 0 ${PED.cx+PED.rx},${PED.cy+30} L${PED.cx+PED.rx},${PED.cy} Z" fill="url(#pedSide)" stroke="rgba(255,255,255,.12)"/>
+  <ellipse cx="${PED.cx}" cy="${PED.cy}" rx="${PED.rx}" ry="${PED.ry}" fill="url(#pedTop)" stroke="rgba(255,255,255,.12)"/>
+  <ellipse cx="${PED.cx}" cy="${PED.cy-4}" rx="${PED.rx*.66}" ry="${PED.ry*.5}" fill="rgba(255,255,255,.045)"/>
+  <g id="ticks"></g>`;
+  const g = base.querySelector('#ticks');
+  for (let k=0;k<12;k++){
+    const l = document.createElementNS(NS,'line');
+    l.setAttribute('stroke', k===0 ? '#19b45a' : '#f3f5f8'); l.setAttribute('stroke-linecap','round');
+    l.setAttribute('stroke-width', k===0 ? 2.4 : 1.4); g.appendChild(l);
+  }
+}
+function drawTicks(a){
+  const ls = base.querySelectorAll('#ticks line');
+  ls.forEach((l,k) => {
+    const p = (k*30 + a) * Math.PI/180, s = Math.sin(p), c = Math.cos(p);
+    const r1 = 1.04, r2 = k%3===0 ? 1.13 : 1.09;
+    l.setAttribute('x1', PED.cx + PED.rx*r1*s); l.setAttribute('y1', PED.cy + 18 + PED.ry*r1*c);
+    l.setAttribute('x2', PED.cx + PED.rx*r2*s); l.setAttribute('y2', PED.cy + 18 + PED.ry*r2*c);
+    l.setAttribute('opacity', (0.25 + 0.55*(c+1)/2).toFixed(3)); // far ticks fade
+  });
+}
+
+/* ---- spin ---- */
+let angle = 0, side = null, fadeTween = null;
+const norm = a => { a = ((a + 180) % 360 + 360) % 360 - 180; return a === -180 ? 180 : a; };
+function render(){
+  const a = norm(angle);
+  const want = Math.abs(a) <= 90 ? 'front' : 'back';
+  if (want !== side) {
+    const show = layers[want], hide = layers[want==='front'?'back':'front'];
+    if (fadeTween) fadeTween.kill();
+    if (side === null || RM) { gsap.set(show,{autoAlpha:1}); gsap.set(hide,{autoAlpha:0}); }
+    else fadeTween = gsap.timeline().to(hide,{autoAlpha:0,duration:.25,ease:'none'},0).to(show,{autoAlpha:1,duration:.25,ease:'none'},0);
+    side = want;
+  }
+  const W = stage.clientWidth / VW; // px per viewBox unit
+  for (const s of ['front','back']) {
+    const t = (s==='front' ? a : norm(a-180)) * Math.PI/180;
+    const sn = Math.sin(t), cs = Math.cos(t);
+    const k = .55 + .45*Math.abs(cs);           // body narrows toward profile
+    const body = layers[s].firstChild.querySelector('.body');
+    body.setAttribute('transform', `translate(${CX} 0) scale(${k.toFixed(4)} 1) translate(${-CX} 0)`);
+    for (const it of items) if (it.side === s) {
+      const d = it.def;
+      const tx = (d.x*k + d.z*sn) - d.x;       // parallax: sin(angle) x depth, plus the shared narrowing
+      const sc = .9 + .1*cs;
+      const zp = -d.x*sn + d.z*cs;              // depth after the turn
+      const dim = zp < -12 ? Math.max(.4, 1 + (zp+12)/120) : 1;
+      it.el.style.transform = `translate3d(${(tx*W).toFixed(2)}px,0,0) scale(${sc.toFixed(4)})`;
+      it.el.style.opacity = dim.toFixed(3);
+      it.el.style.zIndex = 1000 + Math.round(zp*4) + d.layer; it.zp = zp;
+    }
+  }
+  drawTicks(a);
+  $('deg').textContent = String(Math.round(((a%360)+360)%360)).padStart(3,'0') + '°';
+}
+let snapT = null;
+function goTo(target, instant){
+  if (snapT) snapT.kill();
+  if (instant || RM) { angle = target; render(); return; }
+  const p = { a: angle };
+  snapT = gsap.to(p, { a: target, duration: .4, ease: 'power3.out', onUpdate: () => { angle = p.a; render(); } });
+}
+const snap = () => goTo(Math.round(angle/45)*45);
+
+/* pointer: drag turns, a tap selects */
+let down = null;
+stage.addEventListener('pointerdown', e => {
+  if (e.button !== 0) return;
+  if (snapT) snapT.kill();
+  down = { x:e.clientX, y:e.clientY, a:angle, moved:false, id:e.pointerId };
+});
+stage.addEventListener('pointermove', e => {
+  if (!down || e.pointerId !== down.id) return;
+  const dx = e.clientX - down.x;
+  if (!down.moved && Math.abs(dx) > 6 && Math.abs(dx) > Math.abs(e.clientY-down.y)) {
+    down.moved = true; stage.classList.add('drag'); stage.setPointerCapture(e.pointerId);
+  }
+  if (down.moved) { angle = down.a + dx * .5; render(); }
+});
+function up(e){
+  if (!down) return;
+  const d = down; down = null; stage.classList.remove('drag');
+  if (d.moved) snap();
+  else if (e.type === 'pointerup') { const hit = hitTest(e.clientX, e.clientY); if (hit) openItem(hit.def.id); }
+}
+stage.addEventListener('pointerup', up); stage.addEventListener('pointercancel', up);
+addEventListener('keydown', e => {
+  if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+  if (e.target.closest && e.target.closest('input,textarea')) return;
+  e.preventDefault();
+  const base45 = Math.round(angle/45)*45;
+  goTo(base45 + (e.key === 'ArrowRight' ? 45 : -45));
+});
+stage.addEventListener('mousemove', e => { if (!down) stage.style.cursor = hitTest(e.clientX,e.clientY) ? 'pointer' : ''; });
+
+function hitTest(px, py){
+  const vis = items.filter(it => it.side === side || it.side === 'fixed');
+  vis.sort((a,b) => (a.def.hitLast?-1e6:0) + (+a.el.style.zIndex) < (b.def.hitLast?-1e6:0) + (+b.el.style.zIndex) ? 1 : -1);
+  for (const it of vis) {
+    const r = it.inner.getBoundingClientRect();
+    if (px < r.left || px > r.right || py < r.top || py > r.bottom) continue;
+    if (!it.img) return it; // drawn item: its box is the target
+    let u = (px - r.left) / r.width, v = (py - r.top) / r.height;
+    if (it.def.clipB && v > 1 - it.def.clipB) continue;
+    if (it.def.flip) u = 1 - u;
+    if (!it.canvas) return it;
+    const x = Math.floor(u * it.img.naturalWidth), y = Math.floor(v * it.img.naturalHeight);
+    if (it.canvas.getImageData(x, y, 1, 1).data[3] > 40) return it;
+  }
+  return null;
+}
+
+/* ---- category highlight ---- */
+let hlCat = null;
+function setHL(cat){
+  hlCat = cat;
+  document.querySelectorAll('#rail button').forEach(b => b.classList.toggle('on', b.dataset.cat === cat));
+  for (const it of items) {
+    const match = cat && it.def.cat === cat;
+    const op = cat ? (match ? (it.def.alpha && !match ? it.def.alpha : (it.def.alpha ? .7 : 1)) : .2) : (it.def.alpha || 1);
+    gsap.to(it.inner, { opacity: op, duration: RM ? 0 : .2, overwrite: true });
+    gsap.to(it.hl, { opacity: match ? 1 : 0, duration: RM ? 0 : .2, overwrite: true });
+  }
+}
+
+/* ---- readout ---- */
+const sheet = $('sheet'), scrim = $('scrim');
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const xIcon = `<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`;
+function kitHTML(){
+  const ids = [...new Set([...FRONT, ...FIXED].map(d => d.id))];
+  return `<div class="kitwrap"><div class="ro-cat">On the figure</div><h3 class="disp kit-h" style="margin-top:8px">${ids.length} products, ${CATS.length} categories</h3>
+    <ul class="kit">${ids.map(id => `<li><button data-open="${id}"><span class="c">${esc(shortCat(BY[id].category))}</span><span>${esc(BY[id].name)}</span></button></li>`).join('')}</ul></div>`;
+}
+const shortCat = c => c === 'Fall & Dropped Objects' ? 'Fall' : c === 'Eyewash & Showers' ? 'Eyewash' : c;
+let openId = null;
+function openItem(id){
+  const p = BY[id]; if (!p) return; openId = id;
+  const colors = (p.color || '').split(',').map(s => s.trim()).filter(Boolean);
+  sheet.innerHTML = `
+    <button class="close" id="close" aria-label="Close">${xIcon}</button>
+    <div class="ro-cat">${esc(p.category)}${p.sub ? ' · ' + esc(p.sub) : ''}</div>
+    <h2 class="disp ro-name">${esc(p.name)}</h2>
+    <div class="ro-sku">SKU ${esc(p.sku)}</div>
+    ${p.standards ? `<div class="ro-std"><span>Standards</span>${esc(p.standards)}</div>` : ''}
+    <ul class="ro-bul">${(p.bullets||[]).slice(0,5).map(b => `<li>${esc(b)}</li>`).join('')}</ul>
+    ${colors.length > 1 ? `<div class="chips" role="group" aria-label="Colour">${colors.map((c,i) => `<button class="chip" aria-pressed="${i===0}">${esc(c)}</button>`).join('')}</div>`
+      : colors.length ? `<div class="chips"><span class="chip" aria-pressed="true">${esc(colors[0])}</span></div>` : ''}
+    <button class="cta" id="cta">Add to quote</button>`;
+  setHL(p.category);
+  if (phone()) {
+    gsap.to(sheet, { y: 0, yPercent: 0, duration: RM ? 0 : .32, ease: 'power3.out' });
+    gsap.to(scrim, { autoAlpha: 1, duration: RM ? 0 : .25 });
+  } else if (!RM) {
+    gsap.fromTo(sheet.children, { y: 12, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .3, stagger: .03, ease: 'power2.out' });
+  }
+}
+function closeItem(){
+  openId = null; setHL(null);
+  if (phone()) {
+    gsap.to(sheet, { y: () => sheet.offsetHeight + 40, duration: RM ? 0 : .28, ease: 'power3.in', onComplete: restDesk });
+    gsap.to(scrim, { autoAlpha: 0, duration: RM ? 0 : .2 });
+  } else restDesk(true);
+}
+function restDesk(anim){
+  sheet.innerHTML = kitHTML();
+  if (anim === true && !RM) gsap.fromTo(sheet.children, { autoAlpha: 0 }, { autoAlpha: 1, duration: .25 });
+}
+sheet.addEventListener('click', e => {
+  const t = e.target.closest('button'); if (!t) return;
+  if (t.id === 'close') return closeItem();
+  if (t.dataset.open) return openItem(t.dataset.open);
+  if (t.classList.contains('chip')) { // spike: chip state only, the render does not change
+    t.parentElement.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', c === t));
+    return;
+  }
+  if (t.id === 'cta') {
+    gsap.timeline().set('#toast', { autoAlpha: 0, y: 8 })
+      .to('#toast', { autoAlpha: 1, y: 0, duration: RM ? 0 : .2 })
+      .to('#toast', { autoAlpha: 0, duration: RM ? 0 : .3 }, '+=1.6');
+  }
+});
+scrim.addEventListener('click', closeItem);
+addEventListener('keydown', e => { if (e.key === 'Escape' && openId) closeItem(); });
+
+/* ---- hash: #a=45 sets the angle, &open=<id> opens a readout (screenshots) ---- */
+function readHash(){
+  const h = new URLSearchParams(location.hash.slice(1));
+  return { a: h.has('a') ? parseFloat(h.get('a')) || 0 : null, open: h.get('open') };
+}
+addEventListener('hashchange', () => { const h = readHash(); if (h.a !== null) goTo(h.a, true); if (h.open) openItem(h.open); });
+addEventListener('resize', render);
+
+/* ---- boot ---- */
+fetch('../../data/products.json').then(r => r.json()).then(data => {
+  DATA = data; data.forEach(p => BY[p.id] = p);
+  const counts = {}; data.forEach(p => counts[p.category] = (counts[p.category]||0) + 1);
+  const ncat = Object.keys(counts).length;
+  $('count').innerHTML = `<b>${data.length}</b> products · <b>${ncat}</b> categories`;
+  $('rail').innerHTML = CATS.map(c => `<li><button data-cat="${esc(c)}"><span>${esc(shortCat(c))}</span><span>${counts[c]||0}</span></button></li>`).join('');
+  document.querySelectorAll('#rail button').forEach(b => {
+    b.addEventListener('mouseenter', () => { if (!openId) setHL(b.dataset.cat); });
+    b.addEventListener('mouseleave', () => { if (!openId) setHL(null); else setHL(BY[openId].category); });
+    b.addEventListener('focus', () => { if (!openId) setHL(b.dataset.cat); });
+    b.addEventListener('blur', () => { if (!openId) setHL(null); });
+    b.addEventListener('click', () => { const d = [...FRONT, ...FIXED].find(d => d.cat === b.dataset.cat); if (d) openItem(d.id); });
+  });
+
+  buildBase();
+  layers.front.appendChild(mkBody(false)); layers.back.appendChild(mkBody(true));
+  FRONT.forEach(d => mkItem(d,'front')); BACK.forEach(d => mkItem(d,'back')); FIXED.forEach(d => mkItem(d,'fixed'));
+  restDesk(false);
+  if (phone()) gsap.set(sheet, { y: () => sheet.offsetHeight + 40 });
+
+  const h = readHash();
+  angle = h.a ?? 0; render();
+
+  // entrance: figure fades up, then the kit settles on from 24px out, 60ms apart; afterwards nothing moves on its own
+  const figure = [base, layers.front.firstChild, layers.back.firstChild];
+  const kit = items.filter(it => it.side === 'front' || it.side === 'fixed').map(it => it.inner);
+  if (!RM && !h.open) {
+    const from = it => { const d = it.def; const len = Math.hypot(d.x, d.y - 300) || 1;
+      return { x: d.x/len*24 || 0, y: (d.y-300)/len*24 }; };
+    gsap.set(figure, { autoAlpha: 0, y: 16 });
+    gsap.set(items.map(it => it.inner), { autoAlpha: 0 });
+    const tl = gsap.timeline();
+    tl.to(figure, { autoAlpha: 1, y: 0, duration: .6, ease: 'power2.out' });
+    items.filter(it => it.side === 'front' || it.side === 'fixed').forEach((it, i) => {
+      const f = from(it);
+      tl.fromTo(it.inner, { x: f.x, y: f.y, autoAlpha: 0 }, { x: 0, y: 0, autoAlpha: it.def.alpha || 1, duration: .5, ease: 'power3.out' }, .45 + i*.06);
+    });
+    items.filter(it => it.side === 'back').forEach(it => tl.set(it.inner, { autoAlpha: it.def.alpha || 1 }, .45));
+  }
+  if (h.open) openItem(h.open);
+}).catch(err => { console.error(err); $('count').textContent = 'Could not load products.json (serve over http)'; });
+})();
+</script>
+</body>
+</html>
