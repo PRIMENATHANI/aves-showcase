@@ -25,7 +25,7 @@ Faked: "Add to quote" is a no-op toast. Hazard chips are keyword rules (arc flas
 `window.__wall` exposes `tl` (entrance timeline), `cell`, `focusCell`, `state`, `dark()` for review shots.
 
 ## Known flaws left
-- Holed cutouts (clear shields, cup masks) still show holes where the knockout cleared enclosed areas; PC-CLEAR and GLASS-CLEAR read as grey plates.
+- Cutouts were re-cut with rembg isnet after this build (holes in clear shields and cup masks are gone); PC-CLEAR and GLASS-CLEAR still read as grey plates, which is what they are.
 - 77 products have no standards string, 34 have no bullets; empty rows are hidden.
 - "Fall & Dropped Objects" shows as "Fall & Dropped" in rail and strip labels; the full name is in the aria-label and the rail focus heading.
 - At 41 px the overview reads as texture; individual products need hover or rail focus.
