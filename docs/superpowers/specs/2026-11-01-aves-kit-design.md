@@ -54,16 +54,21 @@ Slots are ordered head to toe. A slot may be omitted for a kit (no face shield f
 - A progress readout in the right margin: "6 of 8 in place".
 - Reduced motion: the assembled state with the full rail, no pin.
 
-### 4. The figure (the critical path; spiked before the full build, see below)
-- Three snap views, not a spin: Front (default), Side (helmet + earmuff + faceshield relationship), Back (harness dorsal D-ring, lanyard). A control in the margin reads "Front · Side · Back"; arrow keys and a drag past 60 px also switch. Views crossfade in 320 ms with items re-seated on that view's slot points.
-- Base figure: a matte, neutral mannequin generated once with Draw Things (front, side, back, same light), not a stick SVG. Product cutouts seat on per-view anchor points with per-slot scale. Accepted limit: cutouts stay flat; the mannequin gives the volume.
-- If the spike shows the mannequin + cutouts still read as stickers, the fallback is the v0.1 Exploded Kit's "exploded is the hero" stance: items hover in a ring around a dimmed figure and only the readouts assemble.
+### 4. The figure and the turn (decided after the spike, 2026-11-01 evening)
+Spike result (checked at full size, `scratchpad/aves/figure/compare.png`): a Draw Things mannequin (FLUX.2 klein 4B, 11 s per image) is a far better base than the v0.1 SVG body, and a harness or gloves placed on it read as worn. The head stack does not: every helmet, spectacle and earmuff shot is a three-quarter view, so on a front-facing head they read as stickers, exactly the v0.1 failure. Three separately generated views do not share proportions.
+Decision: nothing is ever "worn". The figure is a ghost, and the kit orbits it.
+- Ghost: the generated mannequin (`v0.2/aves-kit/img/mannequin-front.png`, front view only) at 28–35 % opacity, desaturated, standing centre as the height reference for head, eyes, ears, mouth, hands, torso, hips.
+- Orbit ring: the kit's items sit on a ring around the ghost, each at its slot height (helmet above the crown, glasses and mask at face height, earmuffs at ear height, gloves at hand height, harness at torso, tethers and dropped-object gear at hip height, cryo apron at torso). Items are placed around the ring by slot order; the ring is drawn by position only: x = r·sin θ, scale and opacity fall with depth (back items ~0.62 scale, 45 % opacity), z-order by depth. Transform/opacity only. Items are large: the front item ~220 px tall on a 1440×900 stage.
+- The turn (the Turntable merged in): drag horizontally, arrow keys, or the slot names in the rail turn the ring; it settles so one item faces front (snap to the nearest slot angle, inertia ≤ 600 ms). The front item's readout is the active one in the left rail; the ghost never moves. A faint ring line on the floor under the ghost shows the orbit; no pedestal.
+- Assembly (section 3) now means: items fly from a scattered exploded cloud onto their ring positions in head-to-toe order as the pin scrubs; the rail accumulates as before. At the end of the scrub the ring is live.
+- Reduced motion: the ring is drawn complete with the head slot at the front; buttons turn it without inertia.
+- Dropped: front/side/back views, any item seated on the body.
 
 ### 5. Swap (shows breadth)
 - Each slot in the rail has "or:" followed by its alternates as text. Click swaps the product on the figure (FLIP from the rail to the slot) and in the readout. The kit summary reflects swaps.
 
 ### 6. Kit summary
-- After the assembly: the kit as a plain list (slot · product · SKU · standard), the hazards it answers, "Add kit to quote" (toast), "Choose another kit" (returns to the landing with the blank emptied). `#kit=<id>&view=back`, `#kit=<id>&p=0..1` hash states for shots.
+- After the assembly: the kit as a plain list (slot · product · SKU · standard), the hazards it answers, "Add kit to quote" (toast), "Choose another kit" (returns to the landing with the blank emptied). `#kit=<id>&p=0..1&front=<slot>` hash states for shots.
 
 ## Look
 Per `BRIEF.md` and the Wall v0.2 note on accent (Pantone 348 C) and type (Barlow stays; guide says Arial).
@@ -73,7 +78,7 @@ Per `BRIEF.md` and the Wall v0.2 note on accent (Pantone 348 C) and type (Barlow
 - "Why" copy sources: catalogue section intros and standards explainers; the three product maps in the brand guide folder (harness, lanyard, dropped objects technologies) for fall-gear feature language.
 
 ## Verification
-- Every kit shot headless at `#kit=<id>&p=1` (assembled, front) 1440×900, plus Side and Back for two kits, the landing, and phone via the 390×844 iframe. Console clean. A data check script asserts every slot id exists in `products.json` and every kit has head, eye, hearing, hand at minimum.
+- Every kit shot headless at `#kit=<id>&p=1` (ring complete, head slot front) 1440×900, plus `#kit=oil-gas&p=1&front=hand` and `&front=fall` for two kits, the landing, and phone via the 390×844 iframe. Console clean. A data check script asserts every slot id exists in `products.json` and every kit has head, eye, hearing, hand at minimum.
 - Not checked this round: Safari, Salman's screen, product management's view of the kit lists.
 
 ## Left to the builder
