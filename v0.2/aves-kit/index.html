@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The AVES Kit</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07090c; --ink:#f3f5f8; --muted:#9aa3ae; --line:rgba(255,255,255,.12);
+  --green:#008048; --green-t:#19b45a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink)}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto !important}
+.lenis.lenis-stopped{overflow:hidden}
+body{font-family:"Barlow",system-ui,sans-serif;font-size:16px;line-height:1.45;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:left}
+a{color:inherit;text-decoration:none}
+.disp{font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:-.005em;line-height:.95}
+:focus-visible{outline:2px solid var(--green-t);outline-offset:3px}
+body.still *,body.still *::before{transition:none !important}
+
+/* ---------- header (kit mode) ---------- */
+.hdr{position:fixed;left:0;right:0;top:0;z-index:60;padding:24px 32px 18px;display:grid;grid-template-columns:1fr auto;align-items:start;pointer-events:none;visibility:hidden}
+.hdr::before{content:"";position:absolute;inset:0 0 -24px;z-index:-1;background:linear-gradient(var(--bg) 70%,rgba(7,9,12,0));opacity:0;transition:opacity .25s ease}
+.hdr.solid::before{opacity:1}
+.hdr .logo{height:18px;width:auto;display:block;filter:brightness(0) invert(1)}
+.hdr .ktitle{grid-column:1;margin-top:12px;font-size:34px;line-height:1}
+.hdr .another{grid-column:2;grid-row:1 / span 2;align-self:start;pointer-events:auto;font-family:"Barlow Condensed",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:15px;color:var(--muted);padding:2px 0;border-bottom:1px solid var(--line);transition:color .18s ease,border-color .18s ease}
+.hdr .another:hover{color:var(--ink);border-color:var(--green-t)}
+
+/* ---------- landing ---------- */
+.landing{position:relative;min-height:100vh;padding:44px 32px 40px;display:grid;grid-template-columns:minmax(0,1fr) clamp(280px,20vw,380px);gap:44px}
+body.mode-kit .landing{display:none}
+.landing .logo{height:20px;width:auto;display:block;filter:brightness(0) invert(1)}
+.ltitle{margin-top:34px;font-size:clamp(56px,5.4vw,84px);line-height:.94}
+.ltitle .l1,.ltitle .l2{display:block}
+.ltitle .l2{white-space:nowrap}
+.blank{position:relative;display:inline-block;vertical-align:bottom;height:1em;max-width:100%;overflow:visible}
+.blank .rule{position:absolute;left:0;right:0;bottom:-.06em;height:3px;background:var(--ink);opacity:.9;transform-origin:0 50%}
+.blank .win{position:absolute;inset:-.08em 0 0 0;overflow:hidden}
+.blank .word{position:absolute;left:0;bottom:0;white-space:nowrap;color:var(--green-t)}
+.ltitle .kw{display:inline-block;margin-left:.22em}
+.ask{margin-top:18px;font-size:19px;color:var(--muted);max-width:44em}
+.ask b{color:var(--ink);font-weight:500}
+.filter{margin-top:22px;height:20px;font-size:13px;color:var(--muted);letter-spacing:.02em}
+.filter b{color:var(--green-t);font-weight:600}
+.groups{margin-top:10px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:28px}
+.group h2{font-family:"Barlow Condensed",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.1em;font-size:13px;color:var(--muted);padding-bottom:10px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.group ul{list-style:none}
+.group li+li{margin-top:12px}
+.kl{display:block;transition:opacity .2s ease}
+.kl .nm{display:block;font-family:"Barlow Condensed",sans-serif;font-weight:600;text-transform:uppercase;font-size:21px;line-height:1.05;letter-spacing:.005em;transition:color .15s ease}
+.kl .hz{display:block;font-size:13px;line-height:1.35;color:var(--muted);margin-top:3px}
+.kl:hover .nm,.kl:focus-visible .nm{color:var(--green-t)}
+.kl:focus-visible{outline:none}
+.kl:focus-visible .nm{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.kl.out{opacity:.22}
+.photos{position:relative;display:flex;flex-direction:column;gap:16px;padding-top:6px}
+.frame{position:relative;flex:none;height:min(calc((100vh - 140px) / 2),25vw,475px);overflow:hidden}
+.frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.6) brightness(.86);opacity:0}
+.frame img.on{opacity:1}
+.photos .cap{font-size:12px;color:var(--muted);letter-spacing:.03em}
+
+/* ---------- kit ---------- */
+.kit{display:none}
+body.mode-kit .kit{display:block}
+body.mode-kit .hdr{visibility:visible}
+.stage{position:relative;height:100vh;width:100%;overflow:hidden;touch-action:pan-y}
+.stage.live{cursor:grab}
+.stage.drag{cursor:grabbing}
+.sglow{position:absolute;pointer-events:none;border-radius:50%;background:radial-gradient(closest-side,rgba(130,150,180,.10),rgba(0,0,0,0) 72%)}
+.floor{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.floor ellipse{fill:none;stroke:rgba(255,255,255,.11);stroke-width:1}
+.floor .tick{stroke:rgba(255,255,255,.22);stroke-width:1}
+.ghost{position:absolute;z-index:150;pointer-events:none;opacity:.3;filter:grayscale(1) brightness(.9);user-select:none}
+.item{position:absolute;left:0;top:0;pointer-events:none;will-change:transform,opacity}
+.item .halo{position:absolute;inset:-14%;border-radius:50%;background:radial-gradient(closest-side,rgba(205,218,235,.16),rgba(205,218,235,.05) 55%,rgba(0,0,0,0) 75%)}
+.item.clear .halo{background:radial-gradient(closest-side,rgba(205,218,235,.26),rgba(205,218,235,.09) 60%,rgba(0,0,0,0) 80%)}
+.item img{position:relative;display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 1px rgba(255,255,255,.28)) drop-shadow(0 10px 18px rgba(0,0,0,.5))}
+.item .miss{position:absolute;inset:0;display:grid;place-items:center;font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.08em;font-size:15px;color:var(--muted)}
+.clabel{position:absolute;left:0;top:0;z-index:420;pointer-events:none;white-space:nowrap;font-family:"Barlow Condensed",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.1em;font-size:13px;color:var(--muted)}
+
+.rail{position:absolute;z-index:500;left:32px;top:128px;width:360px;list-style:none;overflow-y:auto;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.re{position:relative;display:grid;grid-template-columns:92px minmax(0,1fr);gap:0 12px;padding:7px 0 8px 14px;opacity:0;transform:translateY(10px);visibility:hidden;transition:opacity .3s ease,transform .3s ease,visibility 0s linear .3s}
+.re.in{opacity:1;transform:none;visibility:visible;transition:opacity .3s ease,transform .3s ease}
+.re::before{content:"";position:absolute;left:0;top:9px;bottom:10px;width:2px;background:var(--green);transform:scaleY(0);transform-origin:50% 0;transition:transform .25s ease}
+.re.active::before{transform:scaleY(1)}
+.re-slot{align-self:start;font-family:"Barlow Condensed",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.09em;font-size:12.5px;color:var(--muted);padding-top:4px;line-height:1.2}
+.re.active .re-slot{color:var(--green-t)}
+.re-name{display:block;font-family:"Barlow Condensed",sans-serif;font-weight:600;text-transform:uppercase;font-size:19px;line-height:1.08;letter-spacing:.005em}
+.re-meta{font-size:12.5px;line-height:1.38;color:var(--muted);margin-top:2px}
+.re-meta .sku{color:var(--ink)}
+.re-meta .nostd{opacity:.75}
+.re-why,.re-conf{display:none}
+.re.active .re-why{display:block;font-size:14px;line-height:1.38;margin-top:5px;color:var(--ink)}
+.re.active .re-conf{display:block;font-size:12px;color:var(--muted);margin-top:3px;letter-spacing:.02em}
+.re-or{display:none;font-size:12.5px;line-height:1.38;color:var(--muted);margin-top:4px}
+.re.active .re-or{display:block}
+.re-or a{color:var(--ink);opacity:.82;text-decoration:underline;text-decoration-color:rgba(255,255,255,.28);text-underline-offset:3px;transition:opacity .15s ease,text-decoration-color .15s ease}
+.re-or a:hover{opacity:1;text-decoration-color:var(--green-t)}
+
+.prog{position:absolute;z-index:500;right:32px;top:50%;transform:translateY(-50%);width:130px;font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;font-weight:600;letter-spacing:.04em;color:var(--muted);font-size:17px;line-height:1.15}
+.prog::before{content:"";display:block;width:28px;height:2px;background:var(--green);margin-bottom:10px}
+.prog b{display:block;font-size:44px;line-height:1;color:var(--ink);font-weight:700;letter-spacing:0}
+.prog b i{font-style:normal;color:var(--green-t)}
+.prog .hint{display:block;margin-top:14px;font-family:"Barlow",sans-serif;text-transform:none;letter-spacing:.01em;font-weight:400;font-size:13px;line-height:1.4;opacity:0;transition:opacity .3s ease}
+.prog.done .hint{opacity:1}
+.scrollcue{position:absolute;z-index:500;left:50%;bottom:22px;transform:translateX(-50%);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);transition:opacity .3s ease}
+.scrollcue.off{opacity:0}
+
+/* summary */
+.summary{position:relative;padding:120px 32px 96px;display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:64px;border-top:1px solid var(--line)}
+.summary h2{font-size:clamp(40px,4vw,60px)}
+.summary .intro{margin-top:16px;color:var(--muted);font-size:17px}
+.summary .hzh{margin-top:26px;font-family:"Barlow Condensed",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.1em;font-size:13px;color:var(--muted)}
+.summary .hzl{list-style:none;margin-top:8px}
+.summary .hzl li{font-size:15.5px;padding:3px 0}
+.summary .hzl li::before{content:"";display:inline-block;width:10px;height:2px;background:var(--green-t);vertical-align:middle;margin-right:10px}
+.cta{display:inline-block;margin-top:30px;font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;font-weight:700;letter-spacing:.05em;font-size:18px;background:#008048;color:#fff;padding:14px 26px;border-radius:2px;transition:transform .18s ease,background .18s ease}
+.cta:hover{background:#009454;transform:translateY(-1px)}
+.cta:active{transform:translateY(1px)}
+.again{display:inline-block;margin:30px 0 0 22px;font-family:"Barlow Condensed",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:16px;color:var(--muted);border-bottom:1px solid var(--line);transition:color .18s ease}
+.again:hover{color:var(--ink)}
+.slist{list-style:none}
+.slist li{display:grid;grid-template-columns:120px minmax(0,1.3fr) 140px minmax(0,1.4fr);gap:18px;padding:14px 0;border-top:1px solid var(--line);align-items:baseline}
+.slist li:last-child{border-bottom:1px solid var(--line)}
+.slist .s{font-family:"Barlow Condensed",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.09em;font-size:13px;color:var(--muted)}
+.slist .n{font-family:"Barlow Condensed",sans-serif;font-weight:600;text-transform:uppercase;font-size:19px;line-height:1.1}
+.slist .k{font-size:14px;font-variant-numeric:tabular-nums}
+.slist .d{font-size:14px;color:var(--muted)}
+.slist .sw{display:block;font-family:"Barlow",sans-serif;text-transform:none;letter-spacing:0;font-weight:400;font-size:12px;color:var(--green-t);margin-top:2px}
+.foot{grid-column:1 / -1;font-size:13px;color:var(--muted);max-width:60em}
+.toast{position:fixed;left:50%;bottom:28px;z-index:90;transform:translate(-50%,12px);opacity:0;background:var(--ink);color:var(--bg);font-weight:600;font-size:14px;padding:10px 16px;border-radius:2px;pointer-events:none;transition:opacity .2s ease,transform .2s ease}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+@media (max-width:1180px){ .groups{grid-template-columns:repeat(3,minmax(0,1fr))} }
+@media (max-width:759px){
+  .landing{grid-template-columns:1fr;padding:22px 16px 40px;gap:0}
+  .landing .logo{height:16px}
+  .ltitle{margin-top:26px;font-size:clamp(28px,8.6vw,52px)}
+  .ltitle .l2{white-space:normal}
+  .ltitle .kw{margin-left:0}
+  .ask{font-size:16px;margin-top:14px}
+  .filter{display:none}
+  .groups{grid-template-columns:1fr;gap:26px;margin-top:28px}
+  .photos{display:none}
+  .hdr{padding:16px 16px 14px}
+  .hdr .logo{height:14px}
+  .hdr .ktitle{font-size:23px;margin-top:9px}
+  .hdr .another{font-size:13px}
+  .rail{left:0;right:0;top:auto;bottom:0;width:auto;height:38vh;overflow-y:auto;padding:12px 16px 20px;border-top:1px solid var(--line);background:var(--bg);-webkit-overflow-scrolling:touch}
+  .re{grid-template-columns:78px minmax(0,1fr);gap:0 10px;padding-left:12px}
+  .re-name{font-size:17px}
+  .prog{right:16px;top:118px;transform:none;width:auto;text-align:right;font-size:13px}
+  .prog::before{display:none}
+  .prog b{font-size:26px}
+  .prog .hint{display:none}
+  .scrollcue{display:none}
+  .clabel{font-size:11px}
+  .summary{grid-template-columns:1fr;padding:72px 16px 64px;gap:32px}
+  .slist li{grid-template-columns:1fr;gap:2px}
+  .again{margin-left:16px}
+}
+</style>
+</head>
+<body class="mode-landing">
+
+<header class="hdr" id="hdr" aria-hidden="true">
+  <img class="logo" src="../../assets/aves-logo.png" alt="AVES">
+  <h1 class="ktitle disp" id="ktitle">The AVES Kit</h1>
+  <a class="another" id="another" href="./">Choose another kit</a>
+</header>
+
+<section class="landing" id="landing">
+  <div class="lmain">
+    <img class="logo" src="../../assets/aves-logo.png" alt="AVES">
+    <h1 class="ltitle disp" id="ltitle" aria-label="The AVES kit">
+      <span class="l1">The AVES</span>
+      <span class="l2"><span class="blank" id="blank"><span class="rule" id="rule"></span><span class="win"><span class="word" id="word"></span><span class="word" id="word2"></span></span></span><span class="kw">Kit.</span></span>
+    </h1>
+    <p class="ask" id="ask">Name the work. We assemble the kit, head to toe, with the standard behind every piece.</p>
+    <div class="filter" id="filter" aria-live="polite">Type to filter, arrows to move, Enter to choose.</div>
+    <nav class="groups" id="groups" aria-label="Kits"></nav>
+  </div>
+  <div class="photos" id="photos" aria-hidden="true">
+    <div class="frame" id="frameA"></div>
+    <div class="frame" id="frameB"></div>
+    <div class="cap">From the AVES catalogue</div>
+  </div>
+</section>
+
+<main class="kit" id="kit">
+  <section class="stage" id="stage" aria-label="Kit on an orbit ring around a mannequin. Drag, use the arrow keys or pick a slot in the list to turn it." tabindex="-1">
+    <div class="sglow" id="sglow"></div>
+    <svg class="floor" id="floor" aria-hidden="true"></svg>
+    <img class="ghost" id="ghost" src="img/mannequin-front.png" alt="" draggable="false">
+    <div id="items"></div>
+    <div id="clabels"></div>
+    <ol class="rail" id="rail" data-lenis-prevent aria-label="Kit readouts"></ol>
+    <div class="prog" id="prog"><b><i id="pn">0</i> of <span id="pt">0</span></b>in place<span class="hint">Drag, use the arrow keys or pick a slot to turn the kit.</span></div>
+    <div class="scrollcue" id="scrollcue">Scroll to assemble</div>
+  </section>
+  <section class="summary" id="summary"></section>
+</main>
+<div class="toast" id="toast" role="status">Kit added to quote (preview)</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script>
+(() => {
+gsap.registerPlugin(ScrollTrigger);
+const $ = s => document.querySelector(s);
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const GROUPS = ['Energy', 'Build', 'Make', 'Move', 'Extract & Handle'];
+const PHOTOS = ['glasses', 'earmuffs', 'faceshield', 'respirator', 'gloves', 'cryo'];
+// Slot centre height as a share of the ghost's crown-to-sole height (measured on mannequin-front.png).
+const SLOT_Y = { head: -0.045, eye: 0.078, face: 0.105, hearing: 0.09, respiratory: 0.135, hand: 0.575, fall: 0.30, dropped: 0.45, 'cryo-body': 0.38 };
+// mannequin-front.png: 415x1254, figure from y 24 (crown) to y 1230 (sole).
+const MQ = { w: 415, h: 1254, top: 24, bottom: 1230 };
+const EYE = 0.45;        // camera height as a share of crown-to-sole
+const CLOUD_ROT = [-7, 6, -4, 8, -6, 4, -3, 7, -5];
+
+let products = {}, kits = [], kitById = {};
+let K = null;            // current kit state
+let lenis = null, st = null, tl = null, spinT = null, cycleT = null, photoT = null;
+let K0 = false;          // true once a kit has been opened: the landing then returns with the blank empty
+let theta = 0;           // ring turn in degrees; slot i faces front when theta = i*step
+let G = null;            // geometry
+const parseHash = () => {
+  const h = location.hash.replace(/^#/, ''), o = {};
+  h.split('&').forEach(kv => { if (!kv) return; const [k, v] = kv.split('='); o[decodeURIComponent(k)] = v === undefined ? true : decodeURIComponent(v); });
+  return o;
+};
+const H0 = parseHash();
+const STILL = !!H0.still || 'p' in H0;
+if (STILL) document.body.classList.add('still');
+
+const dispName = p => { let n = (p.name || p.id).replace(/\s+[–-]\s+/g, '-'); if (p.sku && /^\d{5,}/.test(p.sku) && n.startsWith(p.sku + ' ')) n = n.slice(p.sku.length + 1); return n; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const lerp = (a, b, t) => a + (b - a) * t;
+
+/* ================= landing ================= */
+function buildLanding() {
+  $('#groups').innerHTML = GROUPS.map(g => `<div class="group"><h2>${esc(g)}</h2><ul>${
+    kits.filter(k => k.group === g).map(k => `<li><a class="kl" href="#kit=${k.id}" data-id="${k.id}" data-q="${esc(k.name.toLowerCase())}"><span class="nm">${esc(k.name)}</span><span class="hz">${esc(k.hazards.slice(0, 3).join(' · '))}</span></a></li>`).join('')
+  }</ul></div>`).join('');
+  measureBlank();
+  // photos
+  ['#frameA', '#frameB'].forEach((f, fi) => {
+    $(f).innerHTML = PHOTOS.filter((_, i) => i % 2 === fi).map((n, i) => `<img src="img/photo-${n}.jpg" alt="" class="${i === 0 ? 'on' : ''}">`).join('');
+  });
+}
+// blank width = the widest kit name at the title size
+function measureBlank() {
+  const m = document.createElement('span'); m.className = 'word'; m.style.visibility = 'hidden';
+  $('#blank .win').appendChild(m); let w = 0;
+  kits.forEach(k => { m.textContent = k.name; w = Math.max(w, m.offsetWidth); });
+  m.remove();
+  $('#blank').style.width = Math.ceil(w + 4) + 'px';
+}
+let cycleI = -1, cyclePaused = false, cur = $('#word'), nxt = $('#word2');
+function cycleStep(first) {
+  if (cyclePaused) return;
+  cycleI = (cycleI + 1) % kits.length;
+  nxt.textContent = kits[cycleI].name;
+  gsap.fromTo(nxt, { yPercent: 105, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: first ? 0 : .45, ease: 'power3.out' });
+  gsap.to(cur, { yPercent: -105, autoAlpha: 0, duration: first ? 0 : .4, ease: 'power3.in' });
+  [cur, nxt] = [nxt, cur];
+}
+function startCycle(empty) {
+  stopCycle();
+  gsap.set('#rule', { scaleX: 1, autoAlpha: 1 });
+  gsap.set([cur, nxt], { autoAlpha: 0, yPercent: 0 });
+  if (RM || STILL) return;           // static blank
+  cycleI = -1; if (!empty) cycleStep(true);   // after "Choose another kit" the blank starts empty
+  cycleT = setInterval(() => cycleStep(false), 1800);
+}
+function stopCycle() { clearInterval(cycleT); cycleT = null; }
+$('#ltitle').addEventListener('mouseenter', () => cyclePaused = true);
+$('#ltitle').addEventListener('mouseleave', () => cyclePaused = false);
+
+function startPhotos() {
+  clearInterval(photoT);
+  if (RM || STILL) return;
+  let n = 0;
+  photoT = setInterval(() => {
+    const f = n % 2 ? '#frameB' : '#frameA'; n++;
+    const imgs = [...$(f).children], on = imgs.findIndex(i => i.classList.contains('on'));
+    const a = imgs[on], b = imgs[(on + 1) % imgs.length];
+    a.classList.remove('on'); b.classList.add('on');
+    gsap.to(a, { opacity: 0, duration: 1.6, ease: 'power1.inOut' });
+    gsap.fromTo(b, { opacity: 0 }, { opacity: 1, duration: 1.6, ease: 'power1.inOut' });
+  }, 3000);
+}
+
+// keyboard: type to filter, arrows, Enter
+let query = '';
+function applyFilter() {
+  const links = [...document.querySelectorAll('.kl')];
+  links.forEach(a => { const hit = !query || a.dataset.q.includes(query); a.classList.toggle('out', !hit); a.tabIndex = hit ? 0 : -1; });
+  const hits = links.filter(a => !a.classList.contains('out'));
+  $('#filter').innerHTML = query ? `Filter <b>${esc(query)}</b> · ${hits.length} of ${links.length} kits${hits.length ? ' · Enter opens ' + esc(hits[0].querySelector('.nm').textContent) : ''}` : 'Type to filter, arrows to move, Enter to choose.';
+  if (query && hits.length && !hits.includes(document.activeElement)) hits[0].focus({ preventScroll: true });
+}
+addEventListener('keydown', e => {
+  if (!document.body.classList.contains('mode-landing')) return;
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const links = [...document.querySelectorAll('.kl:not(.out)')];
+  const i = links.indexOf(document.activeElement);
+  if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); links[(i + 1) % links.length]?.focus(); return; }
+  if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); links[(i - 1 + links.length) % links.length]?.focus(); return; }
+  if (e.key === 'Enter' && i < 0 && links.length) { e.preventDefault(); links[0].click(); return; }
+  if (e.key === 'Escape') { query = ''; applyFilter(); return; }
+  if (e.key === 'Backspace') { if (query) { e.preventDefault(); query = query.slice(0, -1); applyFilter(); } return; }
+  if (e.key.length === 1 && /[\w &]/i.test(e.key)) { if (e.key === ' ' && !query) return; e.preventDefault(); query += e.key.toLowerCase(); applyFilter(); }
+});
+
+/* ================= kit build ================= */
+function prod(id) { return products[id] || { id, name: id, sku: '', standards: '', category: '' }; }
+
+function buildKit(kit) {
+  const N = kit.slots.length;
+  // Ring order. Neighbours collide most at the sides of the ring (x = r·sinθ bunches up near ±90°),
+  // so body-height slots (hand, fall, dropped, body) take the most sideways positions and the
+  // head-height slots take front and back, each group kept head to toe. Head is always position 0.
+  const HIGH = new Set(['head', 'eye', 'face', 'hearing', 'respiratory']);
+  const hi = [], lo = [];
+  kit.slots.forEach((s, i) => (HIGH.has(s.slot) ? hi : lo).push(i));
+  const side = k => Math.abs(Math.sin(k * 2 * Math.PI / N));
+  const ks = [...Array(N).keys()].slice(1).sort((a, b) => side(b) - side(a) || a - b);
+  const loPos = new Set(ks.slice(0, lo.length));
+  const order = [];
+  for (let k = 0; k < N; k++) order.push(loPos.has(k) ? lo.shift() : hi.shift());
+  const pos = []; order.forEach((si, k) => pos[si] = k);
+  K = { kit, N, step: 360 / N, pos, order, cur: kit.slots.map(s => s.primary), px: kit.slots.map(() => ({ a: 0 })),
+        flip: kit.slots.map(() => ({ dx: 0, dy: 0, s: 1 })), items: [], labels: [], entries: [], live: false, active: -1 };
+  $('#ktitle').textContent = kit.title;
+  document.title = kit.title;
+  $('#pt').textContent = N;
+  const itemsBox = $('#items'), lb = $('#clabels'), rail = $('#rail');
+  itemsBox.innerHTML = ''; lb.innerHTML = ''; rail.innerHTML = '';
+  kit.slots.forEach((s, i) => {
+    const d = document.createElement('div'); d.className = 'item';
+    d.innerHTML = '<div class="halo"></div>';
+    setItemImage(d, K.cur[i], s.label);
+    itemsBox.appendChild(d); K.items.push(d);
+    const l = document.createElement('div'); l.className = 'clabel'; l.textContent = s.label;
+    lb.appendChild(l); K.labels.push(l);
+    const li = document.createElement('li'); li.className = 're'; li.dataset.i = i;
+    rail.appendChild(li); K.entries.push(li);
+    fillEntry(i);
+  });
+  buildSummary();
+}
+function setItemImage(d, pid, label) {
+  d.querySelector('img,.miss')?.remove();
+  const p = prod(pid);
+  d.classList.toggle('clear', p.category === 'Face');
+  const im = new Image(); im.alt = dispName(p); im.decoding = 'async'; im.draggable = false;
+  im.onerror = () => { const m = document.createElement('div'); m.className = 'miss'; m.textContent = label; im.replaceWith(m); };
+  im.src = `../../assets/cut/${pid}.png`;
+  d.appendChild(im);
+  return im;
+}
+function fillEntry(i) {
+  const s = K.kit.slots[i], p = prod(K.cur[i]);
+  const others = [s.primary, ...s.alternates].filter(id => id !== K.cur[i]);
+  const std = p.standards ? esc(p.standards) : '<span class="nostd">standard not listed on site</span>';
+  K.entries[i].innerHTML = `<button class="re-slot" data-turn="${i}">${esc(s.label)}</button><div>
+    <button class="re-name" data-turn="${i}">${esc(dispName(p))}</button>
+    <div class="re-meta">SKU <span class="sku">${esc(p.sku || 'not listed')}</span> · ${std}</div>
+    ${K.cur[i] === s.primary ? `<div class="re-why">${esc(s.why)}</div>` : `<div class="re-why">Alternate to ${esc(dispName(prod(s.primary)))}, the kit's pick for this slot.</div>`}
+    ${s.confidence !== 'high' || K.cur[i] !== s.primary ? '<div class="re-conf">curated · to be confirmed</div>' : ''}
+    <div class="re-or">or: ${others.map(id => `<a href="#" role="button" data-swap="${i}" data-id="${id}">${esc(dispName(prod(id)))}</a>`).join(' · ')}</div></div>`;
+}
+function buildSummary() {
+  const kit = K.kit;
+  $('#summary').innerHTML = `<div>
+      <h2 class="disp">${esc(kit.title)}</h2>
+      <p class="intro">${esc(kit.intro)}</p>
+      <div class="hzh">Hazards it answers</div>
+      <ul class="hzl">${kit.hazards.map(h => `<li>${esc(h)}</li>`).join('')}</ul>
+      <button class="cta" id="addq" type="button">Add kit to quote</button><a class="again" href="./" data-another>Choose another kit</a>
+    </div>
+    <ol class="slist">${kit.slots.map((s, i) => { const p = prod(K.cur[i]); return `<li><span class="s">${esc(s.label)}</span>
+      <span class="n">${esc(dispName(p))}${K.cur[i] !== s.primary ? '<span class="sw">swapped from ' + esc(dispName(prod(s.primary))) + '</span>' : ''}</span>
+      <span class="k">${esc(p.sku || 'not listed')}</span><span class="d">${p.standards ? esc(p.standards) : 'standard not listed on site'}</span></li>`; }).join('')}</ol>
+    <p class="foot">Kit compositions are curated from product standards and catalogue data; confirm with AVES product management for your site.</p>`;
+}
+
+/* ================= geometry + render ================= */
+function layout() {
+  const vw = innerWidth, vh = innerHeight, phone = vw < 760;
+  let g;
+  if (!phone) {
+    const railW = clamp(vw * .25, 320, 380), railRight = 32 + railW, progW = 170;
+    const avail = vw - railRight - progW;
+    const box = Math.round(Math.min(220, vh * .245));
+    const r = Math.min(330, avail / 2 - box / 2);
+    const gy = Math.max(176, vh * .195), GH = vh - gy - 62;
+    g = { phone, vw, vh, railRight, box, r, cx: railRight + avail / 2, gy, GH, tilt: 44, progW };
+    $('#rail').style.width = railW + 'px';
+    $('#rail').style.maxHeight = (vh - 128 - 24) + 'px';
+  } else {
+    const sheetTop = vh * .62;
+    const box = Math.round(clamp(vw * .29, 96, 124));
+    const gy = 170, GH = sheetTop - gy - 22;
+    g = { phone, vw, vh, box, r: Math.min(vw * .3, 128), cx: vw / 2, gy, GH, tilt: 14, railRight: 0 };
+    $('#rail').style.width = ''; $('#rail').style.maxHeight = '';
+  }
+  // ghost
+  const gh = g.GH * MQ.h / (MQ.bottom - MQ.top), gw = gh * MQ.w / MQ.h;
+  Object.assign($('#ghost').style, { height: gh + 'px', width: gw + 'px', left: (g.cx - gw / 2) + 'px', top: (g.gy - g.GH * MQ.top / (MQ.bottom - MQ.top)) + 'px' });
+  Object.assign($('#sglow').style, { width: g.r * 2.6 + 'px', height: g.GH * 1.2 + 'px', left: (g.cx - g.r * 1.3) + 'px', top: (g.gy - g.GH * .1) + 'px' });
+  // floor ring
+  const fy = g.gy + g.GH - 4, ry = g.r * .13;
+  // floor ring + one tick per slot, created once per layout; render() only moves them
+  $('#floor').innerHTML = `<ellipse cx="${g.cx}" cy="${fy}" rx="${g.r}" ry="${ry}"/><g id="ticks">${K ? K.kit.slots.map(() => '<line class="tick"/>').join('') : ''}</g>`;
+  if (K) K.ticks = [...document.querySelectorAll('#ticks line')];
+  g.fy = fy; g.fry = ry; g.pk = 2 * ry / (1 - EYE);
+  G = g;
+  if (K) {
+    // cloud positions: alternate sides, top to bottom in slot order
+    const N = K.N, rows = Math.ceil(N / 2);
+    const top = g.phone ? 150 : g.gy - 30, bot = g.phone ? vh * .62 - 40 : g.gy + g.GH - 50;
+    const half = g.box * .6 / 2;
+    const leftX = g.phone ? 16 + half + 6 : Math.max(g.railRight + half + 30, g.cx - g.r - 40);
+    const rightX = g.phone ? vw - 16 - half - 6 : Math.min(vw - g.progW - half - 10, g.cx + g.r + 40);
+    K.cloud = K.kit.slots.map((s, k) => {
+      const row = Math.floor(k / 2), right = k % 2 === 1, rh = (bot - top) / rows;
+      return { x: right ? rightX : leftX, y: top + (row + .5) * rh + (right ? rh * .35 : 0), s: .6, rot: CLOUD_ROT[k % 9] };
+    });
+    K.frac = K.kit.slots.map(s => SLOT_Y[s.slot] ?? .3);
+    K.slotY = K.frac.map(f => g.gy + f * g.GH);
+    K.items.forEach(d => { d.style.width = d.style.height = g.box + 'px'; });
+  }
+}
+function frontPos() { return ((Math.round(theta / K.step) % K.N) + K.N) % K.N; }
+function frontIndex() { if (!K) return 0; return K.order[frontPos()]; }
+function ringPos(i) {
+  const phi = (K.pos[i] * K.step - theta) * Math.PI / 180, d = Math.cos(phi), d01 = (d + 1) / 2;
+  // perspective from a camera at mid-body (EYE): rings above it sink at the back, rings below rise,
+  // matching the floor ellipse (whose back sits 2·fry above its front).
+  return { x: G.cx + G.r * Math.sin(phi), y: K.slotY[i] + (1 - d01) * G.pk * (EYE - K.frac[i]), s: .62 + .38 * d01, o: .45 + .55 * d01, d };
+}
+function render() {
+  if (!K || !G) return;
+  let landed = 0, last = -1;
+  for (let i = 0; i < K.N; i++) {
+    const a = K.px[i].a, c = K.cloud[i], R = ringPos(i), f = K.flip[i];
+    const x = lerp(c.x, R.x, a) + f.dx, y = lerp(c.y, R.y, a) + f.dy;
+    const s = lerp(c.s, R.s, a) * f.s, o = lerp(.92, R.o, a), rot = c.rot * (1 - a);
+    const el = K.items[i];
+    el.style.transform = `translate3d(${(x - G.box / 2).toFixed(1)}px,${(y - G.box / 2).toFixed(1)}px,0) rotate(${rot.toFixed(2)}deg) scale(${s.toFixed(4)})`;
+    el.style.opacity = o.toFixed(3);
+    el.style.zIndex = a < .5 ? 300 + i : (R.d >= 0 ? 151 + Math.round(R.d * 100) : 1 + Math.round((R.d + 1) * 148));
+    const lab = K.labels[i], lo = clamp(1 - a * 4, 0, 1);
+    lab.style.opacity = lo.toFixed(3);
+    if (lo > 0) lab.style.transform = `translate3d(calc(${x.toFixed(1)}px - 50%),${(y + G.box * c.s / 2 + 4).toFixed(1)}px,0)`;
+    const isIn = a >= .97;
+    if (isIn) { landed++; last = i; }
+    K.entries[i].classList.toggle('in', isIn);
+  }
+  K.landed = landed;
+  if (landed !== K.shown) { $('#pn').textContent = landed; K.shown = landed; }
+  const done = landed === K.N;
+  $('#prog').classList.toggle('done', done);
+  $('#scrollcue').classList.toggle('off', landed > 0);
+  if (done !== K.live) { K.live = done; $('#stage').classList.toggle('live', done); }
+  const act = done ? frontIndex() : last;
+  if (act !== K.active) {
+    K.entries.forEach((e, i) => e.classList.toggle('active', i === act));
+    K.active = act;
+    if (act >= 0) { // keep the active readout in view when the rail is taller than its space
+      const e = K.entries[act], rl = $('#rail');
+      if (G.phone) rl.scrollTop = e.offsetTop - 8;
+      else if (e.offsetTop + e.offsetHeight > rl.scrollTop + rl.clientHeight || e.offsetTop < rl.scrollTop) rl.scrollTop = e.offsetTop + e.offsetHeight - rl.clientHeight;
+    }
+  }
+  // ticks on the floor ring under each landed slot (they turn with the ring)
+  if (K.ticks) for (let i = 0; i < K.N; i++) {
+    const t = K.ticks[i], on = K.px[i].a > .9;
+    if (!on) { t.setAttribute('opacity', 0); continue; }
+    const phi = (K.pos[i] * K.step - theta) * Math.PI / 180, x = G.cx + G.r * Math.sin(phi), y = G.fy + G.fry * Math.cos(phi);
+    t.setAttribute('x1', x.toFixed(1)); t.setAttribute('x2', x.toFixed(1)); t.setAttribute('y1', (y - 4).toFixed(1)); t.setAttribute('y2', (y + 4).toFixed(1));
+    t.setAttribute('opacity', (.35 + .65 * (Math.cos(phi) + 1) / 2).toFixed(2));
+  }
+}
+
+/* ================= turning ================= */
+function goTo(target, dur) {
+  if (spinT) spinT.kill();
+  if (RM || dur === 0) { theta = target; render(); return; }
+  const p = { t: theta };
+  spinT = gsap.to(p, { t: target, duration: dur ?? clamp(Math.abs(target - theta) / K.step * .32, .25, .6), ease: 'power3.out', onUpdate: () => { theta = p.t; render(); } });
+}
+function turnTo(i) {
+  if (!K) return;
+  // shortest way round
+  const base = K.pos[i] * K.step; let t = base + Math.round((theta - base) / 360) * 360;
+  goTo(t);
+}
+let down = null;
+const stage = $('#stage');
+stage.addEventListener('pointerdown', e => {
+  if (!K || !K.live || e.button !== 0 || e.target.closest('.rail,.hdr')) return;
+  if (spinT) spinT.kill();
+  down = { x: e.clientX, y: e.clientY, t: theta, moved: false, id: e.pointerId, hist: [[performance.now(), e.clientX]] };
+});
+stage.addEventListener('pointermove', e => {
+  if (!down || e.pointerId !== down.id) return;
+  const dx = e.clientX - down.x;
+  if (!down.moved && Math.abs(dx) > 6 && Math.abs(dx) > Math.abs(e.clientY - down.y)) { down.moved = true; stage.classList.add('drag'); stage.setPointerCapture(e.pointerId); }
+  if (down.moved) {
+    theta = down.t - dx * (G.phone ? .55 : .3); render();
+    down.hist.push([performance.now(), e.clientX]); if (down.hist.length > 6) down.hist.shift();
+  }
+});
+function up(e) {
+  if (!down || e.pointerId !== down.id) return;
+  const d = down; down = null; stage.classList.remove('drag');
+  if (d.moved) {
+    const h = d.hist, a = h[0], b = h[h.length - 1], dt = Math.max(1, b[0] - a[0]);
+    const v = (b[1] - a[1]) / dt * (G.phone ? .55 : .3);          // deg per ms
+    const proj = theta - v * (RM ? 0 : 140);
+    goTo(Math.round(proj / K.step) * K.step);
+  } else if (e.type === 'pointerup') {
+    const hit = hitTest(e.clientX, e.clientY); if (hit >= 0) turnTo(hit);
+  }
+}
+stage.addEventListener('pointerup', up); stage.addEventListener('pointercancel', up);
+function hitTest(px, py) {
+  const order = K.items.map((el, i) => [i, +el.style.zIndex]).sort((a, b) => b[1] - a[1]);
+  for (const [i] of order) {
+    const r = K.items[i].getBoundingClientRect(), ix = r.width * .22, iy = r.height * .22;
+    if (px > r.left + ix && px < r.right - ix && py > r.top + iy && py < r.bottom - iy) return i;
+  }
+  return -1;
+}
+addEventListener('keydown', e => {
+  if (!K || !document.body.classList.contains('mode-kit') || !K.live) return;
+  if (e.key === 'ArrowRight') { e.preventDefault(); turnTo(K.order[(frontPos() + 1) % K.N]); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); turnTo(K.order[(frontPos() - 1 + K.N) % K.N]); }
+});
+$('#rail').addEventListener('click', e => {
+  const sw = e.target.closest('[data-swap]');
+  if (sw) { e.preventDefault(); swap(+sw.dataset.swap, sw.dataset.id, sw); return; }
+  const t = e.target.closest('[data-turn]');
+  if (t && K.live) turnTo(+t.dataset.turn);
+});
+
+/* ================= swap (FLIP from rail text to the ring) ================= */
+function swap(i, pid, btn) {
+  const br = btn.getBoundingClientRect();
+  K.cur[i] = pid;
+  const s = K.kit.slots[i];
+  const im = setItemImage(K.items[i], pid, s.label);
+  fillEntry(i); buildSummary();
+  K.active = -1;
+  if (K.live) turnTo(i);
+  if (RM) { render(); return; }
+  const tgt = K.live ? (() => { const save = theta, b = K.pos[i] * K.step; theta = b + Math.round((theta - b) / 360) * 360; const R = ringPos(i); theta = save; return R; })() : ringPos(i);
+  const f = K.flip[i];
+  f.dx = (br.left + br.width / 2) - tgt.x; f.dy = (br.top + br.height / 2) - tgt.y; f.s = .18;
+  gsap.killTweensOf(f);
+  gsap.to(f, { dx: 0, dy: 0, s: 1, duration: .6, ease: 'power3.out', onUpdate: render });
+  render();
+}
+
+/* ================= scroll scene ================= */
+function teardownScene() {
+  $('#hdr').classList.remove('solid');
+  if (st) { st.kill(true); st = null; }
+  if (tl) { tl.kill(); tl = null; }
+  if (spinT) spinT.kill();
+  ScrollTrigger.getAll().forEach(t => t.kill(true));
+}
+function buildScene() {
+  tl = gsap.timeline({ paused: true });
+  K.px.forEach((p, i) => tl.to(p, { a: 1, duration: 1, ease: 'power2.inOut' }, i * .62));
+  tl.to({}, { duration: .35 });
+  tl.eventCallback('onUpdate', render);
+  if (RM) { tl.progress(1); render(); solidHeader(); return; }
+  st = ScrollTrigger.create({ trigger: stage, start: 'top top', end: () => '+=' + Math.round(innerHeight * K.N * .45), pin: true, anticipatePin: 1, scrub: 1, animation: tl, invalidateOnRefresh: true });
+  solidHeader();
+}
+// the header gets its backing only once the summary scrolls up under it
+function solidHeader() { ScrollTrigger.create({ trigger: '#summary', start: 'top 130px', onEnter: () => $('#hdr').classList.add('solid'), onLeaveBack: () => $('#hdr').classList.remove('solid') }); }
+function scrollToP(p) {
+  if (!st) return;
+  const y = Math.min(st.start + p * (st.end - st.start), st.end - 2);
+  if (lenis) { lenis.resize(); lenis.scrollTo(y, { immediate: true, force: true }); } else window.scrollTo(0, y);
+  ScrollTrigger.update();
+  tl.progress(p); render();
+}
+function scrollToY(y) { if (lenis) { lenis.resize(); lenis.scrollTo(y, { immediate: true, force: true }); } else window.scrollTo(0, y); ScrollTrigger.update(); }
+
+/* ================= modes ================= */
+async function enterKit(id, animate, h) {
+  const kit = kitById[id];
+  K0 = true;
+  teardownScene();
+  if (animate) await naming(kit);
+  stopCycle(); clearInterval(photoT);
+  document.body.classList.remove('mode-landing'); document.body.classList.add('mode-kit');
+  $('#hdr').setAttribute('aria-hidden', 'false');
+  scrollToY(0);
+  buildKit(kit);
+  theta = 0;
+  layout();
+  buildScene();
+  render();
+  if (animate) {
+    gsap.fromTo('#hdr .ktitle', { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: .35, ease: 'power2.out' });
+    gsap.fromTo(['#items', '#floor', '#clabels'], { autoAlpha: 0 }, { autoAlpha: 1, duration: .5, ease: 'power1.out', stagger: .06, clearProps: 'opacity,visibility' });
+    gsap.fromTo('#ghost', { opacity: 0 }, { opacity: .3, duration: .5, ease: 'power1.out', clearProps: 'opacity' });
+  } else gsap.set('#hdr .ktitle', { autoAlpha: 1, y: 0 });
+  await Promise.all(K.items.map(d => d.querySelector('img')?.decode().catch(() => {})));
+  ScrollTrigger.refresh();
+  applyKitParams(h || {});
+}
+function applyKitParams(h) {
+  if (!K) return;
+  if ('p' in h && !RM) scrollToP(clamp(parseFloat(h.p) || 0, 0, 1));
+  if (h.front) {
+    const i = K.kit.slots.findIndex(s => s.slot === h.front);
+    if (i >= 0) goTo(K.pos[i] * K.step, 0);
+  }
+  if (h.at === 'summary') scrollToY($('#summary').getBoundingClientRect().top + scrollY);
+  render();
+}
+async function naming(kit) {
+  stopCycle(); clearInterval(photoT);
+  const word = cur;
+  gsap.killTweensOf([cur, nxt]);
+  gsap.set(nxt, { autoAlpha: 0 });
+  word.textContent = kit.name;
+  const bw = $('#blank').offsetWidth, ratio = (word.offsetWidth + 2) / bw;
+  gsap.to('.ltitle .kw', { x: word.offsetWidth + 2 - bw, duration: .26, ease: 'power3.out' });
+  gsap.fromTo(word, { yPercent: 70, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: .26, ease: 'power3.out' });
+  gsap.to('#rule', { scaleX: ratio, duration: .26, ease: 'power3.out' });
+  gsap.to('#rule', { autoAlpha: 0, duration: .2, delay: .2 });
+  gsap.to(['#ask', '#filter', '.group', '#photos'], { autoAlpha: 0, y: 24, duration: .34, ease: 'power2.out', stagger: .025, delay: .08 });
+  await new Promise(r => setTimeout(r, 560));
+  // title locks into the header: move the landing title up-left toward the header slot while fading
+  const a = $('#ltitle').getBoundingClientRect();
+  gsap.to('#ltitle', { x: 32 - a.left, y: 66 - a.top, scale: .45, transformOrigin: '0 0', autoAlpha: 0, duration: .32, ease: 'power2.inOut' });
+  await new Promise(r => setTimeout(r, 300));
+}
+function showLanding() {
+  teardownScene();
+  K = null;
+  document.title = 'The AVES Kit';
+  document.body.classList.add('mode-landing'); document.body.classList.remove('mode-kit');
+  $('#hdr').setAttribute('aria-hidden', 'true');
+  scrollToY(0);
+  gsap.set(['#ltitle', '#ask', '#filter', '.group', '#photos', '.ltitle .kw'], { clearProps: 'all' });
+  query = ''; applyFilter();
+  if (!RM && !STILL) gsap.from(['#ltitle', '#ask', '.group'], { autoAlpha: 0, y: 14, duration: .4, stagger: .05, ease: 'power2.out' });
+  startCycle(K0); startPhotos();
+  ScrollTrigger.refresh();
+}
+function route(animate) {
+  const h = parseHash();
+  if (h.kit && kitById[h.kit]) {
+    if (K && K.kit.id === h.kit) { applyKitParams(h); return; }
+    const fromLanding = document.body.classList.contains('mode-landing');
+    enterKit(h.kit, animate && fromLanding && !('p' in h) && !h.still && !RM, h);
+  } else {
+    if (h.kit) console.warn('Unknown kit id in hash:', h.kit);
+    if (!document.body.classList.contains('mode-landing') || !document.querySelector('.kl')) showLanding();
+  }
+}
+addEventListener('hashchange', () => route(true));
+document.addEventListener('click', e => {
+  const a = e.target.closest('#another,[data-another]');
+  if (!a) return;
+  e.preventDefault();
+  history.pushState(null, '', location.pathname);
+  showLanding();
+});
+let toastT;
+document.addEventListener('click', e => {
+  if (!e.target.closest('#addq')) return;
+  const t = $('#toast'); t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 1800);
+});
+let rzT;
+addEventListener('resize', () => { clearTimeout(rzT); rzT = setTimeout(() => { if (kits.length) measureBlank(); if (K) { layout(); render(); ScrollTrigger.refresh(); } }, 120); });
+
+/* ================= boot ================= */
+async function boot() {
+  try {
+    const [pr, kr] = await Promise.all([fetch('../../data/products.json'), fetch('../../data/kits.json')]);
+    const pl = await pr.json(); kits = await kr.json();
+    pl.forEach(p => products[p.id] = p);
+    kits.forEach(k => kitById[k.id] = k);
+  } catch (e) { console.error('AVES kit: data failed to load (serve over http)', e); return; }
+  // data guard: warn once about any slot id missing from products.json
+  const missing = [];
+  kits.forEach(k => k.slots.forEach(s => [s.primary, ...s.alternates].forEach(id => { if (!products[id]) missing.push(`${k.id}/${s.slot}: ${id}`); })));
+  if (missing.length) console.warn(`AVES kit: ${missing.length} slot product id(s) missing from products.json`, missing);
+  // load the faces explicitly: fonts.ready can resolve before the Google faces are requested
+  const faces = ['700 80px "Barlow Condensed"', '600 20px "Barlow Condensed"', '400 16px Barlow', '500 16px Barlow', '600 16px Barlow'];
+  try { await Promise.race([Promise.all(faces.map(f => document.fonts.load(f))), new Promise(r => setTimeout(r, 4000))]); } catch (e) {}
+  buildLanding();
+  document.fonts.addEventListener?.('loadingdone', () => { if (document.body.classList.contains('mode-landing')) measureBlank(); });
+  if (!RM && !('p' in H0)) {
+    lenis = new Lenis({ lerp: .1, smoothWheel: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(t => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+  }
+  window.__aves = { get theta() { return theta; }, get K() { return K; }, get G() { return G; }, st: () => st, lenis: () => lenis };
+  if (H0.kit && kitById[H0.kit]) {
+    await enterKit(H0.kit, false, H0);
+  } else {
+    showLanding();
+  }
+  document.documentElement.dataset.ready = '1';
+}
+boot();
+})();
+</script>
+</body>
+</html>
