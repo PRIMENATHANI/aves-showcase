@@ -12,7 +12,7 @@ Salman picked these three from a brainstorm. They are previews to react to, not 
 - Each prototype lives in its own folder under `v0.1/` and references assets relatively: `../../assets/cut/<id>.png`, `../../data/products.json`. Fetch the JSON at runtime (served over http; do not inline 308 products by hand). Paths must work when the folder is served by `python3 -m http.server` from the `aves-showcase` root.
 
 ## Look (shared stage language, same family as the STEGO try-on pages)
-- Dark stage: `--bg:#07090c; --ink:#f3f5f8; --muted:#9aa3ae; --line:rgba(255,255,255,.12)`. Accent: AVES green `#00913f` (sampled from the logo, which is near-black `#201010` + green); on the dark stage lift it to `#19b45a` for text so it passes contrast. Use the accent sparingly: counters, active states, one rule line.
+- Dark stage: `--bg:#07090c; --ink:#f3f5f8; --muted:#9aa3ae; --line:rgba(255,255,255,.12)`. Accent (v0.2 onward): the brand guide's Deep Green, Pantone 348 C; working sRGB `#008048` sampled from the catalogue PDF (approximate). On the dark stage lift it to `#19b45a` for small text so it passes contrast. (v0.1 used the logo-sampled `#00913f`.) Use the accent sparingly: counters, active states, one rule line.
 - Type: Google Fonts "Barlow Condensed" (display, 600/700, uppercase, tight tracking) + "Barlow" (body). No other fonts.
 - Nothing in boxes. No cards with borders and drop shadows. Products float on the stage with their own light; separation comes from spacing, scale and a soft radial glow, not containers.
 - No emojis, no icon fonts. Any icon is an inline SVG you draw.

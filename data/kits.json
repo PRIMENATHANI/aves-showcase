@@ -1,0 +1,1523 @@
+[
+  {
+    "id": "oil-gas",
+    "name": "Oil & Gas",
+    "title": "The AVES Oil & Gas Kit",
+    "group": "Energy",
+    "hazards": [
+      "falling objects",
+      "sour gas and hydrocarbon vapours",
+      "noise",
+      "work at height",
+      "hydrocarbons on hands"
+    ],
+    "intro": "Upstream and plant work around wellheads, pipework and process units: overhead impact, sour gas, noise, height and dropped tools.",
+    "slots": [
+      {
+        "slot": "head",
+        "label": "Head",
+        "primary": "aves-titan-av-841r-nv",
+        "alternates": [
+          "aves-titan-av-585r-nv",
+          "aves-victor-av-840r-nv"
+        ],
+        "why": "Non-vented full brim, Z89.1 Type I Class E&G, for overhead impact and sun",
+        "confidence": "high"
+      },
+      {
+        "slot": "eye",
+        "label": "Eye",
+        "primary": "av-sg30",
+        "alternates": [
+          "av-sg28",
+          "av-gg45"
+        ],
+        "why": "Brow-guard spectacle, Z87.1 and EN 166, grey or mirror lens outdoors",
+        "confidence": "medium"
+      },
+      {
+        "slot": "hearing",
+        "label": "Hearing",
+        "primary": "av-hm3093-cap-earmuffs",
+        "alternates": [
+          "av-hm7093-cap-earmuffs",
+          "av-153-corded-earplugs"
+        ],
+        "why": "Helmet-mounted earmuff, 28 dB NRR, for compressor and pump noise",
+        "confidence": "high"
+      },
+      {
+        "slot": "respiratory",
+        "label": "Respiratory",
+        "primary": "aves-escape-hood-bag",
+        "alternates": [
+          "emergency-escape-hood-breathing-device",
+          "ffp2-av-449-with-carbon"
+        ],
+        "why": "Escape hood, A2B2E2K2P3 filter, H2S 5000 ppm for 40 minutes",
+        "confidence": "high"
+      },
+      {
+        "slot": "hand",
+        "label": "Hand",
+        "primary": "hg-2230-rubber-neoprene-gloves",
+        "alternates": [
+          "hg-2846-latnit-ergotex-palm-grip",
+          "hg-1108-rigger"
+        ],
+        "why": "Catalogue names it for oil work; natural rubber, no nitrile in range",
+        "confidence": "medium"
+      },
+      {
+        "slot": "fall",
+        "label": "Fall",
+        "primary": "full-body-harness",
+        "alternates": [
+          "full-body-harness-ansi-2",
+          "full-body-harness-3"
+        ],
+        "why": "Harness with dorsal, sternal and climbing points, ANSI Z359.11, for ladders",
+        "confidence": "medium"
+      },
+      {
+        "slot": "dropped",
+        "label": "Dropped objects",
+        "primary": "av-101373",
+        "alternates": [
+          "av-101420",
+          "av-101368"
+        ],
+        "why": "Tool tether, 20 kg, bullets name oil and gas use",
+        "confidence": "high"
+      }
+    ]
+  },
+  {
+    "id": "rig-drilling",
+    "name": "Rig Drilling",
+    "title": "The AVES Rig Drilling Kit",
+    "group": "Energy",
+    "hazards": [
+      "dropped objects from the derrick",
+      "pinch points and rotating pipe",
+      "drill-floor noise",
+      "work at height",
+      "sour gas"
+    ],
+    "intro": "Drill floor and derrick work: pipe handling, rotating equipment, dropped objects, height and gas release.",
+    "slots": [
+      {
+        "slot": "head",
+        "label": "Head",
+        "primary": "aves-titan-av-585r-nv",
+        "alternates": [
+          "aves-titan-av-585p-nv",
+          "av-717p"
+        ],
+        "why": "Non-vented shell sealed against overhead hazards, Z89.1 Type I Class E&G",
+        "confidence": "high"
+      },
+      {
+        "slot": "eye",
+        "label": "Eye",
+        "primary": "av-gg45",
+        "alternates": [
+          "av-gg40",
+          "av-sg51"
+        ],
+        "why": "Gasketed goggle, high-velocity impact, Z87.1, against mud spray and debris",
+        "confidence": "medium"
+      },
+      {
+        "slot": "hearing",
+        "label": "Hearing",
+        "primary": "av-hm7093-cap-earmuffs",
+        "alternates": [
+          "av-hm3093-cap-earmuffs",
+          "av-153-corded-earplugs"
+        ],
+        "why": "Helmet-mounted earmuff, 30 dB NRR, the highest muff in range",
+        "confidence": "high"
+      },
+      {
+        "slot": "respiratory",
+        "label": "Respiratory",
+        "primary": "emergency-escape-hood-breathing-device",
+        "alternates": [
+          "aves-escape-hood-bag",
+          "ffp2-av-449-with-carbon"
+        ],
+        "why": "Compressed-air escape hood, 15 minutes, for gas release on the floor",
+        "confidence": "medium"
+      },
+      {
+        "slot": "hand",
+        "label": "Hand",
+        "primary": "hg-1108-rigger",
+        "alternates": [
+          "hg-3654-protective-gloves-500-bar",
+          "hg-1104-leather-gloves"
+        ],
+        "why": "Rigger leather glove, EN 388, for pipe and wire handling",
+        "confidence": "high"
+      },
+      {
+        "slot": "fall",
+        "label": "Fall",
+        "primary": "full-body-harness-ansi",
+        "alternates": [
+          "full-body-harness-ansi-3",
+          "full-body-harness"
+        ],
+        "why": "Harness with side positioning D-rings, ANSI Z359.11, for derrick work",
+        "confidence": "medium"
+      },
+      {
+        "slot": "dropped",
+        "label": "Dropped objects",
+        "primary": "av-101420",
+        "alternates": [
+          "av-101373",
+          "av-101494"
+        ],
+        "why": "Tool tether rated 30 kg, prevents tool drops from height",
+        "confidence": "high"
+      }
+    ]
+  },
+  {
+    "id": "manufacturing",
+    "name": "Manufacturing",
+    "title": "The AVES Manufacturing Kit",
+    "group": "Make",
+    "hazards": [
+      "machine guarding gaps",
+      "flying particles",
+      "shop-floor noise",
+      "nuisance dust",
+      "handling parts"
+    ],
+    "intro": "General production floors: machine-side impact, flying particles, constant noise, process dust and parts handling.",
+    "slots": [
+      {
+        "slot": "head",
+        "label": "Head",
+        "primary": "aves-victor-av-714r-v",
+        "alternates": [
+          "aves-victor-av-714p-v",
+          "aves-titan-av-564r-v"
+        ],
+        "why": "Vented short-brim helmet, Z89.1 Class C, for indoor overhead hazards",
+        "confidence": "medium"
+      },
+      {
+        "slot": "eye",
+        "label": "Eye",
+        "primary": "av-sg57",
+        "alternates": [
+          "av-sg50",
+          "av-sg401"
+        ],
+        "why": "Clear spectacle, Z87.1, flat temples fit under earmuffs",
+        "confidence": "medium"
+      },
+      {
+        "slot": "hearing",
+        "label": "Hearing",
+        "primary": "av-153-corded-earplugs",
+        "alternates": [
+          "av-hb21-headband-earmuffs",
+          "av-gp20-banded-earplugs"
+        ],
+        "why": "Corded foam plug, 33 dB NRR, for continuous machine noise",
+        "confidence": "high"
+      },
+      {
+        "slot": "respiratory",
+        "label": "Respiratory",
+        "primary": "ffp2-av-187-mask",
+        "alternates": [
+          "n95-av800-particulate-respirator",
+          "aves-ffp2-nv-cp"
+        ],
+        "why": "FFP2 mask, EN 149, for process and nuisance dust",
+        "confidence": "medium"
+      },
+      {
+        "slot": "hand",
+        "label": "Hand",
+        "primary": "hg-2846-latnit-ergotex-palm-grip",
+        "alternates": [
+          "hg-2919-assembly",
+          "hg-1360-dotted-cotton-gloves-ss"
+        ],
+        "why": "Latex palm-coated grip glove, EN 388, for oily parts handling",
+        "confidence": "medium"
+      }
+    ]
+  },
+  {
+    "id": "construction",
+    "name": "Construction",
+    "title": "The AVES Construction Kit",
+    "group": "Build",
+    "hazards": [
+      "falling objects",
+      "silica dust",
+      "noise",
+      "work at height",
+      "abrasion and impact to hands"
+    ],
+    "intro": "Building sites from groundworks to steel erection: overhead impact, cutting dust, plant noise, height and dropped tools.",
+    "slots": [
+      {
+        "slot": "head",
+        "label": "Head",
+        "primary": "aves-victor-av-845r-v",
+        "alternates": [
+          "aves-victor-av-840r-nv",
+          "aves-titan-av-846r-v"
+        ],
+        "why": "Vented full-brim helmet, EN 397, for hot outdoor sites",
+        "confidence": "medium"
+      },
+      {
+        "slot": "eye",
+        "label": "Eye",
+        "primary": "av-sg28",
+        "alternates": [
+          "av-sg30",
+          "av-sg18"
+        ],
+        "why": "Wraparound spectacle, Z87.1, grey or mirror lens for outdoor glare",
+        "confidence": "medium"
+      },
+      {
+        "slot": "hearing",
+        "label": "Hearing",
+        "primary": "av-hm3093-cap-earmuffs",
+        "alternates": [
+          "aves-av-hm4093",
+          "av-gp20-banded-earplugs"
+        ],
+        "why": "Helmet-mounted earmuff, 28 dB NRR, for plant and breaker noise",
+        "confidence": "high"
+      },
+      {
+        "slot": "respiratory",
+        "label": "Respiratory",
+        "primary": "ffp3-v-ff-av-559",
+        "alternates": [
+          "n95-av800-particulate-respirator",
+          "ffp3-av-zer0-30"
+        ],
+        "why": "FFP3 valved mask, EN 149, for silica dust from cutting",
+        "confidence": "high"
+      },
+      {
+        "slot": "hand",
+        "label": "Hand",
+        "primary": "hg-1101sp-leather-gloves",
+        "alternates": [
+          "hg-2919-assembly",
+          "hg-1104-leather-gloves"
+        ],
+        "why": "Leather palm glove, EN 388; catalogue names construction and rigging",
+        "confidence": "high"
+      },
+      {
+        "slot": "fall",
+        "label": "Fall",
+        "primary": "full-body-harness-ansi-4",
+        "alternates": [
+          "full-body-harness-ansi-3",
+          "full-body-harness-2"
+        ],
+        "why": "Harness with Class A and P D-rings, ANSI Z359.11, for steel erection",
+        "confidence": "high"
+      },
+      {
+        "slot": "dropped",
+        "label": "Dropped objects",
+        "primary": "av-101365",
+        "alternates": [
+          "av-101368",
+          "av-101372"
+        ],
+        "why": "Wrist or scaffold tether, 2 kg, for hand tools at height",
+        "confidence": "medium"
+      }
+    ]
+  },
+  {
+    "id": "mining",
+    "name": "Mining",
+    "title": "The AVES Mining Kit",
+    "group": "Extract & Handle",
+    "hazards": [
+      "rock fall",
+      "respirable silica dust",
+      "drilling and blasting noise",
+      "abrasion and impact to hands",
+      "low light"
+    ],
+    "intro": "Underground and open-pit work: rock fall, respirable dust, drill and blast noise and heavy abrasion.",
+    "slots": [
+      {
+        "slot": "head",
+        "label": "Head",
+        "primary": "aves-victor-av-840r-nv",
+        "alternates": [
+          "aves-titan-av-841r-nv",
+          "aves-titan-av-585r-nv"
+        ],
+        "why": "Non-vented full brim, Class E&G, accessory slots; no cap-lamp bracket",
+        "confidence": "medium"
+      },
+      {
+        "slot": "eye",
+        "label": "Eye",
+        "primary": "av-gg27",
+        "alternates": [
+          "av-gg45",
+          "av-gg40"
+        ],
+        "why": "Sealed flange goggle, EN 166; bullets name dusty, windy environments",
+        "confidence": "high"
+      },
+      {
+        "slot": "hearing",
+        "label": "Hearing",
+        "primary": "av-hm7093-cap-earmuffs",
+        "alternates": [
+          "av-hm3093-cap-earmuffs",
+          "av-153-corded-earplugs"
+        ],
+        "why": "Helmet-mounted earmuff, 30 dB NRR, for drilling and crushing",
+        "confidence": "high"
+      },
+      {
+        "slot": "respiratory",
+        "label": "Respiratory",
+        "primary": "aves-p100-v-cp",
+        "alternates": [
+          "ffp3-av-zer0-30",
+          "aves-n99-v-cp"
+        ],
+        "why": "P100 respirator, NIOSH, 99.97%, for respirable silica dust",
+        "confidence": "high"
+      },
+      {
+        "slot": "hand",
+        "label": "Hand",
+        "primary": "hg-1104-leather-gloves",
+        "alternates": [
+          "hg-1101sp-leather-gloves",
+          "hg-2230-rubber-neoprene-gloves"
+        ],
+        "why": "Double-palm leather glove, EN 388, reinforced knuckles for rock handling",
+        "confidence": "high"
+      }
+    ]
+  },
+  {
+    "id": "heavy-machinery",
+    "name": "Heavy Machinery",
+    "title": "The AVES Heavy Machinery Kit",
+    "group": "Build",
+    "hazards": [
+      "struck by moving plant",
+      "engine and track noise",
+      "diesel exhaust and dust",
+      "pinch points",
+      "sun and glare"
+    ],
+    "intro": "Operating and servicing earthmovers, cranes and loaders: struck-by risk, engine noise, exhaust, dust and pinch points.",
+    "slots": [
+      {
+        "slot": "head",
+        "label": "Head",
+        "primary": "aves-titan-av-846r-v",
+        "alternates": [
+          "aves-titan-av-841r-nv",
+          "aves-victor-av-845r-v"
+        ],
+        "why": "Vented full-brim helmet, EN 397, for hot cabs and outdoor sites",
+        "confidence": "medium"
+      },
+      {
+        "slot": "eye",
+        "label": "Eye",
+        "primary": "av-sg51",
+        "alternates": [
+          "av-sg14",
+          "av-sg28"
+        ],
+        "why": "High-velocity impact spectacle, Z87.1, anti-fog and anti-scratch",
+        "confidence": "medium"
+      },
+      {
+        "slot": "hearing",
+        "label": "Hearing",
+        "primary": "aves-av-hm4093",
+        "alternates": [
+          "av-hm3093-cap-earmuffs",
+          "av-gp10-banded-earplugs"
+        ],
+        "why": "Hi-vis helmet-mounted earmuff, 25 dB NRR, seen from the cab",
+        "confidence": "medium"
+      },
+      {
+        "slot": "respiratory",
+        "label": "Respiratory",
+        "primary": "ffp2-av-449-with-carbon",
+        "alternates": [
+          "ffp2-av-187-mask",
+          "aves-n95-v-cp"
+        ],
+        "why": "FFP2 with carbon layer, EN 149, for dust and exhaust odours",
+        "confidence": "medium"
+      },
+      {
+        "slot": "hand",
+        "label": "Hand",
+        "primary": "hg-1107-rigger",
+        "alternates": [
+          "hg-1101sp-leather-gloves",
+          "hg-2919-assembly"
+        ],
+        "why": "Rigger leather glove, EN 388, for hooks, slings and greasy controls",
+        "confidence": "medium"
+      }
+    ]
+  },
+  {
+    "id": "assembly-line",
+    "name": "Assembly Line",
+    "title": "The AVES Assembly Line Kit",
+    "group": "Make",
+    "hazards": [
+      "repetitive handling",
+      "small flying parts",
+      "conveyor noise",
+      "low overhead structures"
+    ],
+    "intro": "Line work on conveyors and fixtures: repetitive handling, small parts and fasteners, steady noise and low overhead.",
+    "slots": [
+      {
+        "slot": "head",
+        "label": "Head",
+        "primary": "aves-titan-av-564p-v",
+        "alternates": [
+          "aves-victor-av-714p-v",
+          "aves-titan-av-564r-v"
+        ],
+        "why": "No bump cap in range; light vented helmet for low overhead structures",
+        "confidence": "low"
+      },
+      {
+        "slot": "eye",
+        "label": "Eye",
+        "primary": "av-sg59",
+        "alternates": [
+          "av-sg220",
+          "av-sg57"
+        ],
+        "why": "Featherlight 18 g spectacle, Z87.1, for full-shift wear",
+        "confidence": "medium"
+      },
+      {
+        "slot": "hearing",
+        "label": "Hearing",
+        "primary": "av-311-reusable-earplugs",
+        "alternates": [
+          "av-gp20-banded-earplugs",
+          "av-151-disposable-earplugs"
+        ],
+        "why": "Reusable triple-flange plug, 25 dB NRR, for moderate line noise",
+        "confidence": "medium"
+      },
+      {
+        "slot": "respiratory",
+        "label": "Respiratory",
+        "primary": "ffp2-nv-ff-av-548",
+        "alternates": [
+          "ffp2-av-187-mask"
+        ],
+        "why": "Usually not needed on dry lines; FFP2 only where process dust exists",
+        "confidence": "low"
+      },
+      {
+        "slot": "hand",
+        "label": "Hand",
+        "primary": "hg-2919-assembly",
+        "alternates": [
+          "hg-1360-dotted-cotton-gloves-ss",
+          "hg-2846-latnit-ergotex-palm-grip"
+        ],
+        "why": "Assembly glove, EN 388 3131X, for dexterous parts handling",
+        "confidence": "high"
+      }
+    ]
+  },
+  {
+    "id": "demolition",
+    "name": "Demolition",
+    "title": "The AVES Demolition Kit",
+    "group": "Build",
+    "hazards": [
+      "falling debris",
+      "silica and building dust",
+      "flying fragments",
+      "breaker noise",
+      "work at height"
+    ],
+    "intro": "Strip-out and structural demolition: falling debris, dust, flying fragments, breaker noise and unprotected edges.",
+    "slots": [
+      {
+        "slot": "head",
+        "label": "Head",
+        "primary": "aves-titan-av-585p-nv",
+        "alternates": [
+          "aves-titan-av-585r-nv",
+          "aves-victor-av-840r-nv"
+        ],
+        "why": "Non-vented shell, EN 397 and Z89.1 Type I, against falling debris",
+        "confidence": "high"
+      },
+      {
+        "slot": "eye",
+        "label": "Eye",
+        "primary": "av-sg18",
+        "alternates": [
+          "av-gg27",
+          "av-sg30"
+        ],
+        "why": "Wraparound mono-lens, Z87.1; bullets name demolition",
+        "confidence": "high"
+      },
+      {
+        "slot": "face",
+        "label": "Face",
+        "primary": "av-fs18l-cylinder-face-shield",
+        "alternates": [
+          "av-fs12",
+          "av-fs15p"
+        ],
+        "why": "Oversized 10 x 18.5 inch polycarbonate visor, Z87.1, against flying fragments",
+        "confidence": "medium"
+      },
+      {
+        "slot": "hearing",
+        "label": "Hearing",
+        "primary": "av-hm7093-cap-earmuffs",
+        "alternates": [
+          "av-hm3093-cap-earmuffs",
+          "av-153-corded-earplugs"
+        ],
+        "why": "Helmet-mounted earmuff, 30 dB NRR, for breaker and saw noise",
+        "confidence": "high"
+      },
+      {
+        "slot": "respiratory",
+        "label": "Respiratory",
+        "primary": "ffp3-av-zer0-30",
+        "alternates": [
+          "ffp3-v-cb-cp-av-558",
+          "aves-p100-v-cp"
+        ],
+        "why": "Reusable FFP3, EN 149, 50x TLV, for silica dust",
+        "confidence": "high"
+      },
+      {
+        "slot": "hand",
+        "label": "Hand",
+        "primary": "hg-1113-leather-gloves",
+        "alternates": [
+          "hg-1104-leather-gloves",
+          "hg-1939-kevlar-gloves"
+        ],
+        "why": "12 inch leather glove, EN 388, for rubble and sharp edges",
+        "confidence": "medium"
+      },
+      {
+        "slot": "fall",
+        "label": "Fall",
+        "primary": "full-body-harness-2",
+        "alternates": [
+          "full-body-harness-5",
+          "full-body-harness-ansi-2"
+        ],
+        "why": "Dorsal D-ring harness, EN 361, for open edges",
+        "confidence": "medium"
+      },
+      {
+        "slot": "dropped",
+        "label": "Dropped objects",
+        "primary": "av-101368",
+        "alternates": [
+          "av-101365",
+          "av-101372"
+        ],
+        "why": "Wrap-around tool tether, 3 kg, with inspection stitching",
+        "confidence": "medium"
+      }
+    ]
+  },
+  {
+    "id": "logistics",
+    "name": "Logistics",
+    "title": "The AVES Logistics Kit",
+    "group": "Move",
+    "hazards": [
+      "manual handling",
+      "forklift and vehicle traffic",
+      "racking and falling stock",
+      "dock noise"
+    ],
+    "intro": "Warehouse, yard and dock work: manual handling, vehicle traffic, falling stock from racking and dock noise.",
+    "slots": [
+      {
+        "slot": "head",
+        "label": "Head",
+        "primary": "aves-victor-av-714p-v",
+        "alternates": [
+          "aves-titan-av-564p-v",
+          "aves-victor-av-714r-v"
+        ],
+        "why": "Light vented helmet with chin strap, EN 397, against falling stock",
+        "confidence": "medium"
+      },
+      {
+        "slot": "eye",
+        "label": "Eye",
+        "primary": "av-sg401",
+        "alternates": [
+          "av-sg14",
+          "av-sg59"
+        ],
+        "why": "Clear wraparound spectacle, Z87.1, for strapping and banding",
+        "confidence": "medium"
+      },
+      {
+        "slot": "hearing",
+        "label": "Hearing",
+        "primary": "av-gp10-banded-earplugs",
+        "alternates": [
+          "aves-av-hm4093",
+          "av-253-coded-ear-plugs"
+        ],
+        "why": "Banded plug, 30 dB NRR, worn round the neck between noisy tasks",
+        "confidence": "medium"
+      },
+      {
+        "slot": "respiratory",
+        "label": "Respiratory",
+        "primary": "ffp2-av-187-mask",
+        "alternates": [
+          "n95-av800-particulate-respirator"
+        ],
+        "why": "Rarely needed; FFP2 for dusty bulk goods only",
+        "confidence": "low"
+      },
+      {
+        "slot": "hand",
+        "label": "Hand",
+        "primary": "hg-2750-drivegrip",
+        "alternates": [
+          "hg-2919-assembly",
+          "hg-1360-dotted-cotton-gloves-ss"
+        ],
+        "why": "Sheepskin glove, EN 388; bullets name logistics environments",
+        "confidence": "high"
+      }
+    ]
+  },
+  {
+    "id": "woodworking",
+    "name": "Woodworking",
+    "title": "The AVES Woodworking Kit",
+    "group": "Make",
+    "hazards": [
+      "hardwood dust",
+      "flying chips",
+      "saw and planer noise",
+      "splinters",
+      "rotating blades"
+    ],
+    "intro": "Joinery and sawmill work: hardwood dust, flying chips, machine noise and splinters around rotating blades.",
+    "slots": [
+      {
+        "slot": "head",
+        "label": "Head",
+        "primary": "aves-titan-av-564r-v",
+        "alternates": [
+          "aves-titan-av-564p-v",
+          "aves-victor-av-714p-v"
+        ],
+        "why": "No bump cap in range; vented helmet, EN 397, for timber stacking only",
+        "confidence": "low"
+      },
+      {
+        "slot": "eye",
+        "label": "Eye",
+        "primary": "av-gg10",
+        "alternates": [
+          "av-gg20",
+          "av-sg37"
+        ],
+        "why": "Indirect-vent goggle, EN 166, fits over spectacles, against fine dust",
+        "confidence": "medium"
+      },
+      {
+        "slot": "face",
+        "label": "Face",
+        "primary": "av-fs18l-cylinder-face-shield",
+        "alternates": [
+          "av-fs12",
+          "av-fs15p"
+        ],
+        "why": "Oversized polycarbonate visor, Z87.1, against chips from lathes and planers",
+        "confidence": "medium"
+      },
+      {
+        "slot": "hearing",
+        "label": "Hearing",
+        "primary": "av-hb640-headband-earmuffs",
+        "alternates": [
+          "av-hb21-headband-earmuffs",
+          "av-153-corded-earplugs"
+        ],
+        "why": "Headband earmuff, 26 dB NRR, for saw and planer noise",
+        "confidence": "high"
+      },
+      {
+        "slot": "respiratory",
+        "label": "Respiratory",
+        "primary": "ffp3-av-505b",
+        "alternates": [
+          "ffp3-av-zer0-30",
+          "aves-n99-v-cp"
+        ],
+        "why": "FFP3 mask, EN 149, 50x TLV, for fine hardwood dust",
+        "confidence": "high"
+      },
+      {
+        "slot": "hand",
+        "label": "Hand",
+        "primary": "hg-2740-drivegrip",
+        "alternates": [
+          "hg-1147-suregrip",
+          "hg-1101sp-leather-gloves"
+        ],
+        "why": "Grain leather glove, EN 388, for splinters; never near rotating blades",
+        "confidence": "medium"
+      }
+    ]
+  },
+  {
+    "id": "aviation",
+    "name": "Aviation",
+    "title": "The AVES Aviation Kit",
+    "group": "Move",
+    "hazards": [
+      "jet blast and engine noise",
+      "work on wings and fuselage",
+      "dropped tools as foreign object debris",
+      "fuel vapour"
+    ],
+    "intro": "Ramp and hangar maintenance: engine noise, work on wings and fuselage, dropped tools as FOD and fuel vapour.",
+    "slots": [
+      {
+        "slot": "head",
+        "label": "Head",
+        "primary": "aves-victor-av-714r-v",
+        "alternates": [
+          "aves-victor-av-714p-v",
+          "aves-titan-av-564r-v"
+        ],
+        "why": "Short-brim vented helmet for under-wing work; no bump cap in range",
+        "confidence": "low"
+      },
+      {
+        "slot": "eye",
+        "label": "Eye",
+        "primary": "av-sg14",
+        "alternates": [
+          "av-sg18",
+          "av-sg220"
+        ],
+        "why": "Indoor/outdoor anti-fog spectacle, Z87.1, for ramp to hangar moves",
+        "confidence": "medium"
+      },
+      {
+        "slot": "hearing",
+        "label": "Hearing",
+        "primary": "av-hb21-headband-earmuffs",
+        "alternates": [
+          "av-hb30-ear-muffs",
+          "av-151-disposable-earplugs"
+        ],
+        "why": "Headband earmuff, 27 dB NRR; double with plugs near running engines",
+        "confidence": "medium"
+      },
+      {
+        "slot": "respiratory",
+        "label": "Respiratory",
+        "primary": "ffp2-av-449-with-carbon",
+        "alternates": [
+          "ffp2-av-187-mask",
+          "av-sge46-single-filter"
+        ],
+        "why": "FFP2 with carbon, EN 149, for composite sanding dust and fuel odour",
+        "confidence": "medium"
+      },
+      {
+        "slot": "hand",
+        "label": "Hand",
+        "primary": "hg-1147-suregrip",
+        "alternates": [
+          "hg-2750-drivegrip",
+          "hg-2919-assembly"
+        ],
+        "why": "Thin lambskin glove, EN 388, for fastener and panel work",
+        "confidence": "medium"
+      },
+      {
+        "slot": "fall",
+        "label": "Fall",
+        "primary": "full-body-harness-4",
+        "alternates": [
+          "full-body-harness-ansi-2",
+          "self-retractable-lifeline-3"
+        ],
+        "why": "Harness with side D-rings and fall indicator, EN 361, for wing access",
+        "confidence": "medium"
+      },
+      {
+        "slot": "dropped",
+        "label": "Dropped objects",
+        "primary": "av-101363",
+        "alternates": [
+          "av-101370",
+          "av-101367"
+        ],
+        "why": "Captive-hole tool tether, 3 kg, keeps tools off the apron as FOD",
+        "confidence": "medium"
+      }
+    ]
+  },
+  {
+    "id": "railway",
+    "name": "Railway",
+    "title": "The AVES Railway Kit",
+    "group": "Move",
+    "hazards": [
+      "passing trains",
+      "overhead line electricity",
+      "ballast dust",
+      "work at height on line masts",
+      "track noise"
+    ],
+    "intro": "Track, ballast and overhead line work: traffic, live overhead line, ballast dust, noise and work at height.",
+    "slots": [
+      {
+        "slot": "head",
+        "label": "Head",
+        "primary": "av-717p",
+        "alternates": [
+          "aves-victor-av-717r-nv",
+          "aves-titan-av-841r-nv"
+        ],
+        "why": "Non-vented helmet, Z89.1 Class E and EN 397, near overhead lines",
+        "confidence": "high"
+      },
+      {
+        "slot": "eye",
+        "label": "Eye",
+        "primary": "av-sg37",
+        "alternates": [
+          "av-sg28",
+          "av-gg40"
+        ],
+        "why": "Spectacle fits over prescription glasses, Z87.1, side windows for track awareness",
+        "confidence": "medium"
+      },
+      {
+        "slot": "hearing",
+        "label": "Hearing",
+        "primary": "aves-av-hm4093",
+        "alternates": [
+          "av-hm3093-cap-earmuffs",
+          "av-gp10-banded-earplugs"
+        ],
+        "why": "Hi-vis helmet-mounted earmuff, 25 dB NRR, keeps warnings audible",
+        "confidence": "medium"
+      },
+      {
+        "slot": "respiratory",
+        "label": "Respiratory",
+        "primary": "n95-av800-particulate-respirator",
+        "alternates": [
+          "ffp3-v-ff-av-559",
+          "ffp2-av-187-mask"
+        ],
+        "why": "N95 respirator, NIOSH, for ballast dust during tamping",
+        "confidence": "medium"
+      },
+      {
+        "slot": "hand",
+        "label": "Hand",
+        "primary": "hg-1109-leather-gloves",
+        "alternates": [
+          "hg-1104-leather-gloves",
+          "hg-2919-assembly"
+        ],
+        "why": "Leather glove, EN 388, EN 1149-5 antistatic; not an insulating glove",
+        "confidence": "medium"
+      },
+      {
+        "slot": "fall",
+        "label": "Fall",
+        "primary": "full-body-harness-5",
+        "alternates": [
+          "full-body-harness-3",
+          "full-body-harness-ansi-2"
+        ],
+        "why": "Harness with dorsal and front D-rings, EN 361, for OHL masts",
+        "confidence": "medium"
+      },
+      {
+        "slot": "dropped",
+        "label": "Dropped objects",
+        "primary": "av-101370",
+        "alternates": [
+          "av-101364",
+          "av-101363"
+        ],
+        "why": "Non-conductive tool sleeve, 3 kg, for small tools near lines",
+        "confidence": "high"
+      }
+    ]
+  },
+  {
+    "id": "mechanical",
+    "name": "Mechanical",
+    "title": "The AVES Mechanical Kit",
+    "group": "Make",
+    "hazards": [
+      "grinding sparks and particles",
+      "oils and solvents",
+      "hot surfaces",
+      "workshop noise",
+      "pinch points"
+    ],
+    "intro": "Maintenance and repair workshops: grinding particles, solvent and oil vapours, hot components and workshop noise.",
+    "slots": [
+      {
+        "slot": "head",
+        "label": "Head",
+        "primary": "aves-titan-av-564r-v",
+        "alternates": [
+          "aves-victor-av-714r-v",
+          "aves-titan-av-585r-nv"
+        ],
+        "why": "Vented short-peak helmet, EN 397, for work under raised plant",
+        "confidence": "medium"
+      },
+      {
+        "slot": "eye",
+        "label": "Eye",
+        "primary": "av-gg30",
+        "alternates": [
+          "av-gg10",
+          "av-sg37"
+        ],
+        "why": "Sealed goggle, Z87.1, anti-fog, against splash and grinding particles",
+        "confidence": "medium"
+      },
+      {
+        "slot": "face",
+        "label": "Face",
+        "primary": "av-fs15p",
+        "alternates": [
+          "av-fs12",
+          "av-fs18l-cylinder-face-shield"
+        ],
+        "why": "Clear visor on ratchet headgear, Z87.1 high-velocity impact, for grinding",
+        "confidence": "high"
+      },
+      {
+        "slot": "hearing",
+        "label": "Hearing",
+        "primary": "av-gp20-banded-earplugs",
+        "alternates": [
+          "av-311-reusable-earplugs",
+          "av-hb21-headband-earmuffs"
+        ],
+        "why": "Banded plug, 27 dB SNR, for on-off use between noisy tasks",
+        "confidence": "medium"
+      },
+      {
+        "slot": "respiratory",
+        "label": "Respiratory",
+        "primary": "av-tp2000r-double-filter",
+        "alternates": [
+          "av-sge46-single-filter",
+          "ffp2-av-449-with-carbon"
+        ],
+        "why": "Twin-filter half mask, EN 140; fit A2 or ABEK filters for solvents",
+        "confidence": "medium"
+      },
+      {
+        "slot": "hand",
+        "label": "Hand",
+        "primary": "hg-3045-tough-guard",
+        "alternates": [
+          "hg-2846-latnit-ergotex-palm-grip",
+          "hg-2230-rubber-neoprene-gloves"
+        ],
+        "why": "Terry knit glove, EN 388 and EN 407, hot contact to 100°C",
+        "confidence": "medium"
+      }
+    ]
+  },
+  {
+    "id": "power-tool",
+    "name": "Power Tool Usage",
+    "title": "The AVES Power Tool Usage Kit",
+    "group": "Make",
+    "hazards": [
+      "kickback and blade cuts",
+      "flying chips and sparks",
+      "tool noise",
+      "fine cutting dust",
+      "hand-arm contact with hot parts"
+    ],
+    "intro": "Grinders, saws, drills and breakers: cuts, flying chips and sparks, high tool noise and fine cutting dust.",
+    "slots": [
+      {
+        "slot": "head",
+        "label": "Head",
+        "primary": "aves-victor-av-845r-v",
+        "alternates": [
+          "aves-titan-av-846r-v",
+          "aves-victor-av-714r-v"
+        ],
+        "why": "Vented helmet with accessory slots for visor and earmuffs, EN 397",
+        "confidence": "medium"
+      },
+      {
+        "slot": "eye",
+        "label": "Eye",
+        "primary": "av-sg50",
+        "alternates": [
+          "av-sg51",
+          "av-gg45"
+        ],
+        "why": "Wraparound spectacle, Z87.1, anti-fog and scratch-resistant, under a face shield",
+        "confidence": "medium"
+      },
+      {
+        "slot": "face",
+        "label": "Face",
+        "primary": "av-fs12",
+        "alternates": [
+          "av-fs18l-cylinder-face-shield",
+          "av-fs15p"
+        ],
+        "why": "Compact 8 x 12 inch visor, Z87.1; bullets name precision grinding",
+        "confidence": "high"
+      },
+      {
+        "slot": "hearing",
+        "label": "Hearing",
+        "primary": "av-hm7093-cap-earmuffs",
+        "alternates": [
+          "av-hb21-headband-earmuffs",
+          "av-153-corded-earplugs"
+        ],
+        "why": "Helmet-mounted earmuff, 30 dB NRR, for grinder and saw noise",
+        "confidence": "high"
+      },
+      {
+        "slot": "respiratory",
+        "label": "Respiratory",
+        "primary": "aves-ffp3-v-cp",
+        "alternates": [
+          "ffp3-v-cb-cp-av-558",
+          "aves-p100-v-cp"
+        ],
+        "why": "FFP3 valved mask, EN 149, for fine cutting and grinding dust",
+        "confidence": "high"
+      },
+      {
+        "slot": "hand",
+        "label": "Hand",
+        "primary": "hg-1950-thermo-guard-kevlar-gloves",
+        "alternates": [
+          "hg-1939-kevlar-gloves",
+          "hg-1101sp-leather-gloves"
+        ],
+        "why": "Kevlar glove, cut level 5, EN 407 heat to 350°C",
+        "confidence": "high"
+      }
+    ]
+  },
+  {
+    "id": "forestry",
+    "name": "Forestry",
+    "title": "The AVES Forestry Kit",
+    "group": "Extract & Handle",
+    "hazards": [
+      "falling branches",
+      "chainsaw kickback",
+      "chainsaw noise",
+      "flying chips",
+      "tree climbing at height"
+    ],
+    "intro": "Felling, limbing and tree work: falling branches, chainsaw cuts and noise, flying chips and climbing.",
+    "slots": [
+      {
+        "slot": "head",
+        "label": "Head",
+        "primary": "aves-titan-av-841r-nv",
+        "alternates": [
+          "aves-victor-av-840r-nv",
+          "aves-victor-av-845r-v"
+        ],
+        "why": "Full-brim non-vented helmet, EN 397, for falling branches and rain",
+        "confidence": "medium"
+      },
+      {
+        "slot": "eye",
+        "label": "Eye",
+        "primary": "av-sg30",
+        "alternates": [
+          "av-sg28",
+          "av-gg10"
+        ],
+        "why": "Brow-guard spectacle, Z87.1, grey lens for outdoor light",
+        "confidence": "medium"
+      },
+      {
+        "slot": "face",
+        "label": "Face",
+        "primary": "av-fs15p",
+        "alternates": [
+          "av-fs12",
+          "av-fs18l-cylinder-face-shield"
+        ],
+        "why": "No mesh forestry visor in range; clear polycarbonate visor for chips",
+        "confidence": "low"
+      },
+      {
+        "slot": "hearing",
+        "label": "Hearing",
+        "primary": "av-hm3093-cap-earmuffs",
+        "alternates": [
+          "av-hm7093-cap-earmuffs",
+          "av-hb640-headband-earmuffs"
+        ],
+        "why": "Helmet-mounted earmuff, 28 dB NRR, for chainsaw noise",
+        "confidence": "high"
+      },
+      {
+        "slot": "respiratory",
+        "label": "Respiratory",
+        "primary": "ffp2-av-187-mask",
+        "alternates": [
+          "ffp2-nv-ff-av-548"
+        ],
+        "why": "Rarely needed outdoors; FFP2 for chipper and sawdust only",
+        "confidence": "low"
+      },
+      {
+        "slot": "hand",
+        "label": "Hand",
+        "primary": "hg-1113-leather-gloves",
+        "alternates": [
+          "hg-1101sp-leather-gloves",
+          "hg-1104-leather-gloves"
+        ],
+        "why": "No EN 381 chainsaw glove in range; 12 inch leather for handling",
+        "confidence": "low"
+      },
+      {
+        "slot": "fall",
+        "label": "Fall",
+        "primary": "full-body-harness-ansi-3",
+        "alternates": [
+          "full-body-harness-ansi",
+          "full-body-harness-4"
+        ],
+        "why": "Harness with dorsal and two waist D-rings, EN 361, for tree work",
+        "confidence": "medium"
+      },
+      {
+        "slot": "dropped",
+        "label": "Dropped objects",
+        "primary": "av-101494",
+        "alternates": [
+          "av-101420",
+          "av-101365"
+        ],
+        "why": "Tool tether rated 40 kg, for saws and loppers aloft",
+        "confidence": "medium"
+      }
+    ]
+  },
+  {
+    "id": "welding",
+    "name": "Welding & Hot Work",
+    "title": "The AVES Welding & Hot Work Kit",
+    "group": "Make",
+    "hazards": [
+      "arc radiation and ultraviolet",
+      "sparks and spatter",
+      "welding fume",
+      "hot metal contact",
+      "grinding noise"
+    ],
+    "intro": "Arc, gas and cutting work: arc radiation, spatter, metal fume and hot surfaces, plus grinding between passes.",
+    "slots": [
+      {
+        "slot": "head",
+        "label": "Head",
+        "primary": "aves-victor-av-717r-nv",
+        "alternates": [
+          "av-717p",
+          "aves-titan-av-585r-nv"
+        ],
+        "why": "Non-vented shell keeps sparks out; Z89.1 Type I Class E&G",
+        "confidence": "medium"
+      },
+      {
+        "slot": "eye",
+        "label": "Eye",
+        "primary": "av-sg25",
+        "alternates": [
+          "welding-goggles-2",
+          "welding-goggles"
+        ],
+        "why": "Shade 3 or 5 spectacle, Z87.1; bullets name welding prep and gas cutting",
+        "confidence": "high"
+      },
+      {
+        "slot": "face",
+        "label": "Face",
+        "primary": "aves-welding-helmet",
+        "alternates": [
+          "av-fs15-ws5",
+          "aves-welding-handshield"
+        ],
+        "why": "Welding helmet, EN 175 and Z87.1, against arc radiation and spatter",
+        "confidence": "high"
+      },
+      {
+        "slot": "hearing",
+        "label": "Hearing",
+        "primary": "av-411re-reusable-earplugs",
+        "alternates": [
+          "av-251-ear-plugs",
+          "av-153-corded-earplugs"
+        ],
+        "why": "Reusable plug, 27 dB NRR, fits under a welding helmet",
+        "confidence": "medium"
+      },
+      {
+        "slot": "respiratory",
+        "label": "Respiratory",
+        "primary": "ffp3-nr-d-av-557",
+        "alternates": [
+          "av-tp2000r-double-filter",
+          "aves-p100-v-cp"
+        ],
+        "why": "FFP3 mask, EN 149, for metal fume particulates; no welding-specific respirator",
+        "confidence": "medium"
+      },
+      {
+        "slot": "hand",
+        "label": "Hand",
+        "primary": "hg-3058-cotton-gloves",
+        "alternates": [
+          "hg-1113-leather-gloves",
+          "hg-1950-thermo-guard-kevlar-gloves"
+        ],
+        "why": "Heavy canvas glove, EN 407, contact heat 250–350°C; no EN 12477 gauntlet",
+        "confidence": "low"
+      }
+    ]
+  },
+  {
+    "id": "electrical",
+    "name": "Electrical & Arc Flash",
+    "title": "The AVES Electrical & Arc Flash Kit",
+    "group": "Energy",
+    "hazards": [
+      "electric shock",
+      "arc flash",
+      "energized panels",
+      "noise"
+    ],
+    "intro": "Switchgear, panel and utility work near live conductors: shock, arc flash heat and blast, and ambient plant noise.",
+    "slots": [
+      {
+        "slot": "head",
+        "label": "Head",
+        "primary": "aves-victor-av-717r-nv",
+        "alternates": [
+          "av-717p",
+          "aves-titan-av-841r-nv"
+        ],
+        "why": "Non-vented Class E helmet, Z89.1, used in the AVES arc flash kit",
+        "confidence": "high"
+      },
+      {
+        "slot": "eye",
+        "label": "Eye",
+        "primary": "av-sg14",
+        "alternates": [
+          "av-sg51",
+          "av-sg57"
+        ],
+        "why": "Anti-fog spectacle, Z87.1, worn under the arc shield in the AVES kit",
+        "confidence": "high"
+      },
+      {
+        "slot": "face",
+        "label": "Face",
+        "primary": "av-fs20cp-arc10",
+        "alternates": [
+          "av-fs18-arc10",
+          "av-fs20-arc10"
+        ],
+        "why": "Arc-rated visor, ASTM 2178 and EN 170; bullets name live switchgear",
+        "confidence": "high"
+      },
+      {
+        "slot": "hearing",
+        "label": "Hearing",
+        "primary": "av-hb30-ear-muffs",
+        "alternates": [
+          "av-hm3093-cap-earmuffs",
+          "av-411re-reusable-earplugs"
+        ],
+        "why": "Dielectric headband earmuff, 30 dB NRR, for electrical workspaces",
+        "confidence": "high"
+      },
+      {
+        "slot": "respiratory",
+        "label": "Respiratory",
+        "primary": "n95-av800-particulate-respirator",
+        "alternates": [
+          "ffp2-av-187-mask"
+        ],
+        "why": "Not routinely needed; N95 for dusty switchrooms only. No FR respirator in range",
+        "confidence": "low"
+      },
+      {
+        "slot": "hand",
+        "label": "Hand",
+        "primary": "class-0-flash-grip",
+        "alternates": [
+          "gle36-0-insulating",
+          "rubber-insulating-gloves-dpl-class-0"
+        ],
+        "why": "Class 0 insulating glove, 1000 V, EN 60903, arc tested IEC 61482",
+        "confidence": "high"
+      }
+    ]
+  },
+  {
+    "id": "cryogenic",
+    "name": "Cryogenic Handling",
+    "title": "The AVES Cryogenic Handling Kit",
+    "group": "Extract & Handle",
+    "hazards": [
+      "cryogen splash",
+      "cold burns",
+      "oxygen-deficient atmosphere",
+      "liquid oxygen fire risk"
+    ],
+    "intro": "Filling and decanting liquid nitrogen, oxygen and argon: splash, cold burns, oxygen deficiency and LOX fire risk.",
+    "slots": [
+      {
+        "slot": "head",
+        "label": "Head",
+        "primary": "aves-titan-av-585r-nv",
+        "alternates": [
+          "aves-titan-av-841r-nv",
+          "aves-victor-av-717r-nv"
+        ],
+        "why": "Non-vented shell, Class E&G; no cryo-specific head protection in range",
+        "confidence": "low"
+      },
+      {
+        "slot": "eye",
+        "label": "Eye",
+        "primary": "av-gg25",
+        "alternates": [
+          "av-gg20",
+          "av-gg45"
+        ],
+        "why": "Indirect-vent goggle, EN 166, under a face shield against cryogen splash",
+        "confidence": "medium"
+      },
+      {
+        "slot": "face",
+        "label": "Face",
+        "primary": "av-fs16p",
+        "alternates": [
+          "av-fs15p",
+          "av-fs18l-cylinder-face-shield"
+        ],
+        "why": "Clear polycarbonate shield, EN 166, against cryogen splash to the face",
+        "confidence": "medium"
+      },
+      {
+        "slot": "hearing",
+        "label": "Hearing",
+        "primary": "av-151-disposable-earplugs",
+        "alternates": [
+          "av-311-reusable-earplugs",
+          "av-hb40-ear-muffs"
+        ],
+        "why": "Foam plug, 33 dB NRR, for venting and pump noise",
+        "confidence": "medium"
+      },
+      {
+        "slot": "respiratory",
+        "label": "Respiratory",
+        "primary": "emergency-escape-hood-breathing-device",
+        "alternates": [
+          "aves-escape-hood-bag"
+        ],
+        "why": "Supplied-air escape hood, 15 minutes; filter masks fail in oxygen deficiency",
+        "confidence": "medium"
+      },
+      {
+        "slot": "hand",
+        "label": "Hand",
+        "primary": "cryo-gloves-elbow",
+        "alternates": [
+          "cryo-lox-gloves-elbow",
+          "cryo-ind-gloves-mid-arm"
+        ],
+        "why": "Elbow-length cryo glove, EN 511, multi-layer insulation, CE Cat III",
+        "confidence": "high"
+      },
+      {
+        "slot": "cryo-body",
+        "label": "Body",
+        "primary": "thermal-protection-apron",
+        "alternates": [
+          "cryo-lox-apron",
+          "cryo-suit"
+        ],
+        "why": "Insulated apron, EN 511, splash-resistant, for ultra-cold handling",
+        "confidence": "high"
+      }
+    ]
+  }
+]
