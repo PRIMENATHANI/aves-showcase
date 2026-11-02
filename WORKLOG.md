@@ -32,3 +32,4 @@
 - Built (two Opus builders, my review): `v0.2/arsenal-wall/` (one-frame overview: 41 px cells at 1440×900, 54 at 1920×1080; dock hover; rail focus with live strip; spotlight; hazard filter; keys 1–8) and `v0.2/aves-kit/` (landing with cycling blank + 18 kits in 5 groups + catalogue photo crops; naming; pinned scrub from exploded cloud onto the ring; turn by drag/keys/rail; swap; summary + footnote). `v0.2/index.html`; root now points at v0.2. Pushed; GitHub Pages built at HEAD and every URL 200.
 - Not checked: Safari, his screen, frame rate on a phone, product management's view of the kits.
 - Next: his verdict on v0.2; then copy pass, kit sign-off with Mark/product management, kit sheet PDF, IT handover like STEGO.
+- 2026-11-01 late: Kit CTA moved to 348 C green (was a white box); Wall NOTES corrected (holes fixed by the re-cut). main 0be51f3 pushed, Pages built at HEAD. Reported to Salman with 8 stills; waiting on his verdict and on who signs off the kits.
