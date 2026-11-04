@@ -33,3 +33,15 @@
 - Not checked: Safari, his screen, frame rate on a phone, product management's view of the kits.
 - Next: his verdict on v0.2; then copy pass, kit sign-off with Mark/product management, kit sheet PDF, IT handover like STEGO.
 - 2026-11-01 late: Kit CTA moved to 348 C green (was a white box); Wall NOTES corrected (holes fixed by the re-cut). main 0be51f3 pushed, Pages built at HEAD. Reported to Salman with 8 stills; waiting on his verdict and on who signs off the kits.
+
+## 2026-11-04 (evening) — reopened as a joint build; the dressing spike
+**His concept (chat):** landing = industry picker, "graphically animated… the page is sliced into separate pieces… like a video game entry". Pick an industry → a man walks into that site → stands on the turntable outfitting stage → the kit's SKUs sit on a shelf by category → scroll puts them on one by one, head to hands, harness in between. Backdrop = the industry working, parallax as you scroll. Close line to be worked out ("AVES. Your safety solutions provider. For every industry."). Turning optional ("just straight up" if too hard). Kits = our picks; one item goes on, the rest stay as options. Base layer from sister brands, not called out: shoes = Cavalier, hi-vis = Scuta (link to their sites).
+**My calls (stated to him):** the man wears the primary only; alternates swap on the shelf/quote, never on the man (7 slots × 3 = 2,187 combinations). Straight-on first. Carried items (escape hood bag) clip to the belt. Order used: helmet, glasses, helmet-mounted earmuffs, vest (before harness, physical), harness, tether, escape pouch, gloves; boots are in the base frame.
+**Spike (throwaway, scratchpad `aves-dress/`; preview `~/Desktop/Sloane Previews/aves-dress-spike-v0.1/`):**
+- Base man: klein 9B and Z-Image-Turbo both good at 896×1536 (~40 s each); klein picked.
+- Edit route that works: paste the real cutout at its anchor → FLUX.2 klein 9B at full edit strength (strength <1 leaves a sticker) → keep ONLY the item's box from the edit, feathered, over the clean previous frame. Without the box merge, 8 edits mangle the face and turn the backdrop to noise.
+- Qwen Image Edit 2511 (q6): good identity but zooms the camera and costs 28 s/step (15–25 min/frame); a parallel `models ensure` download blocks generate (use `--offline`).
+- Side-by-side reference (product beside the man) makes klein restage the whole frame: unusable.
+- Defects left: Titan gets a ridge the real one lacks; glove print garbles (rendered plain); faint green sliver at the jaw; vest hem fades soft. Vest is a generic Scuta stand-in, boots generic (no Cavalier/Scuta refs yet).
+- Downloads: qwen_image_edit_2511_q8p (21 GB) done; flux_2_dev_q6p (25.6 GB) in progress. No model deleted: the folder is Mark's install (his manifests name klein/Z-Image); delete list goes to Salman.
+**Next:** his verdict on the spike; FLUX.2 dev test on the helmet; Cavalier/Scuta references; landing slices + site parallax after the man is settled.
