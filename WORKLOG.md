@@ -45,3 +45,4 @@
 - Defects left: Titan gets a ridge the real one lacks; glove print garbles (rendered plain); faint green sliver at the jaw; vest hem fades soft. Vest is a generic Scuta stand-in, boots generic (no Cavalier/Scuta refs yet).
 - Downloads: qwen_image_edit_2511_q8p (21 GB) done; flux_2_dev_q6p (25.6 GB) in progress. No model deleted: the folder is Mark's install (his manifests name klein/Z-Image); delete list goes to Salman.
 **Next:** his verdict on the spike; FLUX.2 dev test on the helmet; Cavalier/Scuta references; landing slices + site parallax after the man is settled.
+- 21:30 FLUX.2 dev (q6p, 25.6 GB + Mistral Small 3.2 24B encoder 24.3 GB) on the helmet step: brim far too wide, ridge still there; worse than klein 9B. Deleted it, its encoder and qwen_image_edit_2511_q8p (all three my downloads tonight, ~71 GB). Folder back to Mark's 60 GB. Working model for this project: FLUX.2 klein 9B.
