@@ -1,5 +1,5 @@
 """Step 2: 18 industry working-site backdrops, klein 9B text-to-image, fixed seed, shared style suffix.
-/tmp/aves-venv/bin/python tools/dress/backdrops.py [kitId ...]   (skips existing)"""
+.venv/bin/python tools/dress/backdrops.py [kitId ...]   (skips existing)"""
 import os, sys, json, subprocess, time
 from PIL import Image
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))

@@ -1,5 +1,5 @@
 """Step 3: build the whole dressing layer library for the 18 kits. Resumable (skips layers already in the manifest), sequential (one generate at a time).
-  nohup /tmp/aves-venv/bin/python tools/dress/build.py > tools/dress/build.log 2>&1 &
+  nohup .venv/bin/python tools/dress/build.py > tools/dress/build.log 2>&1 &
   build.py --plan        print the layer plan and exit
   build.py <kitId> ...   only these kits
 Dressing/stacking rules come from the spec; layers shared between kits are generated once."""
@@ -33,10 +33,11 @@ def plan():
             else:
                 pid = by[slot]; dep = None
                 if slot == 'hearing' and gen.kind(pid, 'hearing') in ('cap', 'band'): dep = helmet
-                if slot == 'face': dep = helmet
+                if slot == 'face': dep = None if gen.kind(pid, 'face') == 'welding' else helmet   # a welding helmet has its own headgear: worn instead of the hard hat
                 if slot == 'dropped': dep = harness
             lid = add(slot, pid, dep)
             if slot == 'fall': layers[lid]['dep_frame'] = 'scuta-vest'; layers[lid]['dependsOn'] = 'scuta-vest'
+            if slot == 'cryo-body': layers[lid]['dep_frame'] = 'scuta-vest'; layers[lid]['dependsOn'] = 'scuta-vest'   # navy apron on navy coverall masks as fragments; on the vest frame the diff is whole
             if slot == 'eye' and skip_eye: layers[lid]['skipEye'] = layers[lid].get('skipEye', True)
             elif slot == 'eye': layers[lid]['skipEye'] = False
         kits[kit['id']] = dict(order=ids)
@@ -95,13 +96,23 @@ def qc_sheet(kid, order, m):
     im.save(os.path.join(QC, kid + '.png')); log('QC sheet', kid)
 
 def main():
-    kits, layers = plan(); only = [a for a in sys.argv[1:] if not a.startswith('--')]
+    kits, layers = plan(); only = [a for a in sys.argv[1:] if not a.startswith('--')] if '--remask' not in sys.argv else []
     if '--plan' in sys.argv:
         print(len(layers), 'unique layers'); from collections import Counter
         print(Counter(l['slot'] for l in layers.values()))
         for k, v in kits.items(): print(k, v['order'])
         return
-    m = load_manifest(); m['kits'] = {k: v for k, v in m['kits'].items()}
+    if '--remask' in sys.argv:   # re-mask from the existing raw/<id>.png without generating
+        m = load_manifest()
+        for lid in sys.argv[sys.argv.index('--remask') + 1:]:
+            sp = layers[lid]; cd = canvas_dep(sp); old = next((l for l in m['layers'] if l['id'] == lid), {})
+            if cd and not ensure_frame(cd, layers, m): log('no canvas for', lid); continue
+            can = gen.frame_path(cd) if cd else gen.BASE
+            rec = gen.merge(sp['product'], sp['slot'], lid, os.path.join(WORK, 'raw', lid + '.png'), can, old.get('seconds', 0), lid)
+            if sp['dependsOn']: rec['dependsOn'] = sp['dependsOn']
+            m['layers'] = [l for l in m['layers'] if l['id'] != lid] + [rec]; log('remask', lid, rec['status'], rec['mask_px'], rec['box'])
+        write_manifest(m); return
+    import boots; log('boots pass:', boots.run()); m = load_manifest(); m['kits'] = {k: v for k, v in m['kits'].items()}
     for k, v in kits.items(): m['kits'][k] = dict(order=v['order'])
     # eye skip rule (layer-level only when every kit using it has a full-face respirator)
     for lid, sp in layers.items():
@@ -123,7 +134,7 @@ def main():
                 log('SKIP (dependency missing)', lid, '<-', cd); m['layers'].append(dict(id=lid, product=sp['product'], slot=sp['slot'], dependsOn=sp['dependsOn'] or (lid.split('__on-', 1)[1] if '__on-' in lid else None), box=None, z=Z[sp['slot']], model=gen.MODEL[sp['slot']], seconds=0, status='missing')); write_manifest(m); continue
             try:
                 log('GEN', lid, sp['slot'], gen.MODEL[sp['slot']], '| refs', [os.path.basename(x) for x in gen.refs_for(sp['product'])[:2]])
-                rec = gen.run(sp['product'], sp['slot'], dep=cd if cd else None, tag=lid, lid=lid)
+                rec = gen.run(sp['product'], sp['slot'], dep=cd if cd else None, tag=lid, lid=lid, seed=os.environ.get('DRESS_SEED', '4242'))
                 if sp['dependsOn']: rec['dependsOn'] = sp['dependsOn']
                 rec['id'] = lid
             except Exception as e:

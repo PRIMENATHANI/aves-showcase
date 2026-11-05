@@ -18,7 +18,7 @@ def write_manifest(m):
 _sess = None
 def rembg_cut(im):
     global _sess
-    os.environ.setdefault('U2NET_HOME', '/tmp/aves-venv/u2net')
+    os.environ.setdefault('U2NET_HOME', '.venv/u2net')
     from rembg import remove, new_session
     if _sess is None: _sess = new_session('isnet-general-use')
     return remove(im.convert('RGB'), session=_sess, alpha_matting=True, alpha_matting_foreground_threshold=240, alpha_matting_background_threshold=10, alpha_matting_erode_size=10)

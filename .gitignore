@@ -5,3 +5,6 @@ spikes/*/work/
 spikes/dress-v0.2-bench/**/*.png
 !spikes/dress-v0.2-bench/refs-v2/**/*.png
 spikes/dress-v0.2/raw/
+.venv/
+tools/dress/work/
+spikes/walk-on/work/

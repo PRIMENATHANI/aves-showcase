@@ -1,5 +1,5 @@
 """Generate ONE dressing layer by rules.
-  /tmp/aves-venv/bin/python tools/dress/gen.py <product> [--on <depLayerId>] [--slot s] [--seed n] [--tag name] [--out dir]
+  .venv/bin/python tools/dress/gen.py <product> [--on <depLayerId>] [--slot s] [--seed n] [--tag name] [--out dir]
 Canvas = base, or the dependency's merged frame (tools/dress/work/frames/<layerId>.png). Model by slot:
 klein 9B for head/eye/hearing/face, Qwen Image Edit 2511 + Lightning for vest/fall/dropped/hand/cryo-body/respiratory.
 Writes raw (work/raw), merged frame (work/frames), layer RGBA (assets/dress/layers) and returns the manifest record."""
@@ -39,8 +39,8 @@ CLIP = dict(head=([(250, 0, 650, 330)], 24, None), eye=([(340, 165, 560, 285)], 
             hearing_band=([(260, 40, 640, 360)], 24, None),
             hearing_plug=([(290, 170, 610, 480)], 24, None),
             face=([(250, 90, 650, 460)], 24, None),
-            resp_mask=([(330, 170, 570, 400)], 28, None), resp_half=([(310, 170, 590, 430)], 28, None), resp_pouch=([(420, 740, 680, 1030)], 28, None),
-            vest=([(150, 250, 750, 920)], 28, 'vest'), fall=([(150, 250, 750, 1050)], 28, None), dropped=([(400, 740, 700, 1130)], 28, None),
+            resp_mask=([(330, 170, 570, 400)], 28, None), resp_half=([(310, 170, 590, 430)], 28, None), resp_pouch=([(285, 740, 615, 1050)], 28, None),
+            vest=([(150, 250, 750, 920)], 28, 'vest'), fall=([(150, 250, 750, 1050)], 28, None), dropped=([(285, 760, 615, 1130)], 28, None),
             hand=([(190, 630, 360, 1130), (540, 630, 710, 1130)], 28, 'glove'), hand_nonnavy=([(190, 630, 360, 1130), (540, 630, 710, 1130)], 28, 'nonnavy'),
             cryo=([(200, 280, 700, 1050)], 28, None))
 MIN_PX = 400   # below this many mask pixels the item is not visible -> status missing
@@ -82,7 +82,7 @@ def item_and_place(pid, slot):
         if k == 'band': return 'headband earmuffs', 'one cup over each ear, the headband arching over the top of the hard hat'
         return 'earplugs', 'in both ears, the cord or band hanging visibly below his chin'
     if slot == 'face':
-        return ('welding helmet', 'flipped down over his face, clipped to the hard hat') if k == 'welding' else ('face shield', 'a clear visor hanging from the brim of the hard hat down in front of his whole face')
+        return ('black welding helmet with its own head harness', 'worn with the hood flipped down covering his whole head and face from above the crown to below the chin, one solid closed black shell with only the small dark rectangular viewing window in front of his eyes; no hair, scalp or skin shows anywhere above his collar') if k == 'welding' else ('face shield', 'a clear visor hanging from the brim of the hard hat down in front of his whole face')
     if slot == 'respiratory':
         if k == 'pouch':
             col = (product(pid).get('color') or '').lower().replace('hi-viz', 'hi-vis') or 'grey'
@@ -91,7 +91,7 @@ def item_and_place(pid, slot):
         return 'disposable respirator mask', 'over his nose and mouth with the straps going behind his head'
     if slot == 'hand': return ('black rubber gauntlet gloves' if pid in HT_ITEM else 'work gloves'), 'on both hands, fingers inside'
     if slot == 'vest': return 'hi-vis vest', 'over his navy coverall, closed at the front'
-    if slot == 'fall': return 'full-body fall-arrest harness', 'over the hi-vis vest, strapped snugly on his body'
+    if slot == 'fall': return 'full-body fall-arrest harness', 'over the yellow hi-vis vest, strapped snugly on his body; the yellow vest stays fully visible between and around the straps'
     if slot == 'dropped': return 'short coiled tool tether', 'about 30 cm long, clipped to the harness waist belt on his left hip (the right-hand side of the picture), hanging straight down against the thigh, one carabiner at its free end'
     if slot == 'cryo-body': return 'thermal protection apron', 'over the front of his body from chest to knees, tied at the waist'
 
@@ -169,7 +169,7 @@ def merge(pid, slot, lid, raw, can_path, dt, tag, out_dir=None):
     m, d = nonnavy_mask(gen, can, clip, thr) if cm == 'nonnavy' else MC.automask(gen, can, clip, thr, colormask=cm)
     px = int(d.sum()); ys, xs = np.where(np.asarray(m) > 8)
     box = [int(xs.min()), int(ys.min()), int(xs.max()) + 1, int(ys.max()) + 1] if len(xs) else None
-    rec = dict(id=lid, product=pid, slot=slot, dependsOn=(lid.split('__on-', 1)[1] if '__on-' in lid else None), box=box, z=Z[slot], model=MODEL[slot], seconds=dt,
+    rec = dict(id=lid, product=pid, slot=slot, dependsOn=(lid.split('__on-', 1)[1] if '__on-' in lid else None), box=box, z=(85 if slot == 'face' and kind(pid, slot) == 'welding' else Z[slot]), model=MODEL[slot], seconds=dt,
                status='ok' if px >= MIN_PX and box else 'missing', mask_px=px)
     Image.composite(gen, can, m).save(os.path.join(os.path.dirname(frame_path('x')) if not out_dir else out_dir, tag + '.png'))
     m.save(os.path.join(WORK, 'raw', tag + '-mask.png')); gen.save(os.path.join(WORK, 'raw', tag + '-aligned.png'))

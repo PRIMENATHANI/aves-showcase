@@ -21,6 +21,23 @@
    "status": "ok"
   },
   {
+   "id": "thermal-protection-apron",
+   "product": "thermal-protection-apron",
+   "slot": "cryo-body",
+   "dependsOn": "scuta-vest",
+   "box": [
+    262,
+    291,
+    622,
+    1059
+   ],
+   "z": 15,
+   "model": "qwen2511-lightning",
+   "seconds": 139,
+   "status": "ok",
+   "mask_px": 195057
+  },
+  {
    "id": "full-body-harness",
    "product": "full-body-harness",
    "slot": "fall",
@@ -35,6 +52,516 @@
    "model": "qwen2511-lightning",
    "seconds": 193,
    "status": "ok"
+  },
+  {
+   "id": "full-body-harness-2",
+   "product": "full-body-harness-2",
+   "slot": "fall",
+   "dependsOn": "scuta-vest",
+   "box": [
+    270,
+    274,
+    620,
+    977
+   ],
+   "z": 20,
+   "model": "qwen2511-lightning",
+   "seconds": 141,
+   "status": "ok",
+   "mask_px": 124217
+  },
+  {
+   "id": "full-body-harness-4",
+   "product": "full-body-harness-4",
+   "slot": "fall",
+   "dependsOn": "scuta-vest",
+   "box": [
+    251,
+    297,
+    641,
+    997
+   ],
+   "z": 20,
+   "model": "qwen2511-lightning",
+   "seconds": 136,
+   "status": "ok",
+   "mask_px": 152887
+  },
+  {
+   "id": "full-body-harness-5",
+   "product": "full-body-harness-5",
+   "slot": "fall",
+   "dependsOn": "scuta-vest",
+   "box": [
+    264,
+    292,
+    625,
+    982
+   ],
+   "z": 20,
+   "model": "qwen2511-lightning",
+   "seconds": 136,
+   "status": "ok",
+   "mask_px": 135237
+  },
+  {
+   "id": "full-body-harness-ansi",
+   "product": "full-body-harness-ansi",
+   "slot": "fall",
+   "dependsOn": "scuta-vest",
+   "box": [
+    276,
+    299,
+    611,
+    920
+   ],
+   "z": 20,
+   "model": "qwen2511-lightning",
+   "seconds": 146,
+   "status": "ok",
+   "mask_px": 138560
+  },
+  {
+   "id": "full-body-harness-ansi-3",
+   "product": "full-body-harness-ansi-3",
+   "slot": "fall",
+   "dependsOn": "scuta-vest",
+   "box": [
+    263,
+    274,
+    620,
+    1059
+   ],
+   "z": 20,
+   "model": "qwen2511-lightning",
+   "seconds": 140,
+   "status": "ok",
+   "mask_px": 155441
+  },
+  {
+   "id": "full-body-harness-ansi-4",
+   "product": "full-body-harness-ansi-4",
+   "slot": "fall",
+   "dependsOn": "scuta-vest",
+   "box": [
+    270,
+    287,
+    618,
+    958
+   ],
+   "z": 20,
+   "model": "qwen2511-lightning",
+   "seconds": 136,
+   "status": "ok",
+   "mask_px": 145070
+  },
+  {
+   "id": "av-101363__on-full-body-harness-4",
+   "product": "av-101363",
+   "slot": "dropped",
+   "dependsOn": "full-body-harness-4",
+   "box": [
+    276,
+    751,
+    616,
+    987
+   ],
+   "z": 30,
+   "model": "qwen2511-lightning",
+   "seconds": 139,
+   "status": "ok",
+   "mask_px": 45197
+  },
+  {
+   "id": "av-101365__on-full-body-harness-ansi-4",
+   "product": "av-101365",
+   "slot": "dropped",
+   "dependsOn": "full-body-harness-ansi-4",
+   "box": [
+    276,
+    751,
+    618,
+    1139
+   ],
+   "z": 30,
+   "model": "qwen2511-lightning",
+   "seconds": 137,
+   "status": "ok",
+   "mask_px": 49268
+  },
+  {
+   "id": "av-101368__on-full-body-harness-2",
+   "product": "av-101368",
+   "slot": "dropped",
+   "dependsOn": "full-body-harness-2",
+   "box": [
+    276,
+    751,
+    618,
+    1139
+   ],
+   "z": 30,
+   "model": "qwen2511-lightning",
+   "seconds": 137,
+   "status": "ok",
+   "mask_px": 38424
+  },
+  {
+   "id": "av-101370__on-full-body-harness-5",
+   "product": "av-101370",
+   "slot": "dropped",
+   "dependsOn": "full-body-harness-5",
+   "box": [
+    276,
+    751,
+    622,
+    1139
+   ],
+   "z": 30,
+   "model": "qwen2511-lightning",
+   "seconds": 137,
+   "status": "ok",
+   "mask_px": 35884
+  },
+  {
+   "id": "av-101373__on-full-body-harness",
+   "product": "av-101373",
+   "slot": "dropped",
+   "dependsOn": "full-body-harness",
+   "box": [
+    276,
+    756,
+    358,
+    1139
+   ],
+   "z": 30,
+   "model": "qwen2511-lightning",
+   "seconds": 236,
+   "status": "ok",
+   "mask_px": 14952
+  },
+  {
+   "id": "av-101420__on-full-body-harness-ansi",
+   "product": "av-101420",
+   "slot": "dropped",
+   "dependsOn": "full-body-harness-ansi",
+   "box": [
+    276,
+    751,
+    618,
+    1130
+   ],
+   "z": 30,
+   "model": "qwen2511-lightning",
+   "seconds": 140,
+   "status": "ok",
+   "mask_px": 45936
+  },
+  {
+   "id": "av-101494__on-full-body-harness-ansi-3",
+   "product": "av-101494",
+   "slot": "dropped",
+   "dependsOn": "full-body-harness-ansi-3",
+   "box": [
+    511,
+    830,
+    577,
+    1098
+   ],
+   "z": 30,
+   "model": "qwen2511-lightning",
+   "seconds": 135,
+   "status": "ok",
+   "mask_px": 8667
+  },
+  {
+   "id": "av-tp2000r-double-filter",
+   "product": "av-tp2000r-double-filter",
+   "slot": "respiratory",
+   "dependsOn": null,
+   "box": [
+    339,
+    161,
+    551,
+    374
+   ],
+   "z": 40,
+   "model": "qwen2511-lightning",
+   "seconds": 137,
+   "status": "ok",
+   "mask_px": 25260
+  },
+  {
+   "id": "aves-escape-hood-bag",
+   "product": "aves-escape-hood-bag",
+   "slot": "respiratory",
+   "dependsOn": null,
+   "box": [
+    276,
+    731,
+    624,
+    880
+   ],
+   "z": 40,
+   "model": "qwen2511-lightning",
+   "seconds": 145,
+   "status": "ok",
+   "mask_px": 22696
+  },
+  {
+   "id": "aves-ffp3-v-cp",
+   "product": "aves-ffp3-v-cp",
+   "slot": "respiratory",
+   "dependsOn": null,
+   "box": [
+    370,
+    190,
+    522,
+    321
+   ],
+   "z": 40,
+   "model": "qwen2511-lightning",
+   "seconds": 140,
+   "status": "ok",
+   "mask_px": 11976
+  },
+  {
+   "id": "aves-p100-v-cp",
+   "product": "aves-p100-v-cp",
+   "slot": "respiratory",
+   "dependsOn": null,
+   "box": [
+    371,
+    187,
+    519,
+    321
+   ],
+   "z": 40,
+   "model": "qwen2511-lightning",
+   "seconds": 149,
+   "status": "ok",
+   "mask_px": 11477
+  },
+  {
+   "id": "emergency-escape-hood-breathing-device",
+   "product": "emergency-escape-hood-breathing-device",
+   "slot": "respiratory",
+   "dependsOn": null,
+   "box": [
+    291,
+    731,
+    499,
+    796
+   ],
+   "z": 40,
+   "model": "qwen2511-lightning",
+   "seconds": 154,
+   "status": "ok",
+   "mask_px": 7353
+  },
+  {
+   "id": "ffp2-av-187-mask",
+   "product": "ffp2-av-187-mask",
+   "slot": "respiratory",
+   "dependsOn": null,
+   "box": [
+    347,
+    189,
+    547,
+    366
+   ],
+   "z": 40,
+   "model": "qwen2511-lightning",
+   "seconds": 145,
+   "status": "ok",
+   "mask_px": 17182
+  },
+  {
+   "id": "ffp2-av-449-with-carbon",
+   "product": "ffp2-av-449-with-carbon",
+   "slot": "respiratory",
+   "dependsOn": null,
+   "box": [
+    361,
+    186,
+    529,
+    353
+   ],
+   "z": 40,
+   "model": "qwen2511-lightning",
+   "seconds": 145,
+   "status": "ok",
+   "mask_px": 14066
+  },
+  {
+   "id": "ffp2-nv-ff-av-548",
+   "product": "ffp2-nv-ff-av-548",
+   "slot": "respiratory",
+   "dependsOn": null,
+   "box": [
+    357,
+    187,
+    527,
+    348
+   ],
+   "z": 40,
+   "model": "qwen2511-lightning",
+   "seconds": 259,
+   "status": "ok",
+   "mask_px": 14380
+  },
+  {
+   "id": "ffp3-av-505b",
+   "product": "ffp3-av-505b",
+   "slot": "respiratory",
+   "dependsOn": null,
+   "box": [
+    373,
+    189,
+    518,
+    324
+   ],
+   "z": 40,
+   "model": "qwen2511-lightning",
+   "seconds": 140,
+   "status": "ok",
+   "mask_px": 11227
+  },
+  {
+   "id": "ffp3-av-zer0-30",
+   "product": "ffp3-av-zer0-30",
+   "slot": "respiratory",
+   "dependsOn": null,
+   "box": [
+    356,
+    182,
+    536,
+    366
+   ],
+   "z": 40,
+   "model": "qwen2511-lightning",
+   "seconds": 143,
+   "status": "ok",
+   "mask_px": 17057
+  },
+  {
+   "id": "ffp3-nr-d-av-557",
+   "product": "ffp3-nr-d-av-557",
+   "slot": "respiratory",
+   "dependsOn": null,
+   "box": [
+    356,
+    182,
+    537,
+    366
+   ],
+   "z": 40,
+   "model": "qwen2511-lightning",
+   "seconds": 140,
+   "status": "ok",
+   "mask_px": 15883
+  },
+  {
+   "id": "ffp3-v-ff-av-559",
+   "product": "ffp3-v-ff-av-559",
+   "slot": "respiratory",
+   "dependsOn": null,
+   "box": [
+    359,
+    189,
+    528,
+    338
+   ],
+   "z": 40,
+   "model": "qwen2511-lightning",
+   "seconds": 150,
+   "status": "ok",
+   "mask_px": 13703
+  },
+  {
+   "id": "n95-av800-particulate-respirator",
+   "product": "n95-av800-particulate-respirator",
+   "slot": "respiratory",
+   "dependsOn": null,
+   "box": [
+    360,
+    180,
+    530,
+    332
+   ],
+   "z": 40,
+   "model": "qwen2511-lightning",
+   "seconds": 137,
+   "status": "ok",
+   "mask_px": 12566
+  },
+  {
+   "id": "av-gg10",
+   "product": "av-gg10",
+   "slot": "eye",
+   "dependsOn": null,
+   "box": [
+    361,
+    156,
+    532,
+    249
+   ],
+   "z": 50,
+   "model": "klein9b",
+   "seconds": 94,
+   "status": "ok",
+   "mask_px": 7348
+  },
+  {
+   "id": "av-gg25",
+   "product": "av-gg25",
+   "slot": "eye",
+   "dependsOn": null,
+   "box": [
+    360,
+    156,
+    532,
+    253
+   ],
+   "z": 50,
+   "model": "klein9b",
+   "seconds": 94,
+   "status": "ok",
+   "mask_px": 10029
+  },
+  {
+   "id": "av-gg27",
+   "product": "av-gg27",
+   "slot": "eye",
+   "dependsOn": null,
+   "box": [
+    361,
+    156,
+    530,
+    244
+   ],
+   "z": 50,
+   "model": "klein9b",
+   "seconds": 95,
+   "status": "ok",
+   "mask_px": 8773
+  },
+  {
+   "id": "av-gg30",
+   "product": "av-gg30",
+   "slot": "eye",
+   "dependsOn": null,
+   "box": [
+    362,
+    156,
+    529,
+    247
+   ],
+   "z": 50,
+   "model": "klein9b",
+   "seconds": 97,
+   "status": "ok",
+   "mask_px": 9264
   },
   {
    "id": "av-gg45",
@@ -54,6 +581,74 @@
    "mask_px": 8608
   },
   {
+   "id": "av-sg14",
+   "product": "av-sg14",
+   "slot": "eye",
+   "dependsOn": null,
+   "box": [
+    366,
+    161,
+    527,
+    244
+   ],
+   "z": 50,
+   "model": "klein9b",
+   "seconds": 94,
+   "status": "ok",
+   "mask_px": 7540
+  },
+  {
+   "id": "av-sg18",
+   "product": "av-sg18",
+   "slot": "eye",
+   "dependsOn": null,
+   "box": [
+    364,
+    159,
+    529,
+    247
+   ],
+   "z": 50,
+   "model": "klein9b",
+   "seconds": 95,
+   "status": "ok",
+   "mask_px": 8154
+  },
+  {
+   "id": "av-sg25",
+   "product": "av-sg25",
+   "slot": "eye",
+   "dependsOn": null,
+   "box": [
+    364,
+    156,
+    529,
+    246
+   ],
+   "z": 50,
+   "model": "klein9b",
+   "seconds": 94,
+   "status": "ok",
+   "mask_px": 8533
+  },
+  {
+   "id": "av-sg28",
+   "product": "av-sg28",
+   "slot": "eye",
+   "dependsOn": null,
+   "box": [
+    366,
+    156,
+    529,
+    246
+   ],
+   "z": 50,
+   "model": "klein9b",
+   "seconds": 95,
+   "status": "ok",
+   "mask_px": 8543
+  },
+  {
    "id": "av-sg30",
    "product": "av-sg30",
    "slot": "eye",
@@ -68,6 +663,295 @@
    "model": "klein9b",
    "seconds": 94,
    "status": "ok"
+  },
+  {
+   "id": "av-sg37",
+   "product": "av-sg37",
+   "slot": "eye",
+   "dependsOn": null,
+   "box": [
+    363,
+    156,
+    529,
+    245
+   ],
+   "z": 50,
+   "model": "klein9b",
+   "seconds": 94,
+   "status": "ok",
+   "mask_px": 8588
+  },
+  {
+   "id": "av-sg401",
+   "product": "av-sg401",
+   "slot": "eye",
+   "dependsOn": null,
+   "box": [
+    366,
+    156,
+    528,
+    239
+   ],
+   "z": 50,
+   "model": "klein9b",
+   "seconds": 97,
+   "status": "ok",
+   "mask_px": 7509
+  },
+  {
+   "id": "av-sg50",
+   "product": "av-sg50",
+   "slot": "eye",
+   "dependsOn": null,
+   "box": [
+    365,
+    160,
+    527,
+    246
+   ],
+   "z": 50,
+   "model": "klein9b",
+   "seconds": 94,
+   "status": "ok",
+   "mask_px": 7990
+  },
+  {
+   "id": "av-sg51",
+   "product": "av-sg51",
+   "slot": "eye",
+   "dependsOn": null,
+   "box": [
+    364,
+    161,
+    529,
+    245
+   ],
+   "z": 50,
+   "model": "klein9b",
+   "seconds": 95,
+   "status": "ok",
+   "mask_px": 7907
+  },
+  {
+   "id": "av-sg57",
+   "product": "av-sg57",
+   "slot": "eye",
+   "dependsOn": null,
+   "box": [
+    365,
+    160,
+    528,
+    243
+   ],
+   "z": 50,
+   "model": "klein9b",
+   "seconds": 97,
+   "status": "ok",
+   "mask_px": 7867
+  },
+  {
+   "id": "av-sg59",
+   "product": "av-sg59",
+   "slot": "eye",
+   "dependsOn": null,
+   "box": [
+    365,
+    161,
+    529,
+    245
+   ],
+   "z": 50,
+   "model": "klein9b",
+   "seconds": 98,
+   "status": "ok",
+   "mask_px": 7674
+  },
+  {
+   "id": "av-fs12__on-aves-victor-av-845r-v",
+   "product": "av-fs12",
+   "slot": "face",
+   "dependsOn": "aves-victor-av-845r-v",
+   "box": [
+    342,
+    145,
+    547,
+    350
+   ],
+   "z": 60,
+   "model": "klein9b",
+   "seconds": 97,
+   "status": "ok",
+   "mask_px": 22762
+  },
+  {
+   "id": "av-fs15p__on-aves-titan-av-564r-v",
+   "product": "av-fs15p",
+   "slot": "face",
+   "dependsOn": "aves-titan-av-564r-v",
+   "box": [
+    346,
+    135,
+    544,
+    347
+   ],
+   "z": 60,
+   "model": "klein9b",
+   "seconds": 97,
+   "status": "ok",
+   "mask_px": 23143
+  },
+  {
+   "id": "av-fs15p__on-aves-titan-av-841r-nv",
+   "product": "av-fs15p",
+   "slot": "face",
+   "dependsOn": "aves-titan-av-841r-nv",
+   "box": [
+    345,
+    147,
+    545,
+    357
+   ],
+   "z": 60,
+   "model": "klein9b",
+   "seconds": 94,
+   "status": "ok",
+   "mask_px": 23287
+  },
+  {
+   "id": "av-fs16p__on-aves-titan-av-585r-nv",
+   "product": "av-fs16p",
+   "slot": "face",
+   "dependsOn": "aves-titan-av-585r-nv",
+   "box": [
+    345,
+    148,
+    545,
+    349
+   ],
+   "z": 60,
+   "model": "klein9b",
+   "seconds": 97,
+   "status": "ok",
+   "mask_px": 26623
+  },
+  {
+   "id": "av-fs18l-cylinder-face-shield__on-aves-titan-av-564r-v",
+   "product": "av-fs18l-cylinder-face-shield",
+   "slot": "face",
+   "dependsOn": "aves-titan-av-564r-v",
+   "box": [
+    344,
+    135,
+    544,
+    353
+   ],
+   "z": 60,
+   "model": "klein9b",
+   "seconds": 97,
+   "status": "ok",
+   "mask_px": 24440
+  },
+  {
+   "id": "av-fs18l-cylinder-face-shield__on-aves-titan-av-585p-nv",
+   "product": "av-fs18l-cylinder-face-shield",
+   "slot": "face",
+   "dependsOn": "aves-titan-av-585p-nv",
+   "box": [
+    350,
+    152,
+    538,
+    355
+   ],
+   "z": 60,
+   "model": "klein9b",
+   "seconds": 111,
+   "status": "ok",
+   "mask_px": 23003
+  },
+  {
+   "id": "av-fs20cp-arc10__on-aves-victor-av-717r-nv",
+   "product": "av-fs20cp-arc10",
+   "slot": "face",
+   "dependsOn": "aves-victor-av-717r-nv",
+   "box": [
+    346,
+    81,
+    544,
+    360
+   ],
+   "z": 60,
+   "model": "klein9b",
+   "seconds": 97,
+   "status": "ok",
+   "mask_px": 27097
+  },
+  {
+   "id": "av-717p",
+   "product": "av-717p",
+   "slot": "head",
+   "dependsOn": null,
+   "box": [
+    344,
+    71,
+    545,
+    227
+   ],
+   "z": 70,
+   "model": "klein9b",
+   "seconds": 97,
+   "status": "ok",
+   "mask_px": 17650
+  },
+  {
+   "id": "aves-titan-av-564p-v",
+   "product": "aves-titan-av-564p-v",
+   "slot": "head",
+   "dependsOn": null,
+   "box": [
+    348,
+    76,
+    541,
+    225
+   ],
+   "z": 70,
+   "model": "klein9b",
+   "seconds": 98,
+   "status": "ok",
+   "mask_px": 15953
+  },
+  {
+   "id": "aves-titan-av-564r-v",
+   "product": "aves-titan-av-564r-v",
+   "slot": "head",
+   "dependsOn": null,
+   "box": [
+    346,
+    73,
+    545,
+    235
+   ],
+   "z": 70,
+   "model": "klein9b",
+   "seconds": 93,
+   "status": "ok",
+   "mask_px": 17321
+  },
+  {
+   "id": "aves-titan-av-585p-nv",
+   "product": "aves-titan-av-585p-nv",
+   "slot": "head",
+   "dependsOn": null,
+   "box": [
+    347,
+    76,
+    542,
+    265
+   ],
+   "z": 70,
+   "model": "klein9b",
+   "seconds": 95,
+   "status": "ok",
+   "mask_px": 17884
   },
   {
    "id": "aves-titan-av-585r-nv",
@@ -103,6 +987,261 @@
    "status": "ok"
   },
   {
+   "id": "aves-titan-av-846r-v",
+   "product": "aves-titan-av-846r-v",
+   "slot": "head",
+   "dependsOn": null,
+   "box": [
+    337,
+    80,
+    554,
+    233
+   ],
+   "z": 70,
+   "model": "klein9b",
+   "seconds": 95,
+   "status": "ok",
+   "mask_px": 17642
+  },
+  {
+   "id": "aves-victor-av-714p-v",
+   "product": "aves-victor-av-714p-v",
+   "slot": "head",
+   "dependsOn": null,
+   "box": [
+    346,
+    74,
+    541,
+    223
+   ],
+   "z": 70,
+   "model": "klein9b",
+   "seconds": 112,
+   "status": "ok",
+   "mask_px": 15963
+  },
+  {
+   "id": "aves-victor-av-714r-v",
+   "product": "aves-victor-av-714r-v",
+   "slot": "head",
+   "dependsOn": null,
+   "box": [
+    345,
+    69,
+    546,
+    227
+   ],
+   "z": 70,
+   "model": "klein9b",
+   "seconds": 99,
+   "status": "ok",
+   "mask_px": 17182
+  },
+  {
+   "id": "aves-victor-av-717r-nv",
+   "product": "aves-victor-av-717r-nv",
+   "slot": "head",
+   "dependsOn": null,
+   "box": [
+    345,
+    71,
+    545,
+    228
+   ],
+   "z": 70,
+   "model": "klein9b",
+   "seconds": 97,
+   "status": "ok",
+   "mask_px": 17669
+  },
+  {
+   "id": "aves-victor-av-840r-nv",
+   "product": "aves-victor-av-840r-nv",
+   "slot": "head",
+   "dependsOn": null,
+   "box": [
+    339,
+    78,
+    548,
+    228
+   ],
+   "z": 70,
+   "model": "klein9b",
+   "seconds": 99,
+   "status": "ok",
+   "mask_px": 17010
+  },
+  {
+   "id": "aves-victor-av-845r-v",
+   "product": "aves-victor-av-845r-v",
+   "slot": "head",
+   "dependsOn": null,
+   "box": [
+    338,
+    83,
+    554,
+    232
+   ],
+   "z": 70,
+   "model": "klein9b",
+   "seconds": 95,
+   "status": "ok",
+   "mask_px": 16448
+  },
+  {
+   "id": "av-151-disposable-earplugs",
+   "product": "av-151-disposable-earplugs",
+   "slot": "hearing",
+   "dependsOn": null,
+   "box": [
+    349,
+    185,
+    540,
+    360
+   ],
+   "z": 80,
+   "model": "klein9b",
+   "seconds": 93,
+   "status": "ok",
+   "mask_px": 8627
+  },
+  {
+   "id": "av-153-corded-earplugs",
+   "product": "av-153-corded-earplugs",
+   "slot": "hearing",
+   "dependsOn": null,
+   "box": [
+    351,
+    189,
+    540,
+    489
+   ],
+   "z": 80,
+   "model": "klein9b",
+   "seconds": 98,
+   "status": "ok",
+   "mask_px": 20911
+  },
+  {
+   "id": "av-311-reusable-earplugs",
+   "product": "av-311-reusable-earplugs",
+   "slot": "hearing",
+   "dependsOn": null,
+   "box": [
+    352,
+    201,
+    539,
+    489
+   ],
+   "z": 80,
+   "model": "klein9b",
+   "seconds": 98,
+   "status": "ok",
+   "mask_px": 14010
+  },
+  {
+   "id": "av-411re-reusable-earplugs",
+   "product": "av-411re-reusable-earplugs",
+   "slot": "hearing",
+   "dependsOn": null,
+   "box": [
+    352,
+    201,
+    538,
+    366
+   ],
+   "z": 80,
+   "model": "klein9b",
+   "seconds": 94,
+   "status": "ok",
+   "mask_px": 7819
+  },
+  {
+   "id": "av-gp10-banded-earplugs",
+   "product": "av-gp10-banded-earplugs",
+   "slot": "hearing",
+   "dependsOn": null,
+   "box": [
+    353,
+    183,
+    537,
+    365
+   ],
+   "z": 80,
+   "model": "klein9b",
+   "seconds": 97,
+   "status": "ok",
+   "mask_px": 8737
+  },
+  {
+   "id": "av-gp20-banded-earplugs",
+   "product": "av-gp20-banded-earplugs",
+   "slot": "hearing",
+   "dependsOn": null,
+   "box": [
+    355,
+    198,
+    537,
+    368
+   ],
+   "z": 80,
+   "model": "klein9b",
+   "seconds": 93,
+   "status": "ok",
+   "mask_px": 7307
+  },
+  {
+   "id": "av-hb21-headband-earmuffs__on-aves-victor-av-714r-v",
+   "product": "av-hb21-headband-earmuffs",
+   "slot": "hearing",
+   "dependsOn": "aves-victor-av-714r-v",
+   "box": [
+    324,
+    69,
+    566,
+    297
+   ],
+   "z": 80,
+   "model": "klein9b",
+   "seconds": 97,
+   "status": "ok",
+   "mask_px": 20410
+  },
+  {
+   "id": "av-hb30-ear-muffs__on-aves-victor-av-717r-nv",
+   "product": "av-hb30-ear-muffs",
+   "slot": "hearing",
+   "dependsOn": "aves-victor-av-717r-nv",
+   "box": [
+    324,
+    77,
+    565,
+    298
+   ],
+   "z": 80,
+   "model": "klein9b",
+   "seconds": 93,
+   "status": "ok",
+   "mask_px": 18845
+  },
+  {
+   "id": "av-hb640-headband-earmuffs__on-aves-titan-av-564r-v",
+   "product": "av-hb640-headband-earmuffs",
+   "slot": "hearing",
+   "dependsOn": "aves-titan-av-564r-v",
+   "box": [
+    328,
+    78,
+    562,
+    298
+   ],
+   "z": 80,
+   "model": "klein9b",
+   "seconds": 94,
+   "status": "ok",
+   "mask_px": 18214
+  },
+  {
    "id": "av-hm3093-cap-earmuffs__on-aves-titan-av-841r-nv",
    "product": "av-hm3093-cap-earmuffs",
    "slot": "hearing",
@@ -119,6 +1258,312 @@
    "status": "ok"
   },
   {
+   "id": "av-hm3093-cap-earmuffs__on-aves-victor-av-845r-v",
+   "product": "av-hm3093-cap-earmuffs",
+   "slot": "hearing",
+   "dependsOn": "aves-victor-av-845r-v",
+   "box": [
+    320,
+    111,
+    573,
+    313
+   ],
+   "z": 80,
+   "model": "klein9b",
+   "seconds": 98,
+   "status": "ok",
+   "mask_px": 19000
+  },
+  {
+   "id": "av-hm7093-cap-earmuffs__on-aves-titan-av-585p-nv",
+   "product": "av-hm7093-cap-earmuffs",
+   "slot": "hearing",
+   "dependsOn": "aves-titan-av-585p-nv",
+   "box": [
+    324,
+    111,
+    564,
+    295
+   ],
+   "z": 80,
+   "model": "klein9b",
+   "seconds": 95,
+   "status": "ok",
+   "mask_px": 17035
+  },
+  {
+   "id": "av-hm7093-cap-earmuffs__on-aves-titan-av-585r-nv",
+   "product": "av-hm7093-cap-earmuffs",
+   "slot": "hearing",
+   "dependsOn": "aves-titan-av-585r-nv",
+   "box": [
+    323,
+    111,
+    567,
+    294
+   ],
+   "z": 80,
+   "model": "klein9b",
+   "seconds": 99,
+   "status": "ok",
+   "mask_px": 17055
+  },
+  {
+   "id": "av-hm7093-cap-earmuffs__on-aves-victor-av-840r-nv",
+   "product": "av-hm7093-cap-earmuffs",
+   "slot": "hearing",
+   "dependsOn": "aves-victor-av-840r-nv",
+   "box": [
+    324,
+    111,
+    564,
+    295
+   ],
+   "z": 80,
+   "model": "klein9b",
+   "seconds": 98,
+   "status": "ok",
+   "mask_px": 17060
+  },
+  {
+   "id": "av-hm7093-cap-earmuffs__on-aves-victor-av-845r-v",
+   "product": "av-hm7093-cap-earmuffs",
+   "slot": "hearing",
+   "dependsOn": "aves-victor-av-845r-v",
+   "box": [
+    323,
+    111,
+    565,
+    295
+   ],
+   "z": 80,
+   "model": "klein9b",
+   "seconds": 94,
+   "status": "ok",
+   "mask_px": 17144
+  },
+  {
+   "id": "aves-av-hm4093__on-av-717p",
+   "product": "aves-av-hm4093",
+   "slot": "hearing",
+   "dependsOn": "av-717p",
+   "box": [
+    326,
+    111,
+    563,
+    290
+   ],
+   "z": 80,
+   "model": "klein9b",
+   "seconds": 97,
+   "status": "ok",
+   "mask_px": 15140
+  },
+  {
+   "id": "aves-av-hm4093__on-aves-titan-av-846r-v",
+   "product": "aves-av-hm4093",
+   "slot": "hearing",
+   "dependsOn": "aves-titan-av-846r-v",
+   "box": [
+    325,
+    111,
+    563,
+    294
+   ],
+   "z": 80,
+   "model": "klein9b",
+   "seconds": 98,
+   "status": "ok",
+   "mask_px": 15340
+  },
+  {
+   "id": "aves-welding-helmet",
+   "product": "aves-welding-helmet",
+   "slot": "face",
+   "dependsOn": null,
+   "box": [
+    241,
+    81,
+    658,
+    469
+   ],
+   "z": 85,
+   "model": "klein9b",
+   "seconds": 97,
+   "status": "ok",
+   "mask_px": 57176
+  },
+  {
+   "id": "class-0-flash-grip",
+   "product": "class-0-flash-grip",
+   "slot": "hand",
+   "dependsOn": null,
+   "box": [
+    198,
+    627,
+    695,
+    949
+   ],
+   "z": 90,
+   "model": "qwen2511-lightning",
+   "seconds": 141,
+   "status": "ok",
+   "mask_px": 45678
+  },
+  {
+   "id": "cryo-gloves-elbow",
+   "product": "cryo-gloves-elbow",
+   "slot": "hand",
+   "dependsOn": null,
+   "box": [
+    200,
+    661,
+    694,
+    955
+   ],
+   "z": 90,
+   "model": "qwen2511-lightning",
+   "seconds": 133,
+   "status": "ok",
+   "mask_px": 46577
+  },
+  {
+   "id": "hg-1101sp-leather-gloves",
+   "product": "hg-1101sp-leather-gloves",
+   "slot": "hand",
+   "dependsOn": null,
+   "box": [
+    198,
+    627,
+    694,
+    1133
+   ],
+   "z": 90,
+   "model": "qwen2511-lightning",
+   "seconds": 139,
+   "status": "ok",
+   "mask_px": 66737
+  },
+  {
+   "id": "hg-1104-leather-gloves",
+   "product": "hg-1104-leather-gloves",
+   "slot": "hand",
+   "dependsOn": null,
+   "box": [
+    207,
+    702,
+    692,
+    954
+   ],
+   "z": 90,
+   "model": "qwen2511-lightning",
+   "seconds": 141,
+   "status": "ok",
+   "mask_px": 34557
+  },
+  {
+   "id": "hg-1107-rigger",
+   "product": "hg-1107-rigger",
+   "slot": "hand",
+   "dependsOn": null,
+   "box": [
+    203,
+    627,
+    695,
+    951
+   ],
+   "z": 90,
+   "model": "qwen2511-lightning",
+   "seconds": 138,
+   "status": "ok",
+   "mask_px": 42373
+  },
+  {
+   "id": "hg-1108-rigger",
+   "product": "hg-1108-rigger",
+   "slot": "hand",
+   "dependsOn": null,
+   "box": [
+    205,
+    627,
+    694,
+    1025
+   ],
+   "z": 90,
+   "model": "qwen2511-lightning",
+   "seconds": 142,
+   "status": "ok",
+   "mask_px": 41740
+  },
+  {
+   "id": "hg-1109-leather-gloves",
+   "product": "hg-1109-leather-gloves",
+   "slot": "hand",
+   "dependsOn": null,
+   "box": [
+    207,
+    741,
+    689,
+    949
+   ],
+   "z": 90,
+   "model": "qwen2511-lightning",
+   "seconds": 137,
+   "status": "ok",
+   "mask_px": 31038
+  },
+  {
+   "id": "hg-1113-leather-gloves",
+   "product": "hg-1113-leather-gloves",
+   "slot": "hand",
+   "dependsOn": null,
+   "box": [
+    203,
+    636,
+    692,
+    996
+   ],
+   "z": 90,
+   "model": "qwen2511-lightning",
+   "seconds": 148,
+   "status": "ok",
+   "mask_px": 49621
+  },
+  {
+   "id": "hg-1147-suregrip",
+   "product": "hg-1147-suregrip",
+   "slot": "hand",
+   "dependsOn": null,
+   "box": [
+    203,
+    720,
+    691,
+    951
+   ],
+   "z": 90,
+   "model": "qwen2511-lightning",
+   "seconds": 136,
+   "status": "ok",
+   "mask_px": 34874
+  },
+  {
+   "id": "hg-1950-thermo-guard-kevlar-gloves",
+   "product": "hg-1950-thermo-guard-kevlar-gloves",
+   "slot": "hand",
+   "dependsOn": null,
+   "box": [
+    203,
+    719,
+    691,
+    949
+   ],
+   "z": 90,
+   "model": "qwen2511-lightning",
+   "seconds": 136,
+   "status": "ok",
+   "mask_px": 36352
+  },
+  {
    "id": "hg-2230-rubber-neoprene-gloves",
    "product": "hg-2230-rubber-neoprene-gloves",
    "slot": "hand",
@@ -133,6 +1578,108 @@
    "model": "qwen2511-lightning",
    "seconds": 192,
    "status": "ok"
+  },
+  {
+   "id": "hg-2740-drivegrip",
+   "product": "hg-2740-drivegrip",
+   "slot": "hand",
+   "dependsOn": null,
+   "box": [
+    194,
+    720,
+    698,
+    951
+   ],
+   "z": 90,
+   "model": "qwen2511-lightning",
+   "seconds": 136,
+   "status": "ok",
+   "mask_px": 38693
+  },
+  {
+   "id": "hg-2750-drivegrip",
+   "product": "hg-2750-drivegrip",
+   "slot": "hand",
+   "dependsOn": null,
+   "box": [
+    203,
+    721,
+    691,
+    947
+   ],
+   "z": 90,
+   "model": "qwen2511-lightning",
+   "seconds": 141,
+   "status": "ok",
+   "mask_px": 37975
+  },
+  {
+   "id": "hg-2846-latnit-ergotex-palm-grip",
+   "product": "hg-2846-latnit-ergotex-palm-grip",
+   "slot": "hand",
+   "dependsOn": null,
+   "box": [
+    187,
+    627,
+    699,
+    959
+   ],
+   "z": 90,
+   "model": "qwen2511-lightning",
+   "seconds": 143,
+   "status": "ok",
+   "mask_px": 38970
+  },
+  {
+   "id": "hg-2919-assembly",
+   "product": "hg-2919-assembly",
+   "slot": "hand",
+   "dependsOn": null,
+   "box": [
+    205,
+    627,
+    693,
+    979
+   ],
+   "z": 90,
+   "model": "qwen2511-lightning",
+   "seconds": 141,
+   "status": "ok",
+   "mask_px": 39903
+  },
+  {
+   "id": "hg-3045-tough-guard",
+   "product": "hg-3045-tough-guard",
+   "slot": "hand",
+   "dependsOn": null,
+   "box": [
+    207,
+    627,
+    693,
+    983
+   ],
+   "z": 90,
+   "model": "qwen2511-lightning",
+   "seconds": 135,
+   "status": "ok",
+   "mask_px": 35229
+  },
+  {
+   "id": "hg-3058-cotton-gloves",
+   "product": "hg-3058-cotton-gloves",
+   "slot": "hand",
+   "dependsOn": null,
+   "box": [
+    200,
+    636,
+    694,
+    951
+   ],
+   "z": 90,
+   "model": "qwen2511-lightning",
+   "seconds": 134,
+   "status": "ok",
+   "mask_px": 43462
   }
  ],
  "kits": {
@@ -311,7 +1858,7 @@
     "av-sg25",
     "av-411re-reusable-earplugs",
     "ffp3-nr-d-av-557",
-    "aves-welding-helmet__on-aves-victor-av-717r-nv",
+    "aves-welding-helmet",
     "scuta-vest",
     "hg-3058-cotton-gloves"
    ]
@@ -359,5 +1906,6 @@
   "rig-drilling",
   "welding",
   "woodworking"
- ]
+ ],
+ "boots": "cavalier-captain-8713-4"
 }
