@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The AVES Experience</title>
+<link rel="icon" href="data:,">
+<script>
+// Error capture for headless verification: mirrored into #errlog.
+window.__errs = [];
+(function(){
+  var push = function(m){ window.__errs.push(String(m)); var el = document.getElementById('errlog'); if (el) el.textContent = window.__errs.join('\n'); };
+  window.addEventListener('error', function(e){ push('error: ' + (e.message || (e.target && (e.target.src || e.target.href)) || e)); }, false);
+  window.addEventListener('unhandledrejection', function(e){ push('rejection: ' + (e.reason && e.reason.message || e.reason)); });
+  var ce = console.error; console.error = function(){ push('console.error: ' + Array.prototype.join.call(arguments, ' ')); return ce.apply(console, arguments); };
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+</head>
+<body class="mode-pick">
+
+<section class="picker" id="picker" aria-label="Pick your industry">
+  <div class="p-head">
+    <img class="logo" src="../../assets/aves-logo.png" alt="AVES">
+    <h1 class="disp">Pick your industry</h1>
+    <p id="phint">Eighteen kits, head to toe. Arrows to move, Enter to choose.</p>
+  </div>
+  <div class="slices" id="slices" role="list"></div>
+</section>
+
+<header class="hdr" id="hdr">
+  <a href="./" aria-label="AVES, back to the industry picker"><img class="logo" src="../../assets/aves-logo.png" alt="AVES"></a>
+  <a class="another" href="./">Choose another kit</a>
+</header>
+
+<main class="kit" id="kit">
+  <section class="theatre" id="theatre" aria-label="Outfitting stage">
+    <div class="bd" id="bd"></div>
+    <div class="shade"></div>
+    <div class="floorglow"></div>
+    <div class="walk" id="walk"><div class="man" id="man"></div></div>
+    <div class="dark" id="dark"></div>
+    <div class="intro" id="intro">
+      <h1 class="kt disp" id="kt"></h1>
+      <p class="ki" id="ki"></p>
+      <div class="hzh lbl">Top hazards</div>
+      <ul class="hzl" id="hzl"></ul>
+    </div>
+    <div class="shelf" id="shelf">
+      <div class="sh-head"><span class="kn" id="kn"></span><span class="cnt" id="cnt"></span></div>
+      <ol class="sh-list" id="shlist"></ol>
+      <div class="sh-detail" id="shdetail"></div>
+      <p class="sh-base" id="shbase"></p>
+    </div>
+    <div class="closeline" id="closeline">
+      <h2 class="disp"><span class="a">AVES.</span><span>Your safety solutions provider.</span><span>For every industry.</span></h2>
+    </div>
+    <div class="cue" id="cue">Scroll to put the kit on</div>
+  </section>
+
+  <section class="after" id="after">
+    <div class="row">
+      <div>
+        <h3 class="disp" id="aftT"></h3>
+        <p class="sub" id="aftS"></p>
+        <button class="cta" id="addq" type="button">Add kit to quote</button>
+      </div>
+      <ol class="plist" id="plist"></ol>
+    </div>
+    <div class="others">
+      <h4 class="lbl">Other industries</h4>
+      <div class="orow" id="orow"></div>
+    </div>
+  </section>
+</main>
+
+<div class="toast" id="toast" role="status">Kit added to quote (preview)</div>
+<pre id="errlog"></pre>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

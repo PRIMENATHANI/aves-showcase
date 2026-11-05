@@ -1,0 +1,133 @@
+{
+ "frame": {
+  "w": 896,
+  "h": 1536
+ },
+ "layers": [
+  {
+   "id": "scuta-vest",
+   "product": "scuta-vest",
+   "slot": "vest",
+   "dependsOn": null,
+   "box": [
+    272,
+    301,
+    612,
+    859
+   ],
+   "z": 10,
+   "model": "qwen2511-lightning",
+   "seconds": 189,
+   "status": "ok"
+  },
+  {
+   "id": "full-body-harness",
+   "product": "full-body-harness",
+   "slot": "fall",
+   "dependsOn": "scuta-vest",
+   "box": [
+    272,
+    274,
+    617,
+    1050
+   ],
+   "z": 20,
+   "model": "qwen2511-lightning",
+   "seconds": 193,
+   "status": "ok"
+  },
+  {
+   "id": "av-101373__on-full-body-harness",
+   "product": "av-101373",
+   "slot": "dropped",
+   "dependsOn": "full-body-harness",
+   "box": [
+    248,
+    830,
+    612,
+    1299
+   ],
+   "z": 30,
+   "model": "qwen2511-lightning",
+   "seconds": 193,
+   "status": "ok"
+  },
+  {
+   "id": "av-sg30",
+   "product": "av-sg30",
+   "slot": "eye",
+   "dependsOn": null,
+   "box": [
+    331,
+    183,
+    565,
+    254
+   ],
+   "z": 50,
+   "model": "klein9b",
+   "seconds": 94,
+   "status": "ok"
+  },
+  {
+   "id": "aves-titan-av-841r-nv",
+   "product": "aves-titan-av-841r-nv",
+   "slot": "head",
+   "dependsOn": null,
+   "box": [
+    331,
+    79,
+    559,
+    249
+   ],
+   "z": 70,
+   "model": "klein9b",
+   "seconds": 143,
+   "status": "ok"
+  },
+  {
+   "id": "av-hm3093-cap-earmuffs__on-aves-titan-av-841r-nv",
+   "product": "av-hm3093-cap-earmuffs",
+   "slot": "hearing",
+   "dependsOn": "aves-titan-av-841r-nv",
+   "box": [
+    322,
+    111,
+    570,
+    315
+   ],
+   "z": 80,
+   "model": "klein9b",
+   "seconds": 137,
+   "status": "ok"
+  },
+  {
+   "id": "hg-2230-rubber-neoprene-gloves",
+   "product": "hg-2230-rubber-neoprene-gloves",
+   "slot": "hand",
+   "dependsOn": null,
+   "box": [
+    209,
+    625,
+    687,
+    974
+   ],
+   "z": 90,
+   "model": "qwen2511-lightning",
+   "seconds": 192,
+   "status": "ok"
+  }
+ ],
+ "kits": {
+  "oil-gas": {
+   "order": [
+    "aves-titan-av-841r-nv",
+    "av-sg30",
+    "av-hm3093-cap-earmuffs__on-aves-titan-av-841r-nv",
+    "scuta-vest",
+    "full-body-harness",
+    "av-101373__on-full-body-harness",
+    "hg-2230-rubber-neoprene-gloves"
+   ]
+  }
+ }
+}
