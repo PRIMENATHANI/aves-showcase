@@ -1,0 +1,7 @@
+front.png  ADS p1 embedded photo (1194x1791, white bg, flood-removed): front view, sternal strap, waist belt with buckle, side D-rings, leg loops
+back.png   ADS p1 embedded photo (1194x1791): back view, dorsal D-ring with plate, side D-rings, back pad
+Product: AV-831 AVES full body harness, art. 69162AV831 (products.json id 'full-body-harness', sku 69162AV831). The v0.1 asset assets/cut/full-body-harness.png is the website photo (back view, same harness family).
+ADS: /Volumes/PRODUCT DEVELOPMENT & DESIGN (PDD) - MARKETING/3. MARKETING/2 - MARKETING COLLATERALS/1 - ADS, SS & E-COLLATERALS/1 - FT STANDARD ADS/12 - FALL & DROPPED OBJECTS/12.A - FALL PROTECTION/12.A - AVES/1 - HARNESS/2 - ANSI/ACTIVE/4 - AVES FULL BODY HARNESS (69162AV831) ANSI - JE136103B/1 - ADS/1 - HIGH RES/AVES FULL BODY HARNESS (69162AV831) ANSI - JE136103B.pdf
+PTF (spec text): /Volumes/PRODUCT DEVELOPMENT & DESIGN (PDD) - PRODUCT MANAGEMENT/1. DNA- PRODUCT DEVELOPMENT/A - PTF STANDARD SKUs/12 - FALL & DROPPED OBJECTS/1 - FALL PROTECTION/12.A - AVES/1 - HARNESS/2 - ANSI/ACTIVE/4 - AVES FULL BODY HARNESS (69162AV831) ANSI - JE136103B/1 - PTF/AVES FULL BODY HARNESS (69162AV831) REV.0.pdf
+Not collected: PTF versions of the same photos (366x676, lower res); ADS macro close-ups (D-ring plate, buckle, triangle ring, sit strap) exist if wanted: ADS pdf images 6-14.
+Missing: no side / three-quarter view of the harness on the share (only front and back, plus a rooftop lifestyle photo of a worker wearing a different harness model with a red lanyard, not collected).

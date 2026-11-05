@@ -1,0 +1,8 @@
+three-quarter.png  PTF AB.pdf p3 (598x489, white bg flood-removed): front three-quarter, laced, from the wearer's left; low resolution
+side.png  PTF AB.pdf p4 (963x584): outer side, laced (a second unlaced side photo 1294x766 exists)
+front.png  PTF AB.pdf p4 (580x999): toe-on front, shows the blue CAVALIER tag at the collar
+back.png  PTF AB.pdf p4 (564x1000): heel view
+Product: Cavalier Captain 8713-4 HC (high cut), art. 73110CV214, black S3. Chosen as the standard black safety boot because it is the only high-cut black leather boot among the sampled Captain/Sergeant folders with full multi-angle photos, and the PTF AB.pdf holds clean white-background photos; Soldier 1 (8209-2 LC etc.) PTF folders are empty.
+PTF: /Volumes/PRODUCT DEVELOPMENT & DESIGN (PDD) - PRODUCT MANAGEMENT/1. DNA- PRODUCT DEVELOPMENT/A - PTF STANDARD SKUs/13 - FOOT PROTECTION/13.A - SHOES & BOOTS/4 - CAPTAIN/ACTIVE/2 - CAPTAIN 8713-4 HC (73110CV214)/1 - PTF/CAPTAIN 8713-4 HC (73110CV214) AB.pdf
+Caution: the sibling file '... TS.pdf' in the same folder shows a different (low-cut grey/black trainer-style) shoe; do not mix it in.
+Missing: no view from the wearer's right side, and the three-quarter is the smallest (598 px source, upscaled).
