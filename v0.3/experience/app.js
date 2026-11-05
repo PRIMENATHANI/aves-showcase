@@ -65,18 +65,22 @@ function pickerOrder() {
   kits.filter(k => !GROUPS.includes(k.group)).forEach((k, i) => out.push({ k, g: k.group || 'Other', first: i === 0 }));
   return out;
 }
+
 function buildPicker() {
-  const host = $('#slices');
-  host.innerHTML = pickerOrder().map(({ k, g, first }) =>
-    (first ? `<div class="gl-row lbl" aria-hidden="true">${esc(g)}</div>` : '') +
-    `<button class="slice${first ? ' g0' : ''}" type="button" data-id="${k.id}" aria-label="${esc(k.name)}: ${esc(k.hazards.slice(0, 3).join(', '))}">` +
+  const host = $('#slices'), order = pickerOrder(), N = order.length;
+  const groups = [];
+  order.forEach((o, i) => { o.n = i + 1; if (o.first) groups.push({ g: o.g, items: [] }); groups[groups.length - 1].items.push(o); });
+  host.innerHTML = groups.map(G => `<div class="grp" style="--n:${G.items.length}"><div class="row">${G.items.map(({ k, n }) =>
+    `<button class="slice" type="button" data-id="${k.id}" aria-label="${esc(k.name)}: ${esc(k.hazards.slice(0, 3).join(', '))}">` +
       `<span class="clip">${bdHTML(k, false)}<span class="veil"></span></span>` +
-      (first ? `<span class="gl-in lbl">${esc(g)}</span>` : '') +
       `<span class="vname" aria-hidden="true">${esc(k.name)}</span>` +
-      `<span class="info" aria-hidden="true"><span class="nm disp">${esc(k.name)}</span><ul class="hz">${k.hazards.slice(0, 3).map(h => `<li>${esc(h)}</li>`).join('')}</ul></span>` +
-    `</button>`).join('');
+      `<span class="info" aria-hidden="true"><span class="kn">Kit ${String(n).padStart(2, '0')} / ${N}</span><span class="nm disp">${esc(k.name)}</span><ul class="hz">${k.hazards.slice(0, 3).map(h => `<li>${esc(h)}</li>`).join('')}</ul></span>` +
+    `</button>`).join('')}</div><div class="gl lbl" aria-hidden="true">${esc(G.g)}</div></div>`).join('');
   const btns = [...host.querySelectorAll('.slice')];
-  const setOn = b => btns.forEach(x => x.classList.toggle('on', x === b));
+  const setOn = b => {
+    btns.forEach(x => x.classList.toggle('on', x === b));
+    host.querySelectorAll('.grp').forEach(g => g.classList.toggle('has-on', !!b && g.contains(b)));
+  };
   btns.forEach((b, i) => {
     b.addEventListener('mouseenter', () => setOn(b));
     b.addEventListener('focus', () => setOn(b));
@@ -113,10 +117,11 @@ function pick(k, btn) {
   };
   apply(0);
   const others = [...document.querySelectorAll('.slice')].filter(b => b !== btn);
-  const idx = others.map(b => [...b.parentNode.children].indexOf(b));
-  const mine = [...btn.parentNode.children].indexOf(btn);
+  const all = [...document.querySelectorAll('.slice')];
+  const idx = others.map(b => all.indexOf(b));
+  const mine = all.indexOf(btn);
   gsap.to(others, { yPercent: i => (idx[i] % 2 ? 100 : -100), autoAlpha: 0, duration: 0.5, ease: 'power2.in', stagger: i => Math.abs(idx[i] - mine) * 0.012 });
-  gsap.to(['.p-head', '.gl-row'], { autoAlpha: 0, duration: 0.25 });
+  gsap.to(['.p-head', '.grp .gl'], { autoAlpha: 0, duration: 0.25 });
   const pr = { p: 0 };
   gsap.to(pr, { p: 1, duration: 0.75, ease: 'power3.inOut', delay: 0.08, onUpdate: () => apply(pr.p), onComplete: () => openKit(k, zoom) });
 }
@@ -136,46 +141,65 @@ function buildSteps(k) {
   return out;
 }
 
+
 function cropHTML(layer) {
-  const [x0, y0, x1, y1] = layer.box, bw = x1 - x0, bh = y1 - y0, m = Math.max(bw, bh);
-  const pc = v => (v / m * 100).toFixed(3) + '%';
-  return `<img class="crop" alt="" src="${DRESS}layers/${encodeURIComponent(layer.id)}.png" style="width:${pc(FRAME.w)};height:${pc(FRAME.h)};left:${pc(-x0 + (m - bw) / 2)};top:${pc(-y0 + (m - bh) / 2)}" data-ph="${esc(layer.slot)}">`;
+  // the worn layer, cropped to its box; SVG keeps the aspect in any cell size
+  const [x0, y0, x1, y1] = layer.box;
+  return `<svg class="crop-box" viewBox="${x0} ${y0} ${x1 - x0} ${y1 - y0}" preserveAspectRatio="xMidYMax meet" aria-hidden="true"><image href="${DRESS}layers/${encodeURIComponent(layer.id)}.png" x="0" y="0" width="${FRAME.w}" height="${FRAME.h}"/></svg>`;
 }
+
+
 function thumbHTML(st) {
   if (st.p) return `<img class="cut" alt="" src="${ROOT}assets/cut/${encodeURIComponent(st.p.id)}.png" data-ph="${esc(st.label)}">`;
   if (st.layer && st.onMan) return cropHTML(st.layer);
   return `<span class="ph">${esc(st.label)}</span>`;
 }
-// Missing cutout: fall back to the layer crop, then to a text placeholder.
+
 document.addEventListener('error', e => {
   const im = e.target;
   if (!(im instanceof HTMLImageElement) || !im.dataset.ph) return;
   const i = im.closest('[data-i]'); const st = i ? steps[+i.dataset.i] : null;
   if (im.classList.contains('cut') && st && st.layer && st.onMan) { im.insertAdjacentHTML('afterend', cropHTML(st.layer)); im.remove(); return; }
+  const cb = im.closest('.crop-box'); if (cb) { cb.insertAdjacentHTML('afterend', `<span class="ph">${esc(im.dataset.ph)}</span>`); cb.remove(); return; }
   if (im.classList.contains('alt-cut')) { im.remove(); return; }
   im.insertAdjacentHTML('afterend', `<span class="ph">${esc(im.dataset.ph)}</span>`); im.remove();
 }, true);
 
 const brandAttrs = key => BRAND_LINKS[key] ? `href="${esc(BRAND_LINKS[key])}" target="_blank" rel="noopener"` : `href="#" data-todo="${key}-url"`;
 const brand = (name, key) => `<a class="brand" ${brandAttrs(key)}>${name}</a>`;
+
+const altLabel = a => esc(dispName(a)) + (a.sku && a.sku !== dispName(a) ? ' · ' + esc(a.sku) : '');
+// "one worn, the rest options": the slot's alternates as ghost cutouts (desktop) or a one-line list (phone)
+function altsHTML(s) {
+  const alts = (s.alternates || []).map(id => products[id]).filter(Boolean);
+  if (!alts.length) return '';
+  return `<div class="alts"><span class="lbl">Options</span><ul>${alts.map(a =>
+    `<li><img class="alt-cut" alt="" src="${ROOT}assets/cut/${encodeURIComponent(a.id)}.png" data-ph="x" loading="lazy"><span>${altLabel(a)}</span></li>`).join('')}</ul>` +
+    `<p class="alt-line"><span class="lbl">Options</span>${alts.map(altLabel).join(', ')}</p></div>`;
+}
 function detailHTML(st, i) {
+  const num = String(i + 1).padStart(2, '0');
   const off = st.onMan ? '' : `<p class="skip">${st.layer && st.layer.status === 'skipped' ? 'Stays on the shelf: not drawn on the figure with this kit.' : 'On the shelf only: not drawn on the figure yet.'}</p>`;
   if (st.vest) return `<div class="dt" data-i="${i}">
-    <div class="d-name"><span class="sl lbl">Hi-vis</span><span class="nm">Hi-vis vest</span></div>
+    <div class="sl2 lbl"><b>${num}</b>Hi-vis</div>
+    <h3 class="nm disp">Hi-vis vest</h3>
     <p class="why">Hi-vis by ${brand('Scuta', 'scuta')} · sister brand, not part of the AVES range</p>${off}</div>`;
   const p = st.p, s = st.s;
-  const alts = (s.alternates || []).map(id => products[id]).filter(Boolean);
   return `<div class="dt" data-i="${i}">
-    <div class="d-name"><span class="sl lbl">${esc(st.label)}</span><span class="nm">${esc(dispName(p))}</span><span class="sk">${esc(p.sku)}</span></div>
-    <p class="std"><b>Standards</b>${p.standards ? esc(p.standards) : 'None listed in the catalogue data'}</p>
+    <div class="sl2 lbl"><b>${num}</b>${esc(st.label)}</div>
+    <h3 class="nm disp">${esc(dispName(p))}</h3>
+    ${p.sku ? `<p class="sku"><b>SKU</b>${esc(p.sku)}</p>` : ''}
+    <p class="std"><span class="lbl">Standards</span>${p.standards ? esc(p.standards) : 'None listed in the catalogue data'}</p>
     <p class="why">${esc(s.why)}</p>${off}
-    ${alts.length ? `<div class="lbl altl">Options</div><div class="alts">${alts.map(a => `<span class="alt"><img class="alt-cut" alt="" src="${ROOT}assets/cut/${encodeURIComponent(a.id)}.png" data-ph="x" loading="lazy"><span>${esc(dispName(a))}${a.sku && a.sku !== dispName(a) ? ' · ' + esc(a.sku) : ''}</span></span>`).join('')}</div>` : ''}
+    ${altsHTML(s)}
   </div>`;
 }
+
+
 function itemHTML(st, i) {
-  const name = st.vest ? `Hi-vis vest <span class="by">by Scuta</span>` : esc(dispName(st.p));
-  const sku = st.vest ? 'Sister brand' : esc(st.p.sku);
-  return `<li class="si" data-i="${i}"><span class="bar"></span><span class="thumb">${thumbHTML(st)}</span><span class="tx"><span class="sl">${esc(st.label)}</span><span class="nm">${name}</span><span class="sk">${sku}</span></span></li>`;
+  const num = String(i + 1).padStart(2, '0');
+  const txt = st.vest ? `Hi-vis vest<span class="by">by Scuta</span>` : esc(st.label);
+  return `<li class="si" data-i="${i}"><span class="ca">${thumbHTML(st)}<span class="bar"></span></span><span class="sl"><b>${num}</b><span class="t">${txt}</span></span></li>`;
 }
 
 async function resolveBase(k) {
@@ -227,7 +251,10 @@ async function openKit(k, zoom) {
 
   // shelf
   $('#shbase').innerHTML = `Boots by ${brand('Cavalier', 'cavalier')}`;
-  $('#shlist').innerHTML = steps.map(itemHTML).join('');
+  $('#grid').innerHTML = steps.map(itemHTML).join('');
+  const rows = Math.ceil(steps.length / 2);
+  if (!isPhone()) $('#grid').style.setProperty('--cellH', (rows <= 4 ? 106 : rows === 5 ? 86 : 74) + 'px');
+  $('#prog').innerHTML = steps.map(() => '<span></span>').join('');
   $('#shdetail').innerHTML = steps.map(detailHTML).join('');
   const theatre = $('#theatre');
   theatre.querySelectorAll('.fly').forEach(f => f.remove());
@@ -235,7 +262,7 @@ async function openKit(k, zoom) {
     if (!s.onMan || RM) return;
     const f = document.createElement('div');
     f.className = 'fly'; f.setAttribute('aria-hidden', 'true');
-    f.innerHTML = `<span class="thumb">${s.p ? `<img class="cut" alt="" src="${ROOT}assets/cut/${encodeURIComponent(s.p.id)}.png" data-ph="${esc(s.label)}">` : cropHTML(s.layer)}</span>`;
+    f.innerHTML = s.p ? `<img class="cut" alt="" src="${ROOT}assets/cut/${encodeURIComponent(s.p.id)}.png" data-ph="${esc(s.label)}">` : cropHTML(s.layer);
     f.dataset.i = i; theatre.appendChild(f); s.fly = f;
   });
 
@@ -255,16 +282,13 @@ async function openKit(k, zoom) {
   document.documentElement.dataset.ready = '1';
 }
 
+
 function buildTimeline() {
   const theatre = $('#theatre'), n = steps.length;
-  const items = [...document.querySelectorAll('.si')], dts = [...document.querySelectorAll('.dt')];
-  const bars = items.map(it => it.querySelector('.bar'));
+  const items = [...document.querySelectorAll('.si')];
   const D = v => (RM ? 0.01 : v);
   const total = 1 + n + 1.4;
   gsap.set('#shelf', { autoAlpha: 0, x: RM ? 0 : 24 });
-  gsap.set(dts, { autoAlpha: 0, y: RM ? 0 : 8 });
-  gsap.set(bars, { scaleX: 0, scaleY: 0 });
-  gsap.set(items, { opacity: 0.55 });
   gsap.set('#closeline', { autoAlpha: 0, y: RM ? 0 : 16 });
   steps.forEach(s => { if (s.ly) gsap.set(s.ly, { autoAlpha: 0, y: RM ? 0 : 8 }); if (s.fly) gsap.set(s.fly, { autoAlpha: 0 }); });
 
@@ -280,26 +304,19 @@ function buildTimeline() {
   tl.to('#cue', { autoAlpha: 0, duration: D(0.25) }, 0)
     .to('#intro', { autoAlpha: 0, y: RM ? 0 : -16, duration: D(0.45) }, 0.15)
     .to('#shelf', { autoAlpha: 1, x: 0, duration: D(0.45) }, 0.45);
-  if (!RM) tl.fromTo('#bd', { yPercent: 0 }, { yPercent: -8, duration: total }, 0);
+  if (!RM) tl.fromTo('#bd', { yPercent: 0 }, { yPercent: -6, duration: total }, 0);
 
-  const thumbXY = i => offsetRel(items[i].querySelector('.thumb'), theatre);
-  const target = (s) => {
-    const walk = $('#walk'), W = walk.offsetWidth, sc = W / FRAME.w;
-    const [x0, y0, x1, y1] = s.layer.box, fw = s.fly.offsetWidth;
-    return { x: walk.offsetLeft + (x0 + x1) / 2 * sc - fw / 2, y: walk.offsetTop + (y0 + y1) / 2 * sc - fw / 2, s: clamp((x1 - x0) * sc / fw, 1, 3.2) };
+  // shelf cutout -> its layer box on the man (desktop; the phone row scrolls, so no fly there)
+  const startXY = i => { const ca = items[i].querySelector('.ca'), f = steps[i].fly, o = offsetRel(ca, theatre); return { x: o.x + (ca.offsetWidth - f.offsetWidth) / 2, y: o.y + ca.offsetHeight - 4 - f.offsetHeight }; };
+  const target = s => {
+    const walk = $('#walk'), sc = walk.offsetWidth / FRAME.w;
+    const [x0, y0, x1, y1] = s.layer.box, fw = s.fly.offsetWidth, fh = s.fly.offsetHeight;
+    return { x: walk.offsetLeft + (x0 + x1) / 2 * sc - fw / 2, y: walk.offsetTop + (y0 + y1) / 2 * sc - fh / 2, s: clamp((x1 - x0) * sc / fw, 0.6, 2.6) };
   };
   steps.forEach((s, i) => {
     const t = 1 + i;
-    tl.to(items[i], { opacity: 1, duration: D(0.2) }, t)
-      .to(bars[i], { scaleX: 1, scaleY: 1, duration: D(0.2) }, t)
-      .to(dts[i], { autoAlpha: 1, y: 0, duration: D(0.3) }, t + (RM ? 0 : 0.1));
-    if (i > 0) {
-      tl.to(items[i - 1], { opacity: 0.36, duration: D(0.2) }, t)
-        .to(bars[i - 1], { scaleX: 0, scaleY: 0, duration: D(0.2) }, t)
-        .to(dts[i - 1], { autoAlpha: 0, duration: D(0.2) }, t);
-    }
     if (s.fly) {
-      tl.fromTo(s.fly, { x: () => thumbXY(i).x, y: () => thumbXY(i).y, scale: 1 },
+      tl.fromTo(s.fly, { x: () => startXY(i).x, y: () => startXY(i).y, scale: 1 },
         { x: () => target(s).x, y: () => target(s).y, scale: () => target(s).s, duration: 0.55, ease: 'power1.inOut', immediateRender: false }, t + 0.05)
         .to(s.fly, { autoAlpha: 1, duration: 0.08 }, t + 0.05)
         .to(s.fly, { autoAlpha: 0, duration: 0.16 }, t + 0.5);
@@ -307,9 +324,7 @@ function buildTimeline() {
     if (s.ly) tl.to(s.ly, { autoAlpha: 1, y: 0, duration: D(0.35), ease: 'power1.out' }, t + (RM ? 0 : 0.45));
   });
   const tc = 1 + n;
-  tl.to(items[n - 1], { opacity: 0.36, duration: D(0.2) }, tc)
-    .to(bars[n - 1], { scaleX: 0, scaleY: 0, duration: D(0.2) }, tc)
-    .to('#shelf', { autoAlpha: 0, x: RM ? 0 : 16, duration: D(0.4) }, tc + 0.1)
+  tl.to('#shelf', { autoAlpha: 0, x: RM ? 0 : 16, duration: D(0.4) }, tc + 0.1)
     .to('#dark', { opacity: 0.55, duration: D(0.6) }, tc + 0.1)
     .to('#closeline', { autoAlpha: 1, y: 0, duration: D(0.5) }, tc + 0.45)
     .to({}, { duration: 0.01 }, total - 0.01);
@@ -317,10 +332,21 @@ function buildTimeline() {
 }
 
 let lastK = -1;
+
 function count(t) {
-  const n = steps.length, k = t < 1 ? 0 : Math.min(n, Math.floor(t - 1) + 1);
-  if (k === lastK) return; lastK = k;
-  $('#cnt').innerHTML = `<i>${k}</i> / ${n}`;
+  const n = steps.length;
+  // active step index: -1 before the first step, n after the last (close)
+  const a = t < 1 ? -1 : Math.min(n, Math.floor(t - 1));
+  if (a === lastK) return; lastK = a;
+  const shown = clamp(a + 1, 0, n);
+  $('#cnt').innerHTML = `<i>${shown}</i>/ ${n}`;
+  document.querySelectorAll('.si').forEach((el, i) => { el.classList.toggle('on', i === a); el.classList.toggle('past', i < a); });
+  document.querySelectorAll('.dt').forEach((el, i) => el.classList.toggle('on', i === clamp(a, 0, n - 1)));
+  document.querySelectorAll('#prog span').forEach((el, i) => el.classList.toggle('on', i <= a && a < n || a >= n));
+  if (isPhone() && a >= 0 && a < n) {
+    const g = $('#grid'), cell = g.children[a];
+    g.scrollTo({ left: Math.max(0, cell.offsetLeft - 16 - 2 * 64), behavior: RM || DEBUG ? 'auto' : 'smooth' });
+  }
 }
 
 function walkOn() {
@@ -360,7 +386,9 @@ async function boot() {
     gsap.ticker.add(t => lenis.raf(t * 1000));
     gsap.ticker.lagSmoothing(0);
   }
-  $('#addq').addEventListener('click', () => { const t = $('#toast'); t.classList.add('on'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), 2200); });
+  const toast = () => { const t = $('#toast'); t.classList.add('on'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), 2200); };
+  $('#addq').addEventListener('click', toast);
+  $('#addq2').addEventListener('click', toast);
   window.addEventListener('popstate', () => location.reload());
 
   const deep = Q.get('kit');

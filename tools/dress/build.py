@@ -123,9 +123,9 @@ def main():
                 log('SKIP (dependency missing)', lid, '<-', cd); m['layers'].append(dict(id=lid, product=sp['product'], slot=sp['slot'], dependsOn=sp['dependsOn'] or (lid.split('__on-', 1)[1] if '__on-' in lid else None), box=None, z=Z[sp['slot']], model=gen.MODEL[sp['slot']], seconds=0, status='missing')); write_manifest(m); continue
             try:
                 log('GEN', lid, sp['slot'], gen.MODEL[sp['slot']], '| refs', [os.path.basename(x) for x in gen.refs_for(sp['product'])[:2]])
-                rec = gen.run(sp['product'], sp['slot'], dep=cd if cd else None, tag=lid)
+                rec = gen.run(sp['product'], sp['slot'], dep=cd if cd else None, tag=lid, lid=lid)
                 if sp['dependsOn']: rec['dependsOn'] = sp['dependsOn']
-                rec['id'] = lid; rec.pop('mask_px', None) if False else None
+                rec['id'] = lid
             except Exception as e:
                 log('FAILED', lid, repr(e)[:300]); failed.append(lid); continue
             m['layers'] = [l for l in m['layers'] if l['id'] != lid] + [rec]; write_manifest(m); done_n += 1
@@ -133,6 +133,7 @@ def main():
         ls = {l['id']: l for l in m['layers']}
         if all(i in ls for i in kits[kid]['order']): qc_sheet(kid, kits[kid]['order'], m)
         else: log('kit incomplete, no QC sheet:', kid, [i for i in kits[kid]['order'] if i not in ls])
+    import clean_layers; clean_layers.main()
     log('BUILD FINISHED', 'failed:', failed)
 
 if __name__ == '__main__': main()

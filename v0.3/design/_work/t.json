@@ -1,0 +1,2 @@
+[{"command":"text.loadFont","params":{"path":"/Users/macintosh/Documents/Claude/Sloane/aves-showcase/v0.3/design/_work/fonts/BarlowCondensed-Bold.ttf"}},
+{"command":"node.create","params":{"type":"frame","name":"f","x":0,"y":0,"width":300,"height":200,"props":{"fill":"#07090c"}}}]

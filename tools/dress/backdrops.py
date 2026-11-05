@@ -28,7 +28,7 @@ SITE = {
 }
 env = dict(os.environ, DRAWTHINGS_MODELS_DIR=os.path.expanduser('~/Flowtronix/models/draw-things'))
 out_dir = os.path.join(DRESS, 'backdrops'); os.makedirs(out_dir, exist_ok=True); raw_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'work', 'backdrops'); os.makedirs(raw_dir, exist_ok=True)
-W, H = os.environ.get('BD_W', '1536'), os.environ.get('BD_H', '864')
+W, H = os.environ.get('BD_W', '1536'), os.environ.get('BD_H', '896')   # 864 is not a multiple of 64: generate 1536x896, centre-crop to 16:9 1536x864
 kits = [k['id'] for k in json.load(open(os.path.join(ROOT, 'data', 'kits.json')))]
 for kid in (sys.argv[1:] or kits):
     dst = os.path.join(out_dir, kid + '.jpg')
@@ -40,5 +40,7 @@ for kid in (sys.argv[1:] or kits):
     open(os.path.join(raw_dir, 'backdrops.log'), 'a').write(json.dumps(dict(kit=kid, wall_s=dt, rc=r.returncode, w=W, h=H, prompt=prompt)) + '\n')
     if not os.path.exists(raw): print(kid, 'FAILED', r.stderr[-300:], flush=True); continue
     im = Image.open(raw).convert('RGB')
-    if im.size != (2048, 1152) and os.environ.get('BD_UP', '1') == '1' and im.width < 2048: im = im.resize((2048, 1152), Image.LANCZOS)
+    if im.width * 9 != im.height * 16:
+        h = round(im.width * 9 / 16); y0 = (im.height - h) // 2; im = im.crop((0, y0, im.width, y0 + h))
+    if os.environ.get('BD_UP', '0') == '1' and im.width < 2048: im = im.resize((2048, 1152), Image.LANCZOS)
     im.save(dst, quality=88); print(kid, im.size, dt, 's', flush=True)

@@ -27,6 +27,7 @@ window.__errs = [];
     <img class="logo" src="../../assets/aves-logo.png" alt="AVES">
     <h1 class="disp">Pick your industry</h1>
     <p id="phint">Eighteen kits, head to toe. Arrows to move, Enter to choose.</p>
+    <span class="tag">Head to toe. One brand.</span>
   </div>
   <div class="slices" id="slices" role="list"></div>
 </section>
@@ -40,7 +41,8 @@ window.__errs = [];
   <section class="theatre" id="theatre" aria-label="Outfitting stage">
     <div class="bd" id="bd"></div>
     <div class="shade"></div>
-    <div class="floorglow"></div>
+    <div class="spot"></div>
+    <div class="floorshadow"></div>
     <div class="walk" id="walk"><div class="man" id="man"></div></div>
     <div class="dark" id="dark"></div>
     <div class="intro" id="intro">
@@ -50,10 +52,14 @@ window.__errs = [];
       <ul class="hzl" id="hzl"></ul>
     </div>
     <div class="shelf" id="shelf">
-      <div class="sh-head"><span class="kn" id="kn"></span><span class="cnt" id="cnt"></span></div>
-      <ol class="sh-list" id="shlist"></ol>
-      <div class="sh-detail" id="shdetail"></div>
-      <p class="sh-base" id="shbase"></p>
+      <div class="sh-head"><span class="kn disp" id="kn"></span><span class="cnt" id="cnt"></span></div>
+      <div class="prog" id="prog" aria-hidden="true"></div>
+      <ol class="grid" id="grid" data-lenis-prevent aria-label="The kit, in dressing order"></ol>
+      <div class="sh-body">
+        <div class="sh-detail" id="shdetail" aria-live="polite"></div>
+        <button class="q" id="addq2" type="button">Add to quote</button>
+        <p class="sh-base" id="shbase"></p>
+      </div>
     </div>
     <div class="closeline" id="closeline">
       <h2 class="disp"><span class="a">AVES.</span><span>Your safety solutions provider.</span><span>For every industry.</span></h2>

@@ -12,6 +12,7 @@ def load_manifest():
     return {'frame': {'w': 896, 'h': 1536}, 'layers': [], 'kits': {}}
 def write_manifest(m):
     order = {k: i for i, k in enumerate(['vest', 'fall', 'dropped', 'respiratory', 'eye', 'face', 'head', 'hearing', 'hand'])}
+    bd = os.path.join(DRESS, 'backdrops'); m['backdrops'] = sorted(f[:-4] for f in os.listdir(bd) if f.endswith('.jpg')) if os.path.isdir(bd) else []
     m['layers'].sort(key=lambda l: (l['z'], l['id']))
     tmp = MANIFEST + '.tmp'; json.dump(m, open(tmp, 'w'), indent=1); os.replace(tmp, MANIFEST)
 _sess = None

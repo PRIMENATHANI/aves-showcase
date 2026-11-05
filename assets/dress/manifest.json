@@ -37,20 +37,21 @@
    "status": "ok"
   },
   {
-   "id": "av-101373__on-full-body-harness",
-   "product": "av-101373",
-   "slot": "dropped",
-   "dependsOn": "full-body-harness",
+   "id": "av-gg45",
+   "product": "av-gg45",
+   "slot": "eye",
+   "dependsOn": null,
    "box": [
-    248,
-    830,
-    612,
-    1299
+    364,
+    156,
+    528,
+    246
    ],
-   "z": 30,
-   "model": "qwen2511-lightning",
-   "seconds": 193,
-   "status": "ok"
+   "z": 50,
+   "model": "klein9b",
+   "seconds": 97,
+   "status": "ok",
+   "mask_px": 8608
   },
   {
    "id": "av-sg30",
@@ -67,6 +68,23 @@
    "model": "klein9b",
    "seconds": 94,
    "status": "ok"
+  },
+  {
+   "id": "aves-titan-av-585r-nv",
+   "product": "aves-titan-av-585r-nv",
+   "slot": "head",
+   "dependsOn": null,
+   "box": [
+    344,
+    73,
+    545,
+    230
+   ],
+   "z": 70,
+   "model": "klein9b",
+   "seconds": 99,
+   "status": "ok",
+   "mask_px": 17148
   },
   {
    "id": "aves-titan-av-841r-nv",
@@ -123,11 +141,223 @@
     "aves-titan-av-841r-nv",
     "av-sg30",
     "av-hm3093-cap-earmuffs__on-aves-titan-av-841r-nv",
+    "aves-escape-hood-bag",
     "scuta-vest",
     "full-body-harness",
     "av-101373__on-full-body-harness",
     "hg-2230-rubber-neoprene-gloves"
    ]
+  },
+  "rig-drilling": {
+   "order": [
+    "aves-titan-av-585r-nv",
+    "av-gg45",
+    "av-hm7093-cap-earmuffs__on-aves-titan-av-585r-nv",
+    "emergency-escape-hood-breathing-device",
+    "scuta-vest",
+    "full-body-harness-ansi",
+    "av-101420__on-full-body-harness-ansi",
+    "hg-1108-rigger"
+   ]
+  },
+  "manufacturing": {
+   "order": [
+    "aves-victor-av-714r-v",
+    "av-sg57",
+    "av-153-corded-earplugs",
+    "ffp2-av-187-mask",
+    "scuta-vest",
+    "hg-2846-latnit-ergotex-palm-grip"
+   ]
+  },
+  "construction": {
+   "order": [
+    "aves-victor-av-845r-v",
+    "av-sg28",
+    "av-hm3093-cap-earmuffs__on-aves-victor-av-845r-v",
+    "ffp3-v-ff-av-559",
+    "scuta-vest",
+    "full-body-harness-ansi-4",
+    "av-101365__on-full-body-harness-ansi-4",
+    "hg-1101sp-leather-gloves"
+   ]
+  },
+  "mining": {
+   "order": [
+    "aves-victor-av-840r-nv",
+    "av-gg27",
+    "av-hm7093-cap-earmuffs__on-aves-victor-av-840r-nv",
+    "aves-p100-v-cp",
+    "scuta-vest",
+    "hg-1104-leather-gloves"
+   ]
+  },
+  "heavy-machinery": {
+   "order": [
+    "aves-titan-av-846r-v",
+    "av-sg51",
+    "aves-av-hm4093__on-aves-titan-av-846r-v",
+    "ffp2-av-449-with-carbon",
+    "scuta-vest",
+    "hg-1107-rigger"
+   ]
+  },
+  "assembly-line": {
+   "order": [
+    "aves-titan-av-564p-v",
+    "av-sg59",
+    "av-311-reusable-earplugs",
+    "ffp2-nv-ff-av-548",
+    "scuta-vest",
+    "hg-2919-assembly"
+   ]
+  },
+  "demolition": {
+   "order": [
+    "aves-titan-av-585p-nv",
+    "av-sg18",
+    "av-hm7093-cap-earmuffs__on-aves-titan-av-585p-nv",
+    "ffp3-av-zer0-30",
+    "av-fs18l-cylinder-face-shield__on-aves-titan-av-585p-nv",
+    "scuta-vest",
+    "full-body-harness-2",
+    "av-101368__on-full-body-harness-2",
+    "hg-1113-leather-gloves"
+   ]
+  },
+  "logistics": {
+   "order": [
+    "aves-victor-av-714p-v",
+    "av-sg401",
+    "av-gp10-banded-earplugs",
+    "ffp2-av-187-mask",
+    "scuta-vest",
+    "hg-2750-drivegrip"
+   ]
+  },
+  "woodworking": {
+   "order": [
+    "aves-titan-av-564r-v",
+    "av-gg10",
+    "av-hb640-headband-earmuffs__on-aves-titan-av-564r-v",
+    "ffp3-av-505b",
+    "av-fs18l-cylinder-face-shield__on-aves-titan-av-564r-v",
+    "scuta-vest",
+    "hg-2740-drivegrip"
+   ]
+  },
+  "aviation": {
+   "order": [
+    "aves-victor-av-714r-v",
+    "av-sg14",
+    "av-hb21-headband-earmuffs__on-aves-victor-av-714r-v",
+    "ffp2-av-449-with-carbon",
+    "scuta-vest",
+    "full-body-harness-4",
+    "av-101363__on-full-body-harness-4",
+    "hg-1147-suregrip"
+   ]
+  },
+  "railway": {
+   "order": [
+    "av-717p",
+    "av-sg37",
+    "aves-av-hm4093__on-av-717p",
+    "n95-av800-particulate-respirator",
+    "scuta-vest",
+    "full-body-harness-5",
+    "av-101370__on-full-body-harness-5",
+    "hg-1109-leather-gloves"
+   ]
+  },
+  "mechanical": {
+   "order": [
+    "aves-titan-av-564r-v",
+    "av-gg30",
+    "av-gp20-banded-earplugs",
+    "av-tp2000r-double-filter",
+    "av-fs15p__on-aves-titan-av-564r-v",
+    "scuta-vest",
+    "hg-3045-tough-guard"
+   ]
+  },
+  "power-tool": {
+   "order": [
+    "aves-victor-av-845r-v",
+    "av-sg50",
+    "av-hm7093-cap-earmuffs__on-aves-victor-av-845r-v",
+    "aves-ffp3-v-cp",
+    "av-fs12__on-aves-victor-av-845r-v",
+    "scuta-vest",
+    "hg-1950-thermo-guard-kevlar-gloves"
+   ]
+  },
+  "forestry": {
+   "order": [
+    "aves-titan-av-841r-nv",
+    "av-sg30",
+    "av-hm3093-cap-earmuffs__on-aves-titan-av-841r-nv",
+    "ffp2-av-187-mask",
+    "av-fs15p__on-aves-titan-av-841r-nv",
+    "scuta-vest",
+    "full-body-harness-ansi-3",
+    "av-101494__on-full-body-harness-ansi-3",
+    "hg-1113-leather-gloves"
+   ]
+  },
+  "welding": {
+   "order": [
+    "aves-victor-av-717r-nv",
+    "av-sg25",
+    "av-411re-reusable-earplugs",
+    "ffp3-nr-d-av-557",
+    "aves-welding-helmet__on-aves-victor-av-717r-nv",
+    "scuta-vest",
+    "hg-3058-cotton-gloves"
+   ]
+  },
+  "electrical": {
+   "order": [
+    "aves-victor-av-717r-nv",
+    "av-sg14",
+    "av-hb30-ear-muffs__on-aves-victor-av-717r-nv",
+    "n95-av800-particulate-respirator",
+    "av-fs20cp-arc10__on-aves-victor-av-717r-nv",
+    "scuta-vest",
+    "class-0-flash-grip"
+   ]
+  },
+  "cryogenic": {
+   "order": [
+    "aves-titan-av-585r-nv",
+    "av-gg25",
+    "av-151-disposable-earplugs",
+    "emergency-escape-hood-breathing-device",
+    "av-fs16p__on-aves-titan-av-585r-nv",
+    "scuta-vest",
+    "cryo-gloves-elbow",
+    "thermal-protection-apron"
+   ]
   }
- }
+ },
+ "backdrops": [
+  "assembly-line",
+  "aviation",
+  "construction",
+  "cryogenic",
+  "demolition",
+  "electrical",
+  "forestry",
+  "heavy-machinery",
+  "logistics",
+  "manufacturing",
+  "mechanical",
+  "mining",
+  "oil-gas",
+  "power-tool",
+  "railway",
+  "rig-drilling",
+  "welding",
+  "woodworking"
+ ]
 }

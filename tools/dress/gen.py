@@ -23,7 +23,7 @@ Q_TAIL = "Full-length shot, the whole body from boots to above the head, exactly
 Q_TAIL_VEST = "Full-length shot, the whole body from boots to above the head, exactly the same framing and camera distance as the first image. Same man, same face, same pose, same navy long-sleeved coverall with its collar, front zip and sleeves down to the wrists, worn under the vest, same background."
 ORD = {1: 'the second image', 2: 'the second and third images'}
 # refs-v2 angle choice per product = what produced the v0.2 chain / bench winners
-REFPICK = {'aves-titan-av-841r-nv': ['three-quarter', 'front'], 'av-sg30': ['side-three-quarter'], 'av-hm3093-cap-earmuffs': ['front', 'side'],
+REFPICK = {'aves-titan-av-841r-nv': ['three-quarter', 'front'], 'av-sg30': ['side-three-quarter'], 'av-hm3093-cap-earmuffs': ['front'],
            'hg-2230-rubber-neoprene-gloves': ['back-upright', 'three-quarter'], 'scuta-vest': ['front-three-quarter', 'front-flat'],
            'full-body-harness': ['front', 'back'], 'av-101373': ['lying-three-quarter', 'hanging-u']}
 HT = dict(
@@ -39,8 +39,8 @@ CLIP = dict(head=([(250, 0, 650, 330)], 24, None), eye=([(340, 165, 560, 285)], 
             hearing_band=([(260, 40, 640, 360)], 24, None),
             hearing_plug=([(290, 170, 610, 480)], 24, None),
             face=([(250, 90, 650, 460)], 24, None),
-            resp_mask=([(330, 170, 570, 400)], 28, None), resp_half=([(310, 170, 590, 430)], 28, None), resp_pouch=([(260, 700, 640, 1010)], 28, None),
-            vest=([(150, 250, 750, 920)], 28, 'vest'), fall=([(150, 250, 750, 1050)], 28, None), dropped=([(200, 740, 700, 1290)], 28, None),
+            resp_mask=([(330, 170, 570, 400)], 28, None), resp_half=([(310, 170, 590, 430)], 28, None), resp_pouch=([(420, 740, 680, 1030)], 28, None),
+            vest=([(150, 250, 750, 920)], 28, 'vest'), fall=([(150, 250, 750, 1050)], 28, None), dropped=([(400, 740, 700, 1130)], 28, None),
             hand=([(190, 630, 360, 1130), (540, 630, 710, 1130)], 28, 'glove'), hand_nonnavy=([(190, 630, 360, 1130), (540, 630, 710, 1130)], 28, 'nonnavy'),
             cryo=([(200, 280, 700, 1050)], 28, None))
 MIN_PX = 400   # below this many mask pixels the item is not visible -> status missing
@@ -84,16 +84,20 @@ def item_and_place(pid, slot):
     if slot == 'face':
         return ('welding helmet', 'flipped down over his face, clipped to the hard hat') if k == 'welding' else ('face shield', 'a clear visor hanging from the brim of the hard hat down in front of his whole face')
     if slot == 'respiratory':
-        if k == 'pouch': return 'escape hood pouch', 'a compact pouch clipped to the front right of the belt at his waist'
+        if k == 'pouch':
+            col = (product(pid).get('color') or '').lower().replace('hi-viz', 'hi-vis') or 'grey'
+            return f'compact {col} escape-hood pouch', "about the size of a lunch box, clipped at his belt on the left hip (the right-hand side of the picture), below the vest hem; the man's face stays uncovered"
         if k == 'half': return 'half-mask respirator', 'over his nose and mouth, with a filter cartridge on each cheek and straps around the head'
         return 'disposable respirator mask', 'over his nose and mouth with the straps going behind his head'
     if slot == 'hand': return ('black rubber gauntlet gloves' if pid in HT_ITEM else 'work gloves'), 'on both hands, fingers inside'
     if slot == 'vest': return 'hi-vis vest', 'over his navy coverall, closed at the front'
     if slot == 'fall': return 'full-body fall-arrest harness', 'over the hi-vis vest, strapped snugly on his body'
-    if slot == 'dropped': return 'tool tether', 'clipped to the harness waist belt on his left hip, which is the right-hand side of the picture, away from the centre of the belt'
+    if slot == 'dropped': return 'short coiled tool tether', 'about 30 cm long, clipped to the harness waist belt on his left hip (the right-hand side of the picture), hanging straight down against the thigh, one carabiner at its free end'
     if slot == 'cryo-body': return 'thermal protection apron', 'over the front of his body from chest to knees, tied at the waist'
 
 def description(pid, slot):
+    if slot == 'respiratory' and kind(pid, slot) == 'pouch': return 'a small rectangular soft pouch with a flap closure and a belt clip.'
+    if slot == 'dropped': return 'a coiled stretch tether: a ribbed coiled cord about 30 cm long with a black webbing sleeve and a carabiner at the free end.'
     if pid in HT_ITEM: return HT_ITEM[pid][1]
     f = os.path.join(DESC, pid + '.txt')
     if os.path.exists(f): return open(f).read().strip()
@@ -132,9 +136,9 @@ def build_prompt(pid, slot, nrefs):
 
 def frame_path(lid): return os.path.join(WORK, 'frames', lid + '.png')
 
-def run(pid, slot, dep=None, seed='4242', tag=None, out_dir=None):
+def run(pid, slot, dep=None, seed='4242', tag=None, out_dir=None, lid=None):
     """dep = dependency LAYER id (or product id) whose merged frame is the canvas; None = base"""
-    lid = layer_id(pid, dep); tag = tag or lid
+    lid = lid or layer_id(pid, dep); tag = tag or lid
     can_path = os.path.join(out_dir or os.path.join(WORK, 'frames'), dep + '.png') if dep else BASE
     if not os.path.exists(can_path): raise FileNotFoundError('canvas missing: ' + can_path)
     refs = refs_for(pid)[:2]; prompt = build_prompt(pid, slot, len(refs))
