@@ -97,3 +97,5 @@ For the four regenerating kits, loop: `for K in construction aviation welding cr
 
 ## Manifest note
 All 95 layers in manifest.json have status ok (the count moved from 93 to 95 during the shoot, so regeneration is writing to it). These kit order entries have no layer record yet, so those kits shoot without them: aviation (full-body-harness-4, av-101363__on-full-body-harness-4), welding (aves-welding-helmet), cryogenic (thermal-protection-apron). Re-shoot after the regeneration lands.
+
+Update 2026-11-06: the four kits construction, aviation, welding and cryogenic were re-shot after regeneration, clean (no console errors or 404s).
