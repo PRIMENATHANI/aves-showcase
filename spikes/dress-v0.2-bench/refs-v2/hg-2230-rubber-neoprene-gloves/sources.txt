@@ -1,0 +1,7 @@
+back-upright.png     ADS REV.0 p1 embedded 604x1656 (alpha from smask): glove upright, fingers up, orange rolled cuff at bottom (palm vs back side not confirmed)
+three-quarter.png    ADS REV.0 p1 embedded 604x1656 + smask (second variant, slightly turned, textured fingers)
+cuff-up-hanging.png  PTF REV.2 p3 embedded 452x1083 (cuff at top, fingers down), white bg flood-removed
+ADS: /Volumes/FT Marketing/Product Design and Development/1 - ADS/1 - FT STANDARD ADS/5 - HAND PROTECTION (FT)/5.E - CHEMICAL & LIQUID PROTECTION/ACTIVE/1 - HG-2230/1 - ADS/1 - HI-RES/HG-2230 REV.0.pdf
+PTF: /Volumes/FT Marketing/Product Design and Development/A - PTF STANDARD SKUs/5 - HAND PROTECTION (FT)/5.E - CHEMICAL & LIQUID PROTECTION/ACTIVE/1 - HG-2230/1 - PTF/AVES HG-2230 REV.2.pdf
+Also in the ADS (not exported): a palm/finger texture close-up and a cuff close-up (714x604). LMP/REV.0/2 - HIGH RES/application.jpg = photo of a man in blue overalls holding a drum wearing the glove (wearing reference, copy of the cut is 203x595 only on the website).
+Note: assets/cut/hg-2230 on the website is a 203x595 crop of the cuff printing; assets/img is a 600x750 palette PNG.

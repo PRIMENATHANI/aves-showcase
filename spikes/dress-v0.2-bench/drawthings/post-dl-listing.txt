@@ -1,0 +1,22 @@
+total 223909232
+drwxr-xr-x  21 macintosh  staff          672 Nov  5 12:46 .
+drwxr-xr-x   3 macintosh  staff           96 Sep 30 20:42 ..
+-rw-r--r--@  1 macintosh  staff    167870464 Sep 30 21:03 flux_1_vae_f16.ckpt
+-rw-r--r--@  1 macintosh  staff  25604034560 Nov  5 11:52 flux_2_dev_q6p.ckpt
+-rw-r--r--@  1 macintosh  staff   4039196672 Sep 30 22:15 flux_2_klein_4b_q8p.ckpt
+-rw-r--r--@  1 macintosh  staff   9450201088 Oct  1 03:29 flux_2_klein_9b_q8p.ckpt
+-rw-r--r--@  1 macintosh  staff    168534016 Sep 30 22:22 flux_2_vae_f16.ckpt
+-rw-r--r--@  1 macintosh  staff  24321839104 Nov  5 12:46 mistral_small_3.2_24b_instruct_2506_q8p.ckpt
+-rw-r--r--@  1 macintosh  staff       540672 Sep 30 23:08 qwen_2.5_vl_7b_q8p.ckpt
+-rw-r--r--   1 macintosh  staff   7820795904 Sep 30 23:08 qwen_2.5_vl_7b_q8p.ckpt-tensordata
+-rw-r--r--@  1 macintosh  staff      1531904 Oct  1 01:07 qwen_2.5_vl_7b_vit_f16.ckpt
+-rw-r--r--   1 macintosh  staff   1353056256 Oct  1 01:07 qwen_2.5_vl_7b_vit_f16.ckpt-tensordata
+-rw-r--r--@  1 macintosh  staff       389120 Sep 30 22:23 qwen_3_4b_q8p.ckpt
+-rw-r--r--   1 macintosh  staff   4525654016 Sep 30 22:23 qwen_3_4b_q8p.ckpt-tensordata
+-rw-r--r--@  1 macintosh  staff       458752 Oct  1 03:43 qwen_3_8b_q8p.ckpt
+-rw-r--r--   1 macintosh  staff   8407482368 Oct  1 03:43 qwen_3_8b_q8p.ckpt-tensordata
+-rw-r--r--@  1 macintosh  staff       389120 Sep 30 21:03 qwen_3_vl_4b_instruct_q8p.ckpt
+-rw-r--r--   1 macintosh  staff   4525654016 Sep 30 21:03 qwen_3_vl_4b_instruct_q8p.ckpt-tensordata
+-rw-r--r--@  1 macintosh  staff  17629241344 Oct  1 01:05 qwen_image_edit_2511_q6p.ckpt
+-rw-r--r--@  1 macintosh  staff    254500864 Sep 30 23:08 qwen_image_vae_f16.ckpt
+-rw-r--r--@  1 macintosh  staff   6374330368 Sep 30 20:54 z_image_turbo_1.0_q8p.ckpt

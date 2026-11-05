@@ -1,0 +1,3 @@
+side-three-quarter.png  PTF p3/4/6/7/12 all reuse the same single embedded photo (3508x2480 CMYK, 720 ppi), white bg flood-removed
+/Volumes/FT Marketing/Product Design and Development/A - PTF STANDARD SKUs/2 - EYE & FACE PROTECTION/2.A - EYEWEAR & ACC/2.A.1 - EYEWEAR/1 - SG/ACTIVE/7 - AV-SG30 (6026AV774)/1 - PTF/AVES AV-SG30 (6026AV774) AL R0.pdf
+ADS and LMP carry the same photo; 2 - LMP has only barcode PNGs (AV-SG30C/CAF/G/GAF/IO) and packaging artwork. Repo assets/cut/av-sg30.png is a macro crop (460x224), not a full product.

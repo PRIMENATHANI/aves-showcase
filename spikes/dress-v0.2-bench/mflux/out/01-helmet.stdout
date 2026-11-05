@@ -1,0 +1,68 @@
+Downloading model from HuggingFace: black-forest-labs/FLUX.2-klein-9B...
+Fetching 20 files:   0%|          | 0/20 [00:00<?, ?it/s]Fetching 20 files:   0%|          | 0/20 [00:00<?, ?it/s]
+httpx.HTTPStatusError: Client error '401 Unauthorized' for url 'https://huggingface.co/black-forest-labs/FLUX.2-klein-9B/resolve/92196c8e11f7b6cf2b7493e037d8c5345c559216/text_encoder/generation_config.json'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/private/tmp/claude-501/-Users-macintosh-Documents-Claude-Sloane/620cf011-e614-4864-a570-899eba324016/scratchpad/mflux-venv/bin/mflux-generate-flux2-edit", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/private/tmp/claude-501/-Users-macintosh-Documents-Claude-Sloane/620cf011-e614-4864-a570-899eba324016/scratchpad/mflux-venv/lib/python3.12/site-packages/mflux/models/flux2/cli/flux2_edit_generate.py", line 97, in main
+    model = Flux2KleinEdit(
+            ^^^^^^^^^^^^^^^
+  File "/private/tmp/claude-501/-Users-macintosh-Documents-Claude-Sloane/620cf011-e614-4864-a570-899eba324016/scratchpad/mflux-venv/lib/python3.12/site-packages/mflux/models/flux2/variants/edit/flux2_klein_edit.py", line 42, in __init__
+    Flux2Initializer.init(
+  File "/private/tmp/claude-501/-Users-macintosh-Documents-Claude-Sloane/620cf011-e614-4864-a570-899eba324016/scratchpad/mflux-venv/lib/python3.12/site-packages/mflux/models/flux2/flux2_initializer.py", line 50, in init
+    weights = Flux2Initializer._load_weights(path)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/claude-501/-Users-macintosh-Documents-Claude-Sloane/620cf011-e614-4864-a570-899eba324016/scratchpad/mflux-venv/lib/python3.12/site-packages/mflux/models/flux2/flux2_initializer.py", line 83, in _load_weights
+    return WeightLoader.load(
+           ^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/claude-501/-Users-macintosh-Documents-Claude-Sloane/620cf011-e614-4864-a570-899eba324016/scratchpad/mflux-venv/lib/python3.12/site-packages/mflux/models/common/weights/loading/weight_loader.py", line 67, in load
+    root_path = PathResolution.resolve(
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/claude-501/-Users-macintosh-Documents-Claude-Sloane/620cf011-e614-4864-a570-899eba324016/scratchpad/mflux-venv/lib/python3.12/site-packages/mflux/models/common/resolution/path_resolution.py", line 39, in resolve
+    return PathResolution._execute(rule.action, path, patterns, saved_subdirs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/claude-501/-Users-macintosh-Documents-Claude-Sloane/620cf011-e614-4864-a570-899eba324016/scratchpad/mflux-venv/lib/python3.12/site-packages/mflux/models/common/resolution/path_resolution.py", line 108, in _execute
+    snapshot_download(repo_id=path, allow_patterns=allow_patterns, revision=ModelRevisions.get(path))
+  File "/private/tmp/claude-501/-Users-macintosh-Documents-Claude-Sloane/620cf011-e614-4864-a570-899eba324016/scratchpad/mflux-venv/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 89, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/claude-501/-Users-macintosh-Documents-Claude-Sloane/620cf011-e614-4864-a570-899eba324016/scratchpad/mflux-venv/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 266, in _inner
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/claude-501/-Users-macintosh-Documents-Claude-Sloane/620cf011-e614-4864-a570-899eba324016/scratchpad/mflux-venv/lib/python3.12/site-packages/huggingface_hub/_snapshot_download.py", line 532, in snapshot_download
+    hf_thread_map(
+  File "/private/tmp/claude-501/-Users-macintosh-Documents-Claude-Sloane/620cf011-e614-4864-a570-899eba324016/scratchpad/mflux-venv/lib/python3.12/site-packages/huggingface_hub/utils/tqdm.py", line 441, in hf_thread_map
+    results[future_to_index[future]] = future.result()
+                                       ^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13/Frameworks/Python.framework/Versions/3.12/lib/python3.12/concurrent/futures/_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13/Frameworks/Python.framework/Versions/3.12/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13/Frameworks/Python.framework/Versions/3.12/lib/python3.12/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/claude-501/-Users-macintosh-Documents-Claude-Sloane/620cf011-e614-4864-a570-899eba324016/scratchpad/mflux-venv/lib/python3.12/site-packages/huggingface_hub/_snapshot_download.py", line 512, in _inner_hf_hub_download
+    hf_hub_download(  # type: ignore
+  File "/private/tmp/claude-501/-Users-macintosh-Documents-Claude-Sloane/620cf011-e614-4864-a570-899eba324016/scratchpad/mflux-venv/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 89, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/claude-501/-Users-macintosh-Documents-Claude-Sloane/620cf011-e614-4864-a570-899eba324016/scratchpad/mflux-venv/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 266, in _inner
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/claude-501/-Users-macintosh-Documents-Claude-Sloane/620cf011-e614-4864-a570-899eba324016/scratchpad/mflux-venv/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1047, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/claude-501/-Users-macintosh-Documents-Claude-Sloane/620cf011-e614-4864-a570-899eba324016/scratchpad/mflux-venv/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1194, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/private/tmp/claude-501/-Users-macintosh-Documents-Claude-Sloane/620cf011-e614-4864-a570-899eba324016/scratchpad/mflux-venv/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1953, in _raise_on_head_call_error
+    raise head_call_error
+huggingface_hub.errors.GatedRepoError: 401 Client Error. (Request ID: Root=1-6aec2795-16e5879f55807ab342fcd58d;ee7bbdc5-8123-446a-b5dd-ff11107c7732)
+
+Cannot access gated repo for url https://huggingface.co/black-forest-labs/FLUX.2-klein-9B/resolve/92196c8e11f7b6cf2b7493e037d8c5345c559216/text_encoder/generation_config.json.
+Access to model black-forest-labs/FLUX.2-klein-9B is restricted. You must have access to it and be authenticated to access it. Please log in.

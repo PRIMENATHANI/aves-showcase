@@ -1,0 +1,7 @@
+three-quarter.png  PTF p3 (embedded photo 1193x1245, alpha from its smask)
+front.png          PTF p5 (embedded 889x605 front-on photo), background flood-removed
+side.png           PTF p5 (embedded 2357x1548 profile photo), background flood-removed
+underside.png      PTF p5 (embedded 797x685 underside photo), background flood-removed
+All from: /Volumes/FT Marketing/Product Design and Development/A - PTF STANDARD SKUs/1 - HEAD PROTECTION/1.A - HELMETS & ACCESSORIES/ACTIVE/1 - AVES TITAN AV-841R NV (1891AV841R)/1 - PTF/AVES TITAN AV-841R NV (1891AV841R) NC REV.0.pdf
+Photographed shell is the WHITE/light-grey version. Other sources not used: ADS REV.2 p3 has vector line drawings (front/back/left/right, logo-placement areas) at 1 - ADS/1 - HI-RES/AVES TITAN AV-841R NV (1891AV841R) - REV.2 5 pages.pdf
+Repo assets/cut/aves-titan-av-841r-nv.png is only 461x316 (low res).

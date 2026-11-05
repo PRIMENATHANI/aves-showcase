@@ -1,0 +1,136 @@
+Backend: local
+Models directory: /Users/macintosh/Flowtronix/models/draw-things
+
+[1A[KStarting... [ ] 0  %
+[1A[KProcessing... [ ] 5  %
+[1A[KProcessing... [ ] 15 %
+[1A[KSampling... 1 / 4 [ ] 5  %
+[1A[KSampling... 2 / 4 [ ] 24 %
+[1A[KSampling... 3 / 4 [ ] 44 %
+[1A[KSampling... 4 / 4 [█] 63 %
+[1A[KFinishing... [█] 82 %
+[1A[KFinishing... [█] 100%
+[1A[KGenerated [█] 100%
+Wrote: /Users/macintosh/Documents/Claude/Sloane/aves-showcase/spikes/dress-v0.2-bench/klein-fidelity/A-01-helmet.png
+Generation timing:
+  Total generation time (including model loading): 101.63 s
+  Sampling step time (4 step(s)): avg 18.56 s, median 23.07 s
+Backend: local
+Models directory: /Users/macintosh/Flowtronix/models/draw-things
+
+[1A[KStarting... [ ] 0  %
+[1A[KProcessing... [ ] 5  %
+[1A[KProcessing... [ ] 15 %
+[1A[KSampling... 1 / 4 [ ] 5  %
+[1A[KSampling... 2 / 4 [ ] 24 %
+[1A[KSampling... 3 / 4 [ ] 44 %
+[1A[KSampling... 4 / 4 [█] 63 %
+[1A[KFinishing... [█] 82 %
+[1A[KFinishing... [█] 100%
+[1A[KGenerated [█] 100%
+Wrote: /Users/macintosh/Documents/Claude/Sloane/aves-showcase/spikes/dress-v0.2-bench/klein-fidelity/A-02-glasses.png
+Generation timing:
+  Total generation time (including model loading): 92.20 s
+  Sampling step time (4 step(s)): avg 16.47 s, median 20.42 s
+Backend: local
+Models directory: /Users/macintosh/Flowtronix/models/draw-things
+
+[1A[KStarting... [ ] 0  %
+[1A[KProcessing... [ ] 5  %
+[1A[KProcessing... [ ] 15 %
+[1A[KSampling... 1 / 4 [ ] 5  %
+[1A[KSampling... 2 / 4 [ ] 24 %
+[1A[KSampling... 3 / 4 [ ] 44 %
+[1A[KSampling... 4 / 4 [█] 63 %
+[1A[KFinishing... [█] 82 %
+[1A[KFinishing... [█] 100%
+[1A[KGenerated [█] 100%
+Wrote: /Users/macintosh/Documents/Claude/Sloane/aves-showcase/spikes/dress-v0.2-bench/klein-fidelity/A-03-earmuffs.png
+Generation timing:
+  Total generation time (including model loading): 88.80 s
+  Sampling step time (4 step(s)): avg 16.20 s, median 20.26 s
+Backend: local
+Models directory: /Users/macintosh/Flowtronix/models/draw-things
+
+[1A[KStarting... [ ] 0  %
+[1A[KProcessing... [ ] 5  %
+[1A[KProcessing... [ ] 15 %
+[1A[KSampling... 1 / 4 [ ] 5  %
+[1A[KSampling... 2 / 4 [ ] 24 %
+[1A[KSampling... 3 / 4 [ ] 44 %
+[1A[KSampling... 4 / 4 [█] 63 %
+[1A[KFinishing... [█] 82 %
+[1A[KFinishing... [█] 100%
+[1A[KGenerated [█] 100%
+Wrote: /Users/macintosh/Documents/Claude/Sloane/aves-showcase/spikes/dress-v0.2-bench/klein-fidelity/A-04-gloves.png
+Generation timing:
+  Total generation time (including model loading): 87.99 s
+  Sampling step time (4 step(s)): avg 16.03 s, median 20.14 s
+Backend: local
+Models directory: /Users/macintosh/Flowtronix/models/draw-things
+
+[1A[KStarting... [ ] 0  %
+[1A[KProcessing... [ ] 5  %
+[1A[KProcessing... [ ] 15 %
+[1A[KSampling... 1 / 4 [ ] 5  %
+[1A[KSampling... 2 / 4 [ ] 24 %
+[1A[KSampling... 3 / 4 [ ] 44 %
+[1A[KSampling... 4 / 4 [█] 63 %
+[1A[KFinishing... [█] 82 %
+[1A[KFinishing... [█] 100%
+[1A[KGenerated [█] 100%
+Wrote: /Users/macintosh/Documents/Claude/Sloane/aves-showcase/spikes/dress-v0.2-bench/klein-fidelity/A-05-glasses-seed23.png
+Generation timing:
+  Total generation time (including model loading): 88.21 s
+  Sampling step time (4 step(s)): avg 16.03 s, median 20.15 s
+Backend: local
+Models directory: /Users/macintosh/Flowtronix/models/draw-things
+
+[1A[KStarting... [ ] 0  %
+[1A[KProcessing... [ ] 5  %
+[1A[KProcessing... [ ] 15 %
+[1A[KSampling... 1 / 4 [ ] 5  %
+[1A[KSampling... 2 / 4 [ ] 24 %
+[1A[KSampling... 3 / 4 [ ] 44 %
+[1A[KSampling... 4 / 4 [█] 63 %
+[1A[KFinishing... [█] 82 %
+[1A[KFinishing... [█] 100%
+[1A[KGenerated [█] 100%
+Wrote: /Users/macintosh/Documents/Claude/Sloane/aves-showcase/spikes/dress-v0.2-bench/klein-fidelity/B-01-helmet.png
+Generation timing:
+  Total generation time (including model loading): 131.45 s
+  Sampling step time (4 step(s)): avg 24.16 s, median 30.77 s
+Backend: local
+Models directory: /Users/macintosh/Flowtronix/models/draw-things
+
+[1A[KStarting... [ ] 0  %
+[1A[KProcessing... [ ] 5  %
+[1A[KProcessing... [ ] 15 %
+[1A[KSampling... 1 / 4 [ ] 5  %
+[1A[KSampling... 2 / 4 [ ] 24 %
+[1A[KSampling... 3 / 4 [ ] 44 %
+[1A[KSampling... 4 / 4 [█] 63 %
+[1A[KFinishing... [█] 82 %
+[1A[KFinishing... [█] 100%
+[1A[KGenerated [█] 100%
+Wrote: /Users/macintosh/Documents/Claude/Sloane/aves-showcase/spikes/dress-v0.2-bench/klein-fidelity/B-03-earmuffs.png
+Generation timing:
+  Total generation time (including model loading): 130.63 s
+  Sampling step time (4 step(s)): avg 23.98 s, median 30.73 s
+Backend: local
+Models directory: /Users/macintosh/Flowtronix/models/draw-things
+
+[1A[KStarting... [ ] 0  %
+[1A[KProcessing... [ ] 5  %
+[1A[KProcessing... [ ] 15 %
+[1A[KSampling... 1 / 4 [ ] 5  %
+[1A[KSampling... 2 / 4 [ ] 24 %
+[1A[KSampling... 3 / 4 [ ] 44 %
+[1A[KSampling... 4 / 4 [█] 63 %
+[1A[KFinishing... [█] 82 %
+[1A[KFinishing... [█] 100%
+[1A[KGenerated [█] 100%
+Wrote: /Users/macintosh/Documents/Claude/Sloane/aves-showcase/spikes/dress-v0.2-bench/klein-fidelity/B-04-gloves.png
+Generation timing:
+  Total generation time (including model loading): 131.12 s
+  Sampling step time (4 step(s)): avg 24.10 s, median 30.73 s

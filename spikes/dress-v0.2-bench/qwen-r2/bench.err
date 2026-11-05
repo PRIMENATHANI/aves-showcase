@@ -1,0 +1,85 @@
+Backend: local
+Models directory: /Users/macintosh/Flowtronix/models/draw-things
+
+[1A[KStarting... [ ] 0  %
+[1A[KProcessing... [ ] 5  %
+[1A[KProcessing... [ ] 15 %
+[1A[KSampling... 1 / 4 [ ] 5  %
+[1A[KSampling... 2 / 4 [ ] 24 %
+[1A[KSampling... 3 / 4 [ ] 44 %
+[1A[KSampling... 4 / 4 [█] 63 %
+[1A[KFinishing... [█] 82 %
+[1A[KFinishing... [█] 100%
+[1A[KGenerated [█] 100%
+Wrote: /Users/macintosh/Documents/Claude/Sloane/aves-showcase/spikes/dress-v0.2-bench/qwen-r2/01-helmet.png
+Generation timing:
+  Total generation time (including model loading): 190.96 s
+  Sampling step time (4 step(s)): avg 35.66 s, median 39.39 s
+Backend: local
+Models directory: /Users/macintosh/Flowtronix/models/draw-things
+
+[1A[KStarting... [ ] 0  %
+[1A[KProcessing... [ ] 5  %
+[1A[KProcessing... [ ] 15 %
+[1A[KSampling... 1 / 4 [ ] 5  %
+[1A[KSampling... 2 / 4 [ ] 24 %
+[1A[KSampling... 3 / 4 [ ] 44 %
+[1A[KSampling... 4 / 4 [█] 63 %
+[1A[KFinishing... [█] 82 %
+[1A[KFinishing... [█] 100%
+[1A[KGenerated [█] 100%
+Wrote: /Users/macintosh/Documents/Claude/Sloane/aves-showcase/spikes/dress-v0.2-bench/qwen-r2/02-glasses.png
+Generation timing:
+  Total generation time (including model loading): 130.69 s
+  Sampling step time (4 step(s)): avg 25.26 s, median 25.22 s
+Backend: local
+Models directory: /Users/macintosh/Flowtronix/models/draw-things
+
+[1A[KStarting... [ ] 0  %
+[1A[KProcessing... [ ] 5  %
+[1A[KProcessing... [ ] 15 %
+[1A[KSampling... 1 / 4 [ ] 5  %
+[1A[KSampling... 2 / 4 [ ] 24 %
+[1A[KSampling... 3 / 4 [ ] 44 %
+[1A[KSampling... 4 / 4 [█] 63 %
+[1A[KFinishing... [█] 82 %
+[1A[KFinishing... [█] 100%
+[1A[KGenerated [█] 100%
+Wrote: /Users/macintosh/Documents/Claude/Sloane/aves-showcase/spikes/dress-v0.2-bench/qwen-r2/03-earmuffs.png
+Generation timing:
+  Total generation time (including model loading): 186.22 s
+  Sampling step time (4 step(s)): avg 34.94 s, median 38.68 s
+Backend: local
+Models directory: /Users/macintosh/Flowtronix/models/draw-things
+
+[1A[KStarting... [ ] 0  %
+[1A[KProcessing... [ ] 5  %
+[1A[KProcessing... [ ] 15 %
+[1A[KSampling... 1 / 4 [ ] 5  %
+[1A[KSampling... 2 / 4 [ ] 24 %
+[1A[KSampling... 3 / 4 [ ] 44 %
+[1A[KSampling... 4 / 4 [█] 63 %
+[1A[KFinishing... [█] 82 %
+[1A[KFinishing... [█] 100%
+[1A[KGenerated [█] 100%
+Wrote: /Users/macintosh/Documents/Claude/Sloane/aves-showcase/spikes/dress-v0.2-bench/qwen-r2/04-gloves.png
+Generation timing:
+  Total generation time (including model loading): 182.47 s
+  Sampling step time (4 step(s)): avg 34.55 s, median 38.82 s
+Backend: local
+Models directory: /Users/macintosh/Flowtronix/models/draw-things
+
+[1A[KStarting... [ ] 0  %
+[1A[KProcessing... [ ] 5  %
+[1A[KProcessing... [ ] 15 %
+[1A[KSampling... 1 / 4 [ ] 5  %
+[1A[KSampling... 2 / 4 [ ] 24 %
+[1A[KSampling... 3 / 4 [ ] 44 %
+[1A[KSampling... 4 / 4 [█] 63 %
+[1A[KFinishing... [█] 82 %
+[1A[KFinishing... [█] 100%
+[1A[KGenerated [█] 100%
+Wrote: /Users/macintosh/Documents/Claude/Sloane/aves-showcase/spikes/dress-v0.2-bench/qwen-r2/05-glasses-s23.png
+Generation timing:
+  Total generation time (including model loading): 134.27 s
+  Sampling step time (4 step(s)): avg 25.62 s, median 25.07 s

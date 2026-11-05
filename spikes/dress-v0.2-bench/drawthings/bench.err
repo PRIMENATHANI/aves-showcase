@@ -1,0 +1,161 @@
+Backend: local
+Models directory: /Users/macintosh/Flowtronix/models/draw-things
+
+[1A[KStarting... [ ] 0  %
+[1A[KProcessing... [ ] 5  %
+[1A[KProcessing... [ ] 15 %
+[1A[KSampling... 1 / 4 [ ] 5  %
+[1A[KSampling... 2 / 4 [ ] 24 %
+[1A[KSampling... 3 / 4 [ ] 44 %
+[1A[KSampling... 4 / 4 [█] 63 %
+[1A[KFinishing... [█] 82 %
+[1A[KFinishing... [█] 100%
+[1A[KGenerated [█] 100%
+Wrote: /Users/macintosh/Documents/Claude/Sloane/aves-showcase/spikes/dress-v0.2-bench/drawthings/01-helmet.png
+Generation timing:
+  Total generation time (including model loading): 98.23 s
+  Sampling step time (4 step(s)): avg 16.88 s, median 20.25 s
+Backend: local
+Models directory: /Users/macintosh/Flowtronix/models/draw-things
+
+[1A[KStarting... [ ] 0  %
+[1A[KProcessing... [ ] 5  %
+[1A[KProcessing... [ ] 15 %
+[1A[KSampling... 1 / 4 [ ] 5  %
+[1A[KSampling... 2 / 4 [ ] 24 %
+[1A[KSampling... 3 / 4 [ ] 44 %
+[1A[KSampling... 4 / 4 [█] 63 %
+[1A[KFinishing... [█] 82 %
+[1A[KFinishing... [█] 100%
+[1A[KGenerated [█] 100%
+Wrote: /Users/macintosh/Documents/Claude/Sloane/aves-showcase/spikes/dress-v0.2-bench/drawthings/02-glasses.png
+Generation timing:
+  Total generation time (including model loading): 88.33 s
+  Sampling step time (4 step(s)): avg 15.96 s, median 19.86 s
+Backend: local
+Models directory: /Users/macintosh/Flowtronix/models/draw-things
+
+[1A[KStarting... [ ] 0  %
+[1A[KProcessing... [ ] 5  %
+[1A[KProcessing... [ ] 15 %
+[1A[KSampling... 1 / 4 [ ] 5  %
+[1A[KSampling... 2 / 4 [ ] 24 %
+[1A[KSampling... 3 / 4 [ ] 44 %
+[1A[KSampling... 4 / 4 [█] 63 %
+[1A[KFinishing... [█] 82 %
+[1A[KFinishing... [█] 100%
+[1A[KGenerated [█] 100%
+Wrote: /Users/macintosh/Documents/Claude/Sloane/aves-showcase/spikes/dress-v0.2-bench/drawthings/03-earmuffs.png
+Generation timing:
+  Total generation time (including model loading): 89.91 s
+  Sampling step time (4 step(s)): avg 16.23 s, median 20.27 s
+Backend: local
+Models directory: /Users/macintosh/Flowtronix/models/draw-things
+
+[1A[KStarting... [ ] 0  %
+[1A[KProcessing... [ ] 5  %
+[1A[KProcessing... [ ] 15 %
+[1A[KSampling... 1 / 4 [ ] 5  %
+[1A[KSampling... 2 / 4 [ ] 24 %
+[1A[KSampling... 3 / 4 [ ] 44 %
+[1A[KSampling... 4 / 4 [█] 63 %
+[1A[KFinishing... [█] 82 %
+[1A[KFinishing... [█] 100%
+[1A[KGenerated [█] 100%
+Wrote: /Users/macintosh/Documents/Claude/Sloane/aves-showcase/spikes/dress-v0.2-bench/drawthings/04-gloves.png
+Generation timing:
+  Total generation time (including model loading): 90.37 s
+  Sampling step time (4 step(s)): avg 16.33 s, median 20.34 s
+Backend: local
+Models directory: /Users/macintosh/Flowtronix/models/draw-things
+
+[1A[KStarting... [ ] 0  %
+[1A[KProcessing... [ ] 5  %
+[1A[KProcessing... [ ] 15 %
+[1A[KSampling... 1 / 4 [ ] 5  %
+[1A[KSampling... 2 / 4 [ ] 24 %
+[1A[KSampling... 3 / 4 [ ] 44 %
+[1A[KSampling... 4 / 4 [█] 63 %
+[1A[KFinishing... [█] 82 %
+[1A[KFinishing... [█] 100%
+[1A[KGenerated [█] 100%
+Wrote: /Users/macintosh/Documents/Claude/Sloane/aves-showcase/spikes/dress-v0.2-bench/drawthings/05-glasses-seed23.png
+Generation timing:
+  Total generation time (including model loading): 87.51 s
+  Sampling step time (4 step(s)): avg 15.93 s, median 19.88 s
+Backend: local
+Models directory: /Users/macintosh/Flowtronix/models/draw-things
+
+[1A[KStarting... [ ] 0  %
+[1A[KProcessing... [ ] 1  %
+[1A[KProcessing... [ ] 2  %
+[1A[KSampling... 1 / 30 [ ] 1  %
+[1A[KSampling... 2 / 30 [ ] 4  %
+[1A[KSampling... 3 / 30 [ ] 7  %
+[1A[KSampling... 4 / 30 [ ] 10 %
+[1A[KSampling... 5 / 30 [ ] 14 %
+[1A[KSampling... 6 / 30 [ ] 17 %
+[1A[KSampling... 7 / 30 [ ] 20 %
+[1A[KSampling... 8 / 30 [ ] 23 %
+[1A[KSampling... 9 / 30 [ ] 27 %
+[1A[KSampling... 10 / 30 [ ] 30 %
+[1A[KSampling... 11 / 30 [ ] 33 %
+[1A[KSampling... 12 / 30 [ ] 36 %
+[1A[KSampling... 13 / 30 [ ] 39 %
+[1A[KSampling... 14 / 30 [ ] 43 %
+[1A[KSampling... 15 / 30 [ ] 46 %
+[1A[KSampling... 16 / 30 [ ] 49 %
+[1A[KSampling... 17 / 30 [█] 52 %
+[1A[KSampling... 18 / 30 [█] 55 %
+[1A[KSampling... 19 / 30 [█] 59 %
+[1A[KSampling... 20 / 30 [█] 62 %
+[1A[KSampling... 21 / 30 [█] 65 %
+[1A[KSampling... 22 / 30 [█] 68 %
+[1A[KSampling... 23 / 30 [█] 71 %
+[1A[KSampling... 24 / 30 [█] 75 %
+[1A[KSampling... 25 / 30 [█] 78 %
+[1A[KSampling... 26 / 30 [█] 81 %
+[1A[KSampling... 27 / 30 [█] 84 %
+[1A[KSampling... 28 / 30 [█] 87 %
+[1A[KSampling... 29 / 30 [█] 91 %
+[1A[KSampling... 30 / 30 [█] 94 %
+[1A[KFinishing... [█] 97 %
+[1A[KFinishing... [█] 100%
+[1A[KGenerated [█] 100%
+Wrote: /Users/macintosh/Documents/Claude/Sloane/aves-showcase/spikes/dress-v0.2-bench/drawthings/06-glasses-qwen.png
+Generation timing:
+  Total generation time (including model loading): 1483.50 s
+  Sampling step time (30 step(s)): avg 47.52 s, median 48.23 s
+Backend: local
+Models directory: /Users/macintosh/Flowtronix/models/draw-things
+
+[1A[KStarting... [ ] 0  %
+[1A[KProcessing... [ ] 1  %
+[1A[KProcessing... [ ] 4  %
+[1A[KSampling... 1 / 20 [ ] 1  %
+[1A[KSampling... 2 / 20 [ ] 6  %
+[1A[KSampling... 3 / 20 [ ] 11 %
+[1A[KSampling... 4 / 20 [ ] 15 %
+[1A[KSampling... 5 / 20 [ ] 20 %
+[1A[KSampling... 6 / 20 [ ] 25 %
+[1A[KSampling... 7 / 20 [ ] 30 %
+[1A[KSampling... 8 / 20 [ ] 34 %
+[1A[KSampling... 9 / 20 [ ] 39 %
+[1A[KSampling... 10 / 20 [ ] 44 %
+[1A[KSampling... 11 / 20 [ ] 48 %
+[1A[KSampling... 12 / 20 [█] 53 %
+[1A[KSampling... 13 / 20 [█] 58 %
+[1A[KSampling... 14 / 20 [█] 63 %
+[1A[KSampling... 15 / 20 [█] 67 %
+[1A[KSampling... 16 / 20 [█] 72 %
+[1A[KSampling... 17 / 20 [█] 77 %
+[1A[KSampling... 18 / 20 [█] 81 %
+[1A[KSampling... 19 / 20 [█] 86 %
+[1A[KSampling... 20 / 20 [█] 91 %
+[1A[KFinishing... [█] 96 %
+[1A[KFinishing... [█] 100%
+[1A[KGenerated [█] 100%
+Wrote: /Users/macintosh/Documents/Claude/Sloane/aves-showcase/spikes/dress-v0.2-bench/drawthings/07-glasses-qwen-sized.png
+Generation timing:
+  Total generation time (including model loading): 1034.72 s
+  Sampling step time (20 step(s)): avg 48.86 s, median 49.34 s
