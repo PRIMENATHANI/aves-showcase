@@ -2,8 +2,14 @@
    Data-driven from data/kits.json, data/products.json and assets/dress/manifest.json.
    Debug queries: ?kit=<id> (deep link), ?pick=<id> (picker, then auto-pick), ?hover=<id>,
    ?step=walk|<1..n>|close|more (jump the scroll; no Lenis, scrub locked), ?rm (force reduced motion). */
-// Sister-brand sites: drop the URLs in here; empty = inert '#' link.
-const BRAND_LINKS = { scuta: '', cavalier: '' };
+// Sister-brand items on the figure (Salman, 2026-11-06: no links; the same name / SKU / standards / why data as the AVES products).
+// Facts from the PTFs (spikes/dress-v0.2-bench/refs-v2/<item>/description.txt). Never called AVES.
+const SISTER = {
+  vest:  { brand: 'Scuta', name: 'Reflector Safety Vest', sku: '3116RR71', standards: 'EN ISO 20471:2013+A1:2016 Class 2',
+           why: 'Class 2 hi-vis waistcoat, two 5 cm reflective bands round the torso and one over each shoulder' },
+  boots: { brand: 'Cavalier', name: 'Captain 8713-4 HC', sku: '73110CV214', standards: 'EN ISO 20345:2011 S3 · EN 12568:2010 non-metallic midplate',
+           why: 'High-cut waterproof leather safety boot, composite toe cap, anti-static slip-resistant PU sole' },
+};
 
 (() => {
 'use strict';
@@ -165,8 +171,7 @@ document.addEventListener('error', e => {
   im.insertAdjacentHTML('afterend', `<span class="ph">${esc(im.dataset.ph)}</span>`); im.remove();
 }, true);
 
-const brandAttrs = key => BRAND_LINKS[key] ? `href="${esc(BRAND_LINKS[key])}" target="_blank" rel="noopener"` : `href="#" data-todo="${key}-url"`;
-const brand = (name, key) => `<a class="brand" ${brandAttrs(key)}>${name}</a>`;
+const SISTER_NOTE = 'sister brand, not part of the AVES range';
 
 const altLabel = a => esc(dispName(a)) + (a.sku && a.sku !== dispName(a) ? ' · ' + esc(a.sku) : '');
 // "one worn, the rest options": the slot's alternates as ghost cutouts (desktop) or a one-line list (phone)
@@ -180,10 +185,12 @@ function altsHTML(s) {
 function detailHTML(st, i) {
   const num = String(i + 1).padStart(2, '0');
   const off = st.onMan ? '' : `<p class="skip">${st.layer && st.layer.status === 'skipped' ? 'Stays on the shelf: not drawn on the figure with this kit.' : 'On the shelf only: not drawn on the figure yet.'}</p>`;
-  if (st.vest) return `<div class="dt" data-i="${i}">
+  if (st.vest) { const v = SISTER.vest; return `<div class="dt" data-i="${i}">
     <div class="sl2 lbl"><b>${num}</b>Hi-vis</div>
-    <h3 class="nm disp">Hi-vis vest</h3>
-    <p class="why">Hi-vis by ${brand('Scuta', 'scuta')} · sister brand, not part of the AVES range</p>${off}</div>`;
+    <h3 class="nm disp">${esc(v.brand + ' ' + v.name)}</h3>
+    <p class="sku"><b>SKU</b>${esc(v.sku)}</p>
+    <p class="std"><span class="lbl">Standards</span>${esc(v.standards)}</p>
+    <p class="why">${esc(v.why)}. By ${esc(v.brand)}: ${SISTER_NOTE}.</p>${off}</div>`; }
   const p = st.p, s = st.s;
   return `<div class="dt" data-i="${i}">
     <div class="sl2 lbl"><b>${num}</b>${esc(st.label)}</div>
@@ -226,7 +233,8 @@ async function openKit(k, zoom) {
   $('#aftT').textContent = k.title;
   const prim = steps.filter(s => s.p);
   $('#aftS').textContent = `${prim.length} AVES products, one per slot. Hi-vis by Scuta, boots by Cavalier: sister brands, not part of the AVES range.`;
-  $('#plist').innerHTML = prim.map(s => `<li><span class="s">${esc(s.label)}</span><span class="n">${esc(dispName(s.p))}</span><span class="k">${esc(s.p.sku)}</span></li>`).join('');
+  const sisterRows = [['Hi-vis', SISTER.vest], ['Boots', SISTER.boots]].map(([l, v]) => `<li class="sister"><span class="s">${l}</span><span class="n">${esc(v.brand + ' ' + v.name)}</span><span class="k">${esc(v.sku)}</span></li>`);
+  $('#plist').innerHTML = prim.map(s => `<li><span class="s">${esc(s.label)}</span><span class="n">${esc(dispName(s.p))}</span><span class="k">${esc(s.p.sku)}</span></li>`).concat(sisterRows).join('');
   $('#orow').innerHTML = pickerOrder().filter(o => o.k.id !== k.id).map(({ k: o }) =>
     `<a class="oslice" href="?pick=${encodeURIComponent(o.id)}" aria-label="${esc(o.name)}">${bdHTML(o, true)}<span class="veil"></span><span class="vname">${esc(o.name)}</span></a>`).join('');
 
@@ -250,7 +258,8 @@ async function openKit(k, zoom) {
   });
 
   // shelf
-  $('#shbase').innerHTML = `Boots by ${brand('Cavalier', 'cavalier')}`;
+  const b = SISTER.boots;
+  $('#shbase').innerHTML = `<span class="lbl">Boots</span><b>${esc(b.brand + ' ' + b.name)}</b> · SKU ${esc(b.sku)}<span class="std"> · EN ISO 20345 S3</span>`;   // one line; standards hidden on phone; full standards + sister-brand note in the close list
   $('#grid').innerHTML = steps.map(itemHTML).join('');
   const rows = Math.ceil(steps.length / 2);
   if (!isPhone()) $('#grid').style.setProperty('--cellH', (rows <= 4 ? 106 : rows === 5 ? 86 : 74) + 'px');

@@ -8,3 +8,6 @@ spikes/dress-v0.2/raw/
 .venv/
 tools/dress/work/
 spikes/walk-on/work/
+__pycache__/
+spikes/dress-v0.2-bench/qwen-lightning/dl/*.safetensors
+spikes/dress-v0.2-bench/qwen-lightning/dl/*.ckpt

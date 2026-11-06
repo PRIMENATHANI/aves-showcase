@@ -145,12 +145,12 @@ body.mode-kit .kit{display:block}
 .dt .alts img{flex:none;width:30px;height:30px;object-fit:contain;opacity:.5;filter:grayscale(1)}
 .dt .alts li span{font-size:12.5px;line-height:1.3;color:var(--muted)}
 .dt .alt-line{display:none}
-.dt a.brand,.sh-base a{text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(154,163,174,.6)}
+.sh-base .lbl{margin-right:.6em}.sh-base b{font-weight:500;color:var(--soft)}.plist .sister .n{color:var(--muted)}
 .sh-body{flex:1 1 auto;display:flex;flex-direction:column;align-items:flex-start}
 .sh-detail{align-self:stretch}
 .q{margin-top:22px;font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:16px;color:var(--green-t);padding-bottom:3px;border-bottom:2px solid var(--green-t);transition:color .18s ease}
 .q:hover{color:#3fd47e}
-.sh-base{margin-top:auto;font-size:13px;color:var(--muted)}
+.sh-base{margin-top:auto;font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .fly{position:absolute;left:0;top:0;width:150px;height:74px;z-index:40;opacity:0;pointer-events:none;will-change:transform,opacity}
 .fly img.cut{width:100%;height:100%;object-fit:contain}
 .fly .crop-box{position:absolute;inset:0}
@@ -257,7 +257,7 @@ body.mode-kit .kit{display:block}
   .dt.on{display:block;animation:dtin .3s ease}
   @keyframes dtin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
   .q{margin-top:10px;font-size:15px}
-  .sh-base{margin-top:10px;font-size:12px}
+  .sh-base{margin-top:10px;font-size:12px}.sh-base .std{display:none}
   .fly{display:none}
 
   .after{padding:64px 16px 72px}
