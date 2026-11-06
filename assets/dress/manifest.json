@@ -299,14 +299,14 @@
    "box": [
     276,
     731,
-    624,
-    880
+    518,
+    844
    ],
    "z": 40,
    "model": "qwen2511-lightning",
-   "seconds": 145,
+   "seconds": 197,
    "status": "ok",
-   "mask_px": 22696
+   "mask_px": 17622
   },
   {
    "id": "aves-ffp3-v-cp",
@@ -348,16 +348,16 @@
    "slot": "respiratory",
    "dependsOn": null,
    "box": [
-    291,
+    292,
     731,
-    499,
-    796
+    528,
+    824
    ],
    "z": 40,
    "model": "qwen2511-lightning",
-   "seconds": 154,
+   "seconds": 137,
    "status": "ok",
-   "mask_px": 7353
+   "mask_px": 12599
   },
   {
    "id": "ffp2-av-187-mask",

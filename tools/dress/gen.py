@@ -25,7 +25,7 @@ ORD = {1: 'the second image', 2: 'the second and third images'}
 # refs-v2 angle choice per product = what produced the v0.2 chain / bench winners
 REFPICK = {'aves-titan-av-841r-nv': ['three-quarter', 'front'], 'av-sg30': ['side-three-quarter'], 'av-hm3093-cap-earmuffs': ['front'],
            'hg-2230-rubber-neoprene-gloves': ['back-upright', 'three-quarter'], 'scuta-vest': ['front-three-quarter', 'front-flat'],
-           'full-body-harness': ['front', 'back'], 'av-101373': ['lying-three-quarter', 'hanging-u']}
+           'full-body-harness': ['front', 'back'], 'aves-escape-hood-bag': ['pouch-side-strap', 'pouch-label-face'], 'av-101373': ['lying-three-quarter', 'hanging-u']}
 HT = dict(
  helmet="a full-brim industrial hard hat with a one-piece glossy white shell, a tall rounded dome with a raised centre rib running front to back and recessed shoulders on each side, and a low, broad flat brim about 40 mm wide all the way round, slightly drooping at the edge with a thin rolled lip. Four small rectangular notches sit on the shell wall just above the brim. No front peak, no logo, no vents.",
  glasses="half-wrap sport glasses with a single continuous wrap-around grey lens, a dark smoked upper frame rail across the top of the lens as a brow guard, no lower frame, and a moulded black nose bridge. The two temples are black near the hinge and bright green further back with a lime-green stripe and a white AVES logo, and they run back over the ears, ending in an oval cut-out loop.",
@@ -66,6 +66,13 @@ def kind(pid, slot):
     if slot == 'hand': return 'dark' if pid == 'hg-2230-rubber-neoprene-gloves' else 'other'
     return slot
 
+# the AVES bag's product record says hi-vis yellow (that is the hood inside); the bag itself is black
+POUCH_COL = {'aves-escape-hood-bag': 'black', 'emergency-escape-hood-breathing-device': 'grey'}
+POUCH_DESC = {
+ 'aves-escape-hood-bag': 'a black soft carry pouch, a rounded rectangular box about 26 cm long, 16 cm high and 10 cm deep, made of glossy wet-look black coated fabric with a fine dimpled texture. A black zip curves round one end of the box, a thin black webbing strap with a black clip loops from its back to the belt, and a small clear window sits on the back. It is solid black all over, with no yellow.',
+ 'emergency-escape-hood-breathing-device': 'a grey soft rectangular pouch about 35 cm long and 12 cm high, made of silver-grey coated fabric with a zip seam along the top edge, a red and white band across the front, and a black webbing strap through loops on its back that goes up to the belt.'}
+REFALIAS = {'aves-escape-hood-bag': 'escape-pouch'}
+
 def clip_key(pid, slot):
     k = kind(pid, slot)
     m = {'hearing': {'cap': 'hearing_cap', 'band': 'hearing_band', 'plug': 'hearing_plug'}, 'respiratory': {'mask': 'resp_mask', 'half': 'resp_half', 'pouch': 'resp_pouch'},
@@ -85,8 +92,8 @@ def item_and_place(pid, slot):
         return ('black welding helmet with its own head harness', 'worn with the hood flipped down covering his whole head and face from above the crown to below the chin, one solid closed black shell with only the small dark rectangular viewing window in front of his eyes; no hair, scalp or skin shows anywhere above his collar') if k == 'welding' else ('face shield', 'a clear visor hanging from the brim of the hard hat down in front of his whole face')
     if slot == 'respiratory':
         if k == 'pouch':
-            col = (product(pid).get('color') or '').lower().replace('hi-viz', 'hi-vis') or 'grey'
-            return f'compact {col} escape-hood pouch', "about the size of a lunch box, clipped at his belt on the left hip (the right-hand side of the picture), below the vest hem; the man's face stays uncovered"
+            col = POUCH_COL.get(pid) or (product(pid).get('color') or '').lower().replace('hi-viz', 'hi-vis') or 'grey'
+            return f'compact {col} soft belt pouch', "a rectangular box about the size of a lunch box, hanging from his belt on the left hip (the right-hand side of the picture) just below the vest hem, lying horizontally against his hip like a bum bag, with a short webbing strap running up to the belt; the man's face stays uncovered"
         if k == 'half': return 'half-mask respirator', 'over his nose and mouth, with a filter cartridge on each cheek and straps around the head'
         return 'disposable respirator mask', 'over his nose and mouth with the straps going behind his head'
     if slot == 'hand': return ('black rubber gauntlet gloves' if pid in HT_ITEM else 'work gloves'), 'on both hands, fingers inside'
@@ -96,7 +103,7 @@ def item_and_place(pid, slot):
     if slot == 'cryo-body': return 'thermal protection apron', 'over the front of his body from chest to knees, tied at the waist'
 
 def description(pid, slot):
-    if slot == 'respiratory' and kind(pid, slot) == 'pouch': return 'a small rectangular soft pouch with a flap closure and a belt clip.'
+    if slot == 'respiratory' and kind(pid, slot) == 'pouch': return POUCH_DESC.get(pid, 'a small rectangular soft pouch with a zip closure and a belt strap.')
     if slot == 'dropped': return 'a coiled stretch tether: a ribbed coiled cord about 30 cm long with a black webbing sleeve and a carabiner at the free end.'
     if pid in HT_ITEM: return HT_ITEM[pid][1]
     f = os.path.join(DESC, pid + '.txt')
@@ -114,7 +121,7 @@ def description(pid, slot):
     return txt.strip()
 
 def refs_for(pid):
-    d = os.path.join(REFS, pid)
+    d = os.path.join(REFS, REFALIAS.get(pid, pid))
     if pid in REFPICK and os.path.isdir(d): return [os.path.join(d, a + '.png') for a in REFPICK[pid] if os.path.exists(os.path.join(d, a + '.png'))]
     out = os.path.join(WORK, 'refs', pid + '.png')
     if not os.path.exists(out):
