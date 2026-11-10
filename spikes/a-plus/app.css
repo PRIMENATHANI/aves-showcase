@@ -1,5 +1,5 @@
 /* AVES Experience A+ spike (throwaway). One kit, desktop only. */
-:root{--bg:#07090c;--ink:#f3f5f8;--muted:#9aa3ae;--soft:#d9dee4;--line:rgba(255,255,255,.16);--green:#19b45a;--pad:32px;--rackW:44vw}
+:root{--brand:#009845;--bg:#07090c;--ink:#f3f5f8;--muted:#9aa3ae;--soft:#d9dee4;--line:rgba(255,255,255,.16);--green:#19b45a;--pad:32px;--rackW:44vw}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:var(--bg);color:var(--ink)}
 html.lenis,html.lenis body{height:auto}
@@ -46,7 +46,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 .intro{position:absolute;z-index:20;left:58vw;right:var(--pad);top:24vh}
 .intro::before{content:"";position:absolute;z-index:-1;inset:-18vh -6vw -16vh -12vw;background:radial-gradient(closest-side,rgba(5,8,12,.78),rgba(5,8,12,.5) 55%,rgba(5,8,12,0))}
-.intro h1{margin-top:12px;font-size:clamp(72px,9vw,150px)}
+.intro h1{margin-top:14px;font-size:clamp(56px,6.6vw,104px)}
+.wide{font-family:"Montserrat",sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.06em;line-height:.98}
+.kicker{display:flex;align-items:center;gap:12px}
+.kicker img{width:38px;height:38px}
 .intro .ki{margin-top:18px;font-size:18px;color:var(--soft);max-width:30em;text-shadow:0 1px 14px rgba(0,0,0,.6)}
 .intro .hz{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px 22px;max-width:34em}
 .intro .hz li{font-size:15px;color:var(--ink);text-shadow:0 1px 10px rgba(0,0,0,.7)}
@@ -58,7 +61,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .rack .rk{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .rk-shade{position:absolute;inset:0;background:linear-gradient(90deg,#07090c 0,rgba(7,9,12,.0) 16%),linear-gradient(rgba(7,9,12,.88),rgba(7,9,12,0) 20%,rgba(7,9,12,0) 88%,rgba(7,9,12,.7))}
 .rack::before{content:"";position:absolute;z-index:1;left:-90px;top:0;bottom:0;width:90px;background:linear-gradient(90deg,rgba(7,9,12,0),#07090c)}
-.prog{position:absolute;z-index:3;left:7%;right:var(--pad);top:124px;display:flex;gap:5px}
+.prog{position:absolute;z-index:3;left:7%;right:calc(var(--pad) + 150px);top:139px;display:flex;gap:5px}
 .prog span{flex:1 1 0;height:3px;background:rgba(255,255,255,.16);position:relative;overflow:hidden}
 .prog span::after{content:"";position:absolute;inset:0;background:var(--green);transform:scaleX(0);transform-origin:0 50%;transition:transform .3s ease}
 .prog span.on::after{transform:scaleX(1)}
@@ -78,28 +81,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .end .list li button{font-family:"Barlow Condensed",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:13px;color:#3ddc84;white-space:nowrap}
 .end .list li{align-items:baseline}
 .acts{margin-top:26px;display:flex;gap:28px;align-items:center}
-.cta{font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:17px;background:var(--green);color:#04130a;padding:13px 22px 12px;transition:transform .18s ease}
+.cta{font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:17px;border-radius:5px;background:var(--brand);color:#fff;padding:13px 22px 12px;transition:transform .18s ease}
 .cta:active{transform:scale(.97)}
 .next{font-family:"Barlow Condensed",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:15px;color:var(--ink);border-bottom:2px solid var(--green);padding-bottom:4px}
 .end-shade{}
 
-
-/* ---- stockroom sign: a lightbox for the logo, hung on two cables, the kit named beside it */
-.sign{position:absolute;z-index:3;left:7%;right:var(--pad);top:30px;height:82px;display:flex;align-items:stretch;background:#12161b;box-shadow:0 18px 40px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.07)}
-.sg-cab{position:absolute;top:-30px;left:34px;width:1.5px;height:30px;background:linear-gradient(#0000,#59616b)}
-.sg-cab.r{left:auto;right:34px}
-.sg-logo{flex:0 0 auto;display:grid;place-items:center;padding:0 26px;background:radial-gradient(120% 140% at 50% 40%,#fff 0%,#f6f1e6 62%,#e7dfcf 100%);box-shadow:0 0 44px rgba(255,240,205,.28),inset 0 0 0 1px rgba(0,0,0,.06)}
-.sg-logo img{height:34px;width:auto}
-.sg-t{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;padding:0 0 0 22px}
-.sg-t .lbl{font-size:11px;color:#8d96a1}
-.sg-t b{margin-top:4px;font-size:28px;line-height:1;color:#f3f5f8;white-space:nowrap}
-.sg-t .tagline{margin-top:6px;font-size:12.5px;font-weight:500;letter-spacing:.04em;color:#3ddc84;white-space:nowrap}
-.sign .cnt{flex:0 0 auto;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;padding:0 20px;border-left:1px solid rgba(255,255,255,.1)}
-.sign .cnt .disp{font-size:28px;color:#8d96a1;font-variant-numeric:tabular-nums}
-.sign .cnt i{font-style:normal;color:#3ddc84;margin-right:.12em}
-.sign .cnt b{font-weight:700;margin-left:.12em}
-.sign .cnt .lbl{font-size:10.5px;margin-top:3px}
-.sign::after{content:"";position:absolute;left:0;right:0;top:100%;height:70px;background:linear-gradient(rgba(255,240,205,.07),rgba(255,240,205,0));pointer-events:none}
 
 /* ---- shelf: one of each, standing in front of the pack it ships in */
 .it{position:absolute;transform:translate(-50%,-100%);cursor:pointer}
@@ -123,7 +109,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .it.gone::after{opacity:0}
 
 /* ---- caption: the product, said once */
-.cap{position:absolute;z-index:40;left:var(--pad);bottom:36px;width:min(380px,28vw);pointer-events:none}
+.cap{position:absolute;z-index:40;left:var(--pad);bottom:36px;width:min(436px,31vw);pointer-events:none}
 .cap .c{position:absolute;left:0;bottom:0;width:100%;opacity:0;visibility:hidden;pointer-events:auto}
 .cap .c .n{color:#3ddc84}
 .cap .c .n b{font-weight:500;margin-right:.9em}
@@ -134,26 +120,67 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .cap .c .rule{display:block;width:44px;height:2px;background:var(--green);margin-bottom:14px;transform-origin:0 50%}
 .capshade{position:absolute;z-index:38;left:0;bottom:0;width:46vw;height:52vh;pointer-events:none;opacity:0;background:radial-gradient(100% 100% at 0% 100%,rgba(5,7,10,.92),rgba(5,7,10,.6) 45%,rgba(5,7,10,0) 76%)}
 .btns{margin-top:16px;display:flex;gap:22px;align-items:center}
-.btn{display:inline-block;font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:14px;background:var(--green);color:#04130a;padding:9px 14px 8px;text-decoration:none;transition:transform .16s ease}
+.btn{border-radius:5px;display:inline-block;font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:14px;background:var(--brand);color:#fff;padding:9px 14px 8px;text-decoration:none;transition:transform .16s ease}
 .btn:active{transform:scale(.97)}
 .lnk{font-family:"Barlow Condensed",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:14px;color:var(--ink);border-bottom:2px solid var(--green);padding-bottom:3px;text-decoration:none}
 a.lnk::after{content:" \2197"}
 
-/* ---- callouts: the hazard pinned to the site, the benefits pinned to the product */
+/* ---- stockroom sign: catalogue header band (white logo panel, green title band, industry tile), hung on two cables */
+.sign{position:absolute;z-index:3;left:7%;right:var(--pad);top:30px;height:84px;display:flex;align-items:stretch;border-radius:9px;overflow:visible;background:var(--brand);box-shadow:0 18px 40px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.12)}
+.sg-cab{position:absolute;top:-30px;left:34px;width:1.5px;height:30px;background:linear-gradient(#0000,#59616b)}
+.sg-cab.r{left:auto;right:34px}
+.sg-logo{flex:0 0 auto;display:grid;place-items:center;padding:0 24px;border-radius:9px 0 0 9px;background:radial-gradient(120% 140% at 50% 40%,#fff 0%,#f6f4ee 62%,#e9e6dc 100%);box-shadow:0 0 44px rgba(255,244,220,.25)}
+.sg-logo img{height:34px;width:auto}
+.sg-t{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;padding:0 0 0 22px;background:linear-gradient(100deg,rgba(255,255,255,.10),rgba(255,255,255,0) 40%)}
+.sg-t b{font-size:clamp(17px,1.62vw,24px);letter-spacing:.09em;color:#fff;white-space:nowrap}
+.sg-t .tagline{margin-top:7px;font-size:12.5px;font-weight:500;letter-spacing:.05em;color:rgba(255,255,255,.88);white-space:nowrap}
+.sg-ic{flex:0 0 auto;align-self:center;width:56px;height:56px;margin:0 14px;border-radius:4px;box-shadow:0 0 0 1px rgba(255,255,255,.5)}
+.sign::after{content:"";position:absolute;left:0;right:0;top:100%;height:70px;background:linear-gradient(rgba(190,255,215,.06),rgba(190,255,215,0));pointer-events:none}
+.issued{position:absolute;z-index:3;right:var(--pad);top:124px;display:flex;align-items:baseline;gap:9px;white-space:nowrap}
+.issued .disp{font-size:24px;color:#8d96a1;font-variant-numeric:tabular-nums}
+.issued i{font-style:normal;color:#3ddc84}
+.issued b{font-weight:700}
+.issued .lbl{font-size:10.5px}
+
+/* ---- the brand V, large and quiet, behind the opening and closing type */
+.vmark{position:absolute;z-index:15;right:-6vw;top:-8vh;width:62vw;height:116vh;pointer-events:none;opacity:.13;background:linear-gradient(180deg,#19b45a,#009845);-webkit-mask:url(art/brand/v.png) center/contain no-repeat;mask:url(art/brand/v.png) center/contain no-repeat}
+.end .tagl{display:block;margin-top:34px;height:19px;width:auto;opacity:.92}
+
+/* ---- callouts, drawn like the catalogue's anatomy plates: a node on the product, a thin dog-leg leader, type on a rule. No boxes. */
 .co{position:absolute;inset:0;z-index:39;pointer-events:none}
 .co .g{position:absolute;inset:0;opacity:0;visibility:hidden}
 .co .ln{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.co .ln line{stroke:rgba(243,245,248,.7);stroke-width:1}
-.co .ln circle{fill:#3ddc84;stroke:rgba(4,19,10,.7);stroke-width:1.5}
+.co .ln polyline{fill:none;stroke:#fff;stroke-width:1.25;stroke-dasharray:1;stroke-dashoffset:0;filter:drop-shadow(0 0 3px rgba(0,0,0,.7))}
+.co .ln polyline.s{stroke:#ffc46b}
+.co .ln circle{fill:#19b45a;stroke:#fff;stroke-width:1.5}
+.co .ln circle.o{fill:none;stroke:rgba(25,180,90,.55);stroke-width:1}
 .co .ln circle.s{fill:none;stroke:#ffc46b;stroke-width:1.5}
-.co .site,.co .bf{position:absolute;background:rgba(8,11,15,.74);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);padding:10px 14px 11px}
-.co .site{border-top:2px solid #ffc46b}
+.co .ln circle.sd{fill:#ffc46b;stroke:none}
+.co .site,.co .bf{position:absolute}
+.co .site::before,.co .bf::before{content:"";position:absolute;z-index:-1;inset:-26px -34px -30px;background:radial-gradient(closest-side,rgba(5,7,10,.78),rgba(5,7,10,.5) 55%,rgba(5,7,10,0))}
+.co .bf{border-top:1.25px solid #fff;padding-top:8px;display:grid;grid-template-columns:auto 1fr;column-gap:10px;align-items:start}
+.co .bf .k{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 1.5px #fff;font-family:"Montserrat",sans-serif;font-weight:800;font-size:11.5px;line-height:1;color:#fff}
+.co .bf p{font-size:14px;line-height:1.36;font-weight:500;color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.85)}
+.co .bf[data-side="L"]{text-align:left}
+.co .site{border-top:1.25px solid #ffc46b;padding-top:9px;display:grid;grid-template-columns:auto 1fr;column-gap:12px}
+.co .site .hz{position:relative;width:26px;height:23px;margin-top:2px;background:#ffc46b;clip-path:polygon(50% 0,100% 100%,0 100%)}
+.co .site .hz::after{content:"";position:absolute;left:12px;top:8px;width:2.5px;height:8px;background:#14181d;box-shadow:0 10.5px 0 0 #14181d;clip-path:inset(0 0 -4px 0)}
 .co .site .lbl{font-size:11px;color:#ffc46b}
-.co .site .need{margin-top:3px;font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:21px;line-height:1.08;text-transform:uppercase;letter-spacing:.02em}
-.co .site .where{margin-top:4px;font-size:13.5px;line-height:1.35;color:var(--soft)}
-.co .bf{border-top:2px solid var(--green)}
-.co .bf .lbl{font-size:10.5px;color:#3ddc84}
-.co .bf p{margin-top:2px;font-size:13.5px;line-height:1.34;color:var(--ink)}
+.co .site .need{margin-top:3px;font-family:"Montserrat",sans-serif;font-weight:800;font-size:17px;line-height:1.12;text-transform:uppercase;letter-spacing:.05em;text-shadow:0 1px 12px rgba(0,0,0,.8)}
+.co .site .where{margin-top:5px;font-size:13.5px;line-height:1.36;color:#e6eaee;text-shadow:0 1px 10px rgba(0,0,0,.85)}
+
+/* ---- The AVES Approach (catalogue): one word per category, a promise per letter */
+.apr{margin-top:14px}
+.apr .lbl{font-size:11px;color:#3ddc84}
+.apr ol{margin-top:6px;display:flex;background:var(--brand);border-radius:7px;padding:8px 2px 7px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)}
+.apr li{flex:1 1 0;min-width:0;text-align:center;padding:0 3px}
+.apr li+li{border-left:1px solid rgba(255,255,255,.55)}
+.apr li b{display:block;font-family:"Montserrat",sans-serif;font-weight:800;font-size:25px;line-height:1;color:#fff}
+.apr li span{display:block;margin-top:5px;font-family:"Montserrat",sans-serif;font-weight:700;font-size:7.4px;line-height:1.2;letter-spacing:.01em;text-transform:uppercase;color:#fff;opacity:.92}
+.pd .apr{margin-top:26px;max-width:560px}
+.pd .apr li b{font-size:34px}
+.pd .apr li span{font-size:9.5px}
+.pd .apr ol{padding:11px 4px 10px}
 
 /* ---- product focus view */
 .pd{position:absolute;z-index:70;inset:0;visibility:hidden;opacity:0;background:rgba(6,8,11,.84);-webkit-backdrop-filter:blur(22px) saturate(.75);backdrop-filter:blur(22px) saturate(.75)}
@@ -163,6 +190,7 @@ a.lnk::after{content:" \2197"}
 .pd-x i::before,.pd-x i::after{content:"";position:absolute;left:10px;right:10px;top:16.5px;height:1px;background:var(--ink);transform:rotate(45deg)}
 .pd-x i::after{transform:rotate(-45deg)}
 .pd-x:hover i{transform:rotate(90deg)}
+.pd::before{content:"";position:absolute;left:-10vw;top:-10vh;width:70vw;height:120vh;opacity:.07;background:#19b45a;-webkit-mask:url(art/brand/v.png) center/contain no-repeat;mask:url(art/brand/v.png) center/contain no-repeat;pointer-events:none}
 .pd-b{position:absolute;inset:0;display:grid;grid-template-columns:44fr 56fr;overflow-y:auto;overscroll-behavior:contain}
 .pd-l{position:sticky;top:0;height:100vh;height:100svh;display:grid;place-items:center}
 .pd-l::before{content:"";position:absolute;left:8%;right:8%;top:16%;bottom:14%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,226,170,.17),rgba(255,226,170,0))}
