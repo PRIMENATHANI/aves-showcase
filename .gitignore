@@ -13,3 +13,4 @@ spikes/dress-v0.2-bench/qwen-lightning/dl/*.safetensors
 spikes/dress-v0.2-bench/qwen-lightning/dl/*.ckpt
 spikes/a-plus/gen/*.png
 spikes/a-plus/tmp/
+spikes/a-plus/pack-refs/

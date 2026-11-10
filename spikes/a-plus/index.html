@@ -41,15 +41,17 @@ window.addEventListener('unhandledrejection', e => window.__errs.push('rejection
       <img class="rk" src="art/shelf.jpg" alt="">
       <div class="rk-shade"></div>
       <div class="sign">
-        <img src="art/aves-logo.png" alt="AVES">
-        <div class="sg-t"><b class="disp" id="rkName">Oil &amp; Gas PPE Kit</b><span>Your Total Safety Solutions Partner</span></div>
-        <span class="cnt disp"><i id="cntI">0</i>/ <b id="cntN">8</b></span>
+        <span class="sg-cab"></span><span class="sg-cab r"></span>
+        <div class="sg-logo"><img src="art/aves-logo.png" alt="AVES"></div>
+        <div class="sg-t"><span class="lbl">Stockroom · Aisle 01</span><b class="disp" id="rkName">Oil &amp; Gas PPE Kit</b><span class="tagline">Your Total Safety Solutions Partner</span></div>
+        <span class="cnt"><span class="disp"><i id="cntI">0</i>/<b id="cntN">8</b></span><span class="lbl">issued</span></span>
       </div>
       <div class="prog" id="prog"></div>
       <ol class="items" id="items"></ol>
     </aside>
 
     <div class="capshade" id="capshade"></div>
+    <div class="co" id="co"></div>
     <div class="cap" id="cap"></div>
     <div class="fly" id="fly" aria-hidden="true"></div>
 
@@ -59,10 +61,10 @@ window.addEventListener('unhandledrejection', e => window.__errs.push('rejection
       <ul class="list" id="endL"></ul>
       <div class="acts"><button class="cta" id="quote">Add to quote</button><button class="next" id="next">Next site: Construction</button></div>
     </section>
-    <aside class="dw" id="dw" aria-label="Product details" aria-hidden="true" data-lenis-prevent>
-      <button class="dw-x lbl" id="dwX">Close</button>
-      <div class="dw-b" id="dwB"></div>
-    </aside>
+<section class="pd" id="pd" aria-label="Product details" aria-hidden="true" data-lenis-prevent>
+      <button class="pd-x" id="pdX" data-close><span class="lbl">Back to the kit</span><i></i></button>
+      <div class="pd-b" id="pdB"></div>
+    </section>
   </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
