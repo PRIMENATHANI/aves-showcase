@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AVES Site Audit (spike)</title>
+<link rel="icon" href="data:,">
+<script>
+window.__errs = [];
+window.addEventListener('error', e => window.__errs.push('error: ' + (e.message || (e.target && (e.target.src || e.target.href)))), true);
+window.addEventListener('unhandledrejection', e => window.__errs.push('rejection: ' + (e.reason && e.reason.message || e.reason)));
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<main class="stage" id="stage">
+  <div class="scene" id="scene">
+    <img class="sc dim" id="scDim" src="art/bg-oil-gas.jpg" alt="Oil and gas plant at golden hour">
+    <img class="sc full" id="scFull" src="art/bg-oil-gas.jpg" alt="">
+  </div>
+  <div class="lens" id="lens" aria-hidden="true"><div class="lens-in" id="lensIn"><img id="lensImg" src="art/bg-oil-gas.jpg" alt=""></div></div>
+  <div class="lens-ui" id="lensUi" aria-hidden="true"><i class="rg"></i><i class="tk t"></i><i class="tk b"></i><i class="tk l"></i><i class="tk r"></i><span class="tag lbl" id="lensTag">Scanning</span></div>
+
+  <div class="cam" id="cam">
+    <div class="cast" id="cast"></div>
+    <div class="contact" id="contact"></div>
+    <div class="man" id="man"><img class="base" src="../../assets/dress/base.png" alt="Worker"><div class="lit" id="lit"></div></div>
+  </div>
+  <div class="grade" aria-hidden="true"></div>
+
+  <div class="marks" id="marks"></div>
+
+  <header class="hdr"><img class="logo" src="art/aves-logo-rev.png" alt="AVES"></header>
+  <section class="sheet" id="sheet" aria-label="Site audit">
+    <h1 class="disp">Site audit <span>&middot; Oil &amp; Gas</span></h1>
+    <p class="count"><b id="cnt">0</b> / 8 hazards <button class="hint lbl" id="hint" type="button">Hint</button></p>
+    <ol class="rows" id="rows"></ol>
+    <p class="lbl lead" id="lead">Sweep the site. Find the hazards.</p>
+  </section>
+
+  <div class="card" id="card" aria-hidden="true">
+    <div class="shade" id="shade"></div>
+    <div class="cd" id="cd" role="dialog" aria-modal="true" aria-labelledby="cdT">
+      <div class="pic" id="pic"><img id="picImg" alt=""></div>
+      <div class="txt" id="txt"></div>
+    </div>
+  </div>
+  <div class="fly" id="fly" aria-hidden="true"></div>
+
+  <section class="end" id="end" aria-hidden="true">
+    <p class="lbl g">Site audit &middot; Oil &amp; Gas</p>
+    <h2 class="disp"><span>Audit complete.</span><span>Eight hazards, one kit.</span></h2>
+    <ul class="list" id="endL"></ul>
+    <div class="acts"><button class="cta" id="quote" type="button">Add to quote</button><button class="again" id="again" type="button">Run it again</button></div>
+  </section>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
