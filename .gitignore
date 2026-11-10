@@ -11,3 +11,5 @@ spikes/walk-on/work/
 __pycache__/
 spikes/dress-v0.2-bench/qwen-lightning/dl/*.safetensors
 spikes/dress-v0.2-bench/qwen-lightning/dl/*.ckpt
+spikes/a-plus/gen/*.png
+spikes/a-plus/tmp/
