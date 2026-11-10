@@ -15,3 +15,10 @@ Findings for the real build
 - The man is studio-lit from the front; the site is backlit. CSS grade helps a little; a relit base is the real fix.
 - Close-ups magnify layer halos (vest, earmuffs) and the pouch's dark fringe.
 - Not checked: scroll feel with a real wheel (only fixed frames over CDP), Safari, phone, reduced motion.
+
+## Round 2 (2026-11-10 evening, his four additions)
+- Stockroom sign: official logo (black + green V, from the SSD `3 - BRAND VECTORS/LOGO/AVES.pdf`, same art as assets/aves-logo.png) on a cream plate, "Oil & Gas PPE Kit", "Your Total Safety Solutions Partner" (his wording). Header logo on the dark photo = art/aves-logo-rev.png (letters white, V green; MY derivation, the brand guide is an .indd I could not open: reversed version not checked).
+- Caption is two columns: product + buttons | "Why on this site" (need + where) + three catalogue benefits. NEED in app.js is MY WORDING (the catalogue has no per-product application data); benefits are the aves-safety.com bullets verbatim (art/details.json; source typo "So rubber nose bridge" on AV-SG30 kept).
+- Shelf: new rack (klein 9B seed 12, art/shelf.jpg, gen/run_shelf3.sh), bigger items, two dimmed units of stock behind each (they stay when the front one is taken), light pool, name labels on the board lips.
+- Product details drawer (photo, SKU, standards, material, colour, why, all bullets) + "Visit product page" (products.json url, new tab) on every caption and every row of the closing list. Scuta vest: details only, no link (his rule: no sister-brand URLs).
+- `?step=6&det=6` opens the drawer for screenshots.
