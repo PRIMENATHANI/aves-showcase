@@ -119,7 +119,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .cap .c .std .lbl{font-size:12px;color:#3ddc84;margin-right:12px}
 .cap .c .rule{display:block;width:44px;height:2px;background:var(--green);margin-bottom:14px;transform-origin:0 50%}
 .capshade{position:absolute;z-index:38;left:0;bottom:0;width:46vw;height:52vh;pointer-events:none;opacity:0;background:radial-gradient(100% 100% at 0% 100%,rgba(5,7,10,.92),rgba(5,7,10,.6) 45%,rgba(5,7,10,0) 76%)}
-.btns{margin-top:16px;display:flex;gap:22px;align-items:center}
+.btns{margin-top:16px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
 .btn{border-radius:5px;display:inline-block;font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:14px;background:var(--brand);color:#fff;padding:9px 14px 8px;text-decoration:none;transition:transform .16s ease}
 .btn:active{transform:scale(.97)}
 .lnk{font-family:"Barlow Condensed",sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:14px;color:var(--ink);border-bottom:2px solid var(--green);padding-bottom:3px;text-decoration:none}
@@ -169,18 +169,64 @@ a.lnk::after{content:" \2197"}
 .co .site .need{margin-top:3px;font-family:"Montserrat",sans-serif;font-weight:800;font-size:17px;line-height:1.12;text-transform:uppercase;letter-spacing:.05em;text-shadow:0 1px 12px rgba(0,0,0,.8)}
 .co .site .where{margin-top:5px;font-size:13.5px;line-height:1.36;color:#e6eaee;text-shadow:0 1px 10px rgba(0,0,0,.85)}
 
-/* ---- The AVES Approach (catalogue): one word per category, a promise per letter */
-.apr{margin-top:14px}
-.apr .lbl{font-size:11px;color:#3ddc84}
-.apr ol{margin-top:6px;display:flex;background:var(--brand);border-radius:7px;padding:8px 2px 7px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)}
-.apr li{flex:1 1 0;min-width:0;text-align:center;padding:0 3px}
-.apr li+li{border-left:1px solid rgba(255,255,255,.55)}
-.apr li b{display:block;font-family:"Montserrat",sans-serif;font-weight:800;font-size:25px;line-height:1;color:#fff}
-.apr li span{display:block;margin-top:5px;font-family:"Montserrat",sans-serif;font-weight:700;font-size:7.4px;line-height:1.2;letter-spacing:.01em;text-transform:uppercase;color:#fff;opacity:.92}
-.pd .apr{margin-top:26px;max-width:560px}
-.pd .apr li b{font-size:34px}
-.pd .apr li span{font-size:9.5px}
-.pd .apr ol{padding:11px 4px 10px}
+/* ---- The AVES Approach: the catalogue artwork itself */
+.apr-art{display:block;width:100%;height:auto;margin-top:14px;border-radius:9px;box-shadow:0 10px 26px rgba(0,0,0,.5)}
+
+/* ---- version switch */
+.vs{margin-left:auto;display:flex;align-items:center;gap:6px;pointer-events:auto}
+.vs button{width:30px;height:30px;border-radius:50%;font-family:"Montserrat",sans-serif;font-weight:800;font-size:13px;color:var(--ink);box-shadow:inset 0 0 0 1px rgba(255,255,255,.4);background:rgba(7,9,12,.5);transition:background .2s ease}
+.vs button.on{background:var(--brand);box-shadow:inset 0 0 0 1px #fff}
+.vs .lbl{margin-right:6px;color:var(--ink)}
+.hdr{right:calc(var(--rackW) + 20px)}
+
+/* ---- category title */
+.ctw,.wcw,.opw{position:absolute;inset:0;pointer-events:none}
+.ctw{z-index:41}.wcw{z-index:40}.opw{z-index:44}
+.ct{position:absolute;opacity:0;visibility:hidden;display:flex;align-items:center}
+.ct .ci{flex:0 0 auto;border-radius:50%;background:#fff}
+/* v1 + v2: the catalogue's header band */
+.v1 .ct,.v2 .ct{left:var(--pad);top:74px;height:52px;padding:0 64px 0 24px;border-radius:9px;background:var(--brand);box-shadow:0 12px 30px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.14)}
+.v1 .ct b,.v2 .ct b{font-size:clamp(22px,2.3vw,34px);letter-spacing:.14em;color:#fff;white-space:nowrap}
+.v1 .ct .ci,.v2 .ct .ci{position:absolute;right:-22px;top:-9px;width:70px;height:70px;box-shadow:0 0 0 5px var(--brand),0 8px 18px rgba(0,0,0,.4)}
+/* v3: large plain type */
+.v3 .ct{left:var(--pad);top:78px;gap:18px}
+.v3 .ct b{font-size:clamp(34px,4.1vw,60px);letter-spacing:.1em;color:#fff;white-space:nowrap;text-shadow:0 4px 30px rgba(0,0,0,.6)}
+.v3 .ct .ci{width:64px;height:64px;box-shadow:0 0 0 3px var(--brand),0 8px 18px rgba(0,0,0,.4)}
+
+/* ---- v3: the category column on the right of the scene */
+.wc{position:absolute;right:calc(var(--rackW) + 26px);bottom:36px;width:min(330px,23vw);opacity:0;visibility:hidden;pointer-events:auto}
+.wc.none{display:none}
+.wc::before{content:"";position:absolute;z-index:-1;inset:-40px -40px -36px;background:radial-gradient(closest-side,rgba(5,7,10,.82),rgba(5,7,10,.55) 60%,rgba(5,7,10,0))}
+.wc-w{display:block;width:100%;text-align:left;border-top:1.25px solid #3ddc84;padding-top:9px}
+.wc-w .lbl{font-size:11.5px;color:#3ddc84}
+.wc-w ol{margin-top:6px}
+.wc-w li{position:relative;padding-left:15px;font-size:13.5px;font-weight:600;line-height:1.5;color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.85)}
+.wc-w li::before{content:"";position:absolute;left:0;top:.68em;width:7px;height:2px;background:#3ddc84}
+
+/* ---- v2: the category's catalogue opener, a page of the catalogue laid over the site */
+.op{position:absolute;left:var(--pad);top:70px;bottom:30px;width:calc(100vw - var(--rackW) - var(--pad) - 30px);opacity:0;visibility:hidden;display:flex;flex-direction:column;border-radius:12px;overflow:hidden;background:#e8f3ec;color:#14181d;box-shadow:0 30px 70px rgba(0,0,0,.6)}
+.op.none{display:none}
+.op::before{content:"";position:absolute;right:-12%;top:8%;width:70%;height:110%;opacity:.5;background:#cfe6d7;-webkit-mask:url(art/brand/v.png) center/contain no-repeat;mask:url(art/brand/v.png) center/contain no-repeat}
+.op-h{position:relative;flex:0 0 auto;display:flex;align-items:center;height:64px;padding:0 26px;background:var(--brand)}
+.op-h b{font-size:clamp(24px,2.6vw,38px);letter-spacing:.14em;color:#fff;white-space:nowrap}
+.op-h .ci{position:absolute;right:22px;top:6px;width:76px;height:76px;border-radius:50%;background:#fff;box-shadow:0 0 0 5px var(--brand)}
+.op-b{position:relative;flex:1 1 auto;min-height:0;padding:20px 28px 0}
+.op-b h4{font-family:"Montserrat",sans-serif;font-weight:800;font-size:22px;line-height:1.15;color:var(--brand);max-width:60%}
+.op-c{margin-top:12px;column-count:2;column-gap:28px}
+.op-c p{break-inside:avoid;margin-bottom:9px;font-size:12.6px;line-height:1.42;color:#1d2329}
+.op-c p b{font-weight:700;color:#0b1014}
+.op .apr-art{position:relative;flex:0 0 auto;align-self:flex-end;width:min(52%,400px);margin:6px 24px 22px;box-shadow:none}
+
+/* ---- category sheet (Why choose AVES), inside the focus view */
+.why-l{position:relative;width:78%;display:flex;flex-direction:column;align-items:center;gap:30px}
+.why-l .ci{width:150px;height:150px;border-radius:50%;background:#fff;box-shadow:0 0 0 7px var(--brand),0 30px 60px rgba(0,0,0,.5)}
+.why-l .apr-art{margin-top:0}
+.pd.is-why .pd-r h3{font-size:clamp(34px,3.9vw,58px);letter-spacing:.1em}
+.why-t{margin-top:14px;font-family:"Montserrat",sans-serif;font-weight:800;font-size:22px;color:#3ddc84}
+.why-g{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;column-gap:30px}
+.wi{padding:13px 0;border-top:1px solid var(--line)}
+.wi b{display:block;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:18px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}
+.wi p{margin-top:5px;font-size:14.5px;line-height:1.45;color:var(--soft)}
 
 /* ---- product focus view */
 .pd{position:absolute;z-index:70;inset:0;visibility:hidden;opacity:0;background:rgba(6,8,11,.84);-webkit-backdrop-filter:blur(22px) saturate(.75);backdrop-filter:blur(22px) saturate(.75)}
@@ -225,3 +271,8 @@ a.lnk::after{content:" \2197"}
 .lnk.plain{background:none}
 
 @media (prefers-reduced-motion: reduce){.haze i{animation:none}}
+
+/* v1: the Approach artwork sits in the caption, so keep it compact and give the caption a taller shade */
+.v1 .cap .apr-art{width:300px}
+.v1 .capshade{height:70vh;width:50vw}
+.pd.is-why .pd-r{padding-top:11vh}

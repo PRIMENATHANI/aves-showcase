@@ -8,6 +8,15 @@ const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAl
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const q = new URLSearchParams(location.search);
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+// Three versions of the same scene, for him to choose between (?v=1|2|3, keys 1 2 3, switch in the header):
+// 1 = title band on top, Approach artwork in the caption, "Why choose AVES" opens a category sheet
+// 2 = a catalogue opener before each category (title, Why choose AVES in full, Approach), then the product
+// 3 = large plain title, and a column on the right of the scene with the Why-choose headings and the Approach artwork
+const V = ['1', '2', '3'].includes(q.get('v')) ? q.get('v') : '1';
+document.body.classList.add('v' + V);
+gsap.config({ nullTargetWarn: false });
+const CATS = { head: 'Head Protection', eye: 'Eye Protection', hearing: 'Ear Protection', respiratory: 'Respiratory Protection', fall: 'Fall Protection', dropped: 'Dropped Objects', hand: 'Hand Protection', vest: 'Hi-Vis Workwear' };
+const CATICON = { head: 'head', eye: 'eye', hearing: 'hearing', respiratory: 'respiratory', fall: 'fall', dropped: 'fall', hand: 'hand' };
 const KIT = 'oil-gas', NEXT = 'construction';
 const SISTER = { brand: 'Scuta', name: 'Reflector Safety Vest', sku: '3116RR71', standards: 'EN ISO 20471:2013+A1:2016 Class 2',
   why: 'Class 2 hi-vis waistcoat, two 5 cm reflective bands round the torso and one over each shoulder. Sister brand, not part of the AVES range.' };
@@ -47,6 +56,7 @@ const APPROACH = {
 const CAT = { 'aves-titan-av-841r-nv': { std: 'ANSI/ISEA Z89.1-2014 Type I Class E & G, EN 397:2012+A1:2012',
   bullets: ['Modern low-profile design ensures balance, fit and stability', 'Strong HDPE outer shell for impact protection and long-term durability', 'Full brim provides 360° protection from sunlight, wind and impact', '6-point ratchet suspension system', 'Non-vented design'] } };
 const [kits, prods, man, DET] = await Promise.all(['data/kits.json', 'data/products.json', 'assets/dress/manifest.json'].map(f => fetch(ROOT + f).then(r => r.json())).concat(fetch('art/details.json').then(r => r.json())));
+const WHY = await fetch('art/why.json').then(r => r.json()); // 'Why Choose AVES ...?' per category, catalogue REV 7, verbatim
 const products = Object.fromEntries(prods.map(p => [p.id, p]));
 const layerById = Object.fromEntries(man.layers.map(l => [l.id, l]));
 const dispName = p => (p.name || p.id).replace(/\s+[–-]\s+/g, '-');
@@ -73,7 +83,12 @@ const flyHTML = st => st.slot === 'respiratory' && st.pid === 'aves-escape-hood-
 const packOf = st => st.slot === 'respiratory' && st.pid === 'aves-escape-hood-bag' ? { src: 'art/cut/escape-pouch.png', h: 70, dx: -92, pouch: 1 } : PACK[st.slot] && st.need ? { src: 'art/pack/' + PACK[st.slot][0] + '.png', h: PACK[st.slot][1], dx: PACK[st.slot][2] } : null;
 const short = st => (st.bullets || []).filter(b => b.length <= 96).slice(0, 3);
 const num = i => String(i + 1).padStart(2, '0');
-const aprHTML = st => { const a = APPROACH[st.slot]; return a && st.need ? `<div class="apr"><span class="lbl">The AVES Approach</span><ol>${a[1].map((w, j) => `<li><b>${a[0][j]}</b><span>${esc(w)}</span></li>`).join('')}</ol></div>` : ''; };
+// The AVES Approach exactly as printed: the catalogue artwork itself (art/brand/approach-<slot>.png), never retyped
+const hasCat = st => !!(st.need && APPROACH[st.slot]);
+const aprHTML = st => hasCat(st) ? `<img class="apr-art" src="art/brand/approach-${st.slot}.png" alt="The AVES Approach: ${APPROACH[st.slot][0]}. ${esc(APPROACH[st.slot][1].join(', '))}">` : '';
+const icon = st => CATICON[st.slot] ? `<img class="ci" alt="" src="art/brand/cat-${CATICON[st.slot]}.png">` : '';
+const whyBtn = (st, i) => hasCat(st) && WHY[st.slot] ? `<button class="lnk plain" data-why="${i}">Why choose AVES?</button>` : '';
+const whyItems = st => WHY[st.slot].items.map(x => `<div class="wi pd-a"><b>${esc(x.h)}</b><p>${esc(x.t)}</p></div>`).join('');
 
 // ---------- static DOM
 $('#bdA').src = 'art/bg-' + KIT + '.jpg';
@@ -94,8 +109,12 @@ $('#items').innerHTML = steps.map((st, i) => { const p = packOf(st);
 $('#fly').innerHTML = steps.map(st => `<div class="f">${flyHTML(st)}</div>`).join('');
 const linkBtn = (st, cls) => st.url ? `<a class="${cls}" href="${esc(st.url)}" target="_blank" rel="noopener">Visit product page</a>` : '';
 $('#cap').innerHTML = steps.map((st, i) => `<div class="c"><i class="rule"></i><p class="lbl n"><b>${num(i)}</b>${esc(st.label)}</p><h3 class="disp">${esc(st.name)}</h3>
-  <p class="sku">SKU ${esc(st.sku)}</p>${st.std ? `<p class="std"><span class="lbl">Standards</span>${esc(st.std)}</p>` : ''}${aprHTML(st)}
-  <div class="btns"><button class="btn" data-det="${i}">Product details</button>${linkBtn(st, 'lnk')}</div></div>`).join('');
+  <p class="sku">SKU ${esc(st.sku)}</p>${st.std ? `<p class="std"><span class="lbl">Standards</span>${esc(st.std)}</p>` : ''}${V === '1' ? aprHTML(st) : ''}
+  <div class="btns"><button class="btn" data-det="${i}">Product details</button>${V === '2' ? '' : whyBtn(st, i)}${linkBtn(st, 'lnk')}</div></div>`).join('');
+$('#ct').innerHTML = steps.map(st => `<div class="ct">${icon(st)}<b class="wide">${esc(CATS[st.slot])}</b></div>`).join('');
+$('#op').innerHTML = steps.map((st, i) => V === '2' && hasCat(st) && WHY[st.slot] ? `<section class="op"><header class="op-h"><b class="wide">${esc(CATS[st.slot])}</b>${icon(st)}</header>
+  <div class="op-b"><h4>${esc(WHY[st.slot].title)}</h4><div class="op-c">${WHY[st.slot].items.map(x => `<p><b>${esc(x.h)}:</b> ${esc(x.t)}</p>`).join('')}</div></div>${aprHTML(st)}</section>` : '<section class="op none"></section>').join('');
+$('#wc').innerHTML = steps.map((st, i) => V === '3' && hasCat(st) ? `<div class="wc"><button class="wc-w" data-why="${i}"><span class="lbl">${esc(WHY[st.slot].title)}</span><ol>${WHY[st.slot].items.map(x => `<li>${esc(x.h)}</li>`).join('')}</ol></button>${aprHTML(st)}</div>` : '<div class="wc none"></div>').join('');
 // callouts: one group per step = the hazard pinned to the site + benefits pinned to the product
 $('#co').innerHTML = steps.map((st, i) => `<div class="g" data-i="${i}"><svg class="ln" aria-hidden="true"></svg>
   <div class="site"><i class="hz"></i><div><span class="lbl">Why on this site</span><p class="need">${esc(st.need[0])}</p><p class="where">${esc(st.need[1])}</p></div></div>
@@ -103,7 +122,7 @@ $('#co').innerHTML = steps.map((st, i) => `<div class="g" data-i="${i}"><svg cla
 let cur = steps;
 const endList = list => list.map((st, i) => `<li><span>${esc(st.name)}</span><span class="m">${esc(st.label)} · ${esc(st.sku)}</span><button data-det="${i}">Details</button></li>`).join('');
 $('#endL').innerHTML = endList(steps);
-const its = $$('.it'), flies = $$('.fly .f'), caps = $$('.cap .c'), cos = $$('#co .g'), progs = $$('.prog span');
+const its = $$('.it'), flies = $$('.fly .f'), caps = $$('.cap .c'), cos = $$('#co .g'), progs = $$('.prog span'), cts = $$('#ct .ct'), ops = $$('#op .op'), wcs = $$('#wc .wc');
 await Promise.all([...document.images].map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; })));
 
 // ---------- geometry + timeline (rebuilt on a real resize)
@@ -113,7 +132,7 @@ const stage = $('#stage'), cam = $('#cam'), bd = $('#bd'), rack = $('#rack'), tr
 let tl, st0, landAt = [], lastN = -1, builtW = 0, builtH = 0;
 function build() {
   const keep = tl ? tl.progress() : 0;
-  if (tl) { st0 && st0.kill(); tl.kill(); gsap.set([cam, bd, rack, '#intro', '#end', '#capshade', '#vmark', ...its.map(e => e.querySelector('.ph')), ...flies, ...caps, ...cos, ...$$('#co .site, #co .bf'), ...lys], { clearProps: 'all' }); }
+  if (tl) { st0 && st0.kill(); tl.kill(); gsap.set([cam, bd, rack, '#intro', '#end', '#capshade', '#vmark', ...its.map(e => e.querySelector('.ph')), ...flies, ...caps, ...cos, ...cts, ...ops, ...wcs, ...$$('#co .site, #co .bf'), ...lys], { clearProps: 'all' }); }
   const W = builtW = stage.clientWidth, H = builtH = stage.clientHeight;
   const manH = .91 * H, k = manH / F.h, manW = F.w * k, feetY = .905 * H, top = feetY - .9577 * manH, cx = .27 * W, left = cx - manW / 2;
   const Fp = { x: .31 * W, y: .40 * H };
@@ -140,7 +159,7 @@ function build() {
   function layout(i, sh) {
     const g = cos[i], st = steps[i], z = { l: Fp.x - sh.bw / 2, r: Fp.x + sh.bw / 2, t: Fp.y - sh.bh / 2, b: Fp.y + sh.bh / 2 }, CW = 218, lines = [];
     const site = g.querySelector('.site'), pt = sitePt(st.need[2], sh.bd), SW = 286;
-    const sx = 32, sy = 108; gsap.set(site, { left: sx, top: sy, width: SW });
+    const sx = 32, sy = V === '3' ? 176 : 152; gsap.set(site, { left: sx, top: sy, width: SW });
     const sh2 = site.offsetHeight, inZone = pt.x > z.l - 16 && pt.x < z.r + 16 && pt.y > z.t - 16 && pt.y < z.b + 16;
     const free = !inZone && pt.x > 20 && pt.x < rackLeft - 30 && pt.y > 96 && pt.y < H - 300 && !(pt.x < sx + SW + 24 && pt.y < sy + sh2 + 24);
     if (free) lines.push(pt.x > sx + SW ? [sx + SW, sy + .6, sx + SW + 26, sy + .6, pt.x, pt.y, 1] : [sx + 13, sy + sh2 + 8, sx + 13, sy + sh2 + 30, pt.x, pt.y, 1]);
@@ -149,7 +168,7 @@ function build() {
       gsap.set(el, { width: CW }); cards[side].push({ el, A, y: A.y - 20, h: el.offsetHeight }); });
     for (const side of ['L', 'R']) { const list = cards[side].sort((a, b) => a.y - b.y); let prev = sideTop[side] - 26;
       list.forEach(c => { c.y = Math.max(c.y, prev + 26); prev = c.y + c.h; });
-      const maxB = side === 'L' ? H - 36 - caps[i].offsetHeight - 22 : H - 40, over = prev - maxB; if (over > 0) list.forEach(c => { c.y -= over; });
+      const maxB = side === 'L' ? H - 36 - caps[i].offsetHeight - 22 : H - 40 - (wcs[i].offsetHeight ? wcs[i].offsetHeight + 24 : 0), over = prev - maxB; if (over > 0) list.forEach(c => { c.y -= over; });
       list.forEach(c => { const x = side === 'R' ? clamp(Math.max(c.A.x + 60, z.r + 30), 0, rackLeft + 34 - CW) : clamp(Math.min(c.A.x - 60, z.l - 30) - CW, 26, W);
         gsap.set(c.el, { left: x, top: c.y }); c.el.dataset.side = side;
         lines.push(side === 'R' ? [x, c.y + .6, x - 24, c.y + .6, c.A.x, c.A.y] : [x + CW, c.y + .6, x + CW + 24, c.y + .6, c.A.x, c.A.y]); }); }
@@ -169,6 +188,13 @@ function build() {
   steps.forEach((s, i) => {
     const sh = shot(s.l.box), ph = its[i].querySelector('.ph'), f = flies[i], c = caps[i], g = cos[i], a = pos[i];
     layout(i, sh);
+    if (!ops[i].classList.contains('none')) { // version 2: the category's catalogue opener comes first
+      tl.to(cam, { ...sh.cam, duration: .6 }, t).to(bd, { ...sh.bd, duration: .6 }, t);
+      tl.fromTo(ops[i], { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, duration: .3, ease: 'power2.out' }, t + .1);
+      tl.addLabel('c' + (i + 1), t + .62);
+      tl.to(ops[i], { autoAlpha: 0, y: -18, duration: .2, ease: 'power1.in' }, t + .92);
+      t += 1.1;
+    }
     const tw = Math.max(sh.bw, 90), th = Math.max(sh.bh, 90), s0 = a.h / th;
     gsap.set(f, { width: tw, height: th, xPercent: -50, yPercent: -50, x: a.x, y: a.y, scale: s0, rotation: 0, opacity: 0 });
     tl.to(cam, { ...sh.cam, duration: .75 }, t).to(bd, { ...sh.bd, duration: .75 }, t);
@@ -188,8 +214,10 @@ function build() {
     tl.fromTo(g.querySelectorAll('.ln polyline'), { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: .22, stagger: .04, ease: 'power1.out' }, t + .82);
     tl.fromTo(g.querySelectorAll('.ln circle'), { opacity: 0 }, { opacity: 1, duration: .12 }, t + .98);
     g.querySelectorAll('.bf').forEach((el, j) => tl.fromTo(el, { x: el.dataset.side === 'R' ? 16 : -16, opacity: 0 }, { x: 0, opacity: 1, duration: .2, ease: 'power2.out' }, t + .84 + j * .045));
+    tl.fromTo(cts[i], { autoAlpha: 0, y: -14 }, { autoAlpha: 1, y: 0, duration: .26, ease: 'power2.out' }, t + .3);
+    tl.fromTo(wcs[i], { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: .24, ease: 'power2.out' }, t + .86);
     tl.addLabel('s' + (i + 1), t + 1.08);
-    tl.to([c, g], { autoAlpha: 0, duration: .16, ease: 'power1.in' }, t + 1.32);
+    tl.to([c, g, cts[i], wcs[i]], { autoAlpha: 0, duration: .16, ease: 'power1.in' }, t + 1.32);
     t += 1.5;
   });
   tl.to('#capshade', { opacity: 0, duration: .3 }, t);
@@ -202,7 +230,7 @@ function build() {
   track.style.height = (100 + tl.duration() * 62) + 'vh';
   lastN = -1; sync();
   const dbg = q.get('step');
-  if (dbg) { const lab = dbg === 'intro' || dbg === 'end' ? dbg : 's' + dbg; tl.seek(tl.labels[lab] + parseFloat(q.get('d') || 0), false); sync(); return; }
+  if (dbg) { const lab = /^[a-z]/.test(dbg) ? dbg : 's' + dbg; tl.seek(tl.labels[lab] + parseFloat(q.get('d') || 0), false); sync(); return; }
   st0 = ScrollTrigger.create({ animation: tl, trigger: track, start: 'top top', end: 'bottom bottom', scrub: .6,
     snap: { snapTo: 'labelsDirectional', duration: { min: .3, max: 1.1 }, delay: .15, ease: 'power1.inOut' } });
   if (keep > 0) { ScrollTrigger.refresh(); scrollTo(0, st0.start + (st0.end - st0.start) * keep); }
@@ -249,8 +277,11 @@ function pdHTML(st) { const p = packOf(st), b = st.bullets || [];
   ${aprHTML(st) ? `<div class="pd-a">${aprHTML(st)}</div>` : ''}
   ${b.length ? `<div class="pd-ft pd-a"><span class="lbl">Features and benefits</span><ol>${b.map((x, j) => `<li><i>${num(j)}</i><span>${esc(x)}</span></li>`).join('')}</ol></div>` : ''}
   <div class="pd-act pd-a">${st.url ? `<a class="btn" href="${esc(st.url)}" target="_blank" rel="noopener">Visit product page</a>` : '<span class="lbl">Sister brand: no AVES product page</span>'}<button class="lnk plain" data-close>Back to the kit</button></div></div>`; }
-function openDet(st, from, instant) {
-  $('#pdB').innerHTML = pdHTML(st); pdOpen = true; pdY = scrollY; pdFrom = from || null; pd.setAttribute('aria-hidden', 'false'); $('#pdB').scrollTop = 0;
+const whyHTML = st => `<div class="pd-l"><div class="why-l pd-a">${icon(st)}${aprHTML(st)}</div></div>
+  <div class="pd-r"><p class="lbl g pd-a">AVES · ${esc(kit.name)} kit</p><h3 class="wide pd-a">${esc(CATS[st.slot])}</h3><h4 class="why-t pd-a">${esc(WHY[st.slot].title)}</h4>
+  <div class="why-g">${whyItems(st)}</div><div class="pd-act pd-a"><button class="btn" data-det="${steps.indexOf(st)}">${esc(st.name)}: product details</button><button class="lnk plain" data-close>Back to the kit</button></div></div>`;
+function openDet(st, from, instant, why) {
+  $('#pdB').innerHTML = why ? whyHTML(st) : pdHTML(st); pd.classList.toggle('is-why', !!why); pdOpen = true; pdY = scrollY; pdFrom = from || null; pd.setAttribute('aria-hidden', 'false'); $('#pdB').scrollTop = 0;
   pdTl && pdTl.kill();
   pdTl = gsap.timeline({ defaults: { ease: 'power3.out' } })
     .fromTo(pd, { autoAlpha: 0 }, { autoAlpha: 1, duration: .28, ease: 'power1.out' }, 0)
@@ -264,7 +295,8 @@ function closeDet() { if (!pdOpen) return; pdOpen = false; pd.setAttribute('aria
   gsap.to(pd, { autoAlpha: 0, duration: rm ? 0 : .22, ease: 'power1.in' });
   if (pdFrom && pdFrom.isConnected) pdFrom.focus({ preventScroll: true });
   if (Math.abs(scrollY - pdY) > 2) { lenis ? lenis.scrollTo(pdY, { immediate: true, force: true }) : scrollTo(0, pdY); } }
-document.addEventListener('click', e => { const b = e.target.closest('[data-det]'); if (b) { openDet((b.closest('.end') ? cur : steps)[+b.dataset.det], b); return; }
+document.addEventListener('click', e => { const y = e.target.closest('[data-why]'); if (y) { openDet(steps[+y.dataset.why], pdOpen ? pdFrom : y, false, true); return; }
+  const b = e.target.closest('[data-det]'); if (b) { openDet((b.closest('.end') ? cur : steps)[+b.dataset.det], b); return; }
   if (e.target.closest('[data-close]') || e.target === pd) closeDet(); });
 addEventListener('keydown', e => { if (e.key === 'Escape') closeDet(); });
 // while it is open, wheel and touch moves belong to the view, never to the page behind it
@@ -290,5 +322,12 @@ $('#next').addEventListener('click', swap);
 $('#quote').addEventListener('click', e => { e.currentTarget.textContent = 'Added (preview)'; });
 if (q.get('swap')) { const x = swap(); x.progress(1); }
 if (q.get('det')) openDet(steps[+q.get('det') - 1], null, true);
+if (q.get('why')) openDet(steps[+q.get('why') - 1], null, true, true);
+// version switch: same place in the story, other version
+const nearLabel = () => { const now = tl.time(); return labels().filter(l => l[0][0] !== 'c').reduce((a, b) => Math.abs(b[1] - now) < Math.abs(a[1] - now) ? b : a)[0]; };
+const toV = v => { if (v === V) return; try { sessionStorage.setItem('avesAt', nearLabel()); } catch (e) {} const u = new URLSearchParams(location.search); u.set('v', v); location.search = u.toString(); };
+$$('#vs button').forEach(b => { b.classList.toggle('on', b.dataset.v === V); b.addEventListener('click', () => toV(b.dataset.v)); });
+addEventListener('keydown', e => { if (!pdOpen && ['1', '2', '3'].includes(e.key) && !e.metaKey && !e.ctrlKey) toV(e.key); });
+try { const at = sessionStorage.getItem('avesAt'); if (at && st0 && tl.labels[at] != null) { sessionStorage.removeItem('avesAt'); const y = yFor(tl.labels[at]); lenis ? lenis.scrollTo(y, { immediate: true, force: true }) : scrollTo(0, y); } } catch (e) {}
 document.documentElement.dataset.ready = '1';
 })().catch(e => { window.__errs.push('boot: ' + e.message); console.error(e); });

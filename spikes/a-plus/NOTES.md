@@ -38,3 +38,13 @@ Findings for the real build
 - Catalogue errors seen: "Versitile", "Neccessary", "Hygenic" (corrected on screen), "Product Hands" in GRASP (kept as printed), "EN 379" in the AV-841R bullet (standards block says EN 397), AV-846R V carries the 841R article number.
 - No Craft tool used: the catalogue and the brand vectors supplied the language and the frames were judged in the browser against the real photo.
 - Site Audit (spikes/site-audit) rejected by him 2026-11-10; left in place, not linked.
+
+## Round 5 (2026-11-10/11, his notes: Approach exactly as the catalogue, category titles pronounced at the top, Why Choose AVES per category; "make all the versions")
+- Versions: `?v=1|2|3`, keys 1 2 3, switch in the header (keeps the place in the story via sessionStorage `avesAt`).
+  1 = green title band top left (catalogue header + round category icon), Approach artwork in the caption, "Why choose AVES?" opens a category sheet in the focus view.
+  2 = a catalogue opener before each category (mint page: title band, Why Choose AVES in full, Approach artwork), label `c<n>`, then the product beat with the band. Timeline is longer (6 openers).
+  3 = large plain title with the icon, and a column right of the man: the Why-choose headings (click = sheet) + Approach artwork.
+- The AVES Approach is now the catalogue artwork itself: art/brand/approach-<slot>.png, cut from REV 7 at 170 dpi (pages 4, 10, 27, 32, 42, 56), page background painted mint, rounded. Printed spelling kept (Versitile, Neccessary, Hygenic, Product Hands). Small residue of the page behind the lockup; clean art needs the InDesign source.
+- art/why.json = "Why Choose AVES <category>?" text, pdftotext of the panel region (x350 y225 w235 h620 pt) parsed into heading + paragraph; hand and fall headings re-joined by rule; spot-checked against the head page image only. Stray spaces before commas and doubled full stops tidied, wording untouched.
+- Category icons: art/brand/cat-<slot>.png from `PROTECTION CATEGOTY ICONS` (trimmed, round). Dropped objects uses the fall icon and has no Approach / Why (the catalogue files it under Fall Protection; ANCHOR is harness wording). Scuta vest: title only.
+- Debug: `?v=2&step=c1` (opener), `?why=1` (category sheet).
