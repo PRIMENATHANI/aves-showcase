@@ -15,3 +15,5 @@ spikes/a-plus/gen/*.png
 spikes/a-plus/tmp/
 spikes/a-plus/pack-refs/
 spikes/site-audit/gen/*.png
+catalogue-src.nosync/
+v0.4/gen/*.png

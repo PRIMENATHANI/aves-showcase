@@ -1,0 +1,337 @@
+{
+ "kit": "oil-gas",
+ "backdrop": "v0.4/gen/bg-front-s4.png",
+ "shelf": "spikes/a-plus/art/shelf.jpg",
+ "rack": {
+  "w": 896,
+  "h": 1280
+ },
+ "order_note": "dressing order = assets/dress/manifest.json kits[kit].order",
+ "category": {
+  "head": "head",
+  "eye": "eye",
+  "hearing": "hearing",
+  "respiratory": "respiratory",
+  "vest": "vest",
+  "fall": "fall",
+  "dropped": "fall",
+  "hand": "hand"
+ },
+ "names": {
+  "aves-titan-av-841r-nv": [
+   "TITAN® AV-841R NV",
+   "Industrial hard hat, full brim, non-vented"
+  ],
+  "av-sg30": [
+   "AV-SG30",
+   "Safety glasses"
+  ],
+  "av-hm3093-cap-earmuffs": [
+   "AV-HM3093",
+   "Helmet-mounted hearing protection"
+  ],
+  "aves-escape-hood-bag": [
+   "ESCAPE HOOD XTREME",
+   "Emergency escape hood"
+  ],
+  "scuta-vest": [
+   "REFLECTOR SAFETY VEST",
+   "Hi-vis vest by Scuta"
+  ],
+  "full-body-harness": [
+   "AV-831",
+   "Full body harness"
+  ],
+  "av-101373": [
+   "AV-101373",
+   "Heavy duty bungee tool lanyard"
+  ],
+  "hg-2230-rubber-neoprene-gloves": [
+   "HG-2230",
+   "Heavy duty rubber glove, 18 inch"
+  ]
+ },
+ "names_source": "product heads as printed in the catalogue; descriptors from the pack labels and catalogue page titles",
+ "standards": {
+  "aves-titan-av-841r-nv": "ANSI/ISEA Z89.1-2014 Type I, Class E & G · EN 397:2012+A1:2012",
+  "av-sg30": "ANSI Z87.1-2010 (Z87+) · CE EN166",
+  "av-hm3093-cap-earmuffs": "ANSI S3.19-1974 (28 dB NRR) · CE EN 352-3:2020 (31 dB SNR)"
+ },
+ "drop_bullets": [
+  "Certified to ANSI/ISEA",
+  "ANSI Z87.1-2010"
+ ],
+ "hazard": {
+  "_note": "MY WORDING from the kit hazards; `at` = the place in the backdrop (fractions of the image). Product management to sign off.",
+  "head": [
+   "Falling objects",
+   "Under pipe racks, lifting operations and scaffolds",
+   [
+    0.1,
+    0.4
+   ]
+  ],
+  "eye": [
+   "Flying particles and glare",
+   "Outdoor plant rounds, line breaks, grinding",
+   [
+    0.04,
+    0.33
+   ]
+  ],
+  "hearing": [
+   "Compressor and pump noise",
+   "Compressor houses, pump bays, turbine areas",
+   [
+    0.17,
+    0.55
+   ]
+  ],
+  "respiratory": [
+   "Sour gas and vapours",
+   "H2S zones: carried on the belt, worn to escape",
+   [
+    0.245,
+    0.22
+   ]
+  ],
+  "vest": [
+   "Being seen",
+   "Plant roads, laydown yards, around vehicles and cranes",
+   [
+    0.33,
+    0.7
+   ]
+  ],
+  "fall": [
+   "Work at height",
+   "Ladders, pipe racks, tank tops and platforms",
+   [
+    0.09,
+    0.36
+   ]
+  ],
+  "dropped": [
+   "Dropped tools",
+   "Any tool carried above people or equipment",
+   [
+    0.12,
+    0.37
+   ]
+  ],
+  "hand": [
+   "Hydrocarbons on hands",
+   "Handling oily pipe, hoses and valves",
+   [
+    0.2,
+    0.6
+   ]
+  ]
+ },
+ "anchors": {
+  "_note": "where the first three benefits point, as fractions of the worn layer's box; placed by eye",
+  "head": [
+   [
+    0.5,
+    0.2
+   ],
+   [
+    0.86,
+    0.5
+   ],
+   [
+    0.1,
+    0.76
+   ]
+  ],
+  "eye": [
+   [
+    0.5,
+    0.3
+   ],
+   [
+    0.3,
+    0.6
+   ],
+   [
+    0.92,
+    0.4
+   ]
+  ],
+  "hearing": [
+   [
+    0.12,
+    0.62
+   ],
+   [
+    0.88,
+    0.62
+   ],
+   [
+    0.5,
+    0.1
+   ]
+  ],
+  "respiratory": [
+   [
+    0.3,
+    0.4
+   ],
+   [
+    0.72,
+    0.5
+   ],
+   [
+    0.5,
+    0.8
+   ]
+  ],
+  "vest": [
+   [
+    0.3,
+    0.3
+   ],
+   [
+    0.52,
+    0.62
+   ],
+   [
+    0.74,
+    0.1
+   ]
+  ],
+  "fall": [
+   [
+    0.5,
+    0.2
+   ],
+   [
+    0.74,
+    0.52
+   ],
+   [
+    0.24,
+    0.1
+   ]
+  ],
+  "dropped": [
+   [
+    0.5,
+    0.18
+   ],
+   [
+    0.5,
+    0.55
+   ],
+   [
+    0.5,
+    0.9
+   ]
+  ],
+  "hand": [
+   [
+    0.12,
+    0.3
+   ],
+   [
+    0.88,
+    0.55
+   ],
+   [
+    0.14,
+    0.85
+   ]
+  ]
+ },
+ "shelf_place": {
+  "_note": "rack image px: centre x, board y, product height",
+  "head": [
+   300,
+   514,
+   100
+  ],
+  "hearing": [
+   650,
+   514,
+   124
+  ],
+  "respiratory": [
+   300,
+   702,
+   128
+  ],
+  "fall": [
+   622,
+   702,
+   142
+  ],
+  "vest": [
+   306,
+   918,
+   150
+  ],
+  "hand": [
+   664,
+   918,
+   160
+  ],
+  "eye": [
+   330,
+   1124,
+   56
+  ],
+  "dropped": [
+   622,
+   1124,
+   150
+  ]
+ },
+ "packs": {
+  "_note": "front faces cut from each product's PTF 2 - LMP artwork: [file, height in rack px, x offset]",
+  "head": [
+   "helmet",
+   132,
+   -100
+  ],
+  "hearing": [
+   "earmuffs",
+   132,
+   -98
+  ],
+  "eye": [
+   "glasses",
+   150,
+   -112
+  ],
+  "hand": [
+   "gloves",
+   172,
+   -90
+  ],
+  "vest": [
+   "vest",
+   160,
+   -104
+  ]
+ },
+ "sister": {
+  "scuta-vest": {
+   "sku": "3116RR71",
+   "standards": "EN ISO 20471:2013+A1:2016 Class 2",
+   "bullets": [
+    "Class 2 hi-vis waistcoat",
+    "Two 5 cm reflective bands round the torso",
+    "One reflective band over each shoulder"
+   ],
+   "note": "Sister brand, not part of the AVES range. No product link (owner's rule)."
+  }
+ },
+ "approach": {
+  "head": "CROWN",
+  "eye": "VISION",
+  "hearing": "SOUND",
+  "respiratory": "BREATH",
+  "hand": "GRASP",
+  "fall": "ANCHOR"
+ }
+}
