@@ -1,5 +1,0 @@
-Real: all 308 products, counts, names, SKUs, standards and bullets come from `data/products.json` at runtime; cutouts are `assets/cut/<id>.png`; hazard filter is keyword rules on that data (arc flash 12, cut 44, dust 58, height 45, cold 17, noise 21, chemical 7, impact 89).
-Faked: "Add to quote" is a no-op with a toast. The inline aspect table is generated from the PNG sizes so cells size before images load; it holds no product data.
-Deviation: to fit the whole wall in one 1440x900 frame, cells come out about 48 px (images about 42 px tall), below the brief's 56-72 px. The layout searches for the largest cell that fits whatever viewport it gets.
-Needs real assets: about 14 cutouts with holes knocked through white or clear areas (face shields FS12/FS15P/FS16P/FS18L, N99/N100/P100 cup masks, FFP3 V CP, AV-201-3C, AV-301); PC-CLEAR and GLASS-CLEAR are opaque grey plates; 11 near-black products sink into the dark stage.
-Data gaps: 77 products have no standards (29 of 31 Head), 34 have no bullets; the spotlight hides empty rows. Review states: `#still`, `#lift=<id>`, `#hazard=<word>`, `#cat=<Category>`, `#hot=<id>`.

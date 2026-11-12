@@ -1,1 +1,0 @@
-[["wait",300],["eval","window.setExplode(0)"],["wait",300],["shot","shots/qc-shell.png",null,2,[90,330,520,420]],["shot","shots/qc-boss-4x.png",null,3,[60,560,520,260]],["eval","window.setExplode(1)"],["wait",300],["shot","shots/qc-apart.png",null,1],["shot","shots/qc-chin.png",null,3,[240,740,240,200]]]

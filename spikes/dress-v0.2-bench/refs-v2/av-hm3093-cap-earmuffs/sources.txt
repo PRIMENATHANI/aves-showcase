@@ -1,5 +1,0 @@
-front.png  PTF p3/p5/p7 reuse the same embedded photo (1319x2330, alpha from its smask): front view of the muffs
-side.png   PTF p5 embedded photo (667x1457): side profile showing the arm and slot adapter, white bg flood-removed
-/Volumes/FT Marketing/Product Design and Development/A - PTF STANDARD SKUs/3 - HEARING PROTECTION/3.A - EAR MUFFS/ACTIVE/7 - AVES AV-HM3093 (2536AV594)/1 - PTF/AVES AV-HM3093 (2536AV594) REV.2.pdf
-2 - LMP REV.2/2 - HIGH RES has only a 3M competitor photo (s-l960.png), a webp and the pdf; not used. Repo assets/cut/av-hm3093-cap-earmuffs.png is a macro crop (449x472) of the cups, not usable.
-No image of the muffs mounted on a helmet exists in PTF/LMP (not checked: ADS hi-res, sell sheet pdf).

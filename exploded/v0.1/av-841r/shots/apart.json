@@ -1,1 +1,0 @@
-[["wait",300],["eval","window.setExplode(1)"],["wait",400],["lines","shots/lines-light-apart.png"],["shot","shots/apart-light.png"],["shot","shots/apart-z1.png",null,2.2,[130,40,470,420]],["shot","shots/apart-z2.png",null,2.2,[130,400,470,420]]]

@@ -1,1 +1,0 @@
-[["wait",300],["key","ArrowUp"],["wait",150],["eval","document.querySelector('.hx-stage').getAttribute('aria-valuenow')"],["key","ArrowUp"],["wait",150],["eval","document.querySelector('.hx-stage').getAttribute('aria-valuenow')"]]

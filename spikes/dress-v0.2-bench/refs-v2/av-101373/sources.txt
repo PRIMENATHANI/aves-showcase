@@ -1,7 +1,0 @@
-hanging-u.png  PTF p3 embedded photo (1200x1200, white bg; same photo repeated on p4 and p6): product hanging in a U, carabiner bottom left, loop bottom right
-lying-three-quarter.png  ADS p2 embedded photo (2172x1320, on white): product lying diagonally, carabiner at the right end, green loop lower centre
-Product: AV-101373 heavy duty bungee tool lanyard, art. 69162AV1008 (products.json id av-101373; PTF title says 69162AV1008-101373).
-PTF: /Volumes/PRODUCT DEVELOPMENT & DESIGN (PDD) - PRODUCT MANAGEMENT/1. DNA- PRODUCT DEVELOPMENT/A - PTF STANDARD SKUs/12 - FALL & DROPPED OBJECTS/2 - DROPPED OBJECTS SAFTEY/12.D - AVES/1 - TOOL TETHERING/12 - HEAVY DUTY BUNGEE TOOL LANYARD (69162AV1008)/1 - PTF/HEAVY DUTY BUNGEE TOOL LANYARD (69162AV1008).pdf
-ADS: /Volumes/PRODUCT DEVELOPMENT & DESIGN (PDD) - MARKETING/3. MARKETING/2 - MARKETING COLLATERALS/1 - ADS, SS & E-COLLATERALS/1 - FT STANDARD ADS/12 - FALL & DROPPED OBJECTS/12.D - DROPPED OBJECTS SAFETY/12.D - AVES/1 - TOOL TETHERING/ACTIVE/12 - HEAVY DUTY BUNGEE TOOL LANYARD (69162AV1008)/1 - ACTIVE/1 - ADS/1 - HIGH-RES/HEAVY DUTY BUNGEE TOOL LANYARD (69162AV1008).pdf
-Note: PTF shows the webbing orange/yellow-orange; the ADS photo is a deeper orange. Both are the same product. ADS also has a photo of the tether on a bolt cutter (1024x1024) and macro crops of the carabiner/webbing/loop (not collected).
-Missing: no back view (the lanyard is symmetric; a flat 'front' only).
