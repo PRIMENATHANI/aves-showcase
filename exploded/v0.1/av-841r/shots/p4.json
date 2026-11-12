@@ -1,0 +1,1 @@
+[["wait",300],["eval","window.setExplode(1)"],["wait",400],["shot","shots/points4-apart.png"],["lines","shots/lines-4pt.png"]]

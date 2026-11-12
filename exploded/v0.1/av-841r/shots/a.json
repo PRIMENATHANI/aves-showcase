@@ -1,0 +1,1 @@
+[["wait",300],["eval","window.setExplode(0)"],["wait",200],["shot","shots/b-0.png",null,2,[130,560,460,420]],["eval","window.setExplode(1)"],["wait",300],["shot","shots/b-1.png"],["shot","shots/b-1z.png",null,2,[150,330,460,500]]]

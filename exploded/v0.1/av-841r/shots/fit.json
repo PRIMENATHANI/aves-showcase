@@ -1,0 +1,1 @@
+[["wait",300],["eval","window.setExplode(1)"],["eval","window.setFit(52)"],["wait",1500],["shot","shots/fit-52.png",null,2.2,[130,560,470,330]],["lines","shots/lines-fit52.png"],["eval","window.setFit(66)"],["wait",1500],["shot","shots/fit-66.png",null,2.2,[130,560,470,330]],["lines","shots/lines-fit66.png"],["eval","document.querySelector('[data-readout]').textContent"]]
