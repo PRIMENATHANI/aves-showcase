@@ -1,0 +1,92 @@
+[
+ {
+  "id": "three-quarter",
+  "source": "assets/catalogue/aves-titan-av-841r-nv.png",
+  "sourceSize": [
+   1365,
+   1400
+  ],
+  "w": 1365,
+  "h": 1400,
+  "tw": 234,
+  "th": 240,
+  "alpha": true,
+  "bytes": 52786,
+  "thumbBytes": 6452
+ },
+ {
+  "id": "front",
+  "source": "exploded/research.nosync/av-841r/img/h5-005.png",
+  "sourceSize": [
+   889,
+   605
+  ],
+  "w": 889,
+  "h": 605,
+  "tw": 240,
+  "th": 163,
+  "alpha": false,
+  "bytes": 10428,
+  "thumbBytes": 1878
+ },
+ {
+  "id": "side",
+  "source": "exploded/research.nosync/av-841r/img/h5-006.png",
+  "sourceSize": [
+   2357,
+   1548
+  ],
+  "w": 1600,
+  "h": 1051,
+  "tw": 240,
+  "th": 158,
+  "alpha": false,
+  "bytes": 26600,
+  "thumbBytes": 2014
+ },
+ {
+  "id": "underside",
+  "source": "exploded/research.nosync/av-841r/img/h5-004.png",
+  "sourceSize": [
+   797,
+   685
+  ],
+  "w": 797,
+  "h": 685,
+  "tw": 240,
+  "th": 206,
+  "alpha": false,
+  "bytes": 44816,
+  "thumbBytes": 5114
+ },
+ {
+  "id": "suspension-top",
+  "source": "exploded/research.nosync/av-841r/img/h5-002.png",
+  "sourceSize": [
+   272,
+   231
+  ],
+  "w": 272,
+  "h": 231,
+  "tw": 240,
+  "th": 204,
+  "alpha": false,
+  "bytes": 8430,
+  "thumbBytes": 6494
+ },
+ {
+  "id": "suspension",
+  "source": "assets/cut/aves-titan-av-565r-suspension.png",
+  "sourceSize": [
+   460,
+   362
+  ],
+  "w": 460,
+  "h": 362,
+  "tw": 240,
+  "th": 189,
+  "alpha": true,
+  "bytes": 25860,
+  "thumbBytes": 12886
+ }
+]
