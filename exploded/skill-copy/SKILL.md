@@ -16,6 +16,21 @@ also sent on its own by the sales team, so it carries its own share card.
 Every further exploded view matches this page's structure, look and behaviour unless he says otherwise; git tag
 `exploded-exemplar-av-841r-v0.3.4`.
 
+**Approved exemplar for the full PRODUCT PAGE (Salman, 2026-11-12 evening): `exploded/v0.5.1/av-841r/`**, live at
+`https://primenathani.github.io/aves-showcase/exploded/v0.5.1/av-841r/`, tag `exploded-exemplar-page-av-841r-v0.5.1`. It opens
+with a 360 drag-to-rotate view (36 swappable frames), hands off into the exploded scroll as one helmet, then real
+product photographs, features, specification, documents, standards, accessories, logo areas, industries, more
+helmets. A new product page starts as a copy of THIS folder. Index of both exemplars: `exploded/EXEMPLAR.md`.
+Workers that build these pages run on Opus 5.5 (his standing instruction); check on them every 20 to 30 minutes.
+
+**Two approved themes for the product page (Salman, 2026-11-12 night: "Both links are absolutely perfect. Set them both as
+exemplars").** His names: **AVES theme** = `exploded/v0.5.1/av-841r/` (sell-sheet look, green bands, research-centre
+ground); **Modern AVES theme** = `exploded/alt-v0.1/av-841r/` (editorial look: warm ground, huge wordmark with a green
+highlighter, ghost word behind the product, tiles, accordion; Inter Tight; anime.js and Motion beside GSAP), live at
+`https://primenathani.github.io/aves-showcase/exploded/alt-v0.1/av-841r/`, tag `exploded-exemplar-modern-av-841r-alt-v0.1`.
+Ask which theme before building a new product page; a new page is a copy of that theme's folder. Never edit either.
+The modern theme has no real-photo gallery yet.
+
 **Reference build:** `~/Documents/Claude/Sloane/aves-showcase/exploded/v0.3.4/av-841r/` (TITAN AV-841R, 2026-11-12),
 live at `https://primenathani.github.io/aves-showcase/exploded/v0.3.4/av-841r/`. Check for a newer version folder
 before starting. A new product starts as a copy of the newest product folder, never from an empty folder.

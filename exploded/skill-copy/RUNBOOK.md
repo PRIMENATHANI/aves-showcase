@@ -29,6 +29,13 @@ AV-565R suspension, AV-724PU brow pad, AV-729 chin strap).
 
 Find files with a targeted `find -maxdepth` inside the category folder. Do not walk the whole SSD.
 
+**Open the ADS and sell sheet in VectorCraft before sampling or tracing anything** (Salman's standing rule: Craft
+tools wherever they fit). The ADS PDF opens as real vectors: `open_file`, then `document.find` with `within` or
+`intersects` and `select: true`, then `export` with `selection: true` to SVG. On the AV-841R this gave the actual
+swatch fills (Red #ea2227, Yellow #fde900, Orange #f05a29, Blue PANTONE 3005 C #0075c9, Green #39b24a, Grey #bbbdbf)
+and the ADS's own drawings of the helmet from four sides, which had first been sampled from pixels and traced by
+eye. Work on a single-page copy (`pdfseparate`) inside the workspace; VectorCraft reads only there.
+
 Then, for each PDF: `pdftotext -layout` for the text, `pdftoppm -r 110 -png` for page pictures,
 `pdfimages -png` for the embedded photos at full size. Look at every page picture and every photo with Read. The ADS
 often has line drawings (features and options, assembly instructions) that show how parts join better than any photo:
