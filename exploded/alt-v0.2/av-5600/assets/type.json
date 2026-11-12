@@ -1,0 +1,62 @@
+{
+ "aves-line": {
+  "text": "Always Value Everybody's Safety",
+  "w": 1142,
+  "h": 72
+ },
+ "model": {
+  "text": "AV-5600",
+  "w": 816,
+  "h": 146
+ },
+ "name": {
+  "text": "REUSABLE FULL-FACE RESPIRATOR",
+  "w": 1817,
+  "h": 72
+ },
+ "category": {
+  "text": "RESPIRATORY PROTECTION",
+  "w": 1219,
+  "h": 59
+ },
+ "features": {
+  "text": "FEATURES",
+  "w": 446,
+  "h": 59
+ },
+ "spec-a": {
+  "text": "TECHNICAL",
+  "w": 508,
+  "h": 59
+ },
+ "spec-b": {
+  "text": "SPECIFICATION",
+  "w": 682,
+  "h": 59
+ },
+ "standards": {
+  "text": "STANDARDS",
+  "w": 542,
+  "h": 59
+ },
+ "tagline": {
+  "text": "QUALITY INNOVATION FUNCTIONALITY",
+  "w": 1270,
+  "h": 47
+ },
+ "tagline-rev": {
+  "text": "QUALITY INNOVATION FUNCTIONALITY",
+  "w": 1270,
+  "h": 47
+ },
+ "documents": {
+  "text": "DOCUMENTS",
+  "w": 568,
+  "h": 59
+ },
+ "photos": {
+  "text": "PRODUCT PHOTOS",
+  "w": 825,
+  "h": 59
+ }
+}

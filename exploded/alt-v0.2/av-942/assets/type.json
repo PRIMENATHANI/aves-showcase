@@ -1,0 +1,62 @@
+{
+ "aves-line": {
+  "text": "Always Value Everybody's Safety",
+  "w": 1142,
+  "h": 72
+ },
+ "model": {
+  "text": "AV-942",
+  "w": 695,
+  "h": 144
+ },
+ "name": {
+  "text": "RETRACTABLE FALL ARRESTER",
+  "w": 1586,
+  "h": 72
+ },
+ "category": {
+  "text": "FALL PROTECTION",
+  "w": 816,
+  "h": 59
+ },
+ "features": {
+  "text": "FEATURES",
+  "w": 446,
+  "h": 59
+ },
+ "spec-a": {
+  "text": "TECHNICAL",
+  "w": 508,
+  "h": 59
+ },
+ "spec-b": {
+  "text": "SPECIFICATION",
+  "w": 682,
+  "h": 59
+ },
+ "standards": {
+  "text": "STANDARDS",
+  "w": 542,
+  "h": 59
+ },
+ "tagline": {
+  "text": "PERSONAL PROTECTIVE EQUIPMENT",
+  "w": 1168,
+  "h": 47
+ },
+ "tagline-rev": {
+  "text": "PERSONAL PROTECTIVE EQUIPMENT",
+  "w": 1168,
+  "h": 47
+ },
+ "documents": {
+  "text": "DOCUMENTS",
+  "w": 568,
+  "h": 59
+ },
+ "photos": {
+  "text": "PRODUCT PHOTOS",
+  "w": 825,
+  "h": 59
+ }
+}

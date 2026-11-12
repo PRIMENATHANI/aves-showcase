@@ -1,0 +1,92 @@
+[
+ {
+  "id": "product",
+  "source": "src.nosync/photos/product.png",
+  "sourceSize": [
+   1072,
+   3805
+  ],
+  "w": 451,
+  "h": 1600,
+  "tw": 68,
+  "th": 240,
+  "alpha": true,
+  "bytes": 79380,
+  "thumbBytes": 6814
+ },
+ {
+  "id": "swivel",
+  "source": "src.nosync/photos/swivel.png",
+  "sourceSize": [
+   868,
+   636
+  ],
+  "w": 868,
+  "h": 636,
+  "tw": 240,
+  "th": 176,
+  "alpha": false,
+  "bytes": 22682,
+  "thumbBytes": 2952
+ },
+ {
+  "id": "housing",
+  "source": "src.nosync/photos/housing.png",
+  "sourceSize": [
+   1012,
+   824
+  ],
+  "w": 1012,
+  "h": 824,
+  "tw": 240,
+  "th": 195,
+  "alpha": false,
+  "bytes": 63648,
+  "thumbBytes": 5036
+ },
+ {
+  "id": "webbing-end",
+  "source": "src.nosync/photos/webbing-end.png",
+  "sourceSize": [
+   1061,
+   1333
+  ],
+  "w": 1061,
+  "h": 1333,
+  "tw": 191,
+  "th": 240,
+  "alpha": false,
+  "bytes": 32444,
+  "thumbBytes": 1750
+ },
+ {
+  "id": "carabiner",
+  "source": "src.nosync/photos/carabiner.png",
+  "sourceSize": [
+   961,
+   1581
+  ],
+  "w": 961,
+  "h": 1581,
+  "tw": 146,
+  "th": 240,
+  "alpha": false,
+  "bytes": 72328,
+  "thumbBytes": 3528
+ },
+ {
+  "id": "webbing",
+  "source": "src.nosync/photos/webbing.png",
+  "sourceSize": [
+   733,
+   732
+  ],
+  "w": 733,
+  "h": 732,
+  "tw": 240,
+  "th": 240,
+  "alpha": false,
+  "bytes": 31466,
+  "thumbBytes": 3166
+ }
+]

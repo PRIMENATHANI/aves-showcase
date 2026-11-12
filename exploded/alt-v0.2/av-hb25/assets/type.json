@@ -1,0 +1,72 @@
+{
+ "aves-line": {
+  "text": "Always Value Everybody's Safety",
+  "w": 1142,
+  "h": 72
+ },
+ "model": {
+  "text": "AV-HB25",
+  "w": 1114,
+  "h": 190
+ },
+ "name": {
+  "text": "EAR MUFFS",
+  "w": 542,
+  "h": 72
+ },
+ "category": {
+  "text": "HEARING PROTECTION",
+  "w": 1017,
+  "h": 59
+ },
+ "features": {
+  "text": "FEATURES",
+  "w": 446,
+  "h": 59
+ },
+ "spec-a": {
+  "text": "TECHNICAL",
+  "w": 508,
+  "h": 59
+ },
+ "spec-b": {
+  "text": "SPECIFICATION",
+  "w": 682,
+  "h": 59
+ },
+ "standards": {
+  "text": "STANDARDS",
+  "w": 542,
+  "h": 59
+ },
+ "tagline": {
+  "text": "Your Total Safety Solutions Partner",
+  "w": 1071,
+  "h": 65
+ },
+ "tagline-rev": {
+  "text": "Your Total Safety Solutions Partner",
+  "w": 1071,
+  "h": 65
+ },
+ "documents": {
+  "text": "DOCUMENTS",
+  "w": 568,
+  "h": 59
+ },
+ "industry": {
+  "text": "IDEAL FOR",
+  "w": 473,
+  "h": 59
+ },
+ "more": {
+  "text": "HEARING PROTECTION",
+  "w": 1017,
+  "h": 59
+ },
+ "photos": {
+  "text": "PRODUCT PHOTOS",
+  "w": 825,
+  "h": 59
+ }
+}

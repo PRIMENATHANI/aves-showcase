@@ -1,0 +1,62 @@
+{
+ "aves-line": {
+  "text": "Always Value Everybody's Safety",
+  "w": 1142,
+  "h": 72
+ },
+ "model": {
+  "text": "AV-HG25 + AV-FS16P",
+  "w": 2084,
+  "h": 149
+ },
+ "name": {
+  "text": "COMBINED SOLUTIONS",
+  "w": 1212,
+  "h": 72
+ },
+ "category": {
+  "text": "FACE PROTECTION",
+  "w": 835,
+  "h": 59
+ },
+ "features": {
+  "text": "FEATURES",
+  "w": 446,
+  "h": 59
+ },
+ "spec-a": {
+  "text": "TECHNICAL AND MATERIAL",
+  "w": 1233,
+  "h": 59
+ },
+ "spec-b": {
+  "text": "SPECIFICATION",
+  "w": 682,
+  "h": 59
+ },
+ "standards": {
+  "text": "STANDARDS",
+  "w": 542,
+  "h": 59
+ },
+ "tagline": {
+  "text": "THE RIGHT COMBINATION FOR MAXIMUM SAFETY",
+  "w": 1610,
+  "h": 47
+ },
+ "tagline-rev": {
+  "text": "THE RIGHT COMBINATION FOR MAXIMUM SAFETY",
+  "w": 1610,
+  "h": 47
+ },
+ "documents": {
+  "text": "DOCUMENTS",
+  "w": 568,
+  "h": 59
+ },
+ "photos": {
+  "text": "PRODUCT PHOTOS",
+  "w": 825,
+  "h": 59
+ }
+}

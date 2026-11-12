@@ -53,3 +53,9 @@ exploded/*/av-841r/assets/ads-vectors/
 !exploded/v0.1/av-841r/av-841r-light.html
 !exploded/v0.2/av-841r/av-841r.html
 !exploded/v0.2/av-841r/av-841r-light.html
+exploded/alt-v0.2/*/*
+!exploded/alt-v0.2/*/index.html
+!exploded/alt-v0.2/*/assets/
+exploded/alt-v0.2/*/assets/bg-src/
+exploded/alt-v0.2/*/assets/ads-vectors/
+exploded/**/src.nosync/

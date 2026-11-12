@@ -1,0 +1,62 @@
+[
+ {
+  "id": "three-quarter",
+  "source": "ads/i-004.png",
+  "sourceSize": [
+   3021,
+   3363
+  ],
+  "w": 1437,
+  "h": 1600,
+  "tw": 216,
+  "th": 240,
+  "alpha": true,
+  "white": false,
+  "bytes": 241546
+ },
+ {
+  "id": "side",
+  "source": "ads/i-002.png",
+  "sourceSize": [
+   601,
+   962
+  ],
+  "w": 601,
+  "h": 962,
+  "tw": 150,
+  "th": 240,
+  "alpha": true,
+  "white": false,
+  "bytes": 56630
+ },
+ {
+  "id": "cushions",
+  "source": "ads/i-006.png",
+  "sourceSize": [
+   800,
+   800
+  ],
+  "w": 800,
+  "h": 800,
+  "tw": 240,
+  "th": 240,
+  "alpha": false,
+  "white": true,
+  "bytes": 33150
+ },
+ {
+  "id": "in-use",
+  "source": "sell/i-019.png",
+  "sourceSize": [
+   3840,
+   3072
+  ],
+  "w": 1600,
+  "h": 1280,
+  "tw": 240,
+  "th": 192,
+  "alpha": false,
+  "white": false,
+  "bytes": 244892
+ }
+]

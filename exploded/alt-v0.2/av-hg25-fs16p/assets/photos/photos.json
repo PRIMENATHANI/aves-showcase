@@ -1,0 +1,122 @@
+[
+ {
+  "id": "three-quarter",
+  "source": "src.nosync/photos/three-quarter.png",
+  "sourceSize": [
+   2400,
+   1792
+  ],
+  "w": 1600,
+  "h": 1195,
+  "tw": 240,
+  "th": 179,
+  "alpha": false,
+  "bytes": 44710,
+  "thumbBytes": 3030
+ },
+ {
+  "id": "worn",
+  "source": "src.nosync/photos/worn.png",
+  "sourceSize": [
+   2400,
+   1792
+  ],
+  "w": 1600,
+  "h": 1195,
+  "tw": 240,
+  "th": 179,
+  "alpha": false,
+  "bytes": 64608,
+  "thumbBytes": 3712
+ },
+ {
+  "id": "flip-up",
+  "source": "src.nosync/photos/flip-up.png",
+  "sourceSize": [
+   557,
+   636
+  ],
+  "w": 557,
+  "h": 636,
+  "tw": 210,
+  "th": 240,
+  "alpha": false,
+  "bytes": 14056,
+  "thumbBytes": 4148
+ },
+ {
+  "id": "headgear",
+  "source": "src.nosync/photos/headgear.png",
+  "sourceSize": [
+   1895,
+   1079
+  ],
+  "w": 1600,
+  "h": 911,
+  "tw": 240,
+  "th": 137,
+  "alpha": true,
+  "bytes": 107768,
+  "thumbBytes": 7992
+ },
+ {
+  "id": "headgear-side",
+  "source": "src.nosync/photos/headgear-side.png",
+  "sourceSize": [
+   3431,
+   1902
+  ],
+  "w": 1600,
+  "h": 887,
+  "tw": 240,
+  "th": 133,
+  "alpha": false,
+  "bytes": 48022,
+  "thumbBytes": 3496
+ },
+ {
+  "id": "headgear-under",
+  "source": "src.nosync/photos/headgear-under.png",
+  "sourceSize": [
+   1500,
+   1608
+  ],
+  "w": 1493,
+  "h": 1600,
+  "tw": 224,
+  "th": 240,
+  "alpha": false,
+  "bytes": 78402,
+  "thumbBytes": 6958
+ },
+ {
+  "id": "headgear-rear",
+  "source": "src.nosync/photos/headgear-rear.png",
+  "sourceSize": [
+   836,
+   593
+  ],
+  "w": 836,
+  "h": 593,
+  "tw": 240,
+  "th": 170,
+  "alpha": true,
+  "bytes": 46898,
+  "thumbBytes": 12874
+ },
+ {
+  "id": "visor",
+  "source": "src.nosync/photos/visor.png",
+  "sourceSize": [
+   1520,
+   1588
+  ],
+  "w": 1520,
+  "h": 1588,
+  "tw": 230,
+  "th": 240,
+  "alpha": true,
+  "bytes": 55428,
+  "thumbBytes": 7338
+ }
+]

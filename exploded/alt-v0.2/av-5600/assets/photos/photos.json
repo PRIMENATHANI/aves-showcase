@@ -1,0 +1,107 @@
+[
+ {
+  "id": "front",
+  "source": "src.nosync/photos/front.png",
+  "sourceSize": [
+   722,
+   922
+  ],
+  "w": 722,
+  "h": 922,
+  "tw": 188,
+  "th": 240,
+  "alpha": false,
+  "bytes": 66182,
+  "thumbBytes": 7182
+ },
+ {
+  "id": "worn",
+  "source": "src.nosync/photos/worn.png",
+  "sourceSize": [
+   1920,
+   1280
+  ],
+  "w": 1600,
+  "h": 1067,
+  "tw": 240,
+  "th": 160,
+  "alpha": false,
+  "bytes": 55670,
+  "thumbBytes": 2964
+ },
+ {
+  "id": "side",
+  "source": "src.nosync/photos/side.png",
+  "sourceSize": [
+   758,
+   919
+  ],
+  "w": 758,
+  "h": 919,
+  "tw": 198,
+  "th": 240,
+  "alpha": false,
+  "bytes": 75534,
+  "thumbBytes": 8120
+ },
+ {
+  "id": "back",
+  "source": "src.nosync/photos/back.png",
+  "sourceSize": [
+   782,
+   919
+  ],
+  "w": 782,
+  "h": 919,
+  "tw": 204,
+  "th": 240,
+  "alpha": false,
+  "bytes": 43144,
+  "thumbBytes": 5484
+ },
+ {
+  "id": "harness",
+  "source": "src.nosync/photos/harness.png",
+  "sourceSize": [
+   722,
+   991
+  ],
+  "w": 722,
+  "h": 991,
+  "tw": 175,
+  "th": 240,
+  "alpha": false,
+  "bytes": 52708,
+  "thumbBytes": 6346
+ },
+ {
+  "id": "inside",
+  "source": "src.nosync/photos/inside.png",
+  "sourceSize": [
+   461,
+   461
+  ],
+  "w": 461,
+  "h": 461,
+  "tw": 240,
+  "th": 240,
+  "alpha": false,
+  "bytes": 23630,
+  "thumbBytes": 9504
+ },
+ {
+  "id": "in-use",
+  "source": "src.nosync/photos/in-use.png",
+  "sourceSize": [
+   1797,
+   2304
+  ],
+  "w": 1248,
+  "h": 1600,
+  "tw": 187,
+  "th": 240,
+  "alpha": false,
+  "bytes": 167544,
+  "thumbBytes": 7456
+ }
+]
