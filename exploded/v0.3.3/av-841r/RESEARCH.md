@@ -38,3 +38,20 @@ Sources (read only, copies in `exploded/research.nosync/av-841r/`, git-ignored):
 - The bosses were named accessory slots; the file says the shell has none.
 - Everything was white; the real suspension is ash grey and black inside a white shell.
 - Sizes were typical values (270 × 228 × 164); the file gives 240 × 210 × 140 inner.
+
+## Added for v0.3 (ADS and sell sheet, read 12 November 2026)
+Sources: `ads-841r-rev2.pdf` (ADS FT HP 1-001 3.2, rev R2, 25 Feb 2026, 5 pages), `ss-841r.pdf` (sell sheet, 30 Mar 2026), `ads-565r-rev1.pdf` (ADS FT HP 1-008 3.1, R1, 4 Mar 2026), `ss-565r.pdf`; crops `img/ads-assembly.png`, `img/ads-features-options.png`, `img/sellsheet-1.png`.
+
+### Checked in the ADS (text and drawings)
+- Six features, the specification table, standards and seven colours: all in `copy.json`, verbatim.
+- "Universal Accessories Slot: No". "Suspension System: 6-point Nylon Harness". "Adjustment Type: Ratchet - Pull out to adjust, press to lock". Net weight 295 grams.
+- Assembly drawings: suspension keys push up into key slots in the shell ("keys precise locking system"); a height key gives the optional height adjustment; the wheel is marked TIGHT and LOOSE.
+- Features-and-options drawing, panel 3: each boss is a wedge on the crown wall at the brim, top sloping back into the crown.
+- Compatible accessories (page 2): suspension AV-565R; brow pads AV-724PL, AV-724PU, AV-724CL; chin straps 5055FT01, AV-728, AV-729 ("2-point Attachment with Chin Guard"), AV-743.
+
+### Conflicts between sources (for product management)
+- Website product page: "4-point ratchet suspension", "Universal accessory slots compatible with earmuffs and face shields", "Available in Green, White, and Grey", and placeholder Lorem ipsum text. PTF and ADS: 6-point, no accessory slot, seven colours.
+- The ADS's own features-and-options drawing is captioned "4-point and 6-point suspension combinations"; its text says 6-point.
+- The ADS drawings show a generic six-spoke crown on a hub; the product photos show three straps crossing through a top pad. The photos were followed.
+- Catalogue REV 7: bullet says "EN 379:2012"; PTF and ADS say EN 397:2012 + A1:2012.
+- No Certificate of Conformity on file: the product's `4 - COC` folder is empty. The website's Data Sheet, COC and Sell Sheet buttons all point to "#".

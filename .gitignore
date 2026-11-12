@@ -18,3 +18,4 @@ spikes/site-audit/gen/*.png
 catalogue-src.nosync/
 v0.4/gen/*.png
 exploded/research.nosync/
+# from the next product on (the first helmet versions keep theirs): exploded/**/shots/
