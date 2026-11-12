@@ -1,0 +1,474 @@
+// AVES TITAN AV-841R, exploded view v0.2. node build.mjs [--light] [--audit] [--fine] [--quick] [--fast] [--fit=52..66] [--view=deg]
+import { readFileSync, writeFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+import * as k from "/Users/macintosh/.claude/skills/anatomy/kit/iso-kit.mjs";
+import * as G from "/Users/macintosh/.claude/skills/anatomy/kit/lathe.mjs";
+import * as A from "/Users/macintosh/.claude/skills/anatomy/kit/audit.mjs";
+import { kitScript } from "/Users/macintosh/.claude/skills/anatomy/scripts/inline-kit.mjs";
+import { surface, surfaceSvg, strapPatches } from "./surf.mjs";
+import * as M from "./model.mjs";
+
+const HERE = dirname(fileURLToPath(import.meta.url));
+const arg = (name, fallback) => {
+  const hit = process.argv.find((entry) => entry.startsWith(`--${name}=`));
+  return hit ? Number(hit.split("=")[1]) : fallback;
+};
+const THEME = process.argv.includes("--light") ? "light" : "dark";
+const FAST = process.argv.includes("--fast");
+const DEG = Math.PI / 180;
+const FIT_CM = arg("fit", M.FIT_REST);
+const VIEW_OFF = arg("view", 68);
+const AZIMUTH = 45;
+const YAW = (AZIMUTH - VIEW_OFF) * DEG;
+const W = 640;
+const H = arg("h", 1060);
+
+const world = ([x, y, z]) => [x * Math.cos(YAW) - y * Math.sin(YAW), x * Math.sin(YAW) + y * Math.cos(YAW), z];
+const plan = ([x, y]) => [x * Math.cos(YAW) - y * Math.sin(YAW), x * Math.sin(YAW) + y * Math.cos(YAW)];
+const turn = world;
+
+// How it comes apart, as the one value t rises: each assembly has its window of t.
+const PIECES = {
+  shell: { name: "Shell", say: "High-Density Polyethylene (HDPE) · 360° full brim", move: [0, 0, 325], window: [0, 0.25] },
+  chin: { name: "Chin strap AV-729", say: "chin strap AV-729 · 2-point", move: [0, 0, -58], window: [0.45, 0.6] },
+  brow: { name: "Sweatband AV-724PU", say: "sweatband · Polyester – Soft PU Foam", move: G.add3(turn([20, 0, 0]), [0, 0, 62]), window: [0.54, 0.7] },
+  crown: { name: "Crown suspension", say: "6-point Nylon Harness · suspension keys", move: [0, 0, 104], window: [0.66, 0.86] },
+  knob: { name: "Ratchet wheel", say: "Ratchet - Pull out to adjust, press to lock", move: turn([-44, 0, 0]), window: [0.84, 1] },
+  band: { name: "Headband", say: "headband · Size Adjustment 52 – 66 cm", move: [0, 0, 0], window: [0, 1] },
+};
+const ORDER = ["shell", "chin", "brow", "crown", "knob", "band"];
+const LEGEND = ["shell", "crown", "band", "brow", "knob", "chin"];
+const WINDOWS = Object.fromEntries(ORDER.map((id) => [id, PIECES[id].window]));
+const shareAt = (windows, id, t) => {
+  const [from, to] = windows[id];
+  const x = Math.min(1, Math.max(0, (t - from) / (to - from)));
+  return id === "band" ? 0 : x * x * (3 - 2 * x);
+};
+const stateAt = (t) => ({ label: `t ${t.toFixed(2)}`, shares: Object.fromEntries(ORDER.map((id) => [id, shareAt(WINDOWS, id, t)])) });
+const STATES = Array.from({ length: 101 }, (_, index) => stateAt(index / 100));
+
+const corners = [];
+for (const deg of [0, 45, 90, 135, 180, 225, 270, 315]) {
+  const [x, y] = plan([M.SHELL.brimA * Math.cos(deg * DEG), M.SHELL.brimB * Math.sin(deg * DEG)]);
+  corners.push([x, y, 0], [x, y, PIECES.shell.move[2]]);
+}
+const P = k.fitProjection([...corners, [0, 0, M.SHELL.H + PIECES.shell.move[2]], [0, 0, -M.CHIN.drop + PIECES.chin.move[2] - 4], world([-185, 0, 0]), world([195, 0, 20])], W, H, { pad: 26, azimuth: AZIMUTH, elevation: 30 });
+const V = G.viewOf(P);
+const at = (point) => k.iso(point, P);
+const S = (paths, style) => k.solidSvg(paths, style);
+const Ln = (d, style) => k.lineSvg(d, style);
+const Dots = (points, style) => k.dotsSvg(points, style);
+const pathOf = (points, closed = false) => points.map(([x, y], index) => `${index ? "L" : "M"}${x.toFixed(2)} ${y.toFixed(2)}`).join("") + (closed ? "Z" : "");
+
+const R = A.recorder(P, { order: ORDER, spring: { stagger: 0 }, ground: (shape) => String(shape.name).startsWith("shell.") });
+const { items, nameFor } = R;
+const record = R.solid;
+function put(piece, ref, svg, { bias = 0, shapes = [], name, mat = "ash", ...rest } = {}) {
+  R.put({ piece, ride: piece, at: ref, bias, svg, move: PIECES[piece].move, shapes, name: name ?? nameFor(`${piece}.item`), mat, ...rest });
+}
+const extruded = (piece, ring, z, h, style, { name, owner, bias = 0, extra = "", bevel = 0, convex = true, at: ref, seams = [], mat, ...rest } = {}) => {
+  const w = ring.map(plan);
+  if (seams.length) style = { ...style, inner: Ln(seams.map((level) => k.ringSeam(w, level, P)).join(""), { tone: "faint" }) };
+  const id = nameFor(name ?? `${piece}.part`);
+  const centre = ref ?? [...w.reduce((sum, p) => [sum[0] + p[0] / w.length, sum[1] + p[1] / w.length], [0, 0]), z + h / 2];
+  put(piece, centre, S(k.extrude(w, z, h, P, { convex, bevel }), style) + extra, { bias, name: id, mat, ...rest, shapes: [record(A.extruded(w, z, h, { name: id, owner: owner ?? piece }))] });
+};
+const frameRect = (frame, out0, out1, half) => [[out0, -half], [out1, -half], [out1, half], [out0, half]].map(([out, along]) => [frame.p[0] + frame.n[0] * out + frame.t[0] * along, frame.p[1] + frame.n[1] * out + frame.t[1] * along]);
+const onFrame = (frame, out, along, z) => at(world([frame.p[0] + frame.n[0] * out + frame.t[0] * along, frame.p[1] + frame.n[1] * out + frame.t[1] * along, z]));
+const facing = (n) => G.dot3(turn([n[0], n[1], 0]), V);
+
+// ---------------------------------------------------------------- floor shadow, no stand
+const FLOOR = -150;
+const back = [`<path class="iso-halo hx-shadow" d="${pathOf(Array.from({ length: 72 }, (_, i) => at(world([M.SHELL.brimA * 0.86 * Math.cos(i * 5 * DEG), M.SHELL.brimB * 0.86 * Math.sin(i * 5 * DEG), FLOOR]))), true)}"/>`];
+
+// ---------------------------------------------------------------- shell
+const KEYS = M.keyAngles().map((deg, index) => ({ deg, theta: deg * DEG, frame: M.bandFrame(deg * DEG), diagonal: index < 4 }));
+{
+  const rows = M.shellRows().map((row) => row.map(world));
+  const paths = surface([{ rows, flip: true }], P, { sharp: -2 });
+  const inner = [];
+  for (const line of M.shellLines()) {
+    for (const run of paths.visibleRuns(line.points.map(world))) inner.push(line.fade && run.length === line.points.length ? k.fadeLineSvg(run, { fade: line.fade, tone: line.tone }) : Ln(pathOf(run), { tone: line.tone }));
+  }
+  const shapes = M.shellShapes(M.shellRows()).map(({ ring, z, h, name }) => record(A.extruded(ring.map(plan), z, h, { name: `shell.${name}`, owner: "shell" })));
+  // the four bosses are moulded into the shell: one item, the far ones painted first
+  const drawn = { far: "", near: "" };
+  for (const boss of M.bosses()) {
+    const F = { o: world([boss.p[0], boss.p[1], 0]), a: turn([boss.t[0], boss.t[1], 0]), u: turn([boss.n[0], boss.n[1], 0]), v: [0, 0, 1] };
+    const near = facing(boss.n) > 0;
+    const slot = near ? Ln(pathOf(boss.slot.map(([along, z]) => {
+      const out = 10 - ((z - 14.5) / 16.5) * 2.4;
+      return at(world([boss.p[0] + boss.t[0] * along + boss.n[0] * out, boss.p[1] + boss.t[1] * along + boss.n[1] * out, z]));
+    }), true), { tone: "lo" }) : "";
+    drawn[near ? "near" : "far"] += S(G.prismOf(F, boss.section, -boss.half, boss.half, P), { tone: "hi" }) + slot;
+    shapes.push(record(A.prism(F, boss.section, -boss.half, boss.half, { name: "shell.boss", owner: "shell" })));
+  }
+  // inside each boss, and at the two mid-sides, the key slot a suspension key pushes up into: recorded, never seen
+  for (const key of KEYS) {
+    const wall = M.polarR(M.INNER.a, M.INNER.b, key.theta);
+    const reach = wall - Math.hypot(...key.frame.p) + 5;
+    shapes.push(record(A.extruded(frameRect(key.frame, 0.6, reach, M.KEY.half + 1).map(plan), M.KEY.z + M.KEY.h, 3, { name: "shell.pocket", owner: "shell" })));
+  }
+  put("shell", world([0, 0, 70]), drawn.far + surfaceSvg(paths, { tone: "hi", inner: inner.join("") }) + drawn.near, { name: "shell.body", shapes, mat: "white" });
+}
+
+// ---------------------------------------------------------------- bands
+// A band that wraps what is inside it is cut where it turns edge-on to the viewer, so
+// the near run and the far run each take their own depth. The cut lies on the band's
+// own silhouette and adds no line: the ring still reads, and is, one ring.
+const VIEW_LOCAL = [Math.cos(AZIMUTH * DEG - YAW), Math.sin(AZIMUTH * DEG - YAW)];
+function runsOf(centre) {
+  const outer = M.offset(centre, 1);
+  const seen = centre.map((p, i) => (outer[i][0] - p[0]) * VIEW_LOCAL[0] + (outer[i][1] - p[1]) * VIEW_LOCAL[1] > 0);
+  const runs = [];
+  let from = 0;
+  for (let i = 1; i < centre.length; i++) {
+    if (seen[i] !== seen[i - 1] && i - from > 2 && centre.length - i > 2) {
+      runs.push([from, i]);
+      from = i;
+    }
+  }
+  runs.push([from, centre.length - 1]);
+  return runs;
+}
+const bandRun = (piece, centre, outBy, inBy, z, h, style, name, { extraOf, seams = [], mat } = {}) => {
+  const outerAll = M.offset(centre, outBy);
+  const innerAll = M.offset(centre, inBy);
+  for (const [from, to] of runsOf(centre)) {
+    const outer = outerAll.slice(from, to + 1);
+    const inner = innerAll.slice(from, to + 1);
+    const mid = centre[Math.floor((from + to) / 2)];
+    extruded(piece, [...outer, ...inner.reverse()], z, h, style, { name, convex: false, seams, mat, at: world([mid[0], mid[1], z + h / 2]), extra: extraOf ? extraOf(outer) : "" });
+  }
+};
+bandRun("band", M.ringCentre(), M.RING.thick / 2, -M.RING.thick / 2, M.RING.z, M.RING.h, { tone: "mid" }, "band.ring", { seams: [M.RING.z + 3.5, M.RING.z + M.RING.h - 3.5], mat: "ash" });
+
+// the sweatband wraps the front of the ring: a face on the outside and a lip over the top
+const weaveDots = (outer) => {
+  const dots = [];
+  for (let i = 1; i < outer.length - 1; i++) {
+    const a = outer[i - 1];
+    const b = outer[i + 1];
+    let normal = [b[1] - a[1], -(b[0] - a[0])];
+    if (normal[0] * outer[i][0] + normal[1] * outer[i][1] < 0) normal = [-normal[0], -normal[1]];
+    const length = Math.hypot(...normal);
+    const seen = facing([normal[0] / length, normal[1] / length]);
+    if (seen < 0.1) continue;
+    for (let row = 0; row < 6; row++) dots.push([...at(world([outer[i][0], outer[i][1], M.BROW.z + 4.5 + row * 5 + (i % 2 ? 0 : 2.5)])), Math.min(1, (seen - 0.1) / 0.35)]);
+  }
+  return Dots(dots, { size: 0.42, tone: "lo" });
+};
+const RT = M.RING.thick / 2;
+const ringTop = M.RING.z + M.RING.h;
+const browTop = M.BROW.z + M.BROW.h;
+bandRun("brow", M.browCentre(), RT + 0.02 + M.BROW.thick, RT + 0.02, M.BROW.z, M.BROW.h, { tone: "hi" }, "brow.face", { extraOf: weaveDots, mat: "grey" });
+// over the top edge, and a flap down the inside of the band
+bandRun("brow", M.browCentre(), RT + 0.02, -RT - M.BROW.clear - 2.5, ringTop + 0.02, browTop - ringTop - 0.02, { tone: "hi" }, "brow.lip", { mat: "grey" });
+bandRun("brow", M.browCentre(), -RT - M.BROW.clear, -RT - M.BROW.clear - 2.5, ringTop - M.BROW.flap, M.BROW.flap + 0.02, { tone: "hi" }, "brow.flap", { mat: "grey" });
+
+// ---------------------------------------------------------------- crown suspension: straps, top pad, suspension keys
+const strapItem = (points, acrossDir, halfW, halfT, { weave = 3.2, tone = "hi", caps = [true, true] } = {}) => {
+  const w = points.map(world);
+  const { patches, frames } = strapPatches(w, turn(acrossDir), halfW, halfT, { caps });
+  const paths = surface(patches, P, { tolerance: 0.8 });
+  const lines = [];
+  if (weave) {
+    let run = 0;
+    let next = weave / 2;
+    for (let i = 1; i < frames.length; i++) {
+      run += G.len3(G.sub3(frames[i].p, frames[i - 1].p));
+      if (run < next) continue;
+      next += weave;
+      const f = frames[i];
+      const side = G.dot3(f.n, V) > 0 ? 1 : -1;
+      if (Math.abs(G.dot3(f.n, V)) < 0.12) continue;
+      const a = G.add3(f.p, G.add3(G.mul3(f.w, halfW), G.mul3(f.n, side * halfT)));
+      const b = G.add3(f.p, G.add3(G.mul3(f.w, -halfW), G.mul3(f.n, side * halfT)));
+      if (paths.hiddenAt(G.lerp3(a, b, 0.5))) continue;
+      lines.push(pathOf([at(a), at(b)]));
+    }
+  }
+  return { svg: surfaceSvg(paths, { tone, crease: "lo", inner: lines.length ? Ln(lines.join(""), { tone: "faint" }) : "" }), mid: w[Math.floor(w.length / 2)] };
+};
+const sectionOf = (flat, half) => {
+  const normal = flat.map((p, i) => {
+    const a = flat[Math.max(0, i - 1)];
+    const b = flat[Math.min(flat.length - 1, i + 1)];
+    const n = Math.hypot(b[0] - a[0], b[1] - a[1]);
+    return [(b[1] - a[1]) / n, -(b[0] - a[0]) / n];
+  });
+  return [...flat.map(([a, b], i) => [a + normal[i][0] * half, b + normal[i][1] * half]), ...flat.map(([a, b], i) => [a - normal[i][0] * half, b - normal[i][1] * half]).reverse()];
+};
+// each strap runs key to opposite key. Over the middle of the pad it shows; at a slit
+// each side it goes down through the pad and runs out under the pad's edge to its key.
+const STRAPS = [[0, 2], [1, 3], [4, 5]];
+const planeOf = (c, s) => {
+  const u = turn([c, s, 0]);
+  return { o: [0, 0, 0], a: G.cross3(u, [0, 0, 1]), u, v: [0, 0, 1] };
+};
+STRAPS.forEach(([one, other], index) => {
+  for (const key of [KEYS[one], KEYS[other]]) {
+    const c = Math.cos(key.theta);
+    const s = Math.sin(key.theta);
+    const endR = Math.hypot(...key.frame.p) - M.STRAP.thick / 2 - 1.1; // clear of the key's inner face, which is not square to the ray
+    const profile = M.legProfile(endR, M.PAD.slit, M.PAD.z - M.STRAP.thick / 2 - 0.05);
+    const made = strapItem(profile.map(([r, z]) => [r * c, r * s, z]), [-s, c, 0], M.STRAP.half, M.STRAP.thick / 2);
+    const id = nameFor("crown.leg");
+    put("crown", made.mid, made.svg, { name: id, mat: "black", shapes: [record(A.prism(planeOf(c, s), sectionOf(profile, M.STRAP.thick / 2), -M.STRAP.half, M.STRAP.half, { name: id, owner: "crown" }))] });
+  }
+  const theta = KEYS[one].theta;
+  const c = Math.cos(theta);
+  const s = Math.sin(theta);
+  const profile = M.runProfile(index);
+  const made = strapItem(profile.map(([r, z]) => [r * c, r * s, z]), [-s, c, 0], M.STRAP.half, M.STRAP.thick / 2);
+  const id = nameFor("crown.run");
+  put("crown", world([0, 0, M.runHeight(index)]), made.svg, { name: id, mat: "black", shapes: [record(A.prism(planeOf(c, s), sectionOf(profile, M.STRAP.thick / 2), -M.STRAP.half, M.STRAP.half, { name: id, owner: "crown" }))] });
+  // at each slit the strap turns down through the pad: the short drop from this strap's height to the pad
+  const low = M.PAD.z + M.PAD.thick + 0.02;
+  const drop = M.runHeight(index) - M.STRAP.thick / 2 - low;
+  if (drop > 0.5) for (const sign of [1, -1]) {
+    const ring = [[M.PAD.slit - M.STRAP.thick, -M.STRAP.half], [M.PAD.slit, -M.STRAP.half], [M.PAD.slit, M.STRAP.half], [M.PAD.slit - M.STRAP.thick, M.STRAP.half]].map(([r, t]) => [sign * (r * c - t * s), sign * (r * s + t * c)]);
+    extruded("crown", ring, low, drop, { tone: "hi" }, { name: "crown.drop", mat: "black" });
+  }
+});
+{
+  const top = M.PAD.z + M.PAD.thick;
+  const holes = [[25, 8], [25, -8], [-25, 8], [-25, -8]].map(([x, y]) => at(world([x, y, top])));
+  // the six slits the straps pass through
+  const slits = KEYS.map((key) => {
+    const c = Math.cos(key.theta);
+    const s = Math.sin(key.theta);
+    return pathOf([[M.PAD.slit - 1.2, -11], [M.PAD.slit + 1.6, -11], [M.PAD.slit + 1.6, 11], [M.PAD.slit - 1.2, 11]].map(([r, t]) => at(world([r * c - t * s, r * s + t * c, top]))), true);
+  });
+  extruded("crown", M.padRing(), M.PAD.z, M.PAD.thick, { tone: "mid" }, { name: "crown.pad", mat: "ash", extra: Ln(slits.join(""), { tone: "lo" }) + Dots(holes, { size: 0.7, tone: "lo" }) });
+}
+// suspension keys: a head with two windows, a tongue with a slot. The strap comes down
+// the inside, through the head, and folds back up the outside.
+for (const key of KEYS) {
+  const f = key.frame;
+  const K = M.KEY;
+  const top = K.z + K.h;
+  const out = facing(f.n) > 0.05;
+  const face = out ? K.thick : 0.02;
+  const box = (a0, a1, z0, z1) => pathOf([[a0, z0], [a1, z0], [a1, z1], [a0, z1]].map(([along, z]) => onFrame(f, face, along, z)), true);
+  const headMarks = out ? Ln(box(-11.5, -1.2, K.window[0], K.window[1]) + box(1.2, 11.5, K.window[0], K.window[1]), { tone: "lo" }) : "";
+  const tongueMarks = out ? Ln(box(-2, 2, K.z + 5, K.z + 13), { tone: "lo" }) : "";
+  extruded("crown", frameRect(f, 0.02, K.thick, K.tongue), K.z, K.neck - K.z, { tone: "mid" }, { name: "crown.key-tongue", mat: "ash", extra: tongueMarks });
+  extruded("crown", frameRect(f, 0.02, K.thick, K.half), K.neck, top - K.neck, { tone: "mid" }, { name: "crown.key", mat: "ash", bevel: 0.3, extra: headMarks });
+  extruded("crown", frameRect(f, K.thick + 0.02, K.thick + 1.1, M.STRAP.half - 1.5), K.window[0] + 1, top + 0.4 - K.window[0] - 1, { tone: "hi" }, { name: "crown.fold", mat: "black", bias: 0.2 });
+}
+
+// ---------------------------------------------------------------- nape strap, ratchet
+const REAR = M.rearFor(FIT_CM);
+const tailSvg = (ring) => {
+  const paths = k.extrude(ring.map(plan), M.TAIL.z, M.TAIL.h, P, { convex: false });
+  return `<g class="iso-solid"><path class="iso-fill" d="${paths.fill}"/>${paths.shades.map((d, shade) => `<path class="iso-shade" data-shade="${shade}" d="${d}"/>`).join("")}<path class="iso-top" d="${paths.top}"/><path class="iso-line iso-crease" data-tone="faint" d="${paths.crease}"/><path class="iso-line iso-edge" data-tone="mid" d="${paths.outline}"/></g>`;
+};
+const KNOB_FRAMES = [];
+{
+  for (const side of [1, -1]) {
+    const ring = M.tailRing(REAR, side);
+    const id = `band.tail${side > 0 ? "L" : "R"}`;
+    const mid = ring[11];
+    put("band", world([mid[0], mid[1], M.TAIL.z + M.TAIL.h / 2]), tailSvg(ring), { name: id, mat: "ash", tail: side, shapes: [record(A.extruded(ring.map(plan), M.TAIL.z, M.TAIL.h, { name: id, owner: "band" }))] });
+    // the arm that drops from the round pivot on the headband to the nape strap
+    const f = M.bandFrame(M.pivotAngle(side));
+    const back = f.t[0] > 0 ? 1 : -1; // the arm drops, then sweeps back towards the nape
+    const path = M.armPath().map(([along, z]) => [along * back, z]);
+    const tw = turn([f.t[0], f.t[1], 0]);
+    const nw = turn([f.n[0], f.n[1], 0]);
+    const o = world([f.p[0], f.p[1], 0]);
+    const w = path.map(([along, z]) => G.add3(G.add3(o, G.mul3(tw, along)), G.add3(G.mul3(nw, 0.02 + M.ARM.thick / 2), [0, 0, z])));
+    const { patches } = strapPatches(w, nw, M.ARM.thick / 2, M.ARM.half);
+    const paths = surface(patches, P, { tolerance: 0.8 });
+    const shows = facing(f.n) > 0.1;
+    const PF = G.frameAlong(G.add3(w[1], G.mul3(nw, M.ARM.thick / 2)), nw);
+    const pivot = shows ? Ln(G.circleOf(PF, 0.02, 5.2, P, 24) + G.circleOf(PF, 0.02, 2.2, P, 16), { tone: "lo" }) : "";
+    const AF = { o, a: G.cross3(tw, [0, 0, 1]), u: tw, v: [0, 0, 1] };
+    const sign = G.dot3(AF.a, nw) > 0 ? 1 : -1;
+    const span = [0.02, 0.02 + M.ARM.thick].map((value) => value * sign).sort((x, y) => x - y);
+    const aid = nameFor("band.arm");
+    put("band", w[12], surfaceSvg(paths, { tone: "mid", crease: "lo" }) + pivot, { name: aid, mat: "ash", bias: 0.2, shapes: [record(A.prism(AF, sectionOf(path, M.ARM.half), span[0], span[1], { name: aid, owner: "band" }))] });
+  }
+  const box = M.housingRing(REAR).map(plan);
+  const [hx] = M.tailEnd(REAR, 1);
+  const backX = hx - M.HOUSING.back;
+  const top = M.HOUSING.z + M.HOUSING.h;
+  const lidLine = [[hx + M.HOUSING.fore - 1.6, -23], [hx + M.HOUSING.fore - 1.6, 23], [backX + 1.6, 23], [backX + 1.6, -23]].map((p) => at(world([...p, top])));
+  put("band", world([hx - 3, 0, M.HOUSING.z + M.HOUSING.h / 2]), S(k.extrude(box, M.HOUSING.z, M.HOUSING.h, P, { bevel: 0.6 }), { tone: "mid" }) + Ln(pathOf(lidLine, true), { tone: "faint" }) + Dots([at(world([hx - 3, -25.5, top])), at(world([hx - 3, 25.5, top]))], { size: 0.45 }), { name: "band.housing", mat: "ash", nape: 1, shapes: [record(A.extruded(box, M.HOUSING.z, M.HOUSING.h, { name: "band.housing", owner: "band" }))] });
+  // the ratchet wheel, on the back of the housing, pointing straight back
+  const F = G.frameAlong(world([backX, 0, M.KNOB.z]), turn([-1, 0, 0]));
+  const RIBS = 22;
+  const STEPS = 36;
+  for (let i = 0; i < STEPS; i++) KNOB_FRAMES.push(k.fadedSvg(G.ribsOf(F, 1.6, M.KNOB.long - 1.2, M.KNOB.r, RIBS, P, { phase: ((2 * Math.PI) / RIBS) * (i / STEPS), fade: [0.08, 0.5], seams: true }), { tone: "lo" }));
+  const faceSeen = G.dot3(F.a, V) > 0.1;
+  const face = faceSeen ? Ln(G.circleOf(F, M.KNOB.long, M.KNOB.r - 4, P, 40) + G.circleOf(F, M.KNOB.long, 5, P, 20), { tone: "lo" }) : "";
+  put("knob", world([backX - M.KNOB.long / 2, 0, M.KNOB.z]), S(G.disc(0, M.KNOB.long, M.KNOB.r, F, P, { bevel: 0.5 }), { tone: "hi" }) + `<g data-ribs>${KNOB_FRAMES[0]}</g>` + face, { name: "knob.wheel", mat: "black", bias: 0.3, nape: 1, knob: 1, shapes: [record(A.disc(F, 0, M.KNOB.long, M.KNOB.r, { name: "knob.wheel", owner: "knob" }))] });
+}
+
+// ---------------------------------------------------------------- chin strap: two clips, webbing, slider, centre buckle
+{
+  const reach = [];
+  for (const side of [1, -1]) {
+    const f = M.bandFrame(side * 90 * DEG);
+    extruded("chin", frameRect(f, 0.02, 3, 7), M.CHIN.top, 13.6, { tone: "mid" }, { name: "chin.clip", mat: "ash", bevel: 0.3 });
+    reach.push(Math.abs(f.p[1]) + 3 + 0.05 + M.CHIN.thick / 2);
+  }
+  const y = reach[0];
+  const F = { o: [0, 0, 0], a: turn([1, 0, 0]), u: turn([0, 1, 0]), v: [0, 0, 1] };
+  const flat = (points) => points.map(([, yy, z]) => [yy, z]);
+  // near side: the quick-release buckle; middle: the chin guard; far side: the slider
+  const BU = [0.5, 0.82];
+  const GU = [Math.PI / 2 - 0.44, Math.PI / 2 + 0.44];
+  const SL = [Math.PI - 0.78, Math.PI - 0.62];
+  for (const [from, to, n] of [[0, BU[0], 12], [BU[1], GU[0], 8], [GU[1], SL[0], 8], [SL[1], Math.PI, 12]]) {
+    const path = M.chinPath(y, from, to, n);
+    const made = strapItem(path, [1, 0, 0], M.CHIN.half, M.CHIN.thick / 2, { weave: 2.6 });
+    const id = nameFor("chin.strap");
+    put("chin", made.mid, made.svg, { name: id, mat: "black", shapes: [record(A.prism(F, sectionOf(flat(path), M.CHIN.thick / 2), -M.CHIN.half, M.CHIN.half, { name: id, owner: "chin" }))] });
+  }
+  const blockOn = (span, name, halfW, halfT, mat, n = 8) => {
+    const path = M.chinPath(y, span[0], span[1], n);
+    const made = strapItem(path, [1, 0, 0], halfW, halfT, { weave: 0 });
+    put("chin", made.mid, made.svg, { name, mat, bias: 0.3, shapes: [record(A.prism(F, sectionOf(flat(path), halfT), -halfW, halfW, { name, owner: "chin" }))] });
+  };
+  const mid = (BU[0] + BU[1]) / 2;
+  blockOn([BU[0], mid - 0.012], "chin.buckle-a", M.CHIN.half + 3.5, M.CHIN.thick / 2 + 2.6, "black");
+  blockOn([mid + 0.012, BU[1]], "chin.buckle-b", M.CHIN.half + 2.2, M.CHIN.thick / 2 + 1.8, "black");
+  blockOn(SL, "chin.slider", M.CHIN.half + 2.2, M.CHIN.thick / 2 + 1.3, "black");
+  blockOn(GU, "chin.guard", M.CHIN.guard[1], M.CHIN.thick / 2 + M.CHIN.guard[2], "grey", 16);
+}
+
+// ---------------------------------------------------------------- settle, page
+const sortStates = process.argv.includes("--quick") ? [0, 1, stateAt(0.35), stateAt(0.62), stateAt(0.78)] : [0, 1, ...STATES];
+console.time("settle");
+if (!FAST) A.settle(R, P, { states: sortStates, step: process.argv.includes("--fine") ? 0.25 : 0.5 });
+console.timeEnd("settle");
+items.sort((a, b) => a.key - b.key);
+const groups = items.map((item, index) => `<g class="it m-${item.mat}" data-piece="${item.piece}" data-k="${item.key.toFixed(3)}" data-m="${item.move.map((value) => value.toFixed(2)).join(",")}"${item.nape ? " data-nape" : ""}${item.knob ? " data-knob" : ""}${item.tail ? ` data-tail="${item.tail}"` : ""} data-i="${index}">${item.svg}</g>`);
+
+const LABEL = "AVES TITAN AV-841R full-brim hard hat, drawn so that it comes apart the way the real one does: the white HDPE shell lifts off the whole AV-565R suspension; then the chin strap drops away, the sweatband comes off the front of the headband, the crown suspension of black crown straps through one grey top pad lifts off with its six suspension keys, and the ratchet wheel pulls back off its housing.";
+const svg = `<svg xmlns="http://www.w3.org/2000/svg" class="iso-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${LABEL}"><g class="hx-cam">${back.join("")}<g class="hx-parts">${groups.join("")}</g></g></svg>`;
+const unitOf = (vector) => {
+  const o = at([0, 0, 0]);
+  const p = at(vector);
+  return [p[0] - o[0], p[1] - o[1]];
+};
+// the camera sits close on the assembled helmet and pulls back as the shell lifts
+const CAM = (() => {
+  const points = [...corners.filter((p) => p[2] === 0), [0, 0, M.SHELL.H], [0, 0, FLOOR - 30]].map(at);
+  const xs = points.map((p) => p[0]);
+  const ys = points.map((p) => p[1]);
+  const box = [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)];
+  return { s: Math.min(1.5, (W - 64) / (box[2] - box[0]), (H - 60) / (box[3] - box[1])), x: (box[0] + box[2]) / 2, y: (box[1] + box[3]) / 2, w: W, h: H };
+})();
+const DATA = {
+  cam: CAM,
+  P,
+  V,
+  EX: unitOf([1, 0, 0]),
+  EY: unitOf([0, 1, 0]),
+  EZ: unitOf([0, 0, 1]),
+  yaw: YAW,
+  order: ORDER,
+  legend: LEGEND,
+  windows: WINDOWS,
+  pieces: Object.fromEntries(Object.entries(PIECES).map(([id, piece]) => [id, { name: piece.name, say: piece.say }])),
+  fit: { min: M.FIT_MIN, max: M.FIT_MAX, rest: FIT_CM },
+  knob: { ribs: 22, perCm: (1.5 * 2 * Math.PI) / (M.FIT_MAX - M.FIT_MIN), frames: KNOB_FRAMES },
+};
+// ---- the kit page (figure alone, used by the audit and the line check)
+const cornersHtml = `<div class="iso-plate-corners" aria-hidden="true"><span class="iso-plate-corner" data-corner="fig">Fig 1</span><span class="iso-plate-corner" data-corner="title">AVES TITAN AV-841R</span><span class="iso-plate-corner" data-corner="hint">Drag up to take it apart</span><span class="iso-plate-corner" data-corner="readout" data-readout>assembled</span></div>`;
+const stageHtml = (extra = "") => `<div class="hx-stage" tabindex="0" role="slider" aria-label="AVES TITAN AV-841R, exploded view. ${extra}Left and right arrows turn the ratchet wheel, N steps through the parts." aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">${svg}</div>`;
+const CSS = readFileSync(join(HERE, "page.css"), "utf8");
+const MODEL_TEXT = readFileSync(join(HERE, "model.mjs"), "utf8").replace(/^export /gm, "");
+const LIVE = readFileSync(join(HERE, "live.js"), "utf8").replace("__MODEL__", () => MODEL_TEXT).replace("__SHARE__", () => shareAt.toString()).replace("__DATA__", () => JSON.stringify(DATA));
+const figureBody = `<figure class="iso-figure hx"><div class="iso-plate">${cornersHtml}${stageHtml("Up and down arrows take the helmet apart and put it back, Escape closes it. ")}<span class="hx-live" aria-live="polite" data-live></span></div></figure>`;
+const page = k.pageHtml({ title: "AVES TITAN AV-841R", theme: THEME, body: `<style>${CSS}</style>${figureBody}`, script: kitScript() + LIVE, width: 720 });
+const name = `figure${FIT_CM === M.FIT_REST ? "" : `-fit${FIT_CM}`}${THEME === "light" ? "-light" : ""}.html`;
+writeFileSync(join(HERE, name), page);
+console.log("wrote", name, `${(page.length / 1024).toFixed(0)} KB`, `${items.length} items`);
+
+// ---- index.html: the AVES page. Copy is used verbatim from copy.json.
+if (THEME === "light" && FIT_CM === M.FIT_REST) {
+  const COPY = JSON.parse(readFileSync(join(HERE, "copy.json"), "utf8"));
+  const TYPE = JSON.parse(readFileSync(join(HERE, "assets/type.json"), "utf8"));
+  const esc = (text) => String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  const word = (key, alt = TYPE[key].text, cls = "") => `<img${cls ? ` class="${cls}"` : ""} src="assets/type-${key}.png" width="${TYPE[key].w}" height="${TYPE[key].h}" alt="${esc(alt)}">`;
+  // the stages the scroll passes through: where each rests (at), where its caption starts (from), which ADS features it shows
+  const STAGES = [
+    { id: "assembled", label: "Assembled", at: 0, from: 0 },
+    { id: "shell", label: "Shell", at: 0.14, from: 0.04 },
+    { id: "suspension", label: "Suspension", at: 0.35, from: 0.25 },
+    { id: "chin", label: "Chin strap", at: 0.62, from: 0.5 },
+    { id: "browpad", label: "Sweatband", at: 0.72, from: 0.66 },
+    { id: "crown", label: "Crown", at: 0.88, from: 0.78 },
+    { id: "ratchet", label: "Ratchet", at: 1, from: 0.94, hint: "Drag the wheel, or use the left and right arrow keys" },
+  ];
+  const featuresOf = (id) => COPY.features.filter((feature) => feature.stage === (id === "ratchet" ? "suspension" : id));
+  const featHtml = STAGES.map((stage) => `<p class="hx-feat" data-stage="${stage.id}">${featuresOf(stage.id).map((feature) => `<span><b>${esc(feature.head)}:</b> ${esc(feature.text)}</span>`).join("")}</p>`).join("");
+  const navHtml = STAGES.map((stage) => `<button type="button">${esc(stage.label)}</button>`).join("");
+  const SWATCH = { Red: "#d8232a", Yellow: "#f6d20a", Orange: "#f26b21", Blue: "#1f5fbf", Green: "#2ea24a", White: "#ffffff", Grey: "#a3a6a8" };
+  const SITE_CSS = readFileSync(join(HERE, "site.css"), "utf8");
+  const HOST = readFileSync(join(HERE, "host.js"), "utf8");
+  const html = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AVES ${esc(COPY.name)}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
+<style>${k.ISO_CSS}${SITE_CSS}</style>
+</head>
+<body class="iso" data-theme="light">
+<header class="top">
+  <img class="logo" src="assets/aves-logo.png" width="646" height="167" alt="AVES">
+  <div class="cat"><span>${esc(COPY.category)}</span><img src="assets/cat-head.png" width="102" height="102" alt=""></div>
+</header>
+<div class="band"><img src="assets/type-head-protection.png" width="1080" height="72" alt="HEAD PROTECTION"></div>
+<section class="hero">
+  <h1>${word("model", "AV-841R", "model")}${word("name", COPY.sellSheetName, "name")}</h1>
+  <p>${esc(COPY.article)}</p>
+  ${word("tagline-rev", COPY.tagline, "tag")}
+</section>
+<main>
+<section class="hx" aria-label="Exploded view of the ${esc(COPY.name)}">
+  <div class="hx-bg" aria-hidden="true"></div>
+  ${stageHtml("Scroll to take the helmet apart. ")}
+  <nav class="hx-nav" aria-label="Stages">${navHtml}</nav>
+  <div class="hx-cap">
+    <div class="hx-feats">${featHtml}</div>
+    <p class="hx-read"><span data-readout>assembled</span><span class="hx-hint"></span></p>
+  </div>
+  <span class="hx-live" aria-live="polite" data-live></span>
+</section>
+<section class="sec">
+  <p class="article">${esc(COPY.name)} · ${esc(COPY.article)}</p>
+  <p class="intro">${esc(COPY.intro)}</p>
+</section>
+<h2 class="sec-head">${word("features")}</h2>
+<section class="sec mint"><ul class="feats">${COPY.features.map((feature) => `<li><b>${esc(feature.head)}</b>${esc(feature.text)}</li>`).join("")}</ul></section>
+<h2 class="sec-head">${word("spec-a", "TECHNICAL AND MATERIAL")}${word("spec-b", "SPECIFICATION")}</h2>
+<section class="sec"><dl class="spec">${COPY.spec.map(([key, value]) => `<dt>${esc(key)}</dt><dd>${esc(value)}</dd>`).join("")}</dl></section>
+<h2 class="sec-head">${word("standards")}</h2>
+<section class="sec mint"><ul class="std">${COPY.standards.map((line) => `<li>${esc(line)}</li>`).join("")}</ul></section>
+<h2 class="sec-head">${word("colors")}</h2>
+<section class="sec"><ul class="cols">${COPY.colors.map((colour) => `<li><i style="background:${SWATCH[colour]}"></i>${esc(colour)}</li>`).join("")}</ul></section>
+</main>
+<footer class="foot"><img class="logo" src="assets/aves-logo-rev.png" width="646" height="167" alt="AVES">${word("tagline-rev", COPY.tagline, "tag")}</footer>
+<script>window.HX_HOST = true; window.HX_PAGE = ${JSON.stringify({ stages: STAGES })};</script>
+<script type="module">${(kitScript() + LIVE).replace(/<\/(script)/gi, "<\\/$1")}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script>addEventListener("DOMContentLoaded", () => { const boot = () => (window.setExplode ? (${JSON.stringify("")}, new Function(${JSON.stringify(HOST)})()) : setTimeout(boot, 30)); boot(); });</script>
+</body>
+</html>
+`;
+  writeFileSync(join(HERE, "index.html"), html);
+  console.log("wrote index.html", `${(html.length / 1024).toFixed(0)} KB`);
+}
+A.auditOrExit(R, P, { frames: STATES });

@@ -1,0 +1,16 @@
+top                {"y":0,"max":6636,"read":"assembled · headband 62.0 cm","feat":"Low-Profile Non-Vented Design:","nav":"Assembled","sideways":false}
+assembled          {"y":511,"max":6636,"read":"assembled · headband 62.0 cm","feat":"Low-Profile Non-Vented Design:","nav":"Assembled","sideways":false}
+shell              {"y":1091,"max":6636,"read":"shell lifting","feat":"HDPE Protective Shell: + 360° Full Brim Coverage:","nav":"Shell","sideways":false}
+suspension         {"y":1960,"max":6636,"read":"shell off · suspension whole · 62.0 cm","feat":"Ratchet Suspension System:","nav":"Suspension","sideways":false}
+hover at pose a    {"y":1960,"max":6636,"read":"6-point Nylon Harness · suspension keys","feat":"Ratchet Suspension System:","nav":"Suspension","sideways":false}
+chin               {"y":3078,"max":6636,"read":"chin strap AV-729","feat":"","nav":"Chin strap","sideways":false}
+browpad            {"y":3492,"max":6636,"read":"sweatband AV-724PU","feat":"Replaceable Components:","nav":"Sweatband","sideways":false}
+crown              {"y":4154,"max":6636,"read":"crown suspension · suspension keys","feat":"Adjustable Vertical Settings:","nav":"Crown","sideways":false}
+ratchet            {"y":4672,"max":6636,"read":"apart · 6 assemblies · headband 62.0 cm","feat":"Ratchet Suspension System:","nav":"Ratchet","sideways":false}
+hover wheel        {"y":4672,"max":6636,"read":"ratchet · headband 62.0 cm","feat":"Ratchet Suspension System:","nav":"Ratchet","sideways":false}
+drag wheel         {"y":4672,"max":6636,"read":"ratchet · headband 56.1 cm","feat":"Ratchet Suspension System:","nav":"Ratchet","sideways":false}
+scroll moved by    0
+ratchet keys       {"y":4672,"max":6636,"read":"ratchet · headband 53.0 cm","feat":"Ratchet Suspension System:","nav":"Ratchet","sideways":false}
+end                {"y":6636,"max":6636,"read":"ratchet · headband 53.0 cm","feat":"Ratchet Suspension System:","nav":"Ratchet","sideways":false}
+back at top        {"y":0,"max":6636,"read":"assembled · headband 53.0 cm","feat":"Low-Profile Non-Vented Design:","nav":"Assembled","sideways":false}
+no console errors
