@@ -1,4 +1,4 @@
-# Exploded view: the approved exemplar
+# Exploded view: the approved exemplars
 
 **`exploded/v0.3.4/av-841r/`** (AVES TITAN AV-841R full-brim helmet) was approved by Salman on 12 November 2026 as the
 exemplar for the exploded experience. Live: https://primenathani.github.io/aves-showcase/exploded/v0.3.4/av-841r/
@@ -22,3 +22,12 @@ generated locally with Draw Things (FLUX.2 klein 9B, offline, no cost): `v0.3.4/
 No Higgsfield, no OpenArt, no paid image service.
 
 Still open: see the skill's RUNBOOK.md, section 8.
+
+## Exemplar 2: the full product page (approved 12 November 2026, evening)
+
+**`exploded/v0.5.1/av-841r/`** is the exemplar for the PRODUCT PAGE: it opens with a 360 drag-to-rotate view, hands off into the exploded scroll, then carries real product photographs, features, specification, documents, standards, accessories, logo placement areas, industries and more helmets. Salman on v0.5: "this is really good. let's save this as exemplar", after real product images were added (v0.5.1). Live: https://primenathani.github.io/aves-showcase/exploded/v0.5.1/av-841r/ Git tag: `exploded-exemplar-page-av-841r-v0.5.1`. Do not edit that folder.
+
+- v0.3.4 (above) remains the exemplar for the exploded scroll alone.
+- 360 frames: `assets/spin/` (36 drawn frames; a photographed set replaces them with no code change, requirements in `v0.5.1/av-841r/NOTES.md`).
+- Colours and logo-view drawings come from the ADS's own vectors, read with VectorCraft.
+- An alternate visual design of the same page, for comparison, not approved: `exploded/alt-v0.1/av-841r/`.
