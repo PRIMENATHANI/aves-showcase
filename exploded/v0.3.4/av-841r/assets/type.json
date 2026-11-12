@@ -1,0 +1,82 @@
+{
+ "aves-line": {
+  "text": "Always Value Everybody's Safety",
+  "w": 1142,
+  "h": 72
+ },
+ "model": {
+  "text": "AV-841R",
+  "w": 1082,
+  "h": 190
+ },
+ "name": {
+  "text": "TITAN\u00ae Full Brim Helmet",
+  "w": 1109,
+  "h": 74
+ },
+ "features": {
+  "text": "FEATURES",
+  "w": 446,
+  "h": 59
+ },
+ "spec-a": {
+  "text": "TECHNICAL AND MATERIAL",
+  "w": 1233,
+  "h": 59
+ },
+ "spec-b": {
+  "text": "SPECIFICATION",
+  "w": 682,
+  "h": 59
+ },
+ "standards": {
+  "text": "STANDARDS",
+  "w": 542,
+  "h": 59
+ },
+ "colors": {
+  "text": "COLORS AVAILABLE",
+  "w": 889,
+  "h": 59
+ },
+ "tagline": {
+  "text": "Your Total Safety Solutions Partner",
+  "w": 1071,
+  "h": 65
+ },
+ "tagline-rev": {
+  "text": "Your Total Safety Solutions Partner",
+  "w": 1071,
+  "h": 65
+ },
+ "documents": {
+  "text": "DOCUMENTS",
+  "w": 568,
+  "h": 59
+ },
+ "model-g": {
+  "text": "AV-841R",
+  "w": 667,
+  "h": 117
+ },
+ "name-g": {
+  "text": "TITAN\u00ae Full Brim Helmet",
+  "w": 1109,
+  "h": 74
+ },
+ "glyphs": {
+  "h": 161,
+  "0": 95,
+  "1": 95,
+  "2": 95,
+  "3": 95,
+  "4": 95,
+  "5": 95,
+  "6": 95,
+  "7": 95,
+  "8": 95,
+  "9": 95,
+  "dot": 48,
+  "cm": 217
+ }
+}
