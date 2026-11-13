@@ -1,0 +1,106 @@
+[
+ {
+  "id": "back",
+  "sourceSize": [
+   1008,
+   1729
+  ],
+  "w": 933,
+  "h": 1600,
+  "tw": 140,
+  "th": 240,
+  "alpha": true,
+  "bytes": 225016
+ },
+ {
+  "id": "palm",
+  "sourceSize": [
+   1002,
+   1726
+  ],
+  "w": 929,
+  "h": 1600,
+  "tw": 139,
+  "th": 240,
+  "alpha": true,
+  "bytes": 134420
+ },
+ {
+  "id": "pair",
+  "sourceSize": [
+   2013,
+   2033
+  ],
+  "w": 1584,
+  "h": 1600,
+  "tw": 238,
+  "th": 240,
+  "alpha": false,
+  "bytes": 208812
+ },
+ {
+  "id": "strap",
+  "sourceSize": [
+   1147,
+   1984
+  ],
+  "w": 925,
+  "h": 1600,
+  "tw": 139,
+  "th": 240,
+  "alpha": true,
+  "bytes": 192082
+ },
+ {
+  "id": "stitch",
+  "sourceSize": [
+   406,
+   399
+  ],
+  "w": 406,
+  "h": 399,
+  "tw": 240,
+  "th": 236,
+  "alpha": false,
+  "bytes": 17982
+ },
+ {
+  "id": "cotton",
+  "sourceSize": [
+   530,
+   486
+  ],
+  "w": 530,
+  "h": 486,
+  "tw": 240,
+  "th": 220,
+  "alpha": false,
+  "bytes": 47724
+ },
+ {
+  "id": "knit-cuff",
+  "sourceSize": [
+   400,
+   323
+  ],
+  "w": 400,
+  "h": 323,
+  "tw": 240,
+  "th": 194,
+  "alpha": false,
+  "bytes": 10160
+ },
+ {
+  "id": "worn",
+  "sourceSize": [
+   2400,
+   1792
+  ],
+  "w": 1600,
+  "h": 1195,
+  "tw": 240,
+  "th": 179,
+  "alpha": false,
+  "bytes": 168664
+ }
+]

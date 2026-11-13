@@ -1,0 +1,72 @@
+{
+ "aves-line": {
+  "text": "Always Value Everybody's Safety",
+  "w": 1142,
+  "h": 72
+ },
+ "model": {
+  "text": "HG-2919",
+  "w": 821,
+  "h": 149
+ },
+ "name": {
+  "text": "ASSEMBLY GLOVES",
+  "w": 1004,
+  "h": 72
+ },
+ "category": {
+  "text": "HAND PROTECTION",
+  "w": 870,
+  "h": 59
+ },
+ "features": {
+  "text": "FEATURES",
+  "w": 446,
+  "h": 59
+ },
+ "spec-a": {
+  "text": "TECHNICAL AND MATERIAL",
+  "w": 1233,
+  "h": 59
+ },
+ "spec-b": {
+  "text": "SPECIFICATION",
+  "w": 682,
+  "h": 59
+ },
+ "standards": {
+  "text": "STANDARDS",
+  "w": 542,
+  "h": 59
+ },
+ "tagline": {
+  "text": "Personal Protective Equipment",
+  "w": 936,
+  "h": 63
+ },
+ "tagline-rev": {
+  "text": "Personal Protective Equipment",
+  "w": 936,
+  "h": 63
+ },
+ "documents": {
+  "text": "DOCUMENTS",
+  "w": 568,
+  "h": 59
+ },
+ "photos": {
+  "text": "PRODUCT PHOTOS",
+  "w": 825,
+  "h": 59
+ },
+ "applications": {
+  "text": "RECOMMENDED APPLICATION",
+  "w": 1359,
+  "h": 59
+ },
+ "more": {
+  "text": "MORE LEATHER GLOVES",
+  "w": 1085,
+  "h": 59
+ }
+}
