@@ -66,3 +66,9 @@ exploded/**/src.nosync/
 # Retired early rounds: kept on disk, not published
 /v0.1/
 /v0.2/
+
+# Working folders of any version stay local
+v0.*/gen/
+v0.*/data/
+v0.*/design/
+v0.*/work.nosync/
