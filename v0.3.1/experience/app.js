@@ -227,6 +227,7 @@ document.addEventListener('error', e => {
 }, true);
 
 let picking = false;
+addEventListener('pageshow', () => { picking = false; });   // coming back with the browser's Back button
 // kits rebuilt to the new standard open their own page (the old stage stays reachable with ?kit=<id>)
 const REBUILT = { 'oil-gas': '../../v0.5/experience/' };
 function pick(k, btn) {

@@ -120,13 +120,11 @@ a.lnk::after{content:" \2197"}
 
 /* ---- stockroom */
 .rack{position:absolute;z-index:30;right:0;top:0;bottom:0;width:var(--rackW);will-change:transform;visibility:hidden}
-/* v0.4.1 item 5: a calmer stockroom. Narrower (40vw), the photo toned down, and no dark slab: its left, top and bottom edges
-   dissolve into the site so the room reads as a window on the site rather than a panel over it. */
-.rack .rk{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.86) saturate(.82) contrast(.94);
-  -webkit-mask:linear-gradient(90deg,transparent 0,#000 13%),linear-gradient(180deg,transparent 0,rgba(0,0,0,.6) 9%,#000 20%,#000 92%,transparent 100%);-webkit-mask-composite:source-in;
-  mask:linear-gradient(90deg,transparent 0,#000 13%),linear-gradient(180deg,transparent 0,rgba(0,0,0,.6) 9%,#000 20%,#000 92%,transparent 100%);mask-composite:intersect}
-.rk-shade{position:absolute;inset:0;background:linear-gradient(rgba(7,9,12,.45),rgba(7,9,12,0) 18%);-webkit-mask:linear-gradient(90deg,transparent,#000 13%);mask:linear-gradient(90deg,transparent,#000 13%)}
-.rk-dim{position:absolute;z-index:4;inset:0;-webkit-mask:linear-gradient(90deg,transparent,#000 16%);mask:linear-gradient(90deg,transparent,#000 16%);background:linear-gradient(rgba(6,8,11,.2) 0%,rgba(6,8,11,.5) 40%,rgba(6,8,11,.8) 72%);opacity:0;pointer-events:none}
+/* v0.5: the kit room. A calm dark panel that dissolves into the site; a shelf window (two boards of the rack photo, four items
+   each, in dressing order) and, below it, the catalogue card. Nothing covers anything. */
+.rack::before{content:"";position:absolute;inset:0 0 0 -70px;background:linear-gradient(90deg,rgba(7,9,12,0),rgba(7,9,12,.62) 80px,rgba(7,9,12,.84) 46%,rgba(7,9,12,.9))}
+.rack .rk{position:absolute;max-width:none;filter:brightness(.95) saturate(.9);box-shadow:0 18px 40px rgba(0,0,0,.5)}
+.rk-shade,.rk-dim{display:none}
 .sign{position:absolute;z-index:6;left:7%;right:var(--pad);top:28px;height:78px;display:flex;align-items:stretch;border-radius:9px;background:#12161b;box-shadow:0 18px 40px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.09)}
 .sg-cab{position:absolute;top:-28px;left:34px;width:1.5px;height:28px;background:linear-gradient(#0000,#59616b)}
 .sg-cab.r{left:auto;right:34px}
@@ -165,17 +163,17 @@ a.lnk::after{content:" \2197"}
 /* ---- the catalogue card (v0.4.1 item 6): sized to its content and anchored to the foot of the stockroom, so the shelf
    above stays in view. The card names each "Why Choose AVES" point (the catalogue's own headings); the full sentences
    are in Product details. The Approach artwork sits at the bottom exactly as printed. */
-.cards{position:absolute;z-index:5;left:7%;right:var(--pad);bottom:24px;pointer-events:none}
-.card{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;border-radius:12px;overflow:hidden;background:var(--mint);color:#14181d;box-shadow:0 24px 60px rgba(0,0,0,.55);opacity:0;visibility:hidden}
+.cards{position:absolute;z-index:5;left:7%;right:var(--pad);top:var(--cardTop,430px);pointer-events:none}
+.card{position:absolute;left:0;right:0;top:0;display:flex;flex-direction:column;border-radius:12px;overflow:hidden;background:var(--mint);color:#14181d;box-shadow:0 24px 60px rgba(0,0,0,.55);opacity:0;visibility:hidden}
 .card.none{display:none}
 .card-b{position:relative;padding:22px 26px 4px}
 .card-b .ty{color:var(--brand);--h:var(--th,20px)}
 .card-b .wc{margin-top:14px;display:grid;grid-template-columns:1fr;column-gap:22px;font-size:var(--fs,15px);line-height:1.28;counter-reset:w}
 .card-b .wc.two{grid-template-columns:1fr 1fr;grid-auto-flow:column;grid-template-rows:repeat(var(--rows,4),auto)}
-.card-b .wc li{display:grid;grid-template-columns:2.1em 1fr;align-items:baseline;padding:7px 0;border-top:1px solid rgba(3,144,71,.22);font-weight:800;color:#0f1418;letter-spacing:.005em}
+.card-b .wc li{display:grid;grid-template-columns:2.1em 1fr;align-items:baseline;padding:var(--lp,7px) 0;border-top:1px solid rgba(3,144,71,.22);font-weight:800;color:#0f1418;letter-spacing:.005em}
 .card-b .wc li i{font-style:normal;font-weight:800;font-size:.78em;letter-spacing:.06em;color:var(--brand)}
 .card-b .more{margin-top:8px;font-size:12px;font-weight:700;letter-spacing:.04em;color:#3d5a49}
-.card .apr-art{position:relative;flex:0 0 auto;align-self:center;width:calc(100% - 40px);max-width:520px;height:auto;margin:10px 20px 18px}
+.card .apr-art{position:relative;flex:0 0 auto;align-self:center;width:calc(var(--aw,100%) - 40px);max-width:520px;height:auto;margin:10px 20px 18px}
 .pd-wc{margin-top:34px;padding-top:26px;border-top:1px solid var(--line)}
 .pd-wc h4{color:#5fe39c;--h:24px}
 .pd-wc .wg{margin-top:14px;display:grid;grid-template-columns:1fr 1fr;column-gap:28px}
@@ -387,3 +385,15 @@ html:not(.m) .intro .hz li{grid-template-columns:44px 34px 1fr}
 html:not(.m) .intro .hz li .hzi{width:24px;height:24px}
 html.m.pd-open .kits{visibility:hidden}
 @media (min-width:600px){html.m .m-intro,html.m .m-end{right:auto;width:min(600px,100% - 32px)}html.m .m-steps{max-width:600px}html.m .pd-r{max-width:640px;margin:0 auto}}
+html.m.pd-open .stage{touch-action:auto}
+/* a phone on its side: the stepper is drawn for portrait */
+.turn{display:none}
+@media (orientation:landscape) and (max-height:500px) and (pointer:coarse){.turn{position:fixed;z-index:200;inset:0;display:grid;place-items:center;background:#07090c;color:#fff;font-weight:800;font-size:14px;letter-spacing:.14em;text-transform:uppercase}}
+.it .tag,.it.has-pack .tag{left:50%;padding:2px 7px}
+.it .tag em{display:none}
+.it.on{z-index:4}
+.it.on .tag em{display:inline}
+.card.sis .card-b{padding:20px 26px 22px}
+.sis-k{font-size:11.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--brand)}
+.sis-t{margin-top:8px;font-size:21px;line-height:1.2;font-weight:800;color:#0f1418}
+.sis-n{margin-top:6px;font-size:15px;line-height:1.4;font-weight:600;color:#2a3138}
