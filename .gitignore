@@ -62,3 +62,7 @@ exploded/**/src.nosync/
 
 # The front-page list of live links is the one tracked Markdown file
 !/README.md
+
+# Retired early rounds: kept on disk, not published
+/v0.1/
+/v0.2/

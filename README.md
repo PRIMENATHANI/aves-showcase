@@ -8,8 +8,6 @@ Every live page in this project, newest first. All links open the published site
 |---|---|---|
 | **v0.4** | One kit in full: Oil & Gas | [Open](https://primenathani.github.io/aves-showcase/v0.4/experience/) |
 | **v0.3** | All 18 industry kits (site home) | [Open](https://primenathani.github.io/aves-showcase/) |
-| v0.2 | Product wall + kit ring | [Index](https://primenathani.github.io/aves-showcase/v0.2/) · [Wall](https://primenathani.github.io/aves-showcase/v0.2/arsenal-wall/) · [Kit](https://primenathani.github.io/aves-showcase/v0.2/aves-kit/) |
-| v0.1 | First three ideas | [Index](https://primenathani.github.io/aves-showcase/v0.1/) · [Wall](https://primenathani.github.io/aves-showcase/v0.1/arsenal-wall/) · [Exploded kit](https://primenathani.github.io/aves-showcase/v0.1/exploded-kit/) · [Turntable](https://primenathani.github.io/aves-showcase/v0.1/turntable/) |
 
 ## Product pages, Modern AVES theme
 
