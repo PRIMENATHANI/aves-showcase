@@ -227,8 +227,11 @@ document.addEventListener('error', e => {
 }, true);
 
 let picking = false;
+// kits rebuilt to the new standard open their own page (the old stage stays reachable with ?kit=<id>)
+const REBUILT = { 'oil-gas': '../../v0.5/experience/' };
 function pick(k, btn) {
   if (picking || !k) return; picking = true;
+  if (REBUILT[k.id]) { location.href = REBUILT[k.id]; return; }
   history.pushState({ kit: k.id }, '', '?kit=' + encodeURIComponent(k.id));
   if (RM) { openKit(k, null); return; }
   const r = btn.getBoundingClientRect(), vw = innerWidth, vh = innerHeight;

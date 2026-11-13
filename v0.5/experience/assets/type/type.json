@@ -1,0 +1,127 @@
+{
+ "cat-head": {
+  "text": "HEAD PROTECTION",
+  "w": 1080,
+  "h": 72
+ },
+ "cat-eye": {
+  "text": "EYE PROTECTION",
+  "w": 974,
+  "h": 72
+ },
+ "cat-hearing": {
+  "text": "EAR PROTECTION",
+  "w": 984,
+  "h": 72
+ },
+ "cat-respiratory": {
+  "text": "RESPIRATORY PROTECTION",
+  "w": 1543,
+  "h": 72
+ },
+ "cat-hand": {
+  "text": "HAND PROTECTION",
+  "w": 1098,
+  "h": 72
+ },
+ "cat-fall": {
+  "text": "FALL PROTECTION & DROPPED OBJECTS",
+  "w": 2297,
+  "h": 72
+ },
+ "cat-vest": {
+  "text": "HI-VIS WORKWEAR",
+  "w": 1062,
+  "h": 72
+ },
+ "why-head": {
+  "text": "Why Choose AVES Head Protection?",
+  "w": 1260,
+  "h": 71
+ },
+ "why-eye": {
+  "text": "Why Choose AVES Eye Protection?",
+  "w": 1206,
+  "h": 71
+ },
+ "why-hearing": {
+  "text": "Why Choose AVES Ear Protection?",
+  "w": 1193,
+  "h": 71
+ },
+ "why-respiratory": {
+  "text": "Why Choose AVES Respiratory Protection?",
+  "w": 1476,
+  "h": 71
+ },
+ "why-hand": {
+  "text": "Why Choose AVES Hand Protection?",
+  "w": 1260,
+  "h": 71
+ },
+ "why-fall": {
+  "text": "Why Choose AVES Fall Protection?",
+  "w": 1198,
+  "h": 71
+ },
+ "kit-oil-gas": {
+  "text": "OIL & GAS",
+  "w": 1213,
+  "h": 164
+ },
+ "sign-oil-gas": {
+  "text": "OIL & GAS PPE KIT",
+  "w": 1032,
+  "h": 72
+ },
+ "end-oil-gas": {
+  "text": "THE AVES OIL & GAS KIT",
+  "w": 1590,
+  "h": 89
+ },
+ "approach": {
+  "text": "THE AVES APPROACH",
+  "w": 783,
+  "h": 45
+ },
+ "name-aves-titan-av-841r-nv": {
+  "text": "TITAN\u00ae AV-841R NV",
+  "w": 1095,
+  "h": 80
+ },
+ "name-av-sg30": {
+  "text": "AV-SG30",
+  "w": 482,
+  "h": 82
+ },
+ "name-av-hm3093-cap-earmuffs": {
+  "text": "AV-HM3093",
+  "w": 653,
+  "h": 80
+ },
+ "name-aves-escape-hood-bag": {
+  "text": "ESCAPE HOOD XTREME",
+  "w": 1323,
+  "h": 82
+ },
+ "name-scuta-vest": {
+  "text": "REFLECTOR SAFETY VEST",
+  "w": 1424,
+  "h": 82
+ },
+ "name-full-body-harness": {
+  "text": "AV-831",
+  "w": 382,
+  "h": 80
+ },
+ "name-av-101373": {
+  "text": "AV-101373",
+  "w": 596,
+  "h": 80
+ },
+ "name-hg-2230-rubber-neoprene-gloves": {
+  "text": "HG-2230",
+  "w": 465,
+  "h": 82
+ }
+}

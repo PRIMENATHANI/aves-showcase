@@ -6,8 +6,9 @@ Every live page in this project, newest first. All links open the published site
 
 | Version | What it is | Link |
 |---|---|---|
-| **v0.4.1** | Oil & Gas kit: depth background, new intro and hazard text | [Open](https://primenathani.github.io/aves-showcase/v0.4.1/experience/) |
-| **v0.4** | One kit in full: Oil & Gas | [Open](https://primenathani.github.io/aves-showcase/v0.4/experience/) |
+| **v0.5** | Oil & Gas kit: fresh build for phone and desktop (opens from the picker) | [Open](https://primenathani.github.io/aves-showcase/v0.5/experience/) |
+| v0.4.1 | Oil & Gas kit: depth background, new intro and hazard text | [Open](https://primenathani.github.io/aves-showcase/v0.4.1/experience/) |
+| v0.4 | One kit in full: Oil & Gas | [Open](https://primenathani.github.io/aves-showcase/v0.4/experience/) |
 | **v0.3.1** | All 18 kits: new industry picker (site home, approved opening page) | [Open](https://primenathani.github.io/aves-showcase/) |
 | v0.3 | All 18 industry kits, first picker | [Open](https://primenathani.github.io/aves-showcase/v0.3/experience/) |
 
