@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The AVES Experience</title>
+<link rel="icon" href="data:,">
+<script>
+// Error capture for headless verification: mirrored into #errlog.
+window.__errs = [];
+(function(){
+  var push = function(m){ window.__errs.push(String(m)); var el = document.getElementById('errlog'); if (el) el.textContent = window.__errs.join('\n'); };
+  window.addEventListener('error', function(e){ push('error: ' + (e.message || (e.target && (e.target.src || e.target.href)) || e)); }, false);
+  window.addEventListener('unhandledrejection', function(e){ push('rejection: ' + (e.reason && e.reason.message || e.reason)); });
+  var ce = console.error; console.error = function(){ push('console.error: ' + Array.prototype.join.call(arguments, ' ')); return ce.apply(console, arguments); };
+})();
+</script>
+<script>
+// v0.3.2 scale before first paint: 1 at 1440 x 900 and below, then min(w/1440, h/900), capped 2.2 (picker + hero sizes)
+(function(){var w=innerWidth,h=innerHeight,s=w<1024?1:Math.max(1,Math.min(2.2,w/1440,h/900));document.documentElement.style.setProperty('--s',s.toFixed(4));})();
+// v0.3.2 arrival: the intro (hero) shows on a fresh visit. Debug queries skip it (no-hero). Coming back from a kit page
+// (#industries, or the flag pick() sets before it navigates) lands on the picker: to-picker, scrolled below before paint.
+(function(){var d=document.documentElement,q=location.search,nh=/[?&](hover|pick|kit|step|nohero)(=|&|$)/.test(q),tp=location.hash==='#industries';
+try{if(sessionStorage.getItem('aves-picked')){tp=true;sessionStorage.removeItem('aves-picked');}}catch(e){}
+if(nh)d.classList.add('no-hero');else if(tp)d.classList.add('to-picker');
+if('scrollRestoration' in history)history.scrollRestoration='manual';})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+</head>
+<body class="mode-pick">
+
+<section class="hero" id="hero" aria-label="AVES, Your Total Safety Solutions Partner">
+  <div class="h-bg" id="hbg"><div class="h-strip" id="hstrip" aria-hidden="true"></div></div>
+  <div class="h-shade" aria-hidden="true"></div>
+  <div class="h-dark" id="hdark" aria-hidden="true"></div>
+  <div class="h-in" id="hin">
+    <img class="h-logo" src="../../assets/aves-logo.png" alt="AVES">
+    <p class="h-tag" aria-label="Always Value Everybody's Safety"><span><b>A</b>lways</span> <span><b>V</b>alue</span> <span><b>E</b>verybody’s</span> <span><b>S</b>afety</span></p>
+    <h1 class="h-title disp" id="htitle"><span class="ln">Your Total Safety</span> <span class="ln">Solutions Partner</span></h1>
+    <p class="h-lede" id="hlede">At AVES®, protection is our core principle. Every product is designed to reduce injuries, meet global compliance standards, and safeguard your most valuable assets: your people and your performance.</p>
+    <div class="h-range" id="hrange">
+      <p class="lbl">Our total safety solutions include</p>
+      <ul>
+        <li><img src="assets/cats/head.png" alt=""><span>Head</span></li>
+        <li><img src="assets/cats/eye.png" alt=""><span>Eye</span></li>
+        <li><img src="assets/cats/face.png" alt=""><span>Face</span></li>
+        <li><img src="assets/cats/hearing.png" alt=""><span>Hearing</span></li>
+        <li><img src="assets/cats/respiratory.png" alt=""><span>Respiratory</span></li>
+        <li><img src="assets/cats/hand.png" alt=""><span>Hand</span></li>
+        <li><img src="assets/cats/fall.png" alt=""><span>Fall</span></li>
+        <li><img src="assets/cats/cryogenic.png" alt=""><span>Cryogenic</span></li>
+      </ul>
+    </div>
+  </div>
+  <a class="h-next" id="hnext" href="#industries">
+    <span class="h-lead">High-performance PPE, intelligently designed for the world’s most demanding industries.</span>
+    <span class="h-go disp">Pick your industry<svg viewBox="0 0 12 18" aria-hidden="true"><path d="M6 0v16M1 11l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg></span>
+  </a>
+  <span class="h-cue" aria-hidden="true"><i></i></span>
+</section>
+
+<section class="picker" id="picker" aria-label="Pick your industry">
+  <span id="industries" class="anchor" aria-hidden="true"></span>
+  <div class="p-head">
+    <div class="brand"><img class="logo" src="../../assets/aves-logo.png" alt="AVES"><span class="rule" aria-hidden="true"></span><span class="tagline"><span>Your Total Safety</span> <span>Solutions Partner</span></span></div>
+    <div class="p-title">
+      <h1 class="disp" id="ptitle">Pick your industry</h1>
+      <p id="phint">Eighteen industries in five sectors. One complete kit for each, head to toe.</p>
+    </div>
+  </div>
+  <div class="slices" id="slices" role="list"></div>
+</section>
+<script>
+// to-picker: start at the picker, before first paint (no intro replay)
+if (document.documentElement.classList.contains('to-picker')) window.scrollTo(0, document.getElementById('picker').offsetTop);
+</script>
+
+<header class="hdr" id="hdr">
+  <a class="brand" href="./" aria-label="AVES, Your Total Safety Solutions Partner. Back to the industry picker"><img class="logo" src="../../assets/aves-logo.png" alt="AVES"><span class="rule" aria-hidden="true"></span><span class="tagline"><span>Your Total Safety</span> <span>Solutions Partner</span></span></a>
+  <a class="another" href="./">Choose another kit</a>
+</header>
+
+<main class="kit" id="kit">
+  <section class="theatre" id="theatre" aria-label="Outfitting stage">
+    <div class="bd" id="bd"></div>
+    <div class="shade"></div>
+    <div class="spot"></div>
+    <div class="floorshadow"></div>
+    <div class="walk" id="walk"><div class="man" id="man"></div></div>
+    <div class="dark" id="dark"></div>
+    <div class="intro" id="intro">
+      <h1 class="kt disp" id="kt"></h1>
+      <p class="ki" id="ki"></p>
+      <div class="hzh lbl">Top hazards</div>
+      <ul class="hzl" id="hzl"></ul>
+    </div>
+    <div class="shelf" id="shelf">
+      <div class="sh-head"><span class="kn disp" id="kn"></span><span class="cnt" id="cnt"></span></div>
+      <div class="prog" id="prog" aria-hidden="true"></div>
+      <ol class="grid" id="grid" data-lenis-prevent aria-label="The kit, in dressing order"></ol>
+      <div class="sh-body">
+        <div class="sh-detail" id="shdetail" aria-live="polite"></div>
+        <button class="q" id="addq2" type="button">Add to quote</button>
+        <p class="sh-base" id="shbase"></p>
+      </div>
+    </div>
+    <div class="closeline" id="closeline">
+      <h2 class="disp"><span class="a">AVES.</span><span>Your safety solutions partner.</span><span>For every industry.</span></h2>
+    </div>
+    <div class="cue" id="cue">Scroll to put the kit on</div>
+  </section>
+
+  <section class="after" id="after">
+    <div class="row">
+      <div>
+        <h3 class="disp" id="aftT"></h3>
+        <p class="sub" id="aftS"></p>
+        <button class="cta" id="addq" type="button">Add kit to quote</button>
+      </div>
+      <ol class="plist" id="plist"></ol>
+    </div>
+    <div class="others">
+      <h4 class="lbl">Other industries</h4>
+      <div class="orow" id="orow"></div>
+    </div>
+  </section>
+</main>
+
+<div class="toast" id="toast" role="status">Kit added to quote (preview)</div>
+<pre id="errlog"></pre>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script src="living-fx.js"></script>
+<script src="living-gl.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
