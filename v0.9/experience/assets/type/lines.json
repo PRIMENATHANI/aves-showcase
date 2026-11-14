@@ -1,0 +1,3100 @@
+{
+"kit-assembly-line": {
+"text": "ASSEMBLY LINE",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "ASSEMBLY LINE",
+"w": 1233
+}
+],
+"2": [
+{
+"t": "ASSEMBLY",
+"w": 841
+},
+{
+"t": "LINE",
+"w": 340
+}
+]
+}
+},
+"end-assembly-line": {
+"text": "THE AVES ASSEMBLY LINE KIT",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "THE AVES ASSEMBLY LINE KIT",
+"w": 2392
+}
+],
+"2": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "ASSEMBLY LINE KIT",
+"w": 1561
+}
+],
+"3": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "ASSEMBLY",
+"w": 852
+},
+{
+"t": "LINE KIT",
+"w": 654
+}
+]
+}
+},
+"name-aves-titan-av-564p-v": {
+"text": "TITAN\u00ae AV-564p V",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "TITAN\u00ae AV-564p V",
+"w": 1374
+}
+],
+"2": [
+{
+"t": "TITAN\u00ae",
+"w": 525
+},
+{
+"t": "AV-564p V",
+"w": 806
+}
+],
+"3": [
+{
+"t": "TITAN\u00ae",
+"w": 525
+},
+{
+"t": "AV-564p",
+"w": 645
+},
+{
+"t": "V",
+"w": 113
+}
+]
+}
+},
+"name-av-sg59": {
+"text": "AV-SG59",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-SG59",
+"w": 666
+}
+]
+}
+},
+"name-av-311-reusable-earplugs": {
+"text": "AV-311RE",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-311RE",
+"w": 744
+}
+]
+}
+},
+"name-ffp2-nv-ff-av-548": {
+"text": "AV-548 FFP2",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-548 FFP2",
+"w": 965
+}
+],
+"2": [
+{
+"t": "AV-548",
+"w": 545
+},
+{
+"t": "FFP2",
+"w": 358
+}
+]
+}
+},
+"name-scuta-vest": {
+"text": "REFLECTOR SAFETY VEST",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "REFLECTOR SAFETY VEST",
+"w": 1958
+}
+],
+"2": [
+{
+"t": "REFLECTOR",
+"w": 893
+},
+{
+"t": "SAFETY VEST",
+"w": 1018
+}
+],
+"3": [
+{
+"t": "REFLECTOR",
+"w": 893
+},
+{
+"t": "SAFETY",
+"w": 590
+},
+{
+"t": "VEST",
+"w": 389
+}
+]
+}
+},
+"name-hg-2919-assembly": {
+"text": "HG-2919",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "HG-2919",
+"w": 642
+}
+]
+}
+},
+"kit-aviation": {
+"text": "AVIATION",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AVIATION",
+"w": 778
+}
+]
+}
+},
+"end-aviation": {
+"text": "THE AVES AVIATION KIT",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "THE AVES AVIATION KIT",
+"w": 1933
+}
+],
+"2": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "AVIATION KIT",
+"w": 1102
+}
+],
+"3": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "AVIATION",
+"w": 789
+},
+{
+"t": "KIT",
+"w": 242
+}
+]
+}
+},
+"name-aves-victor-av-714r-v": {
+"text": "VICTOR\u00ae AV-714R V",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "VICTOR\u00ae AV-714R V",
+"w": 1494
+}
+],
+"2": [
+{
+"t": "VICTOR\u00ae",
+"w": 642
+},
+{
+"t": "AV-714R V",
+"w": 809
+}
+],
+"3": [
+{
+"t": "VICTOR\u00ae",
+"w": 642
+},
+{
+"t": "AV-714R",
+"w": 652
+},
+{
+"t": "V",
+"w": 113
+}
+]
+}
+},
+"name-av-sg14": {
+"text": "AV-SG14",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-SG14",
+"w": 667
+}
+]
+}
+},
+"name-av-hb21-headband-earmuffs": {
+"text": "AV-HB21",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-HB21",
+"w": 655
+}
+]
+}
+},
+"name-ffp2-av-449-with-carbon": {
+"text": "AV-449 FFP2",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-449 FFP2",
+"w": 965
+}
+],
+"2": [
+{
+"t": "AV-449",
+"w": 547
+},
+{
+"t": "FFP2",
+"w": 358
+}
+]
+}
+},
+"name-full-body-harness-4": {
+"text": "AV-647",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-647",
+"w": 546
+}
+]
+}
+},
+"name-av-101363": {
+"text": "AV-101363",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-101363",
+"w": 821
+}
+]
+}
+},
+"name-hg-1147-suregrip": {
+"text": "HG-1147",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "HG-1147",
+"w": 641
+}
+]
+}
+},
+"kit-construction": {
+"text": "CONSTRUCTION",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "CONSTRUCTION",
+"w": 1257
+}
+]
+}
+},
+"end-construction": {
+"text": "THE AVES CONSTRUCTION KIT",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "THE AVES CONSTRUCTION KIT",
+"w": 2424
+}
+],
+"2": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "CONSTRUCTION KIT",
+"w": 1588
+}
+],
+"3": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "CONSTRUCTION",
+"w": 1275
+},
+{
+"t": "KIT",
+"w": 242
+}
+]
+}
+},
+"name-aves-victor-av-845r-v": {
+"text": "VICTOR\u00ae AV-845R V",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "VICTOR\u00ae AV-845R V",
+"w": 1494
+}
+],
+"2": [
+{
+"t": "VICTOR\u00ae",
+"w": 642
+},
+{
+"t": "AV-845R V",
+"w": 809
+}
+],
+"3": [
+{
+"t": "VICTOR\u00ae",
+"w": 642
+},
+{
+"t": "AV-845R",
+"w": 652
+},
+{
+"t": "V",
+"w": 113
+}
+]
+}
+},
+"name-av-sg28": {
+"text": "AV-SG28",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-SG28",
+"w": 664
+}
+]
+}
+},
+"name-av-hm3093-cap-earmuffs": {
+"text": "AV-HM3093",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-HM3093",
+"w": 904
+}
+]
+}
+},
+"name-ffp3-v-ff-av-559": {
+"text": "AV-559 FFP3",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-559 FFP3",
+"w": 965
+}
+],
+"2": [
+{
+"t": "AV-559",
+"w": 547
+},
+{
+"t": "FFP3",
+"w": 358
+}
+]
+}
+},
+"name-full-body-harness-ansi-4": {
+"text": "AV-654",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-654",
+"w": 548
+}
+]
+}
+},
+"name-av-101365": {
+"text": "AV-101365",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-101365",
+"w": 821
+}
+]
+}
+},
+"name-hg-1101sp-leather-gloves": {
+"text": "HG-1101SP",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "HG-1101SP",
+"w": 831
+}
+]
+}
+},
+"kit-cryogenic": {
+"text": "CRYOGENIC HANDLING",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "CRYOGENIC HANDLING",
+"w": 1848
+}
+],
+"2": [
+{
+"t": "CRYOGENIC",
+"w": 943
+},
+{
+"t": "HANDLING",
+"w": 848
+}
+]
+}
+},
+"end-cryogenic": {
+"text": "THE AVES CRYOGENIC HANDLING KIT",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "THE AVES CRYOGENIC HANDLING KIT",
+"w": 3023
+}
+],
+"2": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "CRYOGENIC HANDLING KIT",
+"w": 2186
+}
+],
+"3": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "CRYOGENIC",
+"w": 956
+},
+{
+"t": "HANDLING KIT",
+"w": 1170
+}
+]
+}
+},
+"name-aves-titan-av-585r-nv": {
+"text": "TITAN\u00ae AV-585R NV",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "TITAN\u00ae AV-585R NV",
+"w": 1505
+}
+],
+"2": [
+{
+"t": "TITAN\u00ae",
+"w": 525
+},
+{
+"t": "AV-585R NV",
+"w": 937
+}
+],
+"3": [
+{
+"t": "TITAN\u00ae",
+"w": 525
+},
+{
+"t": "AV-585R",
+"w": 652
+},
+{
+"t": "NV",
+"w": 230
+}
+]
+}
+},
+"name-av-gg25": {
+"text": "AV-GG25",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-GG25",
+"w": 696
+}
+]
+}
+},
+"name-av-151-disposable-earplugs": {
+"text": "AV-151",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-151",
+"w": 527
+}
+]
+}
+},
+"name-emergency-escape-hood-breathing-device": {
+"text": "EMERGENCY ESCAPE HOOD BREATHING DEVICE",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "EMERGENCY ESCAPE HOOD BREATHING DEVICE",
+"w": 3773
+}
+],
+"2": [
+{
+"t": "EMERGENCY ESCAPE",
+"w": 1639
+},
+{
+"t": "HOOD BREATHING DEVICE",
+"w": 2072
+}
+],
+"3": [
+{
+"t": "EMERGENCY",
+"w": 997
+},
+{
+"t": "ESCAPE HOOD",
+"w": 1137
+},
+{
+"t": "BREATHING DEVICE",
+"w": 1527
+}
+]
+}
+},
+"name-av-fs16p": {
+"text": "AV-FS16P",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-FS16P",
+"w": 736
+}
+]
+}
+},
+"name-cryo-gloves-elbow": {
+"text": "HG-3463",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "HG-3463",
+"w": 639
+}
+]
+}
+},
+"name-thermal-protection-apron": {
+"text": "CRYO-PROTECT APRON",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "CRYO-PROTECT APRON",
+"w": 1806
+}
+],
+"2": [
+{
+"t": "CRYO-PROTECT",
+"w": 1197
+},
+{
+"t": "APRON",
+"w": 567
+}
+]
+}
+},
+"kit-demolition": {
+"text": "DEMOLITION",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "DEMOLITION",
+"w": 1006
+}
+]
+}
+},
+"end-demolition": {
+"text": "THE AVES DEMOLITION KIT",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "THE AVES DEMOLITION KIT",
+"w": 2175
+}
+],
+"2": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "DEMOLITION KIT",
+"w": 1333
+}
+],
+"3": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "DEMOLITION",
+"w": 1020
+},
+{
+"t": "KIT",
+"w": 242
+}
+]
+}
+},
+"name-aves-titan-av-585p-nv": {
+"text": "TITAN\u00ae AV-585P NV",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "TITAN\u00ae AV-585P NV",
+"w": 1502
+}
+],
+"2": [
+{
+"t": "TITAN\u00ae",
+"w": 525
+},
+{
+"t": "AV-585P NV",
+"w": 934
+}
+],
+"3": [
+{
+"t": "TITAN\u00ae",
+"w": 525
+},
+{
+"t": "AV-585P",
+"w": 646
+},
+{
+"t": "NV",
+"w": 230
+}
+]
+}
+},
+"name-av-sg18": {
+"text": "AV-SG18",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-SG18",
+"w": 664
+}
+]
+}
+},
+"name-av-hm7093-cap-earmuffs": {
+"text": "AV-HM7093",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-HM7093",
+"w": 904
+}
+]
+}
+},
+"name-ffp3-av-zer0-30": {
+"text": "AV-529",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-529",
+"w": 547
+}
+]
+}
+},
+"name-av-fs18l-cylinder-face-shield": {
+"text": "AV-FS18",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-FS18",
+"w": 635
+}
+]
+}
+},
+"name-full-body-harness-2": {
+"text": "AV-646",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-646",
+"w": 547
+}
+]
+}
+},
+"name-av-101368": {
+"text": "AV-101368",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-101368",
+"w": 822
+}
+]
+}
+},
+"name-hg-1113-leather-gloves": {
+"text": "HG-1113",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "HG-1113",
+"w": 639
+}
+]
+}
+},
+"kit-electrical": {
+"text": "ELECTRICAL & ARC FLASH",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "ELECTRICAL & ARC FLASH",
+"w": 2005
+}
+],
+"2": [
+{
+"t": "ELECTRICAL",
+"w": 926
+},
+{
+"t": "& ARC FLASH",
+"w": 1027
+}
+],
+"3": [
+{
+"t": "ELECTRICAL",
+"w": 926
+},
+{
+"t": "&",
+"w": 115
+},
+{
+"t": "ARC FLASH",
+"w": 869
+}
+]
+}
+},
+"end-electrical": {
+"text": "THE AVES ELECTRICAL & ARC FLASH KIT",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "THE AVES ELECTRICAL & ARC FLASH KIT",
+"w": 3195
+}
+],
+"2": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "ELECTRICAL & ARC FLASH KIT",
+"w": 2351
+}
+],
+"3": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "ELECTRICAL &",
+"w": 1110
+},
+{
+"t": "ARC FLASH KIT",
+"w": 1194
+}
+]
+}
+},
+"name-aves-victor-av-717r-nv": {
+"text": "VICTOR\u00ae AV-717R NV",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "VICTOR\u00ae AV-717R NV",
+"w": 1622
+}
+],
+"2": [
+{
+"t": "VICTOR\u00ae",
+"w": 642
+},
+{
+"t": "AV-717R NV",
+"w": 937
+}
+],
+"3": [
+{
+"t": "VICTOR\u00ae",
+"w": 642
+},
+{
+"t": "AV-717R",
+"w": 652
+},
+{
+"t": "NV",
+"w": 230
+}
+]
+}
+},
+"name-av-hb30-ear-muffs": {
+"text": "AV-HB30",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-HB30",
+"w": 675
+}
+]
+}
+},
+"name-n95-av800-particulate-respirator": {
+"text": "AV-800",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-800",
+"w": 547
+}
+]
+}
+},
+"name-av-fs20cp-arc10": {
+"text": "AV-FS20CP ARC10",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-FS20CP ARC10",
+"w": 1396
+}
+],
+"2": [
+{
+"t": "AV-FS20CP",
+"w": 843
+},
+{
+"t": "ARC10",
+"w": 508
+}
+]
+}
+},
+"name-class-0-flash-grip": {
+"text": "Flash and Grip",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "Flash and Grip",
+"w": 1046
+}
+],
+"2": [
+{
+"t": "Flash",
+"w": 359
+},
+{
+"t": "and Grip",
+"w": 632
+}
+],
+"3": [
+{
+"t": "Flash",
+"w": 359
+},
+{
+"t": "and",
+"w": 260
+},
+{
+"t": "Grip",
+"w": 315
+}
+]
+}
+},
+"kit-forestry": {
+"text": "FORESTRY",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "FORESTRY",
+"w": 804
+}
+]
+}
+},
+"end-forestry": {
+"text": "THE AVES FORESTRY KIT",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "THE AVES FORESTRY KIT",
+"w": 1956
+}
+],
+"2": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "FORESTRY KIT",
+"w": 1113
+}
+],
+"3": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "FORESTRY",
+"w": 815
+},
+{
+"t": "KIT",
+"w": 242
+}
+]
+}
+},
+"name-aves-titan-av-841r-nv": {
+"text": "TITAN\u00ae AV-841R NV",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "TITAN\u00ae AV-841R NV",
+"w": 1505
+}
+],
+"2": [
+{
+"t": "TITAN\u00ae",
+"w": 525
+},
+{
+"t": "AV-841R NV",
+"w": 937
+}
+],
+"3": [
+{
+"t": "TITAN\u00ae",
+"w": 525
+},
+{
+"t": "AV-841R",
+"w": 652
+},
+{
+"t": "NV",
+"w": 230
+}
+]
+}
+},
+"name-av-sg30": {
+"text": "AV-SG30",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-SG30",
+"w": 666
+}
+]
+}
+},
+"name-ffp2-av-187-mask": {
+"text": "AV-187 FFP2",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-187 FFP2",
+"w": 965
+}
+],
+"2": [
+{
+"t": "AV-187",
+"w": 546
+},
+{
+"t": "FFP2",
+"w": 358
+}
+]
+}
+},
+"name-av-fs15p": {
+"text": "AV-FS15P",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-FS15P",
+"w": 736
+}
+]
+}
+},
+"name-full-body-harness-ansi-3": {
+"text": "AVES FULL BODY HARNESS",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AVES FULL BODY HARNESS",
+"w": 2115
+}
+],
+"2": [
+{
+"t": "AVES FULL",
+"w": 836
+},
+{
+"t": "BODY HARNESS",
+"w": 1224
+}
+],
+"3": [
+{
+"t": "AVES FULL",
+"w": 836
+},
+{
+"t": "BODY",
+"w": 447
+},
+{
+"t": "HARNESS",
+"w": 726
+}
+]
+}
+},
+"name-av-101494": {
+"text": "AV-101494",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-101494",
+"w": 825
+}
+]
+}
+},
+"kit-heavy-machinery": {
+"text": "HEAVY MACHINERY",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "HEAVY MACHINERY",
+"w": 1561
+}
+],
+"2": [
+{
+"t": "HEAVY",
+"w": 543
+},
+{
+"t": "MACHINERY",
+"w": 966
+}
+]
+}
+},
+"end-heavy-machinery": {
+"text": "THE AVES HEAVY MACHINERY KIT",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "THE AVES HEAVY MACHINERY KIT",
+"w": 2724
+}
+],
+"2": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "HEAVY MACHINERY KIT",
+"w": 1881
+}
+],
+"3": [
+{
+"t": "THE",
+"w": 305
+},
+{
+"t": "AVES HEAVY",
+"w": 1033
+},
+{
+"t": "MACHINERY KIT",
+"w": 1277
+}
+]
+}
+},
+"name-aves-titan-av-846r-v": {
+"text": "TITAN\u00ae AV-846R V",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "TITAN\u00ae AV-846R V",
+"w": 1377
+}
+],
+"2": [
+{
+"t": "TITAN\u00ae",
+"w": 525
+},
+{
+"t": "AV-846R V",
+"w": 809
+}
+],
+"3": [
+{
+"t": "TITAN\u00ae",
+"w": 525
+},
+{
+"t": "AV-846R",
+"w": 652
+},
+{
+"t": "V",
+"w": 113
+}
+]
+}
+},
+"name-av-sg51": {
+"text": "AV-SG51",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-SG51",
+"w": 646
+}
+]
+}
+},
+"name-aves-av-hm4093": {
+"text": "AV-HM4093",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-HM4093",
+"w": 904
+}
+]
+}
+},
+"name-hg-1107-rigger": {
+"text": "HG-1107",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "HG-1107",
+"w": 641
+}
+]
+}
+},
+"kit-logistics": {
+"text": "LOGISTICS",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "LOGISTICS",
+"w": 792
+}
+]
+}
+},
+"end-logistics": {
+"text": "THE AVES LOGISTICS KIT",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "THE AVES LOGISTICS KIT",
+"w": 1956
+}
+],
+"2": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "LOGISTICS KIT",
+"w": 1113
+}
+],
+"3": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "LOGISTICS",
+"w": 805
+},
+{
+"t": "KIT",
+"w": 242
+}
+]
+}
+},
+"name-aves-victor-av-714p-v": {
+"text": "VICTOR\u00ae AV-714P V",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "VICTOR\u00ae AV-714P V",
+"w": 1491
+}
+],
+"2": [
+{
+"t": "VICTOR\u00ae",
+"w": 642
+},
+{
+"t": "AV-714P V",
+"w": 806
+}
+],
+"3": [
+{
+"t": "VICTOR\u00ae",
+"w": 642
+},
+{
+"t": "AV-714P",
+"w": 646
+},
+{
+"t": "V",
+"w": 113
+}
+]
+}
+},
+"name-av-sg401": {
+"text": "AV-SG401",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-SG401",
+"w": 739
+}
+]
+}
+},
+"name-av-gp10-banded-earplugs": {
+"text": "AV-GP10",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-GP10",
+"w": 675
+}
+]
+}
+},
+"name-hg-2750-drivegrip": {
+"text": "HG-2750",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "HG-2750",
+"w": 642
+}
+]
+}
+},
+"kit-manufacturing": {
+"text": "MANUFACTURING",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "MANUFACTURING",
+"w": 1418
+}
+]
+}
+},
+"end-manufacturing": {
+"text": "THE AVES MANUFACTURING KIT",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "THE AVES MANUFACTURING KIT",
+"w": 2591
+}
+],
+"2": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "MANUFACTURING KIT",
+"w": 1748
+}
+],
+"3": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "MANUFACTURING",
+"w": 1437
+},
+{
+"t": "KIT",
+"w": 242
+}
+]
+}
+},
+"name-av-sg57": {
+"text": "AV-SG57",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-SG57",
+"w": 665
+}
+]
+}
+},
+"name-av-153-corded-earplugs": {
+"text": "AV-153",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-153",
+"w": 544
+}
+]
+}
+},
+"name-hg-2846-latnit-ergotex-palm-grip": {
+"text": "HG-2846",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "HG-2846",
+"w": 642
+}
+]
+}
+},
+"kit-mechanical": {
+"text": "MECHANICAL",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "MECHANICAL",
+"w": 1066
+}
+]
+}
+},
+"end-mechanical": {
+"text": "THE AVES MECHANICAL KIT",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "THE AVES MECHANICAL KIT",
+"w": 2226
+}
+],
+"2": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "MECHANICAL KIT",
+"w": 1384
+}
+],
+"3": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "MECHANICAL",
+"w": 1080
+},
+{
+"t": "KIT",
+"w": 242
+}
+]
+}
+},
+"name-aves-titan-av-564r-v": {
+"text": "TITAN\u00ae AV-564R V",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "TITAN\u00ae AV-564R V",
+"w": 1377
+}
+],
+"2": [
+{
+"t": "TITAN\u00ae",
+"w": 525
+},
+{
+"t": "AV-564R V",
+"w": 809
+}
+],
+"3": [
+{
+"t": "TITAN\u00ae",
+"w": 525
+},
+{
+"t": "AV-564R",
+"w": 652
+},
+{
+"t": "V",
+"w": 113
+}
+]
+}
+},
+"name-av-gg30": {
+"text": "AV-GG30",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-GG30",
+"w": 699
+}
+]
+}
+},
+"name-av-gp20-banded-earplugs": {
+"text": "AV-GP20",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-GP20",
+"w": 675
+}
+]
+}
+},
+"name-av-tp2000r-double-filter": {
+"text": "AV-4000nextR",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-4000nextR",
+"w": 1073
+}
+]
+}
+},
+"name-hg-3045-tough-guard": {
+"text": "HG-3045",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "HG-3045",
+"w": 639
+}
+]
+}
+},
+"kit-mining": {
+"text": "MINING",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "MINING",
+"w": 603
+}
+]
+}
+},
+"end-mining": {
+"text": "THE AVES MINING KIT",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "THE AVES MINING KIT",
+"w": 1764
+}
+],
+"2": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "MINING KIT",
+"w": 921
+}
+],
+"3": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "MINING",
+"w": 611
+},
+{
+"t": "KIT",
+"w": 242
+}
+]
+}
+},
+"name-aves-victor-av-840r-nv": {
+"text": "VICTOR\u00ae AV-840R NV",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "VICTOR\u00ae AV-840R NV",
+"w": 1622
+}
+],
+"2": [
+{
+"t": "VICTOR\u00ae",
+"w": 642
+},
+{
+"t": "AV-840R NV",
+"w": 937
+}
+],
+"3": [
+{
+"t": "VICTOR\u00ae",
+"w": 642
+},
+{
+"t": "AV-840R",
+"w": 652
+},
+{
+"t": "NV",
+"w": 230
+}
+]
+}
+},
+"name-av-gg27": {
+"text": "AV-GG27",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-GG27",
+"w": 698
+}
+]
+}
+},
+"name-aves-p100-v-cp": {
+"text": "AV-852 P100",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-852 P100",
+"w": 967
+}
+],
+"2": [
+{
+"t": "AV-852",
+"w": 544
+},
+{
+"t": "P100",
+"w": 362
+}
+]
+}
+},
+"name-hg-1104-leather-gloves": {
+"text": "HG-1104",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "HG-1104",
+"w": 643
+}
+]
+}
+},
+"kit-oil-gas": {
+"text": "OIL & GAS",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "OIL & GAS",
+"w": 793
+}
+],
+"2": [
+{
+"t": "OIL &",
+"w": 423
+},
+{
+"t": "GAS",
+"w": 320
+}
+],
+"3": [
+{
+"t": "OIL",
+"w": 256
+},
+{
+"t": "&",
+"w": 115
+},
+{
+"t": "GAS",
+"w": 320
+}
+]
+}
+},
+"end-oil-gas": {
+"text": "THE AVES OIL & GAS KIT",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "THE AVES OIL & GAS KIT",
+"w": 1950
+}
+],
+"2": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "OIL & GAS KIT",
+"w": 1114
+}
+],
+"3": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "OIL &",
+"w": 430
+},
+{
+"t": "GAS KIT",
+"w": 631
+}
+]
+}
+},
+"name-aves-escape-hood-bag": {
+"text": "ESCAPE HOOD XTREME",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "ESCAPE HOOD XTREME",
+"w": 1829
+}
+],
+"2": [
+{
+"t": "ESCAPE HOOD",
+"w": 1137
+},
+{
+"t": "XTREME",
+"w": 644
+}
+],
+"3": [
+{
+"t": "ESCAPE",
+"w": 591
+},
+{
+"t": "HOOD",
+"w": 485
+},
+{
+"t": "XTREME",
+"w": 644
+}
+]
+}
+},
+"name-full-body-harness": {
+"text": "AV-831",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-831",
+"w": 527
+}
+]
+}
+},
+"name-av-101373": {
+"text": "AV-101373",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-101373",
+"w": 821
+}
+]
+}
+},
+"name-hg-2230-rubber-neoprene-gloves": {
+"text": "HG-2230",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "HG-2230",
+"w": 642
+}
+]
+}
+},
+"kit-power-tool": {
+"text": "POWER TOOL USAGE",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "POWER TOOL USAGE",
+"w": 1649
+}
+],
+"2": [
+{
+"t": "POWER",
+"w": 580
+},
+{
+"t": "TOOL USAGE",
+"w": 1022
+}
+],
+"3": [
+{
+"t": "POWER",
+"w": 580
+},
+{
+"t": "TOOL",
+"w": 436
+},
+{
+"t": "USAGE",
+"w": 529
+}
+]
+}
+},
+"end-power-tool": {
+"text": "THE AVES POWER TOOL USAGE KIT",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "THE AVES POWER TOOL USAGE KIT",
+"w": 2824
+}
+],
+"2": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "POWER TOOL USAGE KIT",
+"w": 1982
+}
+],
+"3": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "POWER TOOL",
+"w": 1077
+},
+{
+"t": "USAGE KIT",
+"w": 844
+}
+]
+}
+},
+"name-av-sg50": {
+"text": "AV-SG50",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-SG50",
+"w": 666
+}
+]
+}
+},
+"name-aves-ffp3-v-cp": {
+"text": "AVES FFP3 V CP",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AVES FFP3 V CP",
+"w": 1240
+}
+],
+"2": [
+{
+"t": "AVES",
+"w": 411
+},
+{
+"t": "FFP3 V CP",
+"w": 768
+}
+],
+"3": [
+{
+"t": "AVES",
+"w": 411
+},
+{
+"t": "FFP3",
+"w": 358
+},
+{
+"t": "V CP",
+"w": 359
+}
+]
+}
+},
+"name-av-fs12": {
+"text": "AV-FS12L",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-FS12L",
+"w": 723
+}
+]
+}
+},
+"name-hg-1950-thermo-guard-kevlar-gloves": {
+"text": "HG-1950",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "HG-1950",
+"w": 642
+}
+]
+}
+},
+"kit-railway": {
+"text": "RAILWAY",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "RAILWAY",
+"w": 721
+}
+]
+}
+},
+"end-railway": {
+"text": "THE AVES RAILWAY KIT",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "THE AVES RAILWAY KIT",
+"w": 1871
+}
+],
+"2": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "RAILWAY KIT",
+"w": 1028
+}
+],
+"3": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "RAILWAY",
+"w": 730
+},
+{
+"t": "KIT",
+"w": 242
+}
+]
+}
+},
+"name-av-717p": {
+"text": "VICTOR\u00ae AV-717P NV",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "VICTOR\u00ae AV-717P NV",
+"w": 1619
+}
+],
+"2": [
+{
+"t": "VICTOR\u00ae",
+"w": 642
+},
+{
+"t": "AV-717P NV",
+"w": 934
+}
+],
+"3": [
+{
+"t": "VICTOR\u00ae",
+"w": 642
+},
+{
+"t": "AV-717P",
+"w": 646
+},
+{
+"t": "NV",
+"w": 230
+}
+]
+}
+},
+"name-av-sg37": {
+"text": "AV-SG37",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-SG37",
+"w": 665
+}
+]
+}
+},
+"name-full-body-harness-5": {
+"text": "AV-814",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-814",
+"w": 548
+}
+]
+}
+},
+"name-av-101370": {
+"text": "AV-101370",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-101370",
+"w": 824
+}
+]
+}
+},
+"name-hg-1109-leather-gloves": {
+"text": "HG-1109",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "HG-1109",
+"w": 642
+}
+]
+}
+},
+"kit-rig-drilling": {
+"text": "RIG DRILLING",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "RIG DRILLING",
+"w": 1031
+}
+],
+"2": [
+{
+"t": "RIG",
+"w": 252
+},
+{
+"t": "DRILLING",
+"w": 715
+}
+]
+}
+},
+"end-rig-drilling": {
+"text": "THE AVES RIG DRILLING KIT",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "THE AVES RIG DRILLING KIT",
+"w": 2202
+}
+],
+"2": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "RIG DRILLING KIT",
+"w": 1360
+}
+],
+"3": [
+{
+"t": "THE",
+"w": 305
+},
+{
+"t": "AVES RIG",
+"w": 738
+},
+{
+"t": "DRILLING KIT",
+"w": 1037
+}
+]
+}
+},
+"name-av-gg45": {
+"text": "AV-GG45",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-GG45",
+"w": 696
+}
+]
+}
+},
+"name-full-body-harness-ansi": {
+"text": "AVES FULL BODY HARNESS",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AVES FULL BODY HARNESS",
+"w": 2115
+}
+],
+"2": [
+{
+"t": "AVES FULL",
+"w": 836
+},
+{
+"t": "BODY HARNESS",
+"w": 1224
+}
+],
+"3": [
+{
+"t": "AVES FULL",
+"w": 836
+},
+{
+"t": "BODY",
+"w": 447
+},
+{
+"t": "HARNESS",
+"w": 726
+}
+]
+}
+},
+"name-av-101420": {
+"text": "AV-101420",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-101420",
+"w": 824
+}
+]
+}
+},
+"name-hg-1108-rigger": {
+"text": "HG-1108",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "HG-1108",
+"w": 640
+}
+]
+}
+},
+"kit-welding": {
+"text": "WELDING & HOT WORK",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "WELDING & HOT WORK",
+"w": 1870
+}
+],
+"2": [
+{
+"t": "WELDING &",
+"w": 927
+},
+{
+"t": "HOT WORK",
+"w": 887
+}
+],
+"3": [
+{
+"t": "WELDING",
+"w": 752
+},
+{
+"t": "& HOT",
+"w": 502
+},
+{
+"t": "WORK",
+"w": 512
+}
+]
+}
+},
+"end-welding": {
+"text": "THE AVES WELDING & HOT WORK KIT",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "THE AVES WELDING & HOT WORK KIT",
+"w": 3026
+}
+],
+"2": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "WELDING & HOT WORK KIT",
+"w": 2195
+}
+],
+"3": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "WELDING &",
+"w": 940
+},
+{
+"t": "HOT WORK KIT",
+"w": 1196
+}
+]
+}
+},
+"name-av-sg25": {
+"text": "AV-SG25",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-SG25",
+"w": 663
+}
+]
+}
+},
+"name-av-411re-reusable-earplugs": {
+"text": "AV-411RE",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-411RE",
+"w": 744
+}
+]
+}
+},
+"name-ffp3-nr-d-av-557": {
+"text": "AV-557 FFP3",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-557 FFP3",
+"w": 965
+}
+],
+"2": [
+{
+"t": "AV-557",
+"w": 546
+},
+{
+"t": "FFP3",
+"w": 358
+}
+]
+}
+},
+"name-aves-welding-helmet": {
+"text": "AVES WELDING HELMET",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AVES WELDING HELMET",
+"w": 1898
+}
+],
+"2": [
+{
+"t": "AVES WELDING",
+"w": 1207
+},
+{
+"t": "HELMET",
+"w": 628
+}
+],
+"3": [
+{
+"t": "AVES",
+"w": 411
+},
+{
+"t": "WELDING",
+"w": 748
+},
+{
+"t": "HELMET",
+"w": 628
+}
+]
+}
+},
+"name-hg-3058-cotton-gloves": {
+"text": "HG-3058",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "HG-3058",
+"w": 640
+}
+]
+}
+},
+"kit-woodworking": {
+"text": "WOODWORKING",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "WOODWORKING",
+"w": 1338
+}
+]
+}
+},
+"end-woodworking": {
+"text": "THE AVES WOODWORKING KIT",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "THE AVES WOODWORKING KIT",
+"w": 2495
+}
+],
+"2": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "WOODWORKING KIT",
+"w": 1665
+}
+],
+"3": [
+{
+"t": "THE AVES",
+"w": 777
+},
+{
+"t": "WOODWORKING",
+"w": 1354
+},
+{
+"t": "KIT",
+"w": 242
+}
+]
+}
+},
+"name-av-gg10": {
+"text": "AV-GG10",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-GG10",
+"w": 699
+}
+]
+}
+},
+"name-av-hb640-headband-earmuffs": {
+"text": "AV-HB640",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "AV-HB640",
+"w": 767
+}
+]
+}
+},
+"name-ffp3-av-505b": {
+"text": "FFP3 AV-505B",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "FFP3 AV-505B",
+"w": 1058
+}
+],
+"2": [
+{
+"t": "FFP3",
+"w": 358
+},
+{
+"t": "AV-505B",
+"w": 650
+}
+]
+}
+},
+"name-hg-2740-drivegrip": {
+"text": "HG-2740",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "HG-2740",
+"w": 642
+}
+]
+}
+},
+"why-head": {
+"text": "Why Choose AVES Head Protection?",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "Why Choose AVES Head Protection?",
+"w": 2796
+}
+],
+"2": [
+{
+"t": "Why Choose AVES",
+"w": 1416
+},
+{
+"t": "Head Protection?",
+"w": 1315
+}
+],
+"3": [
+{
+"t": "Why Choose",
+"w": 946
+},
+{
+"t": "AVES Head",
+"w": 862
+},
+{
+"t": "Protection?",
+"w": 868
+}
+]
+}
+},
+"why-eye": {
+"text": "Why Choose AVES Eye Protection?",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "Why Choose AVES Eye Protection?",
+"w": 2678
+}
+],
+"2": [
+{
+"t": "Why Choose AVES",
+"w": 1416
+},
+{
+"t": "Eye Protection?",
+"w": 1196
+}
+],
+"3": [
+{
+"t": "Why Choose",
+"w": 946
+},
+{
+"t": "AVES Eye",
+"w": 748
+},
+{
+"t": "Protection?",
+"w": 868
+}
+]
+}
+},
+"why-hearing": {
+"text": "Why Choose AVES Ear Protection?",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "Why Choose AVES Ear Protection?",
+"w": 2648
+}
+],
+"2": [
+{
+"t": "Why Choose AVES",
+"w": 1416
+},
+{
+"t": "Ear Protection?",
+"w": 1166
+}
+],
+"3": [
+{
+"t": "Why Choose",
+"w": 946
+},
+{
+"t": "AVES Ear",
+"w": 723
+},
+{
+"t": "Protection?",
+"w": 868
+}
+]
+}
+},
+"why-respiratory": {
+"text": "Why Choose AVES Respiratory Protection?",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "Why Choose AVES Respiratory Protection?",
+"w": 3276
+}
+],
+"2": [
+{
+"t": "Why Choose AVES",
+"w": 1416
+},
+{
+"t": "Respiratory Protection?",
+"w": 1795
+}
+],
+"3": [
+{
+"t": "Why Choose",
+"w": 946
+},
+{
+"t": "AVES Respiratory",
+"w": 1352
+},
+{
+"t": "Protection?",
+"w": 868
+}
+]
+}
+},
+"why-hand": {
+"text": "Why Choose AVES Hand Protection?",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "Why Choose AVES Hand Protection?",
+"w": 2796
+}
+],
+"2": [
+{
+"t": "Why Choose AVES",
+"w": 1416
+},
+{
+"t": "Hand Protection?",
+"w": 1315
+}
+],
+"3": [
+{
+"t": "Why Choose",
+"w": 946
+},
+{
+"t": "AVES Hand",
+"w": 862
+},
+{
+"t": "Protection?",
+"w": 868
+}
+]
+}
+},
+"why-fall": {
+"text": "Why Choose AVES Fall Protection?",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "Why Choose AVES Fall Protection?",
+"w": 2660
+}
+],
+"2": [
+{
+"t": "Why Choose AVES",
+"w": 1416
+},
+{
+"t": "Fall Protection?",
+"w": 1178
+}
+],
+"3": [
+{
+"t": "Why Choose",
+"w": 946
+},
+{
+"t": "AVES Fall",
+"w": 728
+},
+{
+"t": "Protection?",
+"w": 868
+}
+]
+}
+},
+"why-face": {
+"text": "Why Choose AVES Eye Protection?",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "Why Choose AVES Eye Protection?",
+"w": 2678
+}
+],
+"2": [
+{
+"t": "Why Choose AVES",
+"w": 1416
+},
+{
+"t": "Eye Protection?",
+"w": 1196
+}
+],
+"3": [
+{
+"t": "Why Choose",
+"w": 946
+},
+{
+"t": "AVES Eye",
+"w": 748
+},
+{
+"t": "Protection?",
+"w": 868
+}
+]
+}
+},
+"why-cryo-body": {
+"text": "Why Choose AVES Cryogenic Protection?",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "Why Choose AVES Cryogenic Protection?",
+"w": 3161
+}
+],
+"2": [
+{
+"t": "Why Choose AVES",
+"w": 1416
+},
+{
+"t": "Cryogenic Protection?",
+"w": 1686
+}
+],
+"3": [
+{
+"t": "Why Choose",
+"w": 946
+},
+{
+"t": "AVES Cryogenic",
+"w": 1237
+},
+{
+"t": "Protection?",
+"w": 868
+}
+]
+}
+}
+}

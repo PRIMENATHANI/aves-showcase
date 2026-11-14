@@ -78,3 +78,19 @@ exploded/modern-r1/*/*
 !exploded/modern-r1/*/assets/
 exploded/modern-r1/*/assets/bg-src/
 exploded/modern-r1/*/assets/ads-vectors/
+# iCloud duplicate copies
+* 2.png
+* 2.webp
+* 2.jpg
+* 2.svg
+* 2.js
+* 2.css
+* 2.html
+* 2.json
+v0.3.4/*
+!v0.3.4/experience/
+v0.3.4/experience/tools/
+v0.3.4/experience/shots/
+v0.9/*
+!v0.9/experience/
+v0.3.2/root-test.html

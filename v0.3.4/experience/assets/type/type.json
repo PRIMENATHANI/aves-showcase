@@ -1,0 +1,26 @@
+{
+ "pick-your-industry": {
+  "text": "Pick your industry",
+  "w": 2079,
+  "h": 249,
+  "size": 248,
+  "ascent": 188,
+  "descent": 61
+ },
+ "hero-l1": {
+  "text": "Your Total Safety",
+  "w": 2025,
+  "h": 249,
+  "size": 248,
+  "ascent": 188,
+  "descent": 61
+ },
+ "hero-l2": {
+  "text": "Solutions Partner",
+  "w": 1998,
+  "h": 249,
+  "size": 248,
+  "ascent": 188,
+  "descent": 61
+ }
+}

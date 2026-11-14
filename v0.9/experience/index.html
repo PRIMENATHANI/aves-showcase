@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<base href="../../v0.6/experience/">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The AVES Experience</title>
+<meta name="theme-color" content="#07090c">
+<link rel="icon" href="data:,">
+<script>
+window.__errs = [];
+window.addEventListener('error', e => window.__errs.push('error: ' + (e.message || (e.target && (e.target.src || e.target.href)))), true);
+window.addEventListener('unhandledrejection', e => window.__errs.push('rejection: ' + (e.reason && e.reason.message || e.reason)));
+</script>
+<script>
+// hand-over from the picker (v0.3.4 pick()): the picker's last frame is the raw kit backdrop, cover x 1.029 (desktop: the whole
+// screen, centred; phone: the top min(430, 51 % of the height), image at -42 %), with only the logo and tagline (desktop) on it.
+// Decided before the first paint: same-origin referrer that is not a kit page, a fresh navigation, no debug step. ?ho=1|0 forces.
+// desktop scale and margin before the first paint (the same rule buildDesk applies), so the header never jumps when the page builds
+(function(){var W=innerWidth,H=innerHeight,q=new URLSearchParams(location.search),ph=q.get('m')==='1'||(q.get('m')!=='0'&&(W<820||W/H<.9));if(ph)return;
+var u=Math.max(.78,Math.min(2.4,W/1440,H/900)),s=document.documentElement.style;s.setProperty('--u',u.toFixed(4));s.setProperty('--M',(W/u>=1560?75:64)+'px');})();
+(function(){var d=document.documentElement,q=new URLSearchParams(location.search),ho=false;
+try{var u=new URL(document.referrer);ho=u.origin===location.origin&&u.pathname!==location.pathname&&!/[?&]kit=/.test(u.search);}catch(e){}
+try{var n=performance.getEntriesByType('navigation')[0];if(n&&n.type!=='navigate')ho=false;}catch(e){}
+if(q.has('step')||q.has('det')||q.get('rm')==='1'||matchMedia('(prefers-reduced-motion: reduce)').matches)ho=false;
+if(q.get('ho')==='1')ho=true;if(q.get('ho')==='0')ho=false;if(!ho)return;
+var W=innerWidth,H=innerHeight,ph=q.get('m')==='1'||(q.get('m')!=='0'&&(W<820||W/H<.9));d.classList.add('ho');if(ph)d.classList.add('ho-m');
+window.__ho={kit:q.get('kit')||'oil-gas',ph:ph,W:W,H:H,fH:ph?Math.min(430,Math.round(H*.51)):H};})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800;6..12,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../v0.9/experience/app.css">
+</head>
+<body>
+<p class="turn">Turn your phone upright</p>
+<div class="track" id="track">
+  <div class="stage" id="stage">
+    <!-- the photograph: the whole stage on desktop, a band at the top on the phone -->
+    <div class="pha" id="pha">
+      <div class="bdw" id="bdw"><div class="bd" id="bd"><img id="bdA" alt=""></div></div>
+      <i class="grade" aria-hidden="true"></i>
+      <div class="hov" id="ho" aria-hidden="true"><div class="hoc" id="hoc"><img id="hoI" alt=""></div></div>
+      <script>(function(){var h=window.__ho;if(!h)return;var im=document.getElementById('hoI'),c=document.getElementById('hoc');
+        var place=function(){var kw=im.naturalWidth||1792,kh=im.naturalHeight||1024,k=Math.max(h.W/kw,h.fH/kh)*1.029,w=kw*k,hh=kh*k;
+          c.style.height=h.ph?h.fH+'px':'100%';
+          if(h.ph){im.style.width=w+'px';im.style.height=hh+'px';im.style.left=(h.W-w)/2+'px';im.style.top=Math.max(h.fH-hh,Math.min(0,h.fH/2-.42*hh))+'px';}
+          else{im.style.width=w/h.W*100+'%';im.style.height=hh/h.H*100+'%';im.style.left=(h.W-w)/2/h.W*100+'%';im.style.top=(h.H-hh)/2/h.H*100+'%';}};
+        place();im.onload=place;im.src='assets/site/'+encodeURIComponent(h.kit)+'.jpg';})();</script>
+      <div class="cam" id="cam">
+        <div class="man" id="man"><img class="base" src="assets/base.png" alt="Worker"></div>
+      </div>
+      <div class="fly" id="fly" aria-hidden="true"></div>
+      <i class="pha-fade m-only" aria-hidden="true"></i>
+    </div>
+
+    <header class="hdr"><img class="logo" src="assets/brand/aves-logo-rev.png" alt="AVES"><span class="hdr-tag">Your Total Safety <br class="m-only">Solutions Partner</span><span class="kitlnk d-only" id="kitlnk"></span><a class="kits" href="../../v0.3.4/experience/#industries">All kits</a></header>
+
+    <!-- desktop: kit intro -->
+    <section class="intro d-only" id="intro">
+      <p class="kicker a1"><img class="ktile" alt=""><span class="eyebrow" id="kick"></span></p>
+      <h1 class="kname a1" id="kname"></h1>
+      <p class="lead a1" id="kintro"></p>
+      <p class="hzh label a2" id="khzN"></p>
+      <ol class="hzl" id="khz"></ol>
+    </section>
+    <aside class="board d-only" id="board" aria-label="The kit">
+      <h2 class="bt" id="boardT"></h2>
+      <ol class="bg" id="boardG"></ol>
+      <p class="cue"><span class="lnk-t">Kit him out<svg class="ar" viewBox="0 0 12 14" aria-hidden="true"><path d="M6 1v11M1.5 7.5 6 12l4.5-4.5" fill="none" stroke="currentColor" stroke-width="2"/></svg></span><i class="ul" aria-hidden="true"></i></p>
+      <p class="cue-h label">Scroll to kit him out</p>
+    </aside>
+
+    <!-- desktop: one item step at a time (left hazard, right product) -->
+    <div class="hz-layer d-only" id="hzs"></div>
+    <div class="pb-layer d-only" id="pbs"></div>
+    <aside class="rail d-only" id="rail" aria-label="Issued from stock">
+      <div class="cnt"><span class="cnum" id="cnts"></span><span class="label">Issued from stock</span></div>
+      <div class="segs" id="segs"></div>
+      <ol class="rl" id="rl"></ol>
+    </aside>
+
+    <!-- desktop: the complete kit -->
+    <section class="end d-only" id="end">
+      <h2 class="et" id="endT"></h2>
+      <p class="close">Your safety solutions partner.</p>
+      <a class="lnk" href="../../v0.3.4/experience/#industries">Choose another kit</a>
+      <p class="sis" id="sis"></p>
+    </section>
+    <aside class="endl d-only" id="endL"><ol id="endList"></ol><p class="boots" id="boots"></p></aside>
+
+    <!-- phone: a full-screen stepper -->
+    <div class="m-strip m-only" id="mStrip"><ol id="mRail"></ol><p class="m-cnt" aria-hidden="true"><i id="mCntI">0</i> / <span id="mCntN">8</span></p></div>
+    <section class="m-intro m-only" id="mIntro">
+      <p class="kicker"><img class="ktile" alt=""><span class="eyebrow" id="mKick"></span></p>
+      <h1 class="kname" id="mName"></h1>
+      <p class="lead" id="mLead"></p>
+      <p class="hzh label" id="mHzN"></p>
+      <ol class="hzl" id="mHz"></ol>
+      <p class="m-kt label" id="mKitT"></p>
+    </section>
+    <div class="m-sheet m-only" id="mS"><div class="m-steps" id="mSteps"></div></div>
+    <section class="m-end m-only" id="mEnd">
+      <h2 class="et" id="mEndT"></h2>
+      <p class="close">Your safety solutions partner.</p>
+      <ol class="m-el" id="mEndL"></ol>
+      <p class="boots" id="mBoots"></p>
+      <a class="lnk" href="../../v0.3.4/experience/#industries">Choose another kit</a>
+    </section>
+    <nav class="m-nav m-only" id="mNav" aria-label="Steps">
+      <button class="m-back" id="mBack" aria-label="Back"><svg class="ar up" viewBox="0 0 12 14" aria-hidden="true"><path d="M6 1v11M1.5 7.5 6 12l4.5-4.5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>Back</span></button>
+      <p class="m-pos" id="mPos"></p>
+      <button class="m-next" id="mNext"><span id="mNextT">Kit him out</span><svg class="ar" viewBox="0 0 12 14" aria-hidden="true"><path d="M6 1v11M1.5 7.5 6 12l4.5-4.5" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+    </nav>
+
+    <!-- product details: a light page, so the AVES Approach artwork prints exactly as it is -->
+    <section class="pd" id="pd" aria-label="Product details" aria-hidden="true" data-lenis-prevent>
+      <header class="pd-h"><img class="logo" src="assets/brand/aves-logo.png" alt="AVES"><span class="hdr-tag d-only">Your Total Safety Solutions Partner</span><span class="kitlnk d-only" id="pdKit"></span><button class="pd-x" id="pdX" data-close><span>Back to the kit</span></button></header>
+      <div class="pd-b" id="pdB"></div>
+    </section>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script src="../../v0.9/experience/site-gl.js"></script>
+<script src="../../v0.9/experience/app.js"></script>
+</body>
+</html>
