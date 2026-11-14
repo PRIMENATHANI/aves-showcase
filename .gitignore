@@ -72,3 +72,9 @@ v0.*/gen/
 v0.*/data/
 v0.*/design/
 v0.*/work.nosync/
+exploded/modern-r1/_spikes/
+exploded/modern-r1/*/*
+!exploded/modern-r1/*/index.html
+!exploded/modern-r1/*/assets/
+exploded/modern-r1/*/assets/bg-src/
+exploded/modern-r1/*/assets/ads-vectors/
