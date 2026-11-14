@@ -1,0 +1,22 @@
+{
+ "depth": "assets/site/woodworking-depth.png",
+ "sky": "assets/site/woodworking-sky.jpg",
+ "k": {
+  "d0": 0.3,
+  "dp": 0.85,
+  "pan": 0.95,
+  "zoom": 0.9,
+  "ptr": 0.012
+ },
+ "plumes": [],
+ "haze": {
+  "y": 0.48,
+  "w": 0.22,
+  "a": 0.14,
+  "color": [
+   1.0,
+   0.9,
+   0.68
+  ]
+ }
+}

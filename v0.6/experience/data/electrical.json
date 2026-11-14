@@ -1,0 +1,898 @@
+{
+ "kit": {
+  "id": "electrical",
+  "name": "Electrical & Arc Flash",
+  "title": "The AVES Electrical & Arc Flash Kit",
+  "group": "Energy",
+  "intro": "Switchgear, panel and utility work near live conductors: shock, arc flash heat and blast, and ambient plant noise.",
+  "hazards": [
+   "electric shock",
+   "arc flash",
+   "energized panels",
+   "noise"
+  ],
+  "hazardIcons": [
+   "electric",
+   "arc",
+   "electric",
+   "hearing"
+  ],
+  "tile": "assets/brand/kit-electrical.png",
+  "index": 17,
+  "of": 18
+ },
+ "frame": {
+  "w": 896,
+  "h": 1536
+ },
+ "rack": {
+  "w": 896,
+  "h": 1280
+ },
+ "backdrop": "assets/site/electrical.jpg",
+ "fx": "assets/site/electrical.fx.json",
+ "phoneX": 0.3,
+ "shelf": "assets/site/shelf.jpg",
+ "hz": [
+  "arc",
+  "dust",
+  "electric",
+  "hearing",
+  "vest"
+ ],
+ "base2x": "assets/layers2x/base.webp",
+ "boots": {
+  "name": "Cavalier Captain 8713-4 HC",
+  "sku": "73110CV214",
+  "standards": "EN ISO 20345:2011 S3"
+ },
+ "cats": {
+  "head": {
+   "title": "assets/type/cat-head.png",
+   "icon": "assets/brand/cat-head.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-head.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Head Protection?",
+    "titleArt": "assets/type/why-head.png",
+    "items": [
+     {
+      "h": "Engineered Impact Absorption",
+      "t": "AVES helmets are precision-built to neutralize both vertical and lateral blows, minimizing the risk of skull fractures, neck injuries and concussive trauma in work environments."
+     },
+     {
+      "h": "Integrated Suspension Architecture",
+      "t": "Each helmet integrates advanced 4 or 6 point suspension systems that distribute impact forces evenly, eliminate pressure and firmly secured through movement-intensive shifts."
+     },
+     {
+      "h": "Certified Electrical Protection",
+      "t": "With Class E and G certified models, AVES headgear offers insulation against electrical arc flashes and voltage contact. AVES shells are UV-stabilized, fire-resistant, and ventilated."
+     },
+     {
+      "h": "Full-Zone Protection Compatibility",
+      "t": "Select models provide extended coverage. Our helmets are designed for seamless integration with visors, earmuffs and face shields, enabling full PPE synergy."
+     }
+    ]
+   }
+  },
+  "eye": {
+   "title": "assets/type/cat-eye.png",
+   "icon": "assets/brand/cat-eye.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-eye.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Eye Protection?",
+    "titleArt": "assets/type/why-eye.png",
+    "items": [
+     {
+      "h": "Certified Impact Defense",
+      "t": "Engineered beyond industry benchmarks (ANSI Z87.1 & EN166), AVES lenses reliably withstand high-velocity impacts from debris, dust, and flying objects. Our rigorous testing ensures eyes remain protected in the most demanding industrial and construction environments."
+     },
+     {
+      "h": "Advanced UV Blocking Technology",
+      "t": "AVES eyewear offers exceptional UV protection, filtering out 99.9% of harmful ultraviolet rays. Our lenses significantly reduce eye fatigue and glare, enhancing worker comfort and performance even during prolonged exposure to sunlight or intense industrial lighting.."
+     },
+     {
+      "h": "Superior Anti-Fog Clarity with SuperCoat™",
+      "t": "Never let fog compromise your productivity. Our exclusive SuperCoat™ lens technology delivers consistently clear vision under humid or fluctuating temperature conditions, reducing downtime and ensuring your focus remains uninterrupted."
+     },
+     {
+      "h": "Exceptional Scratch-Resistant Durability",
+      "t": "Built tough for rigorous everyday use, AVES eyewear features robust scratch-resistant coatings that preserve lens clarity and integrity, extending eyewear lifespan and reducing the need for frequent replacements."
+     },
+     {
+      "h": "Military-Grade Reliability (Ballistic Certified)",
+      "t": "Selected AVES products achieve the demanding MIL-PRF-31013 ballistic standard, trusted by professionals working in high-risk environments. This certification underscores our unwavering commitment to superior safety standards and product dependability."
+     },
+     {
+      "h": "All-Day Ergonomic Comfort & Lightweight Fit",
+      "t": "AVES eyewear prioritizes your comfort, featuring ergonomically crafted designs that evenly distribute weight and reduce pressure points. Adjustable and secure fittings mean workers remain comfortable, reducing distraction and increasing productivity even during extended wear."
+     },
+     {
+      "h": "Enhanced Productivity Through Visual Comfort",
+      "t": "Our precision-engineered optical clarity minimizes eye strain, allowing workers to perform tasks more accurately and efficiently. Improved visual comfort directly translates to higher productivity and fewer work-related errors."
+     }
+    ]
+   }
+  },
+  "hearing": {
+   "title": "assets/type/cat-hearing.png",
+   "icon": "assets/brand/cat-hearing.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-hearing.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Ear Protection?",
+    "titleArt": "assets/type/why-hearing.png",
+    "items": [
+     {
+      "h": "Superior Noise Reduction",
+      "t": "Reduces high-decibel noise to safe, manageable levels , preserving worker hearing and improving focus in high-noise zones."
+     },
+     {
+      "h": "Pressure-Free Comfort",
+      "t": "Soft, ergonomic materials contour naturally to the ear, eliminating pressure points and minimizing fatigue during long wear."
+     },
+     {
+      "h": "Built for Industrial Environments",
+      "t": "Durable enough to withstand oil, moisture, heat, dust, and drop impact ,from factories to fieldwork."
+     },
+     {
+      "h": "Universal Fit Options",
+      "t": "Offered in disposable, reusable, corded, banded, and over-ear earmuff designs. Options fit snugly with helmets and other PPE."
+     },
+     {
+      "h": "Job site Compatible Design",
+      "t": "Designed for compatibility with AVES helmets and face protection ,enabling full-head protection without interference."
+     },
+     {
+      "h": "Globally Certified Compliance",
+      "t": "Meets or exceeds ANSI S3.19, EN 352, and CE standards , recognized worldwide for occupational hearing safety."
+     }
+    ]
+   }
+  },
+  "respiratory": {
+   "title": "assets/type/cat-respiratory.png",
+   "icon": "assets/brand/cat-respiratory.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-respiratory.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Respiratory Protection?",
+    "titleArt": "assets/type/why-respiratory.png",
+    "items": [
+     {
+      "h": "Precision Filtration",
+      "t": "Engineered to capture fine particles, toxic gases, and airborne contaminants common in industrial zones, construction sites, and chemical processing environments."
+     },
+     {
+      "h": "Secure, Adaptive Fit",
+      "t": "Contoured sealing zones and intelligent harness design deliver consistent contact across varied face shapes, even during movement and long shifts."
+     },
+     {
+      "h": "Optimized Wearability",
+      "t": "Lightweight, pressure-balanced frames reduce fatigue and improve comfort, supporting all-day use and user compliance.."
+     },
+     {
+      "h": "Built for Harsh Environments",
+      "t": "Resilient construction resists damage from dust, heat, humidity, and chemical exposure, ensuring long-term reliability in the field."
+     },
+     {
+      "h": "Tested to Perform",
+      "t": "Every AVES respirator is independently tested and approved to meet EN 149, EN 136, and NIOSH requirements, backed by trusted performance, not just paperwork."
+     }
+    ]
+   }
+  },
+  "face": {
+   "title": "assets/type/cat-face.png",
+   "icon": "assets/brand/cat-face.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-face.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Eye Protection?",
+    "titleArt": "assets/type/why-face.png",
+    "items": [
+     {
+      "h": "Multi-Zone Impact Defense",
+      "t": "Specialized shielding to provide complete facial protection from fast-moving particles, abrasive fragments, and tool kickbacks, preventing severe injury."
+     },
+     {
+      "h": "Superior Chemical & Liquid Resistance",
+      "t": "Engineered barriers safeguard against hazardous liquid splashes, aggressive chemicals, and contaminants found in labs, manufacturing plants, and sanitation settings."
+     },
+     {
+      "h": "Arc Flash & Thermal Readiness",
+      "t": "Selected models offer certified protection against radiant heat, arc flash, and molten metal splash, perfectly suited for welding, metal fabrication, and extreme-heat environments."
+     },
+     {
+      "h": "Advanced Anti-Fog & Optics",
+      "t": "High-grade, anti-scratch lenses provide crystal-clear visibility, significantly reducing fogging and scratches for safer, uninterrupted workflow."
+     },
+     {
+      "h": "Ergonomic, Equipment-Compatible Fit",
+      "t": "All models are shaped for comfort and compatibility with helmets, respirators, and hearing protection."
+     },
+     {
+      "h": "Full-Face Coverage That Moves With You",
+      "t": "Extended protection across the face and jawline , without sacrificing mobility or field of view."
+     }
+    ]
+   }
+  },
+  "vest": {
+   "title": "assets/type/cat-vest.png",
+   "icon": null,
+   "approach": null,
+   "why": null
+  },
+  "hand": {
+   "title": "assets/type/cat-hand.png",
+   "icon": "assets/brand/cat-hand.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-hand.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Hand Protection?",
+    "titleArt": "assets/type/why-hand.png",
+    "items": [
+     {
+      "h": "Engineered for Real-World Risk",
+      "t": "Every glove is purpose-built to confront the specific hazards found in today’s industrial settings, from sharp edges and hot surfaces to corrosive liquids and fine precision handling."
+     },
+     {
+      "h": "Long-Wear Comfort, Without Weakness",
+      "t": "AVES® designs combine durable protective barriers with flexible materials and breathable fits, minimizing fatigue and maximizing focus during long shifts."
+     },
+     {
+      "h": "Material Science Meets Task Precision",
+      "t": "Whether it’s nitrile for chemical shielding, Kevlar® for cut defense, or leather for heat resistance, our gloves match each task with the right material performance."
+     },
+     {
+      "h": "Standardized for Safety, Trusted in the Field",
+      "t": "Tested to meet or exceed global industrial safety standards, AVES® gloves are field-proven by professionals across construction, manufacturing, oil and gas, and beyond."
+     }
+    ]
+   }
+  }
+ },
+ "steps": [
+  {
+   "n": 1,
+   "layer": "aves-victor-av-717r-nv",
+   "product": "aves-victor-av-717r-nv",
+   "slot": "head",
+   "box": [
+    345,
+    71,
+    545,
+    228
+   ],
+   "z": 70,
+   "cat": "head",
+   "name": "VICTOR® AV-717R NV",
+   "descriptor": "Non-vented Class E helmet",
+   "sku": "1891AV717R",
+   "standards": "",
+   "bullets": [
+    "HDPE helmet with short brim, vented shell, and low-profile design for comfort and visibility",
+    "6-point ratchet suspension with flex points, nape cushion, and replaceable brow pad",
+    "Accessory slots and chin strap included for added functionality",
+    "ANSI/ISEA Z89.1-2014 TYPE I, Class E & G and EN 397:2012+A1:2012"
+   ],
+   "short": [
+    "HDPE helmet with short brim, vented shell, and low-profile design for comfort and visibility",
+    "6-point ratchet suspension with flex points, nape cushion, and replaceable brow pad",
+    "Accessory slots and chin strap included for added functionality"
+   ],
+   "material": "",
+   "colour": "",
+   "why": "Non-vented Class E helmet, Z89.1, used in the AVES arc flash kit",
+   "url": "https://aves-safety.com/products/head-protection/safety-helmets/aves-victor-av-717r-nv/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Electric shock",
+    "where": "Near live conductors and busbars",
+    "at": [
+     0.2,
+     0.45
+    ],
+    "icon": "electric"
+   },
+   "anchors": [
+    [
+     0.5,
+     0.2
+    ],
+    [
+     0.86,
+     0.5
+    ],
+    [
+     0.1,
+     0.76
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    100
+   ],
+   "pack": {
+    "src": "assets/packs/aves-victor-av-717r-nv.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mask": null,
+   "mkt": {
+    "hook": "Non-vented cap helmet for electrical and overhead hazards",
+    "features": [
+     {
+      "title": "Low Center of Gravity",
+      "line": "A low center of gravity keeps it balanced and stable through long wear"
+     },
+     {
+      "title": "Six Points of Support",
+      "line": "Cushioned nape support and flex points improve fit and help distribute impact"
+     },
+     {
+      "title": "Rain Out of Your Eyes",
+      "line": "Rain channels in the shell keep water out of your line of sight"
+     }
+    ],
+    "system": "Slots take AVES AV-HM earmuffs, visors and face shields"
+   },
+   "layer2x": "assets/layers2x/aves-victor-av-717r-nv.webp",
+   "image": "assets/products/aves-victor-av-717r-nv.png",
+   "fly": "assets/products/aves-victor-av-717r-nv.png",
+   "copySource": "catalogue REV 7 p. 14"
+  },
+  {
+   "n": 2,
+   "layer": "av-sg14",
+   "product": "av-sg14",
+   "slot": "eye",
+   "box": [
+    366,
+    161,
+    527,
+    244
+   ],
+   "z": 75,
+   "cat": "eye",
+   "name": "AV-SG14",
+   "descriptor": "Anti-fog spectacle",
+   "sku": "6026AV106",
+   "standards": "ANSI Z87.1-2010 CE EN166",
+   "bullets": [
+    "Lighweight (0.77 oz or 22 grams)",
+    "Available with Anti-fog coating",
+    "Soft rubber nose bridge and soft rubber temple inserts",
+    "Fits small faces and Female faces"
+   ],
+   "short": [
+    "Lighweight (0.77 oz or 22 grams)",
+    "Available with Anti-fog coating",
+    "Soft rubber nose bridge and soft rubber temple inserts"
+   ],
+   "material": "Polycarbonate (PC)",
+   "colour": "Clear, Grey, I/O",
+   "why": "Anti-fog spectacle, Z87.1, worn under the arc shield in the AVES kit",
+   "url": "https://aves-safety.com/products/eye-protection/safety-glasses/av-sg14/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Arc flash light and debris",
+    "where": "Under the arc shield at live switchgear",
+    "at": [
+     0.3,
+     0.4
+    ],
+    "icon": "arc"
+   },
+   "anchors": [
+    [
+     0.5,
+     0.3
+    ],
+    [
+     0.3,
+     0.6
+    ],
+    [
+     0.92,
+     0.4
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    56
+   ],
+   "pack": {
+    "src": "assets/packs/av-sg14.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mask": null,
+   "mkt": {
+    "hook": "Lightweight glasses sized for smaller faces",
+    "features": [
+     {
+      "title": "Grip Where It Counts",
+      "line": "TPR temple grip zones help the glasses stay in position during active work"
+     },
+     {
+      "title": "Nose Bridge Comes Off",
+      "line": "The soft TPE nose bridge removes for easier cleaning"
+     },
+     {
+      "title": "Resists Scratches",
+      "line": "An anti-scratch coating helps keep the lens clear in regular use"
+     }
+    ],
+    "system": ""
+   },
+   "layer2x": "assets/layers2x/av-sg14.webp",
+   "image": "assets/products/av-sg14.png",
+   "fly": "assets/products/av-sg14.png",
+   "copySource": "catalogue REV 7 p. 22"
+  },
+  {
+   "n": 3,
+   "layer": "av-hb30-ear-muffs__on-aves-victor-av-717r-nv",
+   "product": "av-hb30-ear-muffs",
+   "slot": "hearing",
+   "box": [
+    324,
+    77,
+    565,
+    298
+   ],
+   "z": 80,
+   "cat": "hearing",
+   "name": "AV-HB30",
+   "descriptor": "Dielectric headband earmuff",
+   "sku": "2536AV593",
+   "standards": "ANSI S3.19-1974, EN 352-1:2020",
+   "bullets": [
+    "30 dB Certified NRR to ANSI S3.19-1974 for superior noise reduction",
+    "33 dB Certified SNR to EN 352-1:2020 for high sound attenuation",
+    "ABS ear cups with a rectangular shape for durability",
+    "Soft and pliable PVC ear cushions for comfort",
+    "Polyurethane foam absorber enhances noise blocking",
+    "Padded headband with coated 304 stainless steel for a secure, durable fit",
+    "Lightweight, low headband force for extended wear",
+    "Dielectric construction for electrical insulation"
+   ],
+   "short": [
+    "30 dB Certified NRR to ANSI S3.19-1974 for superior noise reduction",
+    "33 dB Certified SNR to EN 352-1:2020 for high sound attenuation",
+    "ABS ear cups with a rectangular shape for durability"
+   ],
+   "material": "ABS",
+   "colour": "Black, Navy",
+   "why": "Dielectric headband earmuff, 30 dB NRR, for electrical workspaces",
+   "url": "https://aves-safety.com/products/ear-protection/ear-muffs/av-hb30-ear-muffs/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Noise",
+    "where": "Plant rooms and substations",
+    "at": [
+     0.57,
+     0.55
+    ],
+    "icon": "hearing"
+   },
+   "anchors": [
+    [
+     0.12,
+     0.62
+    ],
+    [
+     0.88,
+     0.62
+    ],
+    [
+     0.5,
+     0.1
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    124
+   ],
+   "pack": {
+    "src": "assets/packs/av-hb30-ear-muffs.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mask": null,
+   "mkt": {
+    "hook": "Double-shell earmuff for extremely noisy work",
+    "features": [
+     {
+      "title": "Double-Shell Cups",
+      "line": "Double-shell ABS ear cups, designed to enhance noise reduction performance"
+     },
+     {
+      "title": "Less Heat Inside the Cup",
+      "line": "Space inside the cup helps reduce heat and moisture buildup during use"
+     },
+     {
+      "title": "Constant, Even Pressure",
+      "line": "A low-profile padded steel headband helps hold a constant pressure"
+     }
+    ],
+    "system": ""
+   },
+   "layer2x": "assets/layers2x/av-hb30-ear-muffs__on-aves-victor-av-717r-nv.webp",
+   "image": "assets/products/av-hb30-ear-muffs.png",
+   "fly": "assets/products/av-hb30-ear-muffs.png",
+   "copySource": "catalogue REV 7 p. 55"
+  },
+  {
+   "n": 4,
+   "layer": "n95-av800-particulate-respirator",
+   "product": "n95-av800-particulate-respirator",
+   "slot": "respiratory",
+   "box": [
+    360,
+    180,
+    530,
+    332
+   ],
+   "z": 40,
+   "cat": "respiratory",
+   "name": "AV-800",
+   "descriptor": "N95 for dusty switchrooms only",
+   "sku": "27250AV800",
+   "standards": "NIOSH Approved",
+   "bullets": [
+    "Durable polypropylene shell provides long-lasting protection",
+    "EVA foam nosepiece offers superior comfort and a secure seal",
+    "High-efficiency microfiltration ensures at least 95% filtration against airborne particles",
+    "Ultra-light membrane reduces breathing resistance for improved airflow",
+    "Welded elastic straps provide a secure and comfortable fit with minimal leakage",
+    "Molded anatomical nosepiece enhances visual field and compatibility with eyewear",
+    "Woven edge seal prevents open layers around the mask for added durability",
+    "Lightweight and comfortable design ideal for extended use in various work conditions"
+   ],
+   "short": [
+    "Durable polypropylene shell provides long-lasting protection",
+    "EVA foam nosepiece offers superior comfort and a secure seal",
+    "High-efficiency microfiltration ensures at least 95% filtration against airborne particles"
+   ],
+   "material": "Polypropylene (PP)",
+   "colour": "White",
+   "why": "Not routinely needed; N95 for dusty switchrooms only.",
+   "url": "https://aves-safety.com/products/respiratory-protection/disposables-respirators/n95-av800-particulate-respirator/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Dust in switchrooms",
+    "where": "Dusty switchrooms only",
+    "at": [
+     -1,
+     -1
+    ],
+    "icon": "dust"
+   },
+   "anchors": [
+    [
+     0.3,
+     0.4
+    ],
+    [
+     0.72,
+     0.5
+    ],
+    [
+     0.5,
+     0.8
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    110
+   ],
+   "pack": {
+    "src": "assets/packs/n95-av800-particulate-respirator.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mask": null,
+   "mkt": {
+    "hook": "Lightweight N95 cup respirator for dusty work",
+    "features": [
+     {
+      "title": "Even Strap Pressure",
+      "line": "Ultrasonically welded straps hold a secure fit with even pressure distribution"
+     },
+     {
+      "title": "Holds Shape in the Heat",
+      "line": "A reinforced cup keeps its shape and mouth clearance in hot, humid conditions"
+     },
+     {
+      "title": "Less Eyewear Fog",
+      "line": "Soft seal foam adds comfort while helping reduce fogging of eyewear"
+     }
+    ],
+    "system": ""
+   },
+   "layer2x": "assets/layers2x/n95-av800-particulate-respirator.webp",
+   "image": "assets/products/n95-av800-particulate-respirator.png",
+   "fly": "assets/products/n95-av800-particulate-respirator.png",
+   "copySource": "catalogue REV 7 p. 68"
+  },
+  {
+   "n": 5,
+   "layer": "av-fs20cp-arc10__on-aves-victor-av-717r-nv",
+   "product": "av-fs20cp-arc10",
+   "slot": "face",
+   "box": [
+    346,
+    81,
+    544,
+    360
+   ],
+   "z": 60,
+   "cat": "face",
+   "name": "AV-FS20CP ARC10",
+   "descriptor": "Arc-rated visor",
+   "sku": "3417AV498",
+   "standards": "ANSI Z87.1-2010, ASTM 2178-12, CE EN166",
+   "bullets": [
+    "Arc-rated polycarbonate face shield with 14 cal/cm² ATPV",
+    "55% VLT (Visible Light Transmission) for better visibility",
+    "Lightweight design, 12% lighter and 2.5 inches slimmer for improved mobility",
+    "Low-profile chin guard for enhanced protection",
+    "99.9% UV protection against UV A, B, & C (180-380 nm)",
+    "Anti-scratch and anti-fog coating for clear vision"
+   ],
+   "short": [
+    "Arc-rated polycarbonate face shield with 14 cal/cm² ATPV",
+    "55% VLT (Visible Light Transmission) for better visibility",
+    "Lightweight design, 12% lighter and 2.5 inches slimmer for improved mobility"
+   ],
+   "material": "Molded Lexan Polycarbonate",
+   "colour": "Light Green",
+   "why": "Arc-rated visor, ASTM 2178 and EN 170; bullets name live switchgear",
+   "url": "https://aves-safety.com/products/face-protection/arc/av-fs20cp-arc10/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Arc flash",
+    "where": "Switching and testing at live switchgear",
+    "at": [
+     0.3,
+     0.4
+    ],
+    "icon": "arc"
+   },
+   "anchors": [
+    [
+     0.5,
+     0.25
+    ],
+    [
+     0.86,
+     0.55
+    ],
+    [
+     0.14,
+     0.75
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    130
+   ],
+   "pack": {
+    "src": "assets/packs/av-fs20cp-arc10.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mask": null,
+   "mkt": {
+    "hook": "Arc-rated face shield with a built-in chin guard",
+    "features": [
+     {
+      "title": "Arc-Rated Thermal Barrier",
+      "line": "Helps shield the face from the heat and thermal energy of an arc fault"
+     },
+     {
+      "title": "Stays Clear on the Job",
+      "line": "Anti-fog and anti-scratch treatment help keep the view clear"
+     },
+     {
+      "title": "Follows the Face",
+      "line": "Contoured visor geometry follows the face to cover the front and sides"
+     }
+    ],
+    "system": "Fits designated AVES visor carriers in the headgear system"
+   },
+   "layer2x": "assets/layers2x/av-fs20cp-arc10__on-aves-victor-av-717r-nv.webp",
+   "image": "assets/products/av-fs20cp-arc10.png",
+   "fly": "assets/products/av-fs20cp-arc10.png",
+   "copySource": "catalogue REV 7 p. 39"
+  },
+  {
+   "n": 6,
+   "layer": "scuta-vest",
+   "product": "scuta-vest",
+   "slot": "vest",
+   "box": [
+    272,
+    301,
+    612,
+    859
+   ],
+   "z": 10,
+   "cat": "vest",
+   "name": "REFLECTOR SAFETY VEST",
+   "descriptor": "Hi-vis vest by Scuta",
+   "sku": "3116RR71",
+   "standards": "EN ISO 20471:2013+A1:2016 Class 2",
+   "bullets": [
+    "Class 2 hi-vis waistcoat",
+    "Two 5 cm reflective bands round the torso",
+    "One reflective band over each shoulder"
+   ],
+   "short": [
+    "Class 2 hi-vis waistcoat",
+    "Two 5 cm reflective bands round the torso",
+    "One reflective band over each shoulder"
+   ],
+   "material": "",
+   "colour": "",
+   "why": "Sister brand, not part of the AVES range.",
+   "url": "",
+   "sister": true,
+   "sisterNote": "Sister brand, not part of the AVES range. No product link (owner's rule).",
+   "hazard": {
+    "title": "Being seen",
+    "where": "Substations, yards and roadside work",
+    "at": [
+     -1,
+     -1
+    ],
+    "icon": "vest"
+   },
+   "anchors": [
+    [
+     0.3,
+     0.3
+    ],
+    [
+     0.52,
+     0.62
+    ],
+    [
+     0.74,
+     0.1
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    150
+   ],
+   "pack": {
+    "src": "assets/packs/vest.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mask": null,
+   "mkt": null,
+   "layer2x": "assets/layers2x/scuta-vest.webp",
+   "image": "assets/products/scuta-vest.png",
+   "fly": "assets/products/scuta-vest.png",
+   "copySource": "PTF description"
+  },
+  {
+   "n": 7,
+   "layer": "class-0-flash-grip",
+   "product": "class-0-flash-grip",
+   "slot": "hand",
+   "box": [
+    198,
+    627,
+    695,
+    949
+   ],
+   "z": 90,
+   "cat": "hand",
+   "name": "Flash and Grip",
+   "descriptor": "Class 0 insulating glove",
+   "sku": "67230RG701",
+   "standards": "CE Cat III (Mortal Risk) | IEC 61482-1-2 | ASTM F2675",
+   "bullets": [
+    "Designed for electrical insulation, ensuring protection against live voltage hazards",
+    "Manufactured with high-quality raw materials for enhanced flexibility and durability",
+    "Provides arc flash protection with a Level 4 rating (>40 cal/cm²) for high-risk environments",
+    "Features a textured surface for a secure grip, even in wet or oily conditions",
+    "AZC-rated for resistance to acids, ozone, and extreme cold temperatures",
+    "Lightweight and ergonomic design to ensure comfort and ease of movement"
+   ],
+   "short": [
+    "Designed for electrical insulation, ensuring protection against live voltage hazards",
+    "Manufactured with high-quality raw materials for enhanced flexibility and durability",
+    "Provides arc flash protection with a Level 4 rating (>40 cal/cm²) for high-risk environments"
+   ],
+   "material": "",
+   "colour": "Red",
+   "why": "Class 0 insulating glove, 1000 V, EN 60903, arc tested IEC 61482",
+   "url": "https://aves-safety.com/products/hand-protection/electrical-gloves/class-0-flash-grip/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Energized panels",
+    "where": "Live panels up to 1000 V",
+    "at": [
+     0.2,
+     0.45
+    ],
+    "icon": "electric"
+   },
+   "anchors": [
+    [
+     0.12,
+     0.3
+    ],
+    [
+     0.88,
+     0.55
+    ],
+    [
+     0.14,
+     0.85
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    150
+   ],
+   "pack": null,
+   "mask": null,
+   "mkt": {
+    "hook": "Insulating glove to 1,000V AC with arc flash protection",
+    "features": [
+     {
+      "title": "Three Risks, One Glove",
+      "line": "Electrical insulation, mechanical protection and arc flash resistance in one glove"
+     },
+     {
+      "title": "Follows the Resting Hand",
+      "line": "Shaped to the hand's natural resting position to help reduce muscle fatigue"
+     },
+     {
+      "title": "Shows Its Wear",
+      "line": "A bi-color build shows the black inner layer when the outer is cut or worn"
+     }
+    ],
+    "system": ""
+   },
+   "layer2x": "assets/layers2x/class-0-flash-grip.webp",
+   "image": "assets/products/class-0-flash-grip.png",
+   "fly": "assets/products/class-0-flash-grip.png",
+   "copySource": "catalogue REV 7 p. 95"
+  }
+ ]
+}

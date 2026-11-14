@@ -229,7 +229,7 @@ document.addEventListener('error', e => {
 let picking = false;
 addEventListener('pageshow', () => { picking = false; });   // coming back with the browser's Back button
 // kits rebuilt to the new standard open their own page (the old stage stays reachable with ?kit=<id>)
-const REBUILT = { 'oil-gas': '../../v0.5/experience/' };
+const REBUILT = { 'oil-gas': '../../v0.5/experience/', 'rig-drilling': '../../v0.6/experience/?kit=rig-drilling', 'manufacturing': '../../v0.6/experience/?kit=manufacturing', 'construction': '../../v0.6/experience/?kit=construction', 'mining': '../../v0.6/experience/?kit=mining', 'heavy-machinery': '../../v0.6/experience/?kit=heavy-machinery', 'assembly-line': '../../v0.6/experience/?kit=assembly-line', 'demolition': '../../v0.6/experience/?kit=demolition', 'logistics': '../../v0.6/experience/?kit=logistics', 'woodworking': '../../v0.6/experience/?kit=woodworking', 'aviation': '../../v0.6/experience/?kit=aviation', 'railway': '../../v0.6/experience/?kit=railway', 'mechanical': '../../v0.6/experience/?kit=mechanical', 'power-tool': '../../v0.6/experience/?kit=power-tool', 'forestry': '../../v0.6/experience/?kit=forestry', 'welding': '../../v0.6/experience/?kit=welding', 'electrical': '../../v0.6/experience/?kit=electrical', 'cryogenic': '../../v0.6/experience/?kit=cryogenic' };
 function pick(k, btn) {
   if (picking || !k) return; picking = true;
   if (REBUILT[k.id]) { location.href = REBUILT[k.id]; return; }

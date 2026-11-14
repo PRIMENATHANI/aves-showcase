@@ -1,0 +1,22 @@
+{
+ "depth": "assets/site/rig-drilling-depth.png",
+ "sky": "assets/site/rig-drilling-sky.jpg",
+ "k": {
+  "d0": 0.3,
+  "dp": 0.85,
+  "pan": 0.95,
+  "zoom": 0.9,
+  "ptr": 0.012
+ },
+ "plumes": [],
+ "haze": {
+  "y": 0.62,
+  "w": 0.08,
+  "a": 0.17,
+  "color": [
+   0.95,
+   0.87,
+   0.77
+  ]
+ }
+}

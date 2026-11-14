@@ -1,0 +1,1024 @@
+{
+ "kit": {
+  "id": "cryogenic",
+  "name": "Cryogenic Handling",
+  "title": "The AVES Cryogenic Handling Kit",
+  "group": "Extract & Handle",
+  "intro": "Filling and decanting liquid nitrogen, oxygen and argon: splash, cold burns, oxygen deficiency and LOX fire risk.",
+  "hazards": [
+   "cryogen splash",
+   "cold burns",
+   "oxygen-deficient atmosphere",
+   "liquid oxygen fire risk"
+  ],
+  "hazardIcons": [
+   "splash",
+   "cold",
+   "oxygen",
+   "fire"
+  ],
+  "tile": "assets/brand/kit-cryogenic.png",
+  "index": 18,
+  "of": 18
+ },
+ "frame": {
+  "w": 896,
+  "h": 1536
+ },
+ "rack": {
+  "w": 896,
+  "h": 1280
+ },
+ "backdrop": "assets/site/cryogenic.jpg",
+ "fx": "assets/site/cryogenic.fx.json",
+ "phoneX": 0.25,
+ "shelf": "assets/site/shelf.jpg",
+ "hz": [
+  "cold",
+  "fire",
+  "head",
+  "hearing",
+  "oxygen",
+  "splash",
+  "vest"
+ ],
+ "base2x": "assets/layers2x/base.webp",
+ "boots": {
+  "name": "Cavalier Captain 8713-4 HC",
+  "sku": "73110CV214",
+  "standards": "EN ISO 20345:2011 S3"
+ },
+ "cats": {
+  "head": {
+   "title": "assets/type/cat-head.png",
+   "icon": "assets/brand/cat-head.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-head.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Head Protection?",
+    "titleArt": "assets/type/why-head.png",
+    "items": [
+     {
+      "h": "Engineered Impact Absorption",
+      "t": "AVES helmets are precision-built to neutralize both vertical and lateral blows, minimizing the risk of skull fractures, neck injuries and concussive trauma in work environments."
+     },
+     {
+      "h": "Integrated Suspension Architecture",
+      "t": "Each helmet integrates advanced 4 or 6 point suspension systems that distribute impact forces evenly, eliminate pressure and firmly secured through movement-intensive shifts."
+     },
+     {
+      "h": "Certified Electrical Protection",
+      "t": "With Class E and G certified models, AVES headgear offers insulation against electrical arc flashes and voltage contact. AVES shells are UV-stabilized, fire-resistant, and ventilated."
+     },
+     {
+      "h": "Full-Zone Protection Compatibility",
+      "t": "Select models provide extended coverage. Our helmets are designed for seamless integration with visors, earmuffs and face shields, enabling full PPE synergy."
+     }
+    ]
+   }
+  },
+  "eye": {
+   "title": "assets/type/cat-eye.png",
+   "icon": "assets/brand/cat-eye.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-eye.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Eye Protection?",
+    "titleArt": "assets/type/why-eye.png",
+    "items": [
+     {
+      "h": "Certified Impact Defense",
+      "t": "Engineered beyond industry benchmarks (ANSI Z87.1 & EN166), AVES lenses reliably withstand high-velocity impacts from debris, dust, and flying objects. Our rigorous testing ensures eyes remain protected in the most demanding industrial and construction environments."
+     },
+     {
+      "h": "Advanced UV Blocking Technology",
+      "t": "AVES eyewear offers exceptional UV protection, filtering out 99.9% of harmful ultraviolet rays. Our lenses significantly reduce eye fatigue and glare, enhancing worker comfort and performance even during prolonged exposure to sunlight or intense industrial lighting.."
+     },
+     {
+      "h": "Superior Anti-Fog Clarity with SuperCoat™",
+      "t": "Never let fog compromise your productivity. Our exclusive SuperCoat™ lens technology delivers consistently clear vision under humid or fluctuating temperature conditions, reducing downtime and ensuring your focus remains uninterrupted."
+     },
+     {
+      "h": "Exceptional Scratch-Resistant Durability",
+      "t": "Built tough for rigorous everyday use, AVES eyewear features robust scratch-resistant coatings that preserve lens clarity and integrity, extending eyewear lifespan and reducing the need for frequent replacements."
+     },
+     {
+      "h": "Military-Grade Reliability (Ballistic Certified)",
+      "t": "Selected AVES products achieve the demanding MIL-PRF-31013 ballistic standard, trusted by professionals working in high-risk environments. This certification underscores our unwavering commitment to superior safety standards and product dependability."
+     },
+     {
+      "h": "All-Day Ergonomic Comfort & Lightweight Fit",
+      "t": "AVES eyewear prioritizes your comfort, featuring ergonomically crafted designs that evenly distribute weight and reduce pressure points. Adjustable and secure fittings mean workers remain comfortable, reducing distraction and increasing productivity even during extended wear."
+     },
+     {
+      "h": "Enhanced Productivity Through Visual Comfort",
+      "t": "Our precision-engineered optical clarity minimizes eye strain, allowing workers to perform tasks more accurately and efficiently. Improved visual comfort directly translates to higher productivity and fewer work-related errors."
+     }
+    ]
+   }
+  },
+  "hearing": {
+   "title": "assets/type/cat-hearing.png",
+   "icon": "assets/brand/cat-hearing.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-hearing.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Ear Protection?",
+    "titleArt": "assets/type/why-hearing.png",
+    "items": [
+     {
+      "h": "Superior Noise Reduction",
+      "t": "Reduces high-decibel noise to safe, manageable levels , preserving worker hearing and improving focus in high-noise zones."
+     },
+     {
+      "h": "Pressure-Free Comfort",
+      "t": "Soft, ergonomic materials contour naturally to the ear, eliminating pressure points and minimizing fatigue during long wear."
+     },
+     {
+      "h": "Built for Industrial Environments",
+      "t": "Durable enough to withstand oil, moisture, heat, dust, and drop impact ,from factories to fieldwork."
+     },
+     {
+      "h": "Universal Fit Options",
+      "t": "Offered in disposable, reusable, corded, banded, and over-ear earmuff designs. Options fit snugly with helmets and other PPE."
+     },
+     {
+      "h": "Job site Compatible Design",
+      "t": "Designed for compatibility with AVES helmets and face protection ,enabling full-head protection without interference."
+     },
+     {
+      "h": "Globally Certified Compliance",
+      "t": "Meets or exceeds ANSI S3.19, EN 352, and CE standards , recognized worldwide for occupational hearing safety."
+     }
+    ]
+   }
+  },
+  "respiratory": {
+   "title": "assets/type/cat-respiratory.png",
+   "icon": "assets/brand/cat-respiratory.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-respiratory.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Respiratory Protection?",
+    "titleArt": "assets/type/why-respiratory.png",
+    "items": [
+     {
+      "h": "Precision Filtration",
+      "t": "Engineered to capture fine particles, toxic gases, and airborne contaminants common in industrial zones, construction sites, and chemical processing environments."
+     },
+     {
+      "h": "Secure, Adaptive Fit",
+      "t": "Contoured sealing zones and intelligent harness design deliver consistent contact across varied face shapes, even during movement and long shifts."
+     },
+     {
+      "h": "Optimized Wearability",
+      "t": "Lightweight, pressure-balanced frames reduce fatigue and improve comfort, supporting all-day use and user compliance.."
+     },
+     {
+      "h": "Built for Harsh Environments",
+      "t": "Resilient construction resists damage from dust, heat, humidity, and chemical exposure, ensuring long-term reliability in the field."
+     },
+     {
+      "h": "Tested to Perform",
+      "t": "Every AVES respirator is independently tested and approved to meet EN 149, EN 136, and NIOSH requirements, backed by trusted performance, not just paperwork."
+     }
+    ]
+   }
+  },
+  "face": {
+   "title": "assets/type/cat-face.png",
+   "icon": "assets/brand/cat-face.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-face.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Eye Protection?",
+    "titleArt": "assets/type/why-face.png",
+    "items": [
+     {
+      "h": "Multi-Zone Impact Defense",
+      "t": "Specialized shielding to provide complete facial protection from fast-moving particles, abrasive fragments, and tool kickbacks, preventing severe injury."
+     },
+     {
+      "h": "Superior Chemical & Liquid Resistance",
+      "t": "Engineered barriers safeguard against hazardous liquid splashes, aggressive chemicals, and contaminants found in labs, manufacturing plants, and sanitation settings."
+     },
+     {
+      "h": "Arc Flash & Thermal Readiness",
+      "t": "Selected models offer certified protection against radiant heat, arc flash, and molten metal splash, perfectly suited for welding, metal fabrication, and extreme-heat environments."
+     },
+     {
+      "h": "Advanced Anti-Fog & Optics",
+      "t": "High-grade, anti-scratch lenses provide crystal-clear visibility, significantly reducing fogging and scratches for safer, uninterrupted workflow."
+     },
+     {
+      "h": "Ergonomic, Equipment-Compatible Fit",
+      "t": "All models are shaped for comfort and compatibility with helmets, respirators, and hearing protection."
+     },
+     {
+      "h": "Full-Face Coverage That Moves With You",
+      "t": "Extended protection across the face and jawline , without sacrificing mobility or field of view."
+     }
+    ]
+   }
+  },
+  "vest": {
+   "title": "assets/type/cat-vest.png",
+   "icon": null,
+   "approach": null,
+   "why": null
+  },
+  "hand": {
+   "title": "assets/type/cat-hand.png",
+   "icon": "assets/brand/cat-hand.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-hand.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Hand Protection?",
+    "titleArt": "assets/type/why-hand.png",
+    "items": [
+     {
+      "h": "Engineered for Real-World Risk",
+      "t": "Every glove is purpose-built to confront the specific hazards found in today’s industrial settings, from sharp edges and hot surfaces to corrosive liquids and fine precision handling."
+     },
+     {
+      "h": "Long-Wear Comfort, Without Weakness",
+      "t": "AVES® designs combine durable protective barriers with flexible materials and breathable fits, minimizing fatigue and maximizing focus during long shifts."
+     },
+     {
+      "h": "Material Science Meets Task Precision",
+      "t": "Whether it’s nitrile for chemical shielding, Kevlar® for cut defense, or leather for heat resistance, our gloves match each task with the right material performance."
+     },
+     {
+      "h": "Standardized for Safety, Trusted in the Field",
+      "t": "Tested to meet or exceed global industrial safety standards, AVES® gloves are field-proven by professionals across construction, manufacturing, oil and gas, and beyond."
+     }
+    ]
+   }
+  },
+  "cryo-body": {
+   "title": "assets/type/cat-cryo-body.png",
+   "icon": "assets/brand/cat-cryo-body.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-cryo-body.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Cryogenic Protection?",
+    "titleArt": "assets/type/why-cryo-body.png",
+    "items": [
+     {
+      "h": "Extreme Temperature Resistance",
+      "t": "Engineered to shield against ultra-cold exposure and cryogenic splash, with protection as low as -196°C (–320°F), preventing frostbite and thermal injury."
+     },
+     {
+      "h": "Multi-Layer Thermal Barrier",
+      "t": "Constructed with advanced, multi-layered insulation systems that trap heat, block moisture, and maintain thermal protection throughout extended wear."
+     },
+     {
+      "h": "Waterproof & Liquid Repellent",
+      "t": "Specialized outer shells prevent penetration of cryogenic liquids like liquid nitrogen or liquid oxygen,minimizing the risk of skin contact injuries."
+     },
+     {
+      "h": "Ergonomic Fit, Flexible Durability",
+      "t": "Tailored for extended wear, AVES® Cryo Wear combines durable materials with flexible construction,allowing free movement without compromising protection, even during repetitive or physically demanding tasks."
+     },
+     {
+      "h": "Certified Cryogenic Compliance",
+      "t": "Each product is tested and certified to global PPE standards for cryogenic use, ensuring safe industrial performance."
+     }
+    ]
+   }
+  }
+ },
+ "steps": [
+  {
+   "n": 1,
+   "layer": "aves-titan-av-585r-nv",
+   "product": "aves-titan-av-585r-nv",
+   "slot": "head",
+   "box": [
+    344,
+    73,
+    545,
+    230
+   ],
+   "z": 70,
+   "cat": "head",
+   "name": "TITAN® AV-585R NV",
+   "descriptor": "Non-vented shell",
+   "sku": "1891AV585R",
+   "standards": "",
+   "bullets": [
+    "HDPE helmet with a short peak for improved visibility and a low-profile, non-vented design",
+    "6-point ratchet suspension with vertical adjustment and replaceable brow pad",
+    "Rain channels, universal accessory slots, and adjustable headband (54–62 cm)",
+    "ANSI/ISEA Z89.1-2014 TYPE I, Class E & G, and EN 379 certified",
+    "Non-Vented shell"
+   ],
+   "short": [
+    "HDPE helmet with a short peak for improved visibility and a low-profile, non-vented design",
+    "6-point ratchet suspension with vertical adjustment and replaceable brow pad",
+    "Rain channels, universal accessory slots, and adjustable headband (54–62 cm)"
+   ],
+   "material": "High-Density Polyethylene (HDPE)",
+   "colour": "",
+   "why": "Non-vented shell, Class E&G",
+   "url": "https://aves-safety.com/products/head-protection/safety-helmets/aves-titan-av-585r-nv/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Overhead pipework and valves",
+    "where": "Fill stations and tank farms",
+    "at": [
+     -1,
+     -1
+    ],
+    "icon": "head"
+   },
+   "anchors": [
+    [
+     0.5,
+     0.2
+    ],
+    [
+     0.86,
+     0.5
+    ],
+    [
+     0.1,
+     0.76
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    100
+   ],
+   "pack": {
+    "src": "assets/packs/aves-titan-av-585r-nv.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mask": null,
+   "mkt": {
+    "hook": "Non-vented, stable helmet for focused industrial tasks",
+    "features": [
+     {
+      "title": "Clear View Upward",
+      "line": "A short visor keeps your view open for upward-facing tasks"
+     },
+     {
+      "title": "Rain Off Your Face",
+      "line": "Rain channels divert rain clear of your face"
+     },
+     {
+      "title": "Cushioned Nape",
+      "line": "Cushioned nape and flex points add comfort to the 6-point suspension"
+     }
+    ],
+    "system": "Slots take AVES AV-HM cap earmuffs, visors and other attachments"
+   },
+   "layer2x": "assets/layers2x/aves-titan-av-585r-nv.webp",
+   "image": "assets/products/aves-titan-av-585r-nv.png",
+   "fly": "assets/products/aves-titan-av-585r-nv.png",
+   "copySource": "catalogue REV 7 p. 10"
+  },
+  {
+   "n": 2,
+   "layer": "av-gg25",
+   "product": "av-gg25",
+   "slot": "eye",
+   "box": [
+    360,
+    156,
+    532,
+    253
+   ],
+   "z": 75,
+   "cat": "eye",
+   "name": "AV-GG25",
+   "descriptor": "Indirect-vent goggle",
+   "sku": "2127AV126",
+   "standards": "ANSI Z87.1-2010 CE EN166",
+   "bullets": [
+    "Impact-resistant polycarbonate lenses with anti-fog coating",
+    "2.0mm thick lenses with a base 3.5 curvature",
+    "Indirect ventilation slots for airflow and fog reduction",
+    "Wide face contact area for a secure and comfortable fit",
+    "Soft nose bridge for added comfort",
+    "Adjustable elastic strap for a customized fit"
+   ],
+   "short": [
+    "Impact-resistant polycarbonate lenses with anti-fog coating",
+    "2.0mm thick lenses with a base 3.5 curvature",
+    "Indirect ventilation slots for airflow and fog reduction"
+   ],
+   "material": "Polycarbonate (PC)",
+   "colour": "Clear, Grey",
+   "why": "Indirect-vent goggle, EN 166, under a face shield against cryogen splash",
+   "url": "https://aves-safety.com/products/eye-protection/safety-goggles/av-gg25/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Cryogen splash",
+    "where": "Filling, decanting and coupling hoses",
+    "at": [
+     0.83,
+     0.6
+    ],
+    "icon": "splash"
+   },
+   "anchors": [
+    [
+     0.5,
+     0.3
+    ],
+    [
+     0.3,
+     0.6
+    ],
+    [
+     0.92,
+     0.4
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    56
+   ],
+   "pack": {
+    "src": "assets/packs/av-gg25.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mask": null,
+   "mkt": {
+    "hook": "Legionnaire: a sealed, indirect-vent splash goggle",
+    "features": [
+     {
+      "title": "Eighteen Indirect Vents",
+      "line": "Eighteen built-in indirect vent slots help the lens resist fogging"
+     },
+     {
+      "title": "SuperCoat Anti-Fog",
+      "line": "An impact-resistant molded lens carries SuperCoat anti-fog coating"
+     },
+     {
+      "title": "Easy-Fit Strap",
+      "line": "An easy-fit elastic strap gives stable, personal adjustment"
+     }
+    ],
+    "system": ""
+   },
+   "layer2x": "assets/layers2x/av-gg25.webp",
+   "image": "assets/products/av-gg25.png",
+   "fly": "assets/products/av-gg25.png",
+   "copySource": "catalogue REV 7 p. 26"
+  },
+  {
+   "n": 3,
+   "layer": "av-151-disposable-earplugs",
+   "product": "av-151-disposable-earplugs",
+   "slot": "hearing",
+   "box": [
+    349,
+    185,
+    540,
+    360
+   ],
+   "z": 80,
+   "cat": "hearing",
+   "name": "AV-151",
+   "descriptor": "Foam plug",
+   "sku": "2474AV65",
+   "standards": "CE, EN-352",
+   "bullets": [
+    "Tapered shape & slow expansion rate for easy and accurate insertion",
+    "Soft polyurethane foam ensures comfort and effective noise sealing",
+    "Smooth surface & low pressure reduce ear canal irritation for extended wear",
+    "One size fits all design ensures a secure fit for virtually every user"
+   ],
+   "short": [
+    "Tapered shape & slow expansion rate for easy and accurate insertion",
+    "Soft polyurethane foam ensures comfort and effective noise sealing",
+    "Smooth surface & low pressure reduce ear canal irritation for extended wear"
+   ],
+   "material": "Polyurethane Foam",
+   "colour": "Orange",
+   "why": "Foam plug, 33 dB NRR, for venting and pump noise",
+   "url": "https://aves-safety.com/products/ear-protection/ear-plugs/av-151-disposable-earplugs/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Venting and pump noise",
+    "where": "Vents, relief valves and transfer pumps",
+    "at": [
+     -1,
+     -1
+    ],
+    "icon": "hearing"
+   },
+   "anchors": [
+    [
+     0.12,
+     0.62
+    ],
+    [
+     0.88,
+     0.62
+    ],
+    [
+     0.5,
+     0.1
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    124
+   ],
+   "pack": {
+    "src": "assets/packs/av-151-disposable-earplugs.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mask": null,
+   "mkt": {
+    "hook": "Single-use foam earplugs for all-day wear comfort",
+    "features": [
+     {
+      "title": "Tapered for Easy Fit",
+      "line": "A tapered-bullet shape for easy insertion and a more universal fit"
+     },
+     {
+      "title": "Sealed Surface",
+      "line": "A smooth, sealed surface keeps foreign bodies from working into the foam"
+     },
+     {
+      "title": "A Fresh Pair Each Time",
+      "line": "Single-use plugs, free of PVC and latex, for clean everyday wear"
+     }
+    ],
+    "system": ""
+   },
+   "layer2x": "assets/layers2x/av-151-disposable-earplugs.webp",
+   "image": "assets/products/av-151-disposable-earplugs.png",
+   "fly": "assets/products/av-151-disposable-earplugs.png",
+   "copySource": "catalogue REV 7 p. 59"
+  },
+  {
+   "n": 4,
+   "layer": "emergency-escape-hood-breathing-device",
+   "product": "emergency-escape-hood-breathing-device",
+   "slot": "respiratory",
+   "box": [
+    292,
+    731,
+    528,
+    824
+   ],
+   "z": 40,
+   "cat": "respiratory",
+   "name": "EMERGENCY ESCAPE HOOD BREATHING DEVICE",
+   "descriptor": "Supplied-air escape hood",
+   "sku": "79274FT640",
+   "standards": "",
+   "bullets": [
+    "Escape Duration: 15 minutes of continuous air supply",
+    "Hood Type: Full-face, flame-resistant silver hood",
+    "Universal Fit: Accommodates all face shapes and head sizes",
+    "Activation: One-step activation",
+    "Cylinder: Refillable without special tools or adapters"
+   ],
+   "short": [
+    "Escape Duration: 15 minutes of continuous air supply",
+    "Hood Type: Full-face, flame-resistant silver hood",
+    "Universal Fit: Accommodates all face shapes and head sizes"
+   ],
+   "material": "Neoprene Foam",
+   "colour": "Grey",
+   "why": "Supplied-air escape hood, 15 minutes; filter masks fail in oxygen deficiency",
+   "url": "https://aves-safety.com/products/respiratory-protection/emergency-breathing-apparatus-escape-hoods/emergency-escape-hood-breathing-device/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Oxygen-deficient atmosphere",
+    "where": "Enclosed rooms and pits: filter masks do not work here",
+    "at": [
+     0.36,
+     0.66
+    ],
+    "icon": "oxygen"
+   },
+   "anchors": [
+    [
+     0.3,
+     0.4
+    ],
+    [
+     0.72,
+     0.5
+    ],
+    [
+     0.5,
+     0.8
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    110
+   ],
+   "pack": {
+    "src": "assets/packs/emergency-escape-hood-breathing-device.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mask": null,
+   "mkt": {
+    "hook": "Escape-only hood with its own 15-minute air supply",
+    "features": [
+     {
+      "title": "Its Own Air Supply",
+      "line": "Breathes from its own air supply, independent of the surrounding atmosphere"
+     },
+     {
+      "title": "Air Flows on Donning",
+      "line": "Air flow starts automatically as soon as the device is donned or opened"
+     },
+     {
+      "title": "Warns Before Air Runs Out",
+      "line": "A built-in whistle sounds when the cylinder is nearly empty"
+     }
+    ],
+    "system": ""
+   },
+   "layer2x": "assets/layers2x/emergency-escape-hood-breathing-device.webp",
+   "image": "assets/products/emergency-escape-hood-breathing-device.png",
+   "fly": "assets/products/emergency-escape-hood-breathing-device.png",
+   "copySource": "aves-safety.com"
+  },
+  {
+   "n": 5,
+   "layer": "av-fs16p__on-aves-titan-av-585r-nv",
+   "product": "av-fs16p",
+   "slot": "face",
+   "box": [
+    345,
+    148,
+    545,
+    349
+   ],
+   "z": 60,
+   "cat": "face",
+   "name": "AV-FS16P",
+   "descriptor": "Clear polycarbonate shield",
+   "sku": "3417FT01-V",
+   "standards": "ANSI Z87.1-2010 CE EN166",
+   "bullets": [
+    "Durable and lightweight polycarbonate shield",
+    "10 times more impact-resistant than plastic or glass",
+    "Provides full-face protection against impact and",
+    "chemical hazards",
+    "1mm thick clear polycarbonate visor",
+    "Aluminum frame for added stability"
+   ],
+   "short": [
+    "Durable and lightweight polycarbonate shield",
+    "10 times more impact-resistant than plastic or glass",
+    "Provides full-face protection against impact and"
+   ],
+   "material": "Polycarbonate (PC)",
+   "colour": "",
+   "why": "Clear polycarbonate shield, EN 166, against cryogen splash to the face",
+   "url": "https://aves-safety.com/products/face-protection/faceshield/av-fs16p/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Cryogen splash to the face",
+    "where": "Filling and decanting",
+    "at": [
+     0.83,
+     0.6
+    ],
+    "icon": "splash"
+   },
+   "anchors": [
+    [
+     0.5,
+     0.25
+    ],
+    [
+     0.86,
+     0.55
+    ],
+    [
+     0.14,
+     0.75
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    130
+   ],
+   "pack": {
+    "src": "assets/packs/av-fs16p.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mask": null,
+   "mkt": {
+    "hook": "Clear face shield with an aluminum-bound edge",
+    "features": [
+     {
+      "title": "Edge That Holds Its Shape",
+      "line": "An aluminum-bound edge reinforces the visor and keeps it dimensionally stable"
+     },
+     {
+      "title": "Clear, Undistorted View",
+      "line": "High optical clarity gives clear, distortion-free vision"
+     },
+     {
+      "title": "Face and Chin Covered",
+      "line": "Full-face cover extends to the chin and helps shield against liquid splashes"
+     }
+    ],
+    "system": "Multi-slot mount fits browguards and helmet-mounted carriers"
+   },
+   "layer2x": "assets/layers2x/av-fs16p__on-aves-titan-av-585r-nv.webp",
+   "image": "assets/products/av-fs16p.png",
+   "fly": "assets/products/av-fs16p.png",
+   "copySource": "catalogue REV 7 p. 36"
+  },
+  {
+   "n": 6,
+   "layer": "scuta-vest",
+   "product": "scuta-vest",
+   "slot": "vest",
+   "box": [
+    272,
+    301,
+    612,
+    859
+   ],
+   "z": 10,
+   "cat": "vest",
+   "name": "REFLECTOR SAFETY VEST",
+   "descriptor": "Hi-vis vest by Scuta",
+   "sku": "3116RR71",
+   "standards": "EN ISO 20471:2013+A1:2016 Class 2",
+   "bullets": [
+    "Class 2 hi-vis waistcoat",
+    "Two 5 cm reflective bands round the torso",
+    "One reflective band over each shoulder"
+   ],
+   "short": [
+    "Class 2 hi-vis waistcoat",
+    "Two 5 cm reflective bands round the torso",
+    "One reflective band over each shoulder"
+   ],
+   "material": "",
+   "colour": "",
+   "why": "Sister brand, not part of the AVES range.",
+   "url": "",
+   "sister": true,
+   "sisterNote": "Sister brand, not part of the AVES range. No product link (owner's rule).",
+   "hazard": {
+    "title": "Being seen",
+    "where": "Tanker bays and delivery routes",
+    "at": [
+     -1,
+     -1
+    ],
+    "icon": "vest"
+   },
+   "anchors": [
+    [
+     0.3,
+     0.3
+    ],
+    [
+     0.52,
+     0.62
+    ],
+    [
+     0.74,
+     0.1
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    150
+   ],
+   "pack": {
+    "src": "assets/packs/vest.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mask": null,
+   "mkt": null,
+   "layer2x": "assets/layers2x/scuta-vest.webp",
+   "image": "assets/products/scuta-vest.png",
+   "fly": "assets/products/scuta-vest.png",
+   "copySource": "PTF description"
+  },
+  {
+   "n": 7,
+   "layer": "cryo-gloves-elbow",
+   "product": "cryo-gloves-elbow",
+   "slot": "hand",
+   "box": [
+    200,
+    661,
+    694,
+    955
+   ],
+   "z": 90,
+   "cat": "hand",
+   "name": "HG-3463",
+   "descriptor": "Elbow-length cryo glove",
+   "sku": "HG-3463",
+   "standards": "CE Cat III, EN 388, EN 420, EN511",
+   "bullets": [
+    "Multi-layer insulated construction provides maximum thermal protection for ultra-cold environments",
+    "State-of-the-art fabric ensures durability, flexibility, and dexterity",
+    "Water-resistant and breathable, preventing moisture buildup while keeping hands dry",
+    "Stay-Dry inner lining enhances comfort and moisture management",
+    "Lightweight and ergonomic design allows excellent dexterity and grip",
+    "Designed for ultra-cold environments, ideal for general work requiring hand protection in extreme cold conditions"
+   ],
+   "short": [
+    "State-of-the-art fabric ensures durability, flexibility, and dexterity",
+    "Water-resistant and breathable, preventing moisture buildup while keeping hands dry",
+    "Stay-Dry inner lining enhances comfort and moisture management"
+   ],
+   "material": "Multi-Layer Composite Materials",
+   "colour": "Royal Blue",
+   "why": "Elbow-length cryo glove, EN 511, multi-layer insulation, CE Cat III",
+   "url": "https://aves-safety.com/products/cryogenic-protection/cryo-gloves/cryo-gloves-elbow/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Cold burns",
+    "where": "Hoses, valves and cold vessels",
+    "at": [
+     0.1,
+     0.49
+    ],
+    "icon": "cold"
+   },
+   "anchors": [
+    [
+     0.12,
+     0.3
+    ],
+    [
+     0.88,
+     0.55
+    ],
+    [
+     0.14,
+     0.85
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    150
+   ],
+   "pack": {
+    "src": "assets/packs/cryo-gloves-elbow.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mask": null,
+   "mkt": {
+    "hook": "Elbow-length insulated glove for cryogenic work",
+    "features": [
+     {
+      "title": "Covers to the Elbow",
+      "line": "The elbow-length cuff extends cover across hands, wrists, forearms and elbows"
+     },
+     {
+      "title": "Shell Against Splashes",
+      "line": "A water-resistant outer shell helps resist cryogenic liquid splashes"
+     },
+     {
+      "title": "Layers Against the Cold",
+      "line": "Multi-layer insulation helps reduce heat transfer when handling cryogenic materials"
+     }
+    ],
+    "system": ""
+   },
+   "layer2x": "assets/layers2x/cryo-gloves-elbow.webp",
+   "image": "assets/products/cryo-gloves-elbow.png",
+   "fly": "assets/products/cryo-gloves-elbow.png",
+   "copySource": "catalogue REV 7 p. 101"
+  },
+  {
+   "n": 8,
+   "layer": "thermal-protection-apron",
+   "product": "thermal-protection-apron",
+   "slot": "cryo-body",
+   "box": [
+    262,
+    291,
+    622,
+    1059
+   ],
+   "z": 15,
+   "cat": "cryo-body",
+   "name": "CRYO-PROTECT APRON",
+   "descriptor": "Insulated apron",
+   "sku": "15156FT164",
+   "standards": "CE Cat III, EN 388, EN 420, EN 511",
+   "bullets": [
+    "Made from multi-layer anti-cold composite materials  designed to offer maximum thermal",
+    "protection in torso and upper legs against cryogenic splashes and ultra-cold gases from",
+    "hazardous cold environment",
+    "1st layer - Waterproof nylon outer shell",
+    "2nd layer - Anti-cold insulating materials",
+    "3rd layer - Ultra-fine low temperature cotton and comfort layer",
+    "Using the most advance materials and innovative design, this apron is suitable for maximum  safety against spills and splash from liquid nitrogen and other cryogenic liquids and from extremely cold environment"
+   ],
+   "short": [
+    "Made from multi-layer anti-cold composite materials  designed to offer maximum thermal",
+    "protection in torso and upper legs against cryogenic splashes and ultra-cold gases from",
+    "hazardous cold environment"
+   ],
+   "material": "",
+   "colour": "Navy",
+   "why": "Insulated apron, EN 511, splash-resistant, for ultra-cold handling",
+   "url": "https://aves-safety.com/products/cryogenic-protection/cryo-industrial-wear/thermal-protection-apron/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Cryogen splash and cold burns",
+    "where": "Filling and decanting at the vessel",
+    "at": [
+     0.1,
+     0.49
+    ],
+    "icon": "cold"
+   },
+   "anchors": [
+    [
+     0.3,
+     0.25
+    ],
+    [
+     0.7,
+     0.5
+    ],
+    [
+     0.5,
+     0.8
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    150
+   ],
+   "pack": null,
+   "mask": null,
+   "mkt": {
+    "hook": "Cryogenic apron covering the torso and upper legs",
+    "features": [
+     {
+      "title": "Waterproof Outer Shell",
+      "line": "A waterproof nylon outer shell helps protect you from cryogenic splashes"
+     },
+     {
+      "title": "Built in Layers",
+      "line": "Multi-layered construction gives thermal protection against extreme cold"
+     },
+     {
+      "title": "Quick-Release Fit",
+      "line": "Adjustable neck and waist straps with quick-release buckles for a secure fit"
+     }
+    ],
+    "system": ""
+   },
+   "layer2x": "assets/layers2x/thermal-protection-apron.webp",
+   "image": "assets/products/thermal-protection-apron.png",
+   "fly": "assets/products/thermal-protection-apron.png",
+   "copySource": "catalogue REV 7 p. 108"
+  }
+ ]
+}

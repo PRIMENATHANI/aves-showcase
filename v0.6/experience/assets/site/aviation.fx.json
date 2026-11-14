@@ -1,0 +1,22 @@
+{
+ "depth": "assets/site/aviation-depth.png",
+ "sky": "assets/site/aviation-sky.jpg",
+ "k": {
+  "d0": 0.3,
+  "dp": 0.85,
+  "pan": 0.95,
+  "zoom": 0.9,
+  "ptr": 0.012
+ },
+ "plumes": [],
+ "haze": {
+  "y": 0.6,
+  "w": 0.06,
+  "a": 0.2,
+  "color": [
+   0.95,
+   0.87,
+   0.77
+  ]
+ }
+}

@@ -1,0 +1,22 @@
+{
+ "depth": "assets/site/heavy-machinery-depth.png",
+ "sky": "assets/site/heavy-machinery-sky.jpg",
+ "k": {
+  "d0": 0.3,
+  "dp": 0.85,
+  "pan": 0.95,
+  "zoom": 0.9,
+  "ptr": 0.012
+ },
+ "plumes": [],
+ "haze": {
+  "y": 0.64,
+  "w": 0.09,
+  "a": 0.2,
+  "color": [
+   0.86,
+   0.8,
+   0.7
+  ]
+ }
+}

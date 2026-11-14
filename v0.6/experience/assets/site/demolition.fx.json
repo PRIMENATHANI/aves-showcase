@@ -1,0 +1,39 @@
+{
+ "depth": "assets/site/demolition-depth.png",
+ "sky": "assets/site/demolition-sky.jpg",
+ "k": {
+  "d0": 0.3,
+  "dp": 0.85,
+  "pan": 0.95,
+  "zoom": 0.9,
+  "ptr": 0.012
+ },
+ "plumes": [
+  {
+   "at": [
+    0.66,
+    0.63
+   ],
+   "len": 0.16,
+   "lean": 34,
+   "w0": 0.12,
+   "w1": 0.5,
+   "a": 0.55
+  }
+ ],
+ "haze": {
+  "y": 0.6,
+  "w": 0.09,
+  "a": 0.18,
+  "color": [
+   0.86,
+   0.8,
+   0.7
+  ]
+ },
+ "smoke": [
+  0.86,
+  0.8,
+  0.7
+ ]
+}

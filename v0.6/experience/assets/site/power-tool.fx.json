@@ -1,0 +1,22 @@
+{
+ "depth": "assets/site/power-tool-depth.png",
+ "sky": "assets/site/power-tool-sky.jpg",
+ "k": {
+  "d0": 0.3,
+  "dp": 0.85,
+  "pan": 0.95,
+  "zoom": 0.9,
+  "ptr": 0.012
+ },
+ "plumes": [],
+ "haze": {
+  "y": 0.48,
+  "w": 0.22,
+  "a": 0.12,
+  "color": [
+   0.95,
+   0.87,
+   0.77
+  ]
+ }
+}

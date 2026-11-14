@@ -1,0 +1,822 @@
+{
+ "cat-head": {
+  "text": "HEAD PROTECTION",
+  "w": 1080,
+  "h": 72
+ },
+ "cat-eye": {
+  "text": "EYE PROTECTION",
+  "w": 974,
+  "h": 72
+ },
+ "cat-hearing": {
+  "text": "EAR PROTECTION",
+  "w": 984,
+  "h": 72
+ },
+ "cat-respiratory": {
+  "text": "RESPIRATORY PROTECTION",
+  "w": 1543,
+  "h": 72
+ },
+ "cat-hand": {
+  "text": "HAND PROTECTION",
+  "w": 1098,
+  "h": 72
+ },
+ "cat-fall": {
+  "text": "FALL PROTECTION & DROPPED OBJECTS",
+  "w": 2297,
+  "h": 72
+ },
+ "cat-vest": {
+  "text": "HI-VIS WORKWEAR",
+  "w": 1062,
+  "h": 72
+ },
+ "cat-face": {
+  "text": "FACE PROTECTION",
+  "w": 1056,
+  "h": 72
+ },
+ "cat-cryo-body": {
+  "text": "CRYOGENIC PROTECTION",
+  "w": 1441,
+  "h": 72
+ },
+ "why-head": {
+  "text": "Why Choose AVES Head Protection?",
+  "w": 1260,
+  "h": 71
+ },
+ "why-eye": {
+  "text": "Why Choose AVES Eye Protection?",
+  "w": 1206,
+  "h": 71
+ },
+ "why-hearing": {
+  "text": "Why Choose AVES Ear Protection?",
+  "w": 1193,
+  "h": 71
+ },
+ "why-respiratory": {
+  "text": "Why Choose AVES Respiratory Protection?",
+  "w": 1476,
+  "h": 71
+ },
+ "why-hand": {
+  "text": "Why Choose AVES Hand Protection?",
+  "w": 1260,
+  "h": 71
+ },
+ "why-fall": {
+  "text": "Why Choose AVES Fall Protection?",
+  "w": 1198,
+  "h": 71
+ },
+ "why-face": {
+  "text": "Why Choose AVES Eye Protection?",
+  "w": 1206,
+  "h": 71
+ },
+ "why-cryo-body": {
+  "text": "Why Choose AVES Cryogenic Protection?",
+  "w": 1424,
+  "h": 71
+ },
+ "approach": {
+  "text": "THE AVES APPROACH",
+  "w": 783,
+  "h": 45
+ },
+ "kit-assembly-line": {
+  "text": "ASSEMBLY LINE",
+  "w": 1879,
+  "h": 164
+ },
+ "sign-assembly-line": {
+  "text": "ASSEMBLY LINE PPE KIT",
+  "w": 1340,
+  "h": 72
+ },
+ "end-assembly-line": {
+  "text": "THE AVES ASSEMBLY LINE KIT",
+  "w": 1946,
+  "h": 89
+ },
+ "name-aves-titan-av-564p-v": {
+  "text": "TITAN\u00ae AV-564p V",
+  "w": 1001,
+  "h": 103
+ },
+ "name-av-sg59": {
+  "text": "AV-SG59",
+  "w": 482,
+  "h": 82
+ },
+ "name-av-311-reusable-earplugs": {
+  "text": "AV-311RE",
+  "w": 539,
+  "h": 80
+ },
+ "name-ffp2-nv-ff-av-548": {
+  "text": "AV-548 FFP2",
+  "w": 702,
+  "h": 80
+ },
+ "name-scuta-vest": {
+  "text": "REFLECTOR SAFETY VEST",
+  "w": 1424,
+  "h": 82
+ },
+ "name-hg-2919-assembly": {
+  "text": "HG-2919",
+  "w": 465,
+  "h": 82
+ },
+ "kit-aviation": {
+  "text": "AVIATION",
+  "w": 1178,
+  "h": 164
+ },
+ "sign-aviation": {
+  "text": "AVIATION PPE KIT",
+  "w": 1016,
+  "h": 72
+ },
+ "end-aviation": {
+  "text": "THE AVES AVIATION KIT",
+  "w": 1571,
+  "h": 89
+ },
+ "name-aves-victor-av-714r-v": {
+  "text": "VICTOR\u00ae AV-714R V",
+  "w": 1086,
+  "h": 82
+ },
+ "name-av-sg14": {
+  "text": "AV-SG14",
+  "w": 483,
+  "h": 82
+ },
+ "name-av-hb21-headband-earmuffs": {
+  "text": "AV-HB21",
+  "w": 474,
+  "h": 79
+ },
+ "name-ffp2-av-449-with-carbon": {
+  "text": "AV-449 FFP2",
+  "w": 702,
+  "h": 79
+ },
+ "name-full-body-harness-4": {
+  "text": "AV-647",
+  "w": 396,
+  "h": 79
+ },
+ "name-av-101363": {
+  "text": "AV-101363",
+  "w": 596,
+  "h": 80
+ },
+ "name-hg-1147-suregrip": {
+  "text": "HG-1147",
+  "w": 465,
+  "h": 82
+ },
+ "kit-construction": {
+  "text": "CONSTRUCTION",
+  "w": 1899,
+  "h": 164
+ },
+ "sign-construction": {
+  "text": "CONSTRUCTION PPE KIT",
+  "w": 1345,
+  "h": 72
+ },
+ "end-construction": {
+  "text": "THE AVES CONSTRUCTION KIT",
+  "w": 1964,
+  "h": 89
+ },
+ "name-aves-victor-av-845r-v": {
+  "text": "VICTOR\u00ae AV-845R V",
+  "w": 1086,
+  "h": 82
+ },
+ "name-av-sg28": {
+  "text": "AV-SG28",
+  "w": 480,
+  "h": 82
+ },
+ "name-av-hm3093-cap-earmuffs": {
+  "text": "AV-HM3093",
+  "w": 653,
+  "h": 80
+ },
+ "name-ffp3-v-ff-av-559": {
+  "text": "AV-559 FFP3",
+  "w": 702,
+  "h": 80
+ },
+ "name-full-body-harness-ansi-4": {
+  "text": "AV-654",
+  "w": 397,
+  "h": 79
+ },
+ "name-av-101365": {
+  "text": "AV-101365",
+  "w": 596,
+  "h": 80
+ },
+ "name-hg-1101sp-leather-gloves": {
+  "text": "HG-1101SP",
+  "w": 603,
+  "h": 82
+ },
+ "kit-cryogenic": {
+  "text": "CRYOGENIC HANDLING",
+  "w": 2802,
+  "h": 164
+ },
+ "sign-cryogenic": {
+  "text": "CRYOGENIC HANDLING PPE KIT",
+  "w": 1762,
+  "h": 72
+ },
+ "end-cryogenic": {
+  "text": "THE AVES CRYOGENIC HANDLING KIT",
+  "w": 2449,
+  "h": 89
+ },
+ "name-aves-titan-av-585r-nv": {
+  "text": "TITAN\u00ae AV-585R NV",
+  "w": 1095,
+  "h": 80
+ },
+ "name-av-gg25": {
+  "text": "AV-GG25",
+  "w": 502,
+  "h": 82
+ },
+ "name-av-151-disposable-earplugs": {
+  "text": "AV-151",
+  "w": 382,
+  "h": 79
+ },
+ "name-emergency-escape-hood-breathing-device": {
+  "text": "EMERGENCY ESCAPE HOOD BREATHING DEVICE",
+  "w": 2736,
+  "h": 82
+ },
+ "name-av-fs16p": {
+  "text": "AV-FS16P",
+  "w": 534,
+  "h": 82
+ },
+ "name-cryo-gloves-elbow": {
+  "text": "HG-3463",
+  "w": 463,
+  "h": 82
+ },
+ "name-thermal-protection-apron": {
+  "text": "CRYO-PROTECT APRON",
+  "w": 1308,
+  "h": 82
+ },
+ "kit-demolition": {
+  "text": "DEMOLITION",
+  "w": 1522,
+  "h": 164
+ },
+ "sign-demolition": {
+  "text": "DEMOLITION PPE KIT",
+  "w": 1174,
+  "h": 72
+ },
+ "end-demolition": {
+  "text": "THE AVES DEMOLITION KIT",
+  "w": 1765,
+  "h": 89
+ },
+ "name-aves-titan-av-585p-nv": {
+  "text": "TITAN\u00ae AV-585P NV",
+  "w": 1093,
+  "h": 80
+ },
+ "name-av-sg18": {
+  "text": "AV-SG18",
+  "w": 480,
+  "h": 82
+ },
+ "name-av-hm7093-cap-earmuffs": {
+  "text": "AV-HM7093",
+  "w": 653,
+  "h": 80
+ },
+ "name-ffp3-av-zer0-30": {
+  "text": "AV-529",
+  "w": 396,
+  "h": 80
+ },
+ "name-av-fs18l-cylinder-face-shield": {
+  "text": "AV-FS18",
+  "w": 459,
+  "h": 82
+ },
+ "name-full-body-harness-2": {
+  "text": "AV-646",
+  "w": 396,
+  "h": 79
+ },
+ "name-av-101368": {
+  "text": "AV-101368",
+  "w": 596,
+  "h": 80
+ },
+ "name-hg-1113-leather-gloves": {
+  "text": "HG-1113",
+  "w": 463,
+  "h": 82
+ },
+ "kit-electrical": {
+  "text": "ELECTRICAL & ARC FLASH",
+  "w": 3081,
+  "h": 164
+ },
+ "sign-electrical": {
+  "text": "ELECTRICAL & ARC FLASH PPE KIT",
+  "w": 1900,
+  "h": 72
+ },
+ "end-electrical": {
+  "text": "THE AVES ELECTRICAL & ARC FLASH KIT",
+  "w": 2602,
+  "h": 89
+ },
+ "name-aves-victor-av-717r-nv": {
+  "text": "VICTOR\u00ae AV-717R NV",
+  "w": 1178,
+  "h": 82
+ },
+ "name-av-hb30-ear-muffs": {
+  "text": "AV-HB30",
+  "w": 488,
+  "h": 80
+ },
+ "name-n95-av800-particulate-respirator": {
+  "text": "AV-800",
+  "w": 396,
+  "h": 80
+ },
+ "name-av-fs20cp-arc10": {
+  "text": "AV-FS20CP ARC10",
+  "w": 1014,
+  "h": 82
+ },
+ "name-class-0-flash-grip": {
+  "text": "Flash and Grip",
+  "w": 769,
+  "h": 108
+ },
+ "kit-forestry": {
+  "text": "FORESTRY",
+  "w": 1212,
+  "h": 164
+ },
+ "sign-forestry": {
+  "text": "FORESTRY PPE KIT",
+  "w": 1022,
+  "h": 72
+ },
+ "end-forestry": {
+  "text": "THE AVES FORESTRY KIT",
+  "w": 1589,
+  "h": 89
+ },
+ "name-aves-titan-av-841r-nv": {
+  "text": "TITAN\u00ae AV-841R NV",
+  "w": 1095,
+  "h": 80
+ },
+ "name-av-sg30": {
+  "text": "AV-SG30",
+  "w": 482,
+  "h": 82
+ },
+ "name-ffp2-av-187-mask": {
+  "text": "AV-187 FFP2",
+  "w": 702,
+  "h": 80
+ },
+ "name-av-fs15p": {
+  "text": "AV-FS15P",
+  "w": 534,
+  "h": 82
+ },
+ "name-full-body-harness-ansi-3": {
+  "text": "AVES FULL BODY HARNESS",
+  "w": 1536,
+  "h": 82
+ },
+ "name-av-101494": {
+  "text": "AV-101494",
+  "w": 599,
+  "h": 80
+ },
+ "kit-heavy-machinery": {
+  "text": "HEAVY MACHINERY",
+  "w": 2362,
+  "h": 164
+ },
+ "sign-heavy-machinery": {
+  "text": "HEAVY MACHINERY PPE KIT",
+  "w": 1551,
+  "h": 72
+ },
+ "end-heavy-machinery": {
+  "text": "THE AVES HEAVY MACHINERY KIT",
+  "w": 2206,
+  "h": 89
+ },
+ "name-aves-titan-av-846r-v": {
+  "text": "TITAN\u00ae AV-846R V",
+  "w": 1003,
+  "h": 80
+ },
+ "name-av-sg51": {
+  "text": "AV-SG51",
+  "w": 468,
+  "h": 82
+ },
+ "name-aves-av-hm4093": {
+  "text": "AV-HM4093",
+  "w": 653,
+  "h": 80
+ },
+ "name-hg-1107-rigger": {
+  "text": "HG-1107",
+  "w": 465,
+  "h": 82
+ },
+ "kit-logistics": {
+  "text": "LOGISTICS",
+  "w": 1211,
+  "h": 164
+ },
+ "sign-logistics": {
+  "text": "LOGISTICS PPE KIT",
+  "w": 1032,
+  "h": 72
+ },
+ "end-logistics": {
+  "text": "THE AVES LOGISTICS KIT",
+  "w": 1595,
+  "h": 89
+ },
+ "name-aves-victor-av-714p-v": {
+  "text": "VICTOR\u00ae AV-714P V",
+  "w": 1084,
+  "h": 82
+ },
+ "name-av-sg401": {
+  "text": "AV-SG401",
+  "w": 535,
+  "h": 82
+ },
+ "name-av-gp10-banded-earplugs": {
+  "text": "AV-GP10",
+  "w": 488,
+  "h": 82
+ },
+ "name-hg-2750-drivegrip": {
+  "text": "HG-2750",
+  "w": 465,
+  "h": 82
+ },
+ "kit-manufacturing": {
+  "text": "MANUFACTURING",
+  "w": 2134,
+  "h": 164
+ },
+ "sign-manufacturing": {
+  "text": "MANUFACTURING PPE KIT",
+  "w": 1452,
+  "h": 72
+ },
+ "end-manufacturing": {
+  "text": "THE AVES MANUFACTURING KIT",
+  "w": 2095,
+  "h": 89
+ },
+ "name-av-sg57": {
+  "text": "AV-SG57",
+  "w": 482,
+  "h": 82
+ },
+ "name-av-153-corded-earplugs": {
+  "text": "AV-153",
+  "w": 394,
+  "h": 80
+ },
+ "name-hg-2846-latnit-ergotex-palm-grip": {
+  "text": "HG-2846",
+  "w": 465,
+  "h": 82
+ },
+ "kit-mechanical": {
+  "text": "MECHANICAL",
+  "w": 1605,
+  "h": 164
+ },
+ "sign-mechanical": {
+  "text": "MECHANICAL PPE KIT",
+  "w": 1204,
+  "h": 72
+ },
+ "end-mechanical": {
+  "text": "THE AVES MECHANICAL KIT",
+  "w": 1803,
+  "h": 89
+ },
+ "name-aves-titan-av-564r-v": {
+  "text": "TITAN\u00ae AV-564R V",
+  "w": 1003,
+  "h": 79
+ },
+ "name-av-gg30": {
+  "text": "AV-GG30",
+  "w": 504,
+  "h": 82
+ },
+ "name-av-gp20-banded-earplugs": {
+  "text": "AV-GP20",
+  "w": 488,
+  "h": 82
+ },
+ "name-av-tp2000r-double-filter": {
+  "text": "AV-4000nextR",
+  "w": 780,
+  "h": 80
+ },
+ "name-hg-3045-tough-guard": {
+  "text": "HG-3045",
+  "w": 463,
+  "h": 82
+ },
+ "kit-mining": {
+  "text": "MINING",
+  "w": 905,
+  "h": 164
+ },
+ "sign-mining": {
+  "text": "MINING PPE KIT",
+  "w": 888,
+  "h": 72
+ },
+ "end-mining": {
+  "text": "THE AVES MINING KIT",
+  "w": 1432,
+  "h": 89
+ },
+ "name-aves-victor-av-840r-nv": {
+  "text": "VICTOR\u00ae AV-840R NV",
+  "w": 1178,
+  "h": 82
+ },
+ "name-av-gg27": {
+  "text": "AV-GG27",
+  "w": 504,
+  "h": 82
+ },
+ "name-aves-p100-v-cp": {
+  "text": "AV-852 P100",
+  "w": 704,
+  "h": 80
+ },
+ "name-hg-1104-leather-gloves": {
+  "text": "HG-1104",
+  "w": 466,
+  "h": 82
+ },
+ "kit-oil-gas": {
+  "text": "OIL & GAS",
+  "w": 1213,
+  "h": 164
+ },
+ "sign-oil-gas": {
+  "text": "OIL & GAS PPE KIT",
+  "w": 1032,
+  "h": 72
+ },
+ "end-oil-gas": {
+  "text": "THE AVES OIL & GAS KIT",
+  "w": 1590,
+  "h": 89
+ },
+ "name-aves-escape-hood-bag": {
+  "text": "ESCAPE HOOD XTREME",
+  "w": 1323,
+  "h": 82
+ },
+ "name-full-body-harness": {
+  "text": "AV-831",
+  "w": 382,
+  "h": 80
+ },
+ "name-av-101373": {
+  "text": "AV-101373",
+  "w": 596,
+  "h": 80
+ },
+ "name-hg-2230-rubber-neoprene-gloves": {
+  "text": "HG-2230",
+  "w": 465,
+  "h": 82
+ },
+ "kit-power-tool": {
+  "text": "POWER TOOL USAGE",
+  "w": 2497,
+  "h": 164
+ },
+ "sign-power-tool": {
+  "text": "POWER TOOL USAGE PPE KIT",
+  "w": 1621,
+  "h": 72
+ },
+ "end-power-tool": {
+  "text": "THE AVES POWER TOOL USAGE KIT",
+  "w": 2288,
+  "h": 89
+ },
+ "name-av-sg50": {
+  "text": "AV-SG50",
+  "w": 482,
+  "h": 82
+ },
+ "name-aves-ffp3-v-cp": {
+  "text": "AVES FFP3 V CP",
+  "w": 903,
+  "h": 82
+ },
+ "name-av-fs12": {
+  "text": "AV-FS12L",
+  "w": 525,
+  "h": 82
+ },
+ "name-hg-1950-thermo-guard-kevlar-gloves": {
+  "text": "HG-1950",
+  "w": 465,
+  "h": 82
+ },
+ "kit-railway": {
+  "text": "RAILWAY",
+  "w": 1083,
+  "h": 156
+ },
+ "sign-railway": {
+  "text": "RAILWAY PPE KIT",
+  "w": 962,
+  "h": 68
+ },
+ "end-railway": {
+  "text": "THE AVES RAILWAY KIT",
+  "w": 1518,
+  "h": 89
+ },
+ "name-av-717p": {
+  "text": "VICTOR\u00ae AV-717P NV",
+  "w": 1176,
+  "h": 82
+ },
+ "name-av-sg37": {
+  "text": "AV-SG37",
+  "w": 482,
+  "h": 82
+ },
+ "name-full-body-harness-5": {
+  "text": "AV-814",
+  "w": 397,
+  "h": 80
+ },
+ "name-av-101370": {
+  "text": "AV-101370",
+  "w": 598,
+  "h": 80
+ },
+ "name-hg-1109-leather-gloves": {
+  "text": "HG-1109",
+  "w": 465,
+  "h": 82
+ },
+ "kit-rig-drilling": {
+  "text": "RIG DRILLING",
+  "w": 1587,
+  "h": 164
+ },
+ "sign-rig-drilling": {
+  "text": "RIG DRILLING PPE KIT",
+  "w": 1209,
+  "h": 72
+ },
+ "end-rig-drilling": {
+  "text": "THE AVES RIG DRILLING KIT",
+  "w": 1797,
+  "h": 89
+ },
+ "name-av-gg45": {
+  "text": "AV-GG45",
+  "w": 502,
+  "h": 82
+ },
+ "name-full-body-harness-ansi": {
+  "text": "AVES FULL BODY HARNESS",
+  "w": 1536,
+  "h": 82
+ },
+ "name-av-101420": {
+  "text": "AV-101420",
+  "w": 598,
+  "h": 80
+ },
+ "name-hg-1108-rigger": {
+  "text": "HG-1108",
+  "w": 463,
+  "h": 82
+ },
+ "kit-welding": {
+  "text": "WELDING & HOT WORK",
+  "w": 2832,
+  "h": 164
+ },
+ "sign-welding": {
+  "text": "WELDING & HOT WORK PPE KIT",
+  "w": 1768,
+  "h": 72
+ },
+ "end-welding": {
+  "text": "THE AVES WELDING & HOT WORK KIT",
+  "w": 2451,
+  "h": 89
+ },
+ "name-av-sg25": {
+  "text": "AV-SG25",
+  "w": 480,
+  "h": 82
+ },
+ "name-av-411re-reusable-earplugs": {
+  "text": "AV-411RE",
+  "w": 539,
+  "h": 78
+ },
+ "name-ffp3-nr-d-av-557": {
+  "text": "AV-557 FFP3",
+  "w": 702,
+  "h": 80
+ },
+ "name-aves-welding-helmet": {
+  "text": "AVES WELDING HELMET",
+  "w": 1375,
+  "h": 82
+ },
+ "name-hg-3058-cotton-gloves": {
+  "text": "HG-3058",
+  "w": 463,
+  "h": 82
+ },
+ "kit-woodworking": {
+  "text": "WOODWORKING",
+  "w": 1992,
+  "h": 164
+ },
+ "sign-woodworking": {
+  "text": "WOODWORKING PPE KIT",
+  "w": 1382,
+  "h": 72
+ },
+ "end-woodworking": {
+  "text": "THE AVES WOODWORKING KIT",
+  "w": 2011,
+  "h": 89
+ },
+ "name-av-gg10": {
+  "text": "AV-GG10",
+  "w": 504,
+  "h": 82
+ },
+ "name-av-hb640-headband-earmuffs": {
+  "text": "AV-HB640",
+  "w": 555,
+  "h": 80
+ },
+ "name-ffp3-av-505b": {
+  "text": "FFP3 AV-505B",
+  "w": 771,
+  "h": 80
+ },
+ "name-hg-2740-drivegrip": {
+  "text": "HG-2740",
+  "w": 465,
+  "h": 82
+ }
+}

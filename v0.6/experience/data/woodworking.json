@@ -1,0 +1,910 @@
+{
+ "kit": {
+  "id": "woodworking",
+  "name": "Woodworking",
+  "title": "The AVES Woodworking Kit",
+  "group": "Make",
+  "intro": "Joinery and sawmill work: hardwood dust, flying chips, machine noise and splinters around rotating blades.",
+  "hazards": [
+   "hardwood dust",
+   "flying chips",
+   "saw and planer noise",
+   "splinters",
+   "rotating blades"
+  ],
+  "hazardIcons": [
+   "dust",
+   "eye",
+   "hearing",
+   "splinter",
+   "cut"
+  ],
+  "tile": "assets/brand/kit-woodworking.png",
+  "index": 10,
+  "of": 18
+ },
+ "frame": {
+  "w": 896,
+  "h": 1536
+ },
+ "rack": {
+  "w": 896,
+  "h": 1280
+ },
+ "backdrop": "assets/site/woodworking.jpg",
+ "fx": "assets/site/woodworking.fx.json",
+ "phoneX": 0.72,
+ "shelf": "assets/site/shelf.jpg",
+ "hz": [
+  "cut",
+  "dust",
+  "eye",
+  "head",
+  "hearing",
+  "splinter",
+  "vest"
+ ],
+ "base2x": "assets/layers2x/base.webp",
+ "boots": {
+  "name": "Cavalier Captain 8713-4 HC",
+  "sku": "73110CV214",
+  "standards": "EN ISO 20345:2011 S3"
+ },
+ "cats": {
+  "head": {
+   "title": "assets/type/cat-head.png",
+   "icon": "assets/brand/cat-head.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-head.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Head Protection?",
+    "titleArt": "assets/type/why-head.png",
+    "items": [
+     {
+      "h": "Engineered Impact Absorption",
+      "t": "AVES helmets are precision-built to neutralize both vertical and lateral blows, minimizing the risk of skull fractures, neck injuries and concussive trauma in work environments."
+     },
+     {
+      "h": "Integrated Suspension Architecture",
+      "t": "Each helmet integrates advanced 4 or 6 point suspension systems that distribute impact forces evenly, eliminate pressure and firmly secured through movement-intensive shifts."
+     },
+     {
+      "h": "Certified Electrical Protection",
+      "t": "With Class E and G certified models, AVES headgear offers insulation against electrical arc flashes and voltage contact. AVES shells are UV-stabilized, fire-resistant, and ventilated."
+     },
+     {
+      "h": "Full-Zone Protection Compatibility",
+      "t": "Select models provide extended coverage. Our helmets are designed for seamless integration with visors, earmuffs and face shields, enabling full PPE synergy."
+     }
+    ]
+   }
+  },
+  "eye": {
+   "title": "assets/type/cat-eye.png",
+   "icon": "assets/brand/cat-eye.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-eye.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Eye Protection?",
+    "titleArt": "assets/type/why-eye.png",
+    "items": [
+     {
+      "h": "Certified Impact Defense",
+      "t": "Engineered beyond industry benchmarks (ANSI Z87.1 & EN166), AVES lenses reliably withstand high-velocity impacts from debris, dust, and flying objects. Our rigorous testing ensures eyes remain protected in the most demanding industrial and construction environments."
+     },
+     {
+      "h": "Advanced UV Blocking Technology",
+      "t": "AVES eyewear offers exceptional UV protection, filtering out 99.9% of harmful ultraviolet rays. Our lenses significantly reduce eye fatigue and glare, enhancing worker comfort and performance even during prolonged exposure to sunlight or intense industrial lighting.."
+     },
+     {
+      "h": "Superior Anti-Fog Clarity with SuperCoat™",
+      "t": "Never let fog compromise your productivity. Our exclusive SuperCoat™ lens technology delivers consistently clear vision under humid or fluctuating temperature conditions, reducing downtime and ensuring your focus remains uninterrupted."
+     },
+     {
+      "h": "Exceptional Scratch-Resistant Durability",
+      "t": "Built tough for rigorous everyday use, AVES eyewear features robust scratch-resistant coatings that preserve lens clarity and integrity, extending eyewear lifespan and reducing the need for frequent replacements."
+     },
+     {
+      "h": "Military-Grade Reliability (Ballistic Certified)",
+      "t": "Selected AVES products achieve the demanding MIL-PRF-31013 ballistic standard, trusted by professionals working in high-risk environments. This certification underscores our unwavering commitment to superior safety standards and product dependability."
+     },
+     {
+      "h": "All-Day Ergonomic Comfort & Lightweight Fit",
+      "t": "AVES eyewear prioritizes your comfort, featuring ergonomically crafted designs that evenly distribute weight and reduce pressure points. Adjustable and secure fittings mean workers remain comfortable, reducing distraction and increasing productivity even during extended wear."
+     },
+     {
+      "h": "Enhanced Productivity Through Visual Comfort",
+      "t": "Our precision-engineered optical clarity minimizes eye strain, allowing workers to perform tasks more accurately and efficiently. Improved visual comfort directly translates to higher productivity and fewer work-related errors."
+     }
+    ]
+   }
+  },
+  "hearing": {
+   "title": "assets/type/cat-hearing.png",
+   "icon": "assets/brand/cat-hearing.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-hearing.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Ear Protection?",
+    "titleArt": "assets/type/why-hearing.png",
+    "items": [
+     {
+      "h": "Superior Noise Reduction",
+      "t": "Reduces high-decibel noise to safe, manageable levels , preserving worker hearing and improving focus in high-noise zones."
+     },
+     {
+      "h": "Pressure-Free Comfort",
+      "t": "Soft, ergonomic materials contour naturally to the ear, eliminating pressure points and minimizing fatigue during long wear."
+     },
+     {
+      "h": "Built for Industrial Environments",
+      "t": "Durable enough to withstand oil, moisture, heat, dust, and drop impact ,from factories to fieldwork."
+     },
+     {
+      "h": "Universal Fit Options",
+      "t": "Offered in disposable, reusable, corded, banded, and over-ear earmuff designs. Options fit snugly with helmets and other PPE."
+     },
+     {
+      "h": "Job site Compatible Design",
+      "t": "Designed for compatibility with AVES helmets and face protection ,enabling full-head protection without interference."
+     },
+     {
+      "h": "Globally Certified Compliance",
+      "t": "Meets or exceeds ANSI S3.19, EN 352, and CE standards , recognized worldwide for occupational hearing safety."
+     }
+    ]
+   }
+  },
+  "respiratory": {
+   "title": "assets/type/cat-respiratory.png",
+   "icon": "assets/brand/cat-respiratory.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-respiratory.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Respiratory Protection?",
+    "titleArt": "assets/type/why-respiratory.png",
+    "items": [
+     {
+      "h": "Precision Filtration",
+      "t": "Engineered to capture fine particles, toxic gases, and airborne contaminants common in industrial zones, construction sites, and chemical processing environments."
+     },
+     {
+      "h": "Secure, Adaptive Fit",
+      "t": "Contoured sealing zones and intelligent harness design deliver consistent contact across varied face shapes, even during movement and long shifts."
+     },
+     {
+      "h": "Optimized Wearability",
+      "t": "Lightweight, pressure-balanced frames reduce fatigue and improve comfort, supporting all-day use and user compliance.."
+     },
+     {
+      "h": "Built for Harsh Environments",
+      "t": "Resilient construction resists damage from dust, heat, humidity, and chemical exposure, ensuring long-term reliability in the field."
+     },
+     {
+      "h": "Tested to Perform",
+      "t": "Every AVES respirator is independently tested and approved to meet EN 149, EN 136, and NIOSH requirements, backed by trusted performance, not just paperwork."
+     }
+    ]
+   }
+  },
+  "face": {
+   "title": "assets/type/cat-face.png",
+   "icon": "assets/brand/cat-face.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-face.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Eye Protection?",
+    "titleArt": "assets/type/why-face.png",
+    "items": [
+     {
+      "h": "Multi-Zone Impact Defense",
+      "t": "Specialized shielding to provide complete facial protection from fast-moving particles, abrasive fragments, and tool kickbacks, preventing severe injury."
+     },
+     {
+      "h": "Superior Chemical & Liquid Resistance",
+      "t": "Engineered barriers safeguard against hazardous liquid splashes, aggressive chemicals, and contaminants found in labs, manufacturing plants, and sanitation settings."
+     },
+     {
+      "h": "Arc Flash & Thermal Readiness",
+      "t": "Selected models offer certified protection against radiant heat, arc flash, and molten metal splash, perfectly suited for welding, metal fabrication, and extreme-heat environments."
+     },
+     {
+      "h": "Advanced Anti-Fog & Optics",
+      "t": "High-grade, anti-scratch lenses provide crystal-clear visibility, significantly reducing fogging and scratches for safer, uninterrupted workflow."
+     },
+     {
+      "h": "Ergonomic, Equipment-Compatible Fit",
+      "t": "All models are shaped for comfort and compatibility with helmets, respirators, and hearing protection."
+     },
+     {
+      "h": "Full-Face Coverage That Moves With You",
+      "t": "Extended protection across the face and jawline , without sacrificing mobility or field of view."
+     }
+    ]
+   }
+  },
+  "vest": {
+   "title": "assets/type/cat-vest.png",
+   "icon": null,
+   "approach": null,
+   "why": null
+  },
+  "hand": {
+   "title": "assets/type/cat-hand.png",
+   "icon": "assets/brand/cat-hand.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-hand.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Hand Protection?",
+    "titleArt": "assets/type/why-hand.png",
+    "items": [
+     {
+      "h": "Engineered for Real-World Risk",
+      "t": "Every glove is purpose-built to confront the specific hazards found in today’s industrial settings, from sharp edges and hot surfaces to corrosive liquids and fine precision handling."
+     },
+     {
+      "h": "Long-Wear Comfort, Without Weakness",
+      "t": "AVES® designs combine durable protective barriers with flexible materials and breathable fits, minimizing fatigue and maximizing focus during long shifts."
+     },
+     {
+      "h": "Material Science Meets Task Precision",
+      "t": "Whether it’s nitrile for chemical shielding, Kevlar® for cut defense, or leather for heat resistance, our gloves match each task with the right material performance."
+     },
+     {
+      "h": "Standardized for Safety, Trusted in the Field",
+      "t": "Tested to meet or exceed global industrial safety standards, AVES® gloves are field-proven by professionals across construction, manufacturing, oil and gas, and beyond."
+     }
+    ]
+   }
+  }
+ },
+ "steps": [
+  {
+   "n": 1,
+   "layer": "aves-titan-av-564r-v",
+   "product": "aves-titan-av-564r-v",
+   "slot": "head",
+   "box": [
+    346,
+    73,
+    545,
+    235
+   ],
+   "z": 70,
+   "cat": "head",
+   "name": "TITAN® AV-564R V",
+   "descriptor": "Vented helmet",
+   "sku": "1891AV564R",
+   "standards": "",
+   "bullets": [
+    "Made from High-Density Polyethylene (HDPE)",
+    "Lightweight and durable for long wear",
+    "Short peak improves visibility",
+    "Low-profile for balance and retention",
+    "Universal slots for attaching ear muffs and other accessories",
+    "Channels divert moisture",
+    "Replaceable brow pads and suspension",
+    "Adjustable height with two levels",
+    "Ratchet System with 6-Point Suspension Nylon straps",
+    "Vented shell"
+   ],
+   "short": [
+    "Made from High-Density Polyethylene (HDPE)",
+    "Lightweight and durable for long wear",
+    "Short peak improves visibility"
+   ],
+   "material": "High-Density Polyethylene (HDPE)",
+   "colour": "",
+   "why": "Vented helmet, EN 397, for timber stacking only",
+   "url": "https://aves-safety.com/products/head-protection/safety-helmets/aves-titan-av-564r-v/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Falling timber",
+    "where": "Timber stacking and stores only",
+    "at": [
+     -1,
+     -1
+    ],
+    "icon": "head"
+   },
+   "anchors": [
+    [
+     0.5,
+     0.2
+    ],
+    [
+     0.86,
+     0.5
+    ],
+    [
+     0.1,
+     0.76
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    100
+   ],
+   "pack": {
+    "src": "assets/packs/aves-titan-av-564r-v.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mask": null,
+   "mkt": {
+    "hook": "Vented helmet that adapts to varied worksite conditions",
+    "features": [
+     {
+      "title": "Comfort-Focused Interior",
+      "line": "Nylon straps, a poly brow pad, flex points and a cushioned nape line the inside"
+     },
+     {
+      "title": "Made for Humid Days",
+      "line": "A low-profile, rain-channeled shell wears well in humid or rainy conditions"
+     },
+     {
+      "title": "Press to Lock",
+      "line": "The 6-point ratchet locks with a press and releases with a pull"
+     }
+    ],
+    "system": "Slots take visors, face shields and AVES AV-HM cap earmuffs"
+   },
+   "layer2x": "assets/layers2x/aves-titan-av-564r-v.webp",
+   "image": "assets/products/aves-titan-av-564r-v.png",
+   "fly": "assets/products/aves-titan-av-564r-v.png",
+   "copySource": "catalogue REV 7 p. 10"
+  },
+  {
+   "n": 2,
+   "layer": "av-gg10",
+   "product": "av-gg10",
+   "slot": "eye",
+   "box": [
+    361,
+    156,
+    532,
+    249
+   ],
+   "z": 75,
+   "cat": "eye",
+   "name": "AV-GG10",
+   "descriptor": "Indirect-vent goggle",
+   "sku": "2127AV790",
+   "standards": "CE EN166",
+   "bullets": [
+    "High-impact resistant polycarbonate lenses",
+    "Provides 100% UV protection",
+    "Durable and lightweight design",
+    "Fits over most prescription glasses",
+    "Indirect ventilation for airflow and fog reduction",
+    "Soft and flexible nose bridge for comfort",
+    "Adjustable elastic strap with buckles for a secure fit",
+    "Protection against high-speed parts"
+   ],
+   "short": [
+    "High-impact resistant polycarbonate lenses",
+    "Provides 100% UV protection",
+    "Durable and lightweight design"
+   ],
+   "material": "Nylon, Polycarbonate (PC), Polyvinyl Chloride (PVC)",
+   "colour": "Clear",
+   "why": "Indirect-vent goggle, EN 166, fits over spectacles, against fine dust",
+   "url": "https://aves-safety.com/products/eye-protection/safety-goggles/av-gg10/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Fine dust",
+    "where": "Sanding, routing and sawing",
+    "at": [
+     0.2,
+     0.56
+    ],
+    "icon": "dust"
+   },
+   "anchors": [
+    [
+     0.5,
+     0.3
+    ],
+    [
+     0.3,
+     0.6
+    ],
+    [
+     0.92,
+     0.4
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    56
+   ],
+   "pack": {
+    "src": "assets/packs/av-gg10.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mask": null,
+   "mkt": {
+    "hook": "Indirect-vent goggle that fits over most glasses",
+    "features": [
+     {
+      "title": "Panoramic View",
+      "line": "A panoramic wraparound lens gives wide, clear visibility"
+     },
+     {
+      "title": "Indirect Airflow",
+      "line": "Indirect venting supports airflow while improving splash and dust protection"
+     },
+     {
+      "title": "Easy to Clean, Reusable",
+      "line": "A durable build that is easy to clean and made for repeated use"
+     }
+    ],
+    "system": ""
+   },
+   "layer2x": "assets/layers2x/av-gg10.webp",
+   "image": "assets/products/av-gg10.png",
+   "fly": "assets/products/av-gg10.png",
+   "copySource": "catalogue REV 7 p. 26"
+  },
+  {
+   "n": 3,
+   "layer": "av-hb640-headband-earmuffs__on-aves-titan-av-564r-v",
+   "product": "av-hb640-headband-earmuffs",
+   "slot": "hearing",
+   "box": [
+    328,
+    78,
+    562,
+    298
+   ],
+   "z": 80,
+   "cat": "hearing",
+   "name": "AV-HB640",
+   "descriptor": "Headband earmuff",
+   "sku": "2536AV595",
+   "standards": "ANSI S3.19-1974, CE, EN-352-1",
+   "bullets": [
+    "25 dB Certified NRR to ANSI S3.19-1974 for noise reduction",
+    "34 dB Certified SNR to EN 352-1 for high sound attenuation",
+    "Wide, comfortable foam sealing rings provide optimum seal and secure fit",
+    "High-visibility design improves wearer visibility in low-light and busy work areas",
+    "Headband holder design reduces direct ear cushion pressure for less fatigue",
+    "20% lower headband pressure for enhances long-wear usability",
+    "Consistent pressure distribution maintains a balanced fit in all temperatures"
+   ],
+   "short": [
+    "25 dB Certified NRR to ANSI S3.19-1974 for noise reduction",
+    "34 dB Certified SNR to EN 352-1 for high sound attenuation",
+    "Wide, comfortable foam sealing rings provide optimum seal and secure fit"
+   ],
+   "material": "ABS",
+   "colour": "Black, Green",
+   "why": "Headband earmuff, 26 dB NRR, for saw and planer noise",
+   "url": "https://aves-safety.com/products/ear-protection/ear-muffs/av-hb640-headband-earmuffs/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Saw and planer noise",
+    "where": "Saws, planers and extraction",
+    "at": [
+     0.66,
+     0.52
+    ],
+    "icon": "hearing"
+   },
+   "anchors": [
+    [
+     0.12,
+     0.62
+    ],
+    [
+     0.88,
+     0.62
+    ],
+    [
+     0.5,
+     0.1
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    124
+   ],
+   "pack": {
+    "src": "assets/packs/av-hb640-headband-earmuffs.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mask": null,
+   "mkt": {
+    "hook": "Hi-vis headband earmuff engineered for all-day comfort",
+    "features": [
+     {
+      "title": "Dual Fork Suspension",
+      "line": "Stainless steel dual-fork arms hold a consistent, low-pressure fit"
+     },
+     {
+      "title": "Seen in Dim Light",
+      "line": "Hi-vis green cups stand out in dim or crowded work areas"
+     },
+     {
+      "title": "Extra-Wide Cushions",
+      "line": "Wide, soft cushions improve the seal and ease the pressure around the ears"
+     }
+    ],
+    "system": ""
+   },
+   "layer2x": "assets/layers2x/av-hb640-headband-earmuffs__on-aves-titan-av-564r-v.webp",
+   "image": "assets/products/av-hb640-headband-earmuffs.png",
+   "fly": "assets/products/av-hb640-headband-earmuffs.png",
+   "copySource": "catalogue REV 7 p. 55"
+  },
+  {
+   "n": 4,
+   "layer": "ffp3-av-505b",
+   "product": "ffp3-av-505b",
+   "slot": "respiratory",
+   "box": [
+    373,
+    189,
+    518,
+    324
+   ],
+   "z": 40,
+   "cat": "respiratory",
+   "name": "FFP3 AV-505B",
+   "descriptor": "FFP3 mask",
+   "sku": "27107AV189",
+   "standards": "CE EN 149:2001+A1:2009",
+   "bullets": [
+    "FFP3 NR Certified: Provides advanced protection up to 50× TLV against hazardous airborne particulates",
+    "Non-Valved Design: Ideal for cleanrooms, food environments, or where filtered Exhalation is essential",
+    "EVA Micro Foam Seal: Enhances long-wear comfort and improves facial seal effectiveness",
+    "Polypropylene Outer Layer: Lightweight and non-irritating for daily use",
+    "Wide Concavity + Anatomical Fit: Offers improved internal airflow and compatibility with eyewear and face shields"
+   ],
+   "short": [
+    "EVA Micro Foam Seal: Enhances long-wear comfort and improves facial seal effectiveness",
+    "Polypropylene Outer Layer: Lightweight and non-irritating for daily use"
+   ],
+   "material": "Polypropylene non-woven fabric",
+   "colour": "White",
+   "why": "FFP3 mask, EN 149, 50x TLV, for fine hardwood dust",
+   "url": "https://aves-safety.com/products/respiratory-protection/disposables-respirators/ffp3-av-505b/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Hardwood dust",
+    "where": "Machining and sanding hardwoods",
+    "at": [
+     0.2,
+     0.56
+    ],
+    "icon": "dust"
+   },
+   "anchors": [
+    [
+     0.3,
+     0.4
+    ],
+    [
+     0.72,
+     0.5
+    ],
+    [
+     0.5,
+     0.8
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    110
+   ],
+   "pack": {
+    "src": "assets/packs/ffp3-av-505b.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mask": null,
+   "mkt": {
+    "hook": "Valve-free FFP3 cup in a light, wide-fit design",
+    "features": [
+     {
+      "title": "Works With Your PPE",
+      "line": "A wide-fit design supports a secure seal and stays compatible with other PPE"
+     },
+     {
+      "title": "Clear Line of Sight",
+      "line": "A pre-formed nosepiece enhances fit while keeping clear vision and eyewear comfort"
+     },
+     {
+      "title": "Light on the Face",
+      "line": "A lightweight build helps minimize wearer fatigue during prolonged tasks"
+     }
+    ],
+    "system": ""
+   },
+   "layer2x": "assets/layers2x/ffp3-av-505b.webp",
+   "image": "assets/products/ffp3-av-505b.png",
+   "fly": "assets/products/ffp3-av-505b.png",
+   "copySource": "aves-safety.com"
+  },
+  {
+   "n": 5,
+   "layer": "av-fs18l-cylinder-face-shield__on-aves-titan-av-564r-v",
+   "product": "av-fs18l-cylinder-face-shield",
+   "slot": "face",
+   "box": [
+    344,
+    135,
+    544,
+    353
+   ],
+   "z": 60,
+   "cat": "face",
+   "name": "AV-FS18",
+   "descriptor": "Oversized polycarbonate visor",
+   "sku": "3417AV542",
+   "standards": "ANSI Z87.1-2010",
+   "bullets": [
+    "Clear molded Lexan face shield for superior protection",
+    "Universal hole pattern for compatibility with various headgear",
+    "Provides wraparound, splash, and impact protection",
+    "High heat resistance up to 265°C",
+    "100% UV protection (180-380 nm)",
+    "91% visible light transmission for clear visibility",
+    "Fits AV-VB10 visor bracket and AV-SA93 slot adapters"
+   ],
+   "short": [
+    "Clear molded Lexan face shield for superior protection",
+    "Universal hole pattern for compatibility with various headgear",
+    "Provides wraparound, splash, and impact protection"
+   ],
+   "material": "Polycarbonate (PC)",
+   "colour": "",
+   "why": "Oversized polycarbonate visor, Z87.1, against chips from lathes and planers",
+   "url": "https://aves-safety.com/products/face-protection/faceshield/av-fs18l-cylinder-face-shield/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Flying chips",
+    "where": "Lathes, planers and moulders",
+    "at": [
+     0.8,
+     0.59
+    ],
+    "icon": "eye"
+   },
+   "anchors": [
+    [
+     0.5,
+     0.25
+    ],
+    [
+     0.86,
+     0.55
+    ],
+    [
+     0.14,
+     0.75
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    130
+   ],
+   "pack": null,
+   "mask": null,
+   "mkt": {
+    "hook": "Cylindrical visor for full face and chin coverage",
+    "features": [
+     {
+      "title": "Wide, Open View",
+      "line": "An expansive viewing area keeps visual obstruction to a minimum"
+     },
+     {
+      "title": "Stands Up to Impact",
+      "line": "Robust 2 mm polycarbonate helps protect against impact and flying particles"
+     },
+     {
+      "title": "Smooth, Finished Edge",
+      "line": "A finished perimeter gives a clean edge that sits comfortably"
+     }
+    ],
+    "system": "Multiple mounting slots fit standard browguards and helmet carriers"
+   },
+   "layer2x": "assets/layers2x/av-fs18l-cylinder-face-shield__on-aves-titan-av-564r-v.webp",
+   "image": "assets/products/av-fs18l-cylinder-face-shield.png",
+   "fly": "assets/products/av-fs18l-cylinder-face-shield.png",
+   "copySource": "catalogue REV 7 p. 37"
+  },
+  {
+   "n": 6,
+   "layer": "scuta-vest",
+   "product": "scuta-vest",
+   "slot": "vest",
+   "box": [
+    272,
+    301,
+    612,
+    859
+   ],
+   "z": 10,
+   "cat": "vest",
+   "name": "REFLECTOR SAFETY VEST",
+   "descriptor": "Hi-vis vest by Scuta",
+   "sku": "3116RR71",
+   "standards": "EN ISO 20471:2013+A1:2016 Class 2",
+   "bullets": [
+    "Class 2 hi-vis waistcoat",
+    "Two 5 cm reflective bands round the torso",
+    "One reflective band over each shoulder"
+   ],
+   "short": [
+    "Class 2 hi-vis waistcoat",
+    "Two 5 cm reflective bands round the torso",
+    "One reflective band over each shoulder"
+   ],
+   "material": "",
+   "colour": "",
+   "why": "Sister brand, not part of the AVES range.",
+   "url": "",
+   "sister": true,
+   "sisterNote": "Sister brand, not part of the AVES range. No product link (owner's rule).",
+   "hazard": {
+    "title": "Being seen",
+    "where": "Yard, stores and forklift routes",
+    "at": [
+     -1,
+     -1
+    ],
+    "icon": "vest"
+   },
+   "anchors": [
+    [
+     0.3,
+     0.3
+    ],
+    [
+     0.52,
+     0.62
+    ],
+    [
+     0.74,
+     0.1
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    150
+   ],
+   "pack": {
+    "src": "assets/packs/vest.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mask": null,
+   "mkt": null,
+   "layer2x": "assets/layers2x/scuta-vest.webp",
+   "image": "assets/products/scuta-vest.png",
+   "fly": "assets/products/scuta-vest.png",
+   "copySource": "PTF description"
+  },
+  {
+   "n": 7,
+   "layer": "hg-2740-drivegrip",
+   "product": "hg-2740-drivegrip",
+   "slot": "hand",
+   "box": [
+    194,
+    720,
+    698,
+    951
+   ],
+   "z": 90,
+   "cat": "hand",
+   "name": "HG-2740",
+   "descriptor": "Grain leather glove",
+   "sku": "HG-2740",
+   "standards": "CE Cat I, EN 388, EN 420",
+   "bullets": [
+    "Made from selected cowhide grain leather for a soft and durable finish",
+    "Provides excellent abrasion resistance for enhanced hand protection",
+    "Double-stitched seams on the wing thumb and index for durability",
+    "Soft leather interior ensures superior comfort during extended use",
+    "7-8 stitches per inch for reinforced strength and extended lifespan",
+    "Elasticized wrist secures fit and prevents debris from entering",
+    "Conforms to CE EN388 Cat II standards for intermediate risk protection",
+    "Ideal for construction, material handling, and utility work"
+   ],
+   "short": [
+    "Made from selected cowhide grain leather for a soft and durable finish",
+    "Provides excellent abrasion resistance for enhanced hand protection",
+    "Double-stitched seams on the wing thumb and index for durability"
+   ],
+   "material": "Cowhide Grain Leather",
+   "colour": "Yellow",
+   "why": "Grain leather glove, EN 388, for splinters; never near rotating blades",
+   "url": "https://aves-safety.com/products/hand-protection/leather-gloves/hg-2740-drivegrip/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Splinters",
+    "where": "Handling sawn timber: never near rotating blades",
+    "at": [
+     0.93,
+     0.66
+    ],
+    "icon": "splinter"
+   },
+   "anchors": [
+    [
+     0.12,
+     0.3
+    ],
+    [
+     0.88,
+     0.55
+    ],
+    [
+     0.14,
+     0.85
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    150
+   ],
+   "pack": {
+    "src": "assets/packs/hg-2740-drivegrip.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mask": null,
+   "mkt": {
+    "hook": "Yellow cowhide driver glove for routine handling",
+    "features": [
+     {
+      "title": "Eases Repeated Motion",
+      "line": "A keystone thumb supports dexterity and reduces fatigue in repeated movements"
+     },
+     {
+      "title": "Durable Full-Grain Cowhide",
+      "line": "Full-grain cowhide resists abrasion and keeps a comfortable feel in the hand"
+     },
+     {
+      "title": "Slips On and Off",
+      "line": "A slip-on cuff makes the gloves quick to put on and take off"
+     }
+    ],
+    "system": ""
+   },
+   "layer2x": "assets/layers2x/hg-2740-drivegrip.webp",
+   "image": "assets/products/hg-2740-drivegrip.png",
+   "fly": "assets/products/hg-2740-drivegrip.png",
+   "copySource": "catalogue REV 7 p. 85"
+  }
+ ]
+}

@@ -1,0 +1,896 @@
+{
+ "kit": {
+  "id": "welding",
+  "name": "Welding & Hot Work",
+  "title": "The AVES Welding & Hot Work Kit",
+  "group": "Make",
+  "intro": "Arc, gas and cutting work: arc radiation, spatter, metal fume and hot surfaces, plus grinding between passes.",
+  "hazards": [
+   "arc radiation and ultraviolet",
+   "sparks and spatter",
+   "welding fume",
+   "hot metal contact",
+   "grinding noise"
+  ],
+  "hazardIcons": [
+   "arc",
+   "sparks",
+   "fume",
+   "hot",
+   "hearing"
+  ],
+  "tile": "assets/brand/kit-welding.png",
+  "index": 16,
+  "of": 18
+ },
+ "frame": {
+  "w": 896,
+  "h": 1536
+ },
+ "rack": {
+  "w": 896,
+  "h": 1280
+ },
+ "backdrop": "assets/site/welding.jpg",
+ "fx": "assets/site/welding.fx.json",
+ "phoneX": 0.3,
+ "shelf": "assets/site/shelf.jpg",
+ "hz": [
+  "arc",
+  "fume",
+  "glare",
+  "hearing",
+  "hot",
+  "sparks",
+  "vest"
+ ],
+ "base2x": "assets/layers2x/base.webp",
+ "boots": {
+  "name": "Cavalier Captain 8713-4 HC",
+  "sku": "73110CV214",
+  "standards": "EN ISO 20345:2011 S3"
+ },
+ "cats": {
+  "head": {
+   "title": "assets/type/cat-head.png",
+   "icon": "assets/brand/cat-head.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-head.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Head Protection?",
+    "titleArt": "assets/type/why-head.png",
+    "items": [
+     {
+      "h": "Engineered Impact Absorption",
+      "t": "AVES helmets are precision-built to neutralize both vertical and lateral blows, minimizing the risk of skull fractures, neck injuries and concussive trauma in work environments."
+     },
+     {
+      "h": "Integrated Suspension Architecture",
+      "t": "Each helmet integrates advanced 4 or 6 point suspension systems that distribute impact forces evenly, eliminate pressure and firmly secured through movement-intensive shifts."
+     },
+     {
+      "h": "Certified Electrical Protection",
+      "t": "With Class E and G certified models, AVES headgear offers insulation against electrical arc flashes and voltage contact. AVES shells are UV-stabilized, fire-resistant, and ventilated."
+     },
+     {
+      "h": "Full-Zone Protection Compatibility",
+      "t": "Select models provide extended coverage. Our helmets are designed for seamless integration with visors, earmuffs and face shields, enabling full PPE synergy."
+     }
+    ]
+   }
+  },
+  "eye": {
+   "title": "assets/type/cat-eye.png",
+   "icon": "assets/brand/cat-eye.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-eye.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Eye Protection?",
+    "titleArt": "assets/type/why-eye.png",
+    "items": [
+     {
+      "h": "Certified Impact Defense",
+      "t": "Engineered beyond industry benchmarks (ANSI Z87.1 & EN166), AVES lenses reliably withstand high-velocity impacts from debris, dust, and flying objects. Our rigorous testing ensures eyes remain protected in the most demanding industrial and construction environments."
+     },
+     {
+      "h": "Advanced UV Blocking Technology",
+      "t": "AVES eyewear offers exceptional UV protection, filtering out 99.9% of harmful ultraviolet rays. Our lenses significantly reduce eye fatigue and glare, enhancing worker comfort and performance even during prolonged exposure to sunlight or intense industrial lighting.."
+     },
+     {
+      "h": "Superior Anti-Fog Clarity with SuperCoat™",
+      "t": "Never let fog compromise your productivity. Our exclusive SuperCoat™ lens technology delivers consistently clear vision under humid or fluctuating temperature conditions, reducing downtime and ensuring your focus remains uninterrupted."
+     },
+     {
+      "h": "Exceptional Scratch-Resistant Durability",
+      "t": "Built tough for rigorous everyday use, AVES eyewear features robust scratch-resistant coatings that preserve lens clarity and integrity, extending eyewear lifespan and reducing the need for frequent replacements."
+     },
+     {
+      "h": "Military-Grade Reliability (Ballistic Certified)",
+      "t": "Selected AVES products achieve the demanding MIL-PRF-31013 ballistic standard, trusted by professionals working in high-risk environments. This certification underscores our unwavering commitment to superior safety standards and product dependability."
+     },
+     {
+      "h": "All-Day Ergonomic Comfort & Lightweight Fit",
+      "t": "AVES eyewear prioritizes your comfort, featuring ergonomically crafted designs that evenly distribute weight and reduce pressure points. Adjustable and secure fittings mean workers remain comfortable, reducing distraction and increasing productivity even during extended wear."
+     },
+     {
+      "h": "Enhanced Productivity Through Visual Comfort",
+      "t": "Our precision-engineered optical clarity minimizes eye strain, allowing workers to perform tasks more accurately and efficiently. Improved visual comfort directly translates to higher productivity and fewer work-related errors."
+     }
+    ]
+   }
+  },
+  "hearing": {
+   "title": "assets/type/cat-hearing.png",
+   "icon": "assets/brand/cat-hearing.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-hearing.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Ear Protection?",
+    "titleArt": "assets/type/why-hearing.png",
+    "items": [
+     {
+      "h": "Superior Noise Reduction",
+      "t": "Reduces high-decibel noise to safe, manageable levels , preserving worker hearing and improving focus in high-noise zones."
+     },
+     {
+      "h": "Pressure-Free Comfort",
+      "t": "Soft, ergonomic materials contour naturally to the ear, eliminating pressure points and minimizing fatigue during long wear."
+     },
+     {
+      "h": "Built for Industrial Environments",
+      "t": "Durable enough to withstand oil, moisture, heat, dust, and drop impact ,from factories to fieldwork."
+     },
+     {
+      "h": "Universal Fit Options",
+      "t": "Offered in disposable, reusable, corded, banded, and over-ear earmuff designs. Options fit snugly with helmets and other PPE."
+     },
+     {
+      "h": "Job site Compatible Design",
+      "t": "Designed for compatibility with AVES helmets and face protection ,enabling full-head protection without interference."
+     },
+     {
+      "h": "Globally Certified Compliance",
+      "t": "Meets or exceeds ANSI S3.19, EN 352, and CE standards , recognized worldwide for occupational hearing safety."
+     }
+    ]
+   }
+  },
+  "respiratory": {
+   "title": "assets/type/cat-respiratory.png",
+   "icon": "assets/brand/cat-respiratory.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-respiratory.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Respiratory Protection?",
+    "titleArt": "assets/type/why-respiratory.png",
+    "items": [
+     {
+      "h": "Precision Filtration",
+      "t": "Engineered to capture fine particles, toxic gases, and airborne contaminants common in industrial zones, construction sites, and chemical processing environments."
+     },
+     {
+      "h": "Secure, Adaptive Fit",
+      "t": "Contoured sealing zones and intelligent harness design deliver consistent contact across varied face shapes, even during movement and long shifts."
+     },
+     {
+      "h": "Optimized Wearability",
+      "t": "Lightweight, pressure-balanced frames reduce fatigue and improve comfort, supporting all-day use and user compliance.."
+     },
+     {
+      "h": "Built for Harsh Environments",
+      "t": "Resilient construction resists damage from dust, heat, humidity, and chemical exposure, ensuring long-term reliability in the field."
+     },
+     {
+      "h": "Tested to Perform",
+      "t": "Every AVES respirator is independently tested and approved to meet EN 149, EN 136, and NIOSH requirements, backed by trusted performance, not just paperwork."
+     }
+    ]
+   }
+  },
+  "face": {
+   "title": "assets/type/cat-face.png",
+   "icon": "assets/brand/cat-face.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-face.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Eye Protection?",
+    "titleArt": "assets/type/why-face.png",
+    "items": [
+     {
+      "h": "Multi-Zone Impact Defense",
+      "t": "Specialized shielding to provide complete facial protection from fast-moving particles, abrasive fragments, and tool kickbacks, preventing severe injury."
+     },
+     {
+      "h": "Superior Chemical & Liquid Resistance",
+      "t": "Engineered barriers safeguard against hazardous liquid splashes, aggressive chemicals, and contaminants found in labs, manufacturing plants, and sanitation settings."
+     },
+     {
+      "h": "Arc Flash & Thermal Readiness",
+      "t": "Selected models offer certified protection against radiant heat, arc flash, and molten metal splash, perfectly suited for welding, metal fabrication, and extreme-heat environments."
+     },
+     {
+      "h": "Advanced Anti-Fog & Optics",
+      "t": "High-grade, anti-scratch lenses provide crystal-clear visibility, significantly reducing fogging and scratches for safer, uninterrupted workflow."
+     },
+     {
+      "h": "Ergonomic, Equipment-Compatible Fit",
+      "t": "All models are shaped for comfort and compatibility with helmets, respirators, and hearing protection."
+     },
+     {
+      "h": "Full-Face Coverage That Moves With You",
+      "t": "Extended protection across the face and jawline , without sacrificing mobility or field of view."
+     }
+    ]
+   }
+  },
+  "vest": {
+   "title": "assets/type/cat-vest.png",
+   "icon": null,
+   "approach": null,
+   "why": null
+  },
+  "hand": {
+   "title": "assets/type/cat-hand.png",
+   "icon": "assets/brand/cat-hand.png",
+   "approach": {
+    "word": "",
+    "art": "assets/brand/approach-hand.png"
+   },
+   "why": {
+    "title": "Why Choose AVES Hand Protection?",
+    "titleArt": "assets/type/why-hand.png",
+    "items": [
+     {
+      "h": "Engineered for Real-World Risk",
+      "t": "Every glove is purpose-built to confront the specific hazards found in today’s industrial settings, from sharp edges and hot surfaces to corrosive liquids and fine precision handling."
+     },
+     {
+      "h": "Long-Wear Comfort, Without Weakness",
+      "t": "AVES® designs combine durable protective barriers with flexible materials and breathable fits, minimizing fatigue and maximizing focus during long shifts."
+     },
+     {
+      "h": "Material Science Meets Task Precision",
+      "t": "Whether it’s nitrile for chemical shielding, Kevlar® for cut defense, or leather for heat resistance, our gloves match each task with the right material performance."
+     },
+     {
+      "h": "Standardized for Safety, Trusted in the Field",
+      "t": "Tested to meet or exceed global industrial safety standards, AVES® gloves are field-proven by professionals across construction, manufacturing, oil and gas, and beyond."
+     }
+    ]
+   }
+  }
+ },
+ "steps": [
+  {
+   "n": 1,
+   "layer": "aves-victor-av-717r-nv",
+   "product": "aves-victor-av-717r-nv",
+   "slot": "head",
+   "box": [
+    345,
+    71,
+    545,
+    228
+   ],
+   "z": 70,
+   "cat": "head",
+   "name": "VICTOR® AV-717R NV",
+   "descriptor": "Non-vented shell keeps sparks out",
+   "sku": "1891AV717R",
+   "standards": "",
+   "bullets": [
+    "HDPE helmet with short brim, vented shell, and low-profile design for comfort and visibility",
+    "6-point ratchet suspension with flex points, nape cushion, and replaceable brow pad",
+    "Accessory slots and chin strap included for added functionality",
+    "ANSI/ISEA Z89.1-2014 TYPE I, Class E & G and EN 397:2012+A1:2012"
+   ],
+   "short": [
+    "HDPE helmet with short brim, vented shell, and low-profile design for comfort and visibility",
+    "6-point ratchet suspension with flex points, nape cushion, and replaceable brow pad",
+    "Accessory slots and chin strap included for added functionality"
+   ],
+   "material": "",
+   "colour": "",
+   "why": "Non-vented shell keeps sparks out; Z89.1 Type I Class E&G",
+   "url": "https://aves-safety.com/products/head-protection/safety-helmets/aves-victor-av-717r-nv/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Sparks and spatter from above",
+    "where": "Overhead and positional welding",
+    "at": [
+     0.43,
+     0.54
+    ],
+    "icon": "sparks"
+   },
+   "anchors": [
+    [
+     0.5,
+     0.2
+    ],
+    [
+     0.86,
+     0.5
+    ],
+    [
+     0.1,
+     0.76
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    100
+   ],
+   "pack": {
+    "src": "assets/packs/aves-victor-av-717r-nv.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mask": null,
+   "mkt": {
+    "hook": "Non-vented cap helmet for electrical and overhead hazards",
+    "features": [
+     {
+      "title": "Low Center of Gravity",
+      "line": "A low center of gravity keeps it balanced and stable through long wear"
+     },
+     {
+      "title": "Six Points of Support",
+      "line": "Cushioned nape support and flex points improve fit and help distribute impact"
+     },
+     {
+      "title": "Rain Out of Your Eyes",
+      "line": "Rain channels in the shell keep water out of your line of sight"
+     }
+    ],
+    "system": "Slots take AVES AV-HM earmuffs, visors and face shields"
+   },
+   "layer2x": "assets/layers2x/aves-victor-av-717r-nv.webp",
+   "image": "assets/products/aves-victor-av-717r-nv.png",
+   "fly": "assets/products/aves-victor-av-717r-nv.png",
+   "copySource": "catalogue REV 7 p. 14"
+  },
+  {
+   "n": 2,
+   "layer": "av-sg25",
+   "product": "av-sg25",
+   "slot": "eye",
+   "box": [
+    364,
+    156,
+    529,
+    246
+   ],
+   "z": 75,
+   "cat": "eye",
+   "name": "AV-SG25",
+   "descriptor": "Shade 3 or 5 spectacle",
+   "sku": "602AV116",
+   "standards": "ANSI Z87.1-2010 CE EN166",
+   "bullets": [
+    "Tough Impact resistant Polycarbonate lens",
+    "Universal nose bridge and adjustable temples",
+    "99.9% UV light protection (180-380nm.)",
+    "Ballistics Vo Rated"
+   ],
+   "short": [
+    "Tough Impact resistant Polycarbonate lens",
+    "Universal nose bridge and adjustable temples",
+    "99.9% UV light protection (180-380nm.)"
+   ],
+   "material": "",
+   "colour": "Green Shade No.3, Green Shade No.5",
+   "why": "Shade 3 or 5 spectacle, Z87.1; bullets name welding prep and gas cutting",
+   "url": "https://aves-safety.com/products/eye-protection/safety-glasses/av-sg25/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Glare in weld prep and gas cutting",
+    "where": "Weld prep, gas cutting and chipping",
+    "at": [
+     -1,
+     -1
+    ],
+    "icon": "glare"
+   },
+   "anchors": [
+    [
+     0.5,
+     0.3
+    ],
+    [
+     0.3,
+     0.6
+    ],
+    [
+     0.92,
+     0.4
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    56
+   ],
+   "pack": {
+    "src": "assets/packs/av-sg25.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mask": null,
+   "mkt": {
+    "hook": "Semi-rimless mono-lens for wide side-to-side view",
+    "features": [
+     {
+      "title": "A Shade for the Task",
+      "line": "Choose clear, grey, or welding shade 3 or 5 lenses to suit the task"
+     },
+     {
+      "title": "Stays Behind the Ears",
+      "line": "Length-adjustable temples sit behind the ears to help stop slipping"
+     },
+     {
+      "title": "Built-In Side Shields",
+      "line": "Integrated side shields add lateral protection against flying particles"
+     }
+    ],
+    "system": ""
+   },
+   "layer2x": "assets/layers2x/av-sg25.webp",
+   "image": "assets/products/av-sg25.png",
+   "fly": "assets/products/av-sg25.png",
+   "copySource": "catalogue REV 7 p. 21"
+  },
+  {
+   "n": 3,
+   "layer": "av-411re-reusable-earplugs",
+   "product": "av-411re-reusable-earplugs",
+   "slot": "hearing",
+   "box": [
+    352,
+    201,
+    538,
+    366
+   ],
+   "z": 80,
+   "cat": "hearing",
+   "name": "AV-411RE",
+   "descriptor": "Reusable plug",
+   "sku": "2474AV57",
+   "standards": "ANSI S3.19-1974, EN 352-3:2002",
+   "bullets": [
+    "Soft 4-flange TPR design conforms to the ear canal for a comfortable, secure fit",
+    "Firm built-in handle ensures easy insertion and removal",
+    "Reusable and washable without losing effectiveness",
+    "Non-allergenic TPR material resists earwax and body oils, outlasting PVC plugs",
+    "Metal detectable corded design ensures safety compliance for food industries",
+    "Universal size self-contours to fit various ear shapes and sizes"
+   ],
+   "short": [
+    "Soft 4-flange TPR design conforms to the ear canal for a comfortable, secure fit",
+    "Firm built-in handle ensures easy insertion and removal",
+    "Reusable and washable without losing effectiveness"
+   ],
+   "material": "Styrene-Ethylyne-Butylyne-Stynene (SEBS)",
+   "colour": "Blue",
+   "why": "Reusable plug, 27 dB NRR, fits under a welding helmet",
+   "url": "https://aves-safety.com/products/ear-protection/ear-plugs/av-411re-reusable-earplugs/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Grinding noise",
+    "where": "Grinding between passes and gouging",
+    "at": [
+     0.88,
+     0.6
+    ],
+    "icon": "hearing"
+   },
+   "anchors": [
+    [
+     0.12,
+     0.62
+    ],
+    [
+     0.88,
+     0.62
+    ],
+    [
+     0.5,
+     0.1
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    124
+   ],
+   "pack": {
+    "src": "assets/packs/av-411re-reusable-earplugs.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mask": null,
+   "mkt": {
+    "hook": "Four-flange earplugs for high-noise, hygiene-critical work",
+    "features": [
+     {
+      "title": "Four Flanges, Soft Fit",
+      "line": "An ultra-soft four-flange design adapts comfortably to most ear canals"
+     },
+     {
+      "title": "Easy-Grip Stem",
+      "line": "An easy-grip stem places each plug precisely and takes it out just as easily"
+     },
+     {
+      "title": "Stands Up to Water",
+      "line": "Highly water-resistant and washable, made to be worn again and again"
+     }
+    ],
+    "system": ""
+   },
+   "layer2x": "assets/layers2x/av-411re-reusable-earplugs.webp",
+   "image": "assets/products/av-411re-reusable-earplugs.png",
+   "fly": "assets/products/av-411re-reusable-earplugs.png",
+   "copySource": "catalogue REV 7 p. 60"
+  },
+  {
+   "n": 4,
+   "layer": "ffp3-nr-d-av-557",
+   "product": "ffp3-nr-d-av-557",
+   "slot": "respiratory",
+   "box": [
+    356,
+    182,
+    537,
+    366
+   ],
+   "z": 40,
+   "cat": "respiratory",
+   "name": "AV-557 FFP3",
+   "descriptor": "FFP3 mask",
+   "sku": "27107AV557",
+   "standards": "CE EN 149:2001+A1:2009",
+   "bullets": [
+    "Micro Filtration ensures high breathability with advanced microfibers",
+    "Molded/Contoured Design fits for a secure and comfortable fit",
+    "Ultra-Light Membrane sweat-absorbent lining for enhanced comfort",
+    "EVA Micro Foam Face Seal offers full coverage for better protection",
+    "Exhalation Valve reduces moisture buildup and enhances breathability",
+    "Strong Elastic Head Strap provides a secure fit with minimal leakage, featuring an adjustable clip and strap holder",
+    "Welded Edge Seal prevents leakage"
+   ],
+   "short": [
+    "Micro Filtration ensures high breathability with advanced microfibers",
+    "Molded/Contoured Design fits for a secure and comfortable fit",
+    "Ultra-Light Membrane sweat-absorbent lining for enhanced comfort"
+   ],
+   "material": "Polypropylene non-woven fabric",
+   "colour": "White",
+   "why": "FFP3 mask, EN 149, for metal fume particulates",
+   "url": "https://aves-safety.com/products/respiratory-protection/disposables-respirators/ffp3-nr-d-av-557/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Welding fume",
+    "where": "At the arc and in enclosed work",
+    "at": [
+     0.3,
+     0.48
+    ],
+    "icon": "fume"
+   },
+   "anchors": [
+    [
+     0.3,
+     0.4
+    ],
+    [
+     0.72,
+     0.5
+    ],
+    [
+     0.5,
+     0.8
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    110
+   ],
+   "pack": {
+    "src": "assets/packs/ffp3-nr-d-av-557.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mask": null,
+   "mkt": {
+    "hook": "Rigid-cup FFP3 with a full foam seal and a valve",
+    "features": [
+     {
+      "title": "Rigid Cup Geometry",
+      "line": "A rigid cup preserves its geometry, so fit and seal stay consistent"
+     },
+     {
+      "title": "Foam All the Way Round",
+      "line": "A full foam face seal adds comfort and improves sealing around the face"
+     },
+     {
+      "title": "Reinforced Strap Points",
+      "line": "Welded strap holders reinforce attachment for lasting strap durability and fit"
+     }
+    ],
+    "system": ""
+   },
+   "layer2x": "assets/layers2x/ffp3-nr-d-av-557.webp",
+   "image": "assets/products/ffp3-nr-d-av-557.png",
+   "fly": "assets/products/ffp3-nr-d-av-557.png",
+   "copySource": "catalogue REV 7 p. 66"
+  },
+  {
+   "n": 5,
+   "layer": "aves-welding-helmet",
+   "product": "aves-welding-helmet",
+   "slot": "face",
+   "box": [
+    241,
+    81,
+    658,
+    469
+   ],
+   "z": 85,
+   "cat": "face",
+   "name": "AVES WELDING HELMET",
+   "descriptor": "Welding helmet",
+   "sku": "1847FT54",
+   "standards": "ANSI Z87.1, CE EN166, EN 175",
+   "bullets": [
+    "Durable polypropylene shell for impact resistance",
+    "Flip-up eye shield for easy inspection",
+    "Flip-up face shield for full-face protection",
+    "Adjustable ratchet suspension system for a secure fit",
+    "Adjustable pin-lock headgear for comfort and stability",
+    "Polycarbonate lens protects against UV and IR rays",
+    "Protects against sparks, splatter, dust, and impact"
+   ],
+   "short": [
+    "Durable polypropylene shell for impact resistance",
+    "Flip-up eye shield for easy inspection",
+    "Flip-up face shield for full-face protection"
+   ],
+   "material": "Polycarbonate (PC), Polypropylene (PP)",
+   "colour": "Black",
+   "why": "Welding helmet, EN 175 and Z87.1, against arc radiation and spatter",
+   "url": "https://aves-safety.com/products/face-protection/faceshield/aves-welding-helmet/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Arc radiation and ultraviolet",
+    "where": "At the arc, every strike",
+    "at": [
+     0.33,
+     0.53
+    ],
+    "icon": "arc"
+   },
+   "anchors": [
+    [
+     0.5,
+     0.25
+    ],
+    [
+     0.86,
+     0.55
+    ],
+    [
+     0.14,
+     0.75
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    130
+   ],
+   "pack": null,
+   "mask": null,
+   "mkt": {
+    "hook": "Flip-up welding helmet with a Shade 5 lens",
+    "features": [
+     {
+      "title": "Inspect Without Unmasking",
+      "line": "The front lifts for weld inspection without taking the helmet off"
+     },
+     {
+      "title": "Angle It Your Way",
+      "line": "Top-mounted headgear adjustment sets the helmet angle for fit and view"
+     },
+     {
+      "title": "Light PP Shell",
+      "line": "A lightweight polypropylene shell helps ease head load through long welds"
+     }
+    ],
+    "system": ""
+   },
+   "layer2x": "assets/layers2x/aves-welding-helmet.webp",
+   "image": "assets/products/aves-welding-helmet.png",
+   "fly": "assets/products/aves-welding-helmet.png",
+   "copySource": "catalogue REV 7 p. 34"
+  },
+  {
+   "n": 6,
+   "layer": "scuta-vest",
+   "product": "scuta-vest",
+   "slot": "vest",
+   "box": [
+    272,
+    301,
+    612,
+    859
+   ],
+   "z": 10,
+   "cat": "vest",
+   "name": "REFLECTOR SAFETY VEST",
+   "descriptor": "Hi-vis vest by Scuta",
+   "sku": "3116RR71",
+   "standards": "EN ISO 20471:2013+A1:2016 Class 2",
+   "bullets": [
+    "Class 2 hi-vis waistcoat",
+    "Two 5 cm reflective bands round the torso",
+    "One reflective band over each shoulder"
+   ],
+   "short": [
+    "Class 2 hi-vis waistcoat",
+    "Two 5 cm reflective bands round the torso",
+    "One reflective band over each shoulder"
+   ],
+   "material": "",
+   "colour": "",
+   "why": "Sister brand, not part of the AVES range.",
+   "url": "",
+   "sister": true,
+   "sisterNote": "Sister brand, not part of the AVES range. No product link (owner's rule).",
+   "hazard": {
+    "title": "Being seen",
+    "where": "Fabrication yard and shared bays",
+    "at": [
+     -1,
+     -1
+    ],
+    "icon": "vest"
+   },
+   "anchors": [
+    [
+     0.3,
+     0.3
+    ],
+    [
+     0.52,
+     0.62
+    ],
+    [
+     0.74,
+     0.1
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    150
+   ],
+   "pack": {
+    "src": "assets/packs/vest.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mask": null,
+   "mkt": null,
+   "layer2x": "assets/layers2x/scuta-vest.webp",
+   "image": "assets/products/scuta-vest.png",
+   "fly": "assets/products/scuta-vest.png",
+   "copySource": "PTF description"
+  },
+  {
+   "n": 7,
+   "layer": "hg-3058-cotton-gloves",
+   "product": "hg-3058-cotton-gloves",
+   "slot": "hand",
+   "box": [
+    200,
+    636,
+    694,
+    951
+   ],
+   "z": 90,
+   "cat": "hand",
+   "name": "HG-3058",
+   "descriptor": "Heavy canvas glove",
+   "sku": "HG-3058",
+   "standards": "CE Cat II, EN 388, EN 407",
+   "bullets": [
+    "Made from 100% cotton fabric for durability, breathability, and comfort",
+    "Heat-resistant up to 350°C, offering superior protection in high-temperature environments",
+    "36cm extended length ensures enhanced coverage for hands and forearms",
+    "Canvas cuff with a reinforced hand band for a secure fit and additional protection",
+    "Strong stitching (7-8 stitches per inch) increases durability for prolonged use",
+    "Ideal for moderate to high-heat applications, foundries, metal stamping, automotive industries, and general applications requiring heat and abrasion resistance"
+   ],
+   "short": [
+    "Made from 100% cotton fabric for durability, breathability, and comfort",
+    "Heat-resistant up to 350°C, offering superior protection in high-temperature environments",
+    "36cm extended length ensures enhanced coverage for hands and forearms"
+   ],
+   "material": "100% Cotton",
+   "colour": "White",
+   "why": "Heavy canvas glove, EN 407, contact heat 250–350°C",
+   "url": "https://aves-safety.com/products/hand-protection/high-temp/hg-3058-cotton-gloves/",
+   "sister": false,
+   "sisterNote": "",
+   "hazard": {
+    "title": "Hot metal contact",
+    "where": "Handling work, rods and just-welded steel",
+    "at": [
+     0.12,
+     0.67
+    ],
+    "icon": "hot"
+   },
+   "anchors": [
+    [
+     0.12,
+     0.3
+    ],
+    [
+     0.88,
+     0.55
+    ],
+    [
+     0.14,
+     0.85
+    ]
+   ],
+   "place": [
+    0,
+    0,
+    150
+   ],
+   "pack": null,
+   "mask": null,
+   "mkt": {
+    "hook": "Double-layer cotton mitten for hot-material handling",
+    "features": [
+     {
+      "title": "Slows the Heat",
+      "line": "Two cotton layers across palm, fingers and back help slow heat transfer"
+     },
+     {
+      "title": "An Air Layer Outside",
+      "line": "A nap-out cotton finish helps form an insulating air layer in hot-material handling"
+     },
+     {
+      "title": "Canvas to the Forearm",
+      "line": "An extended canvas gauntlet adds cover over the wrist and lower forearm"
+     }
+    ],
+    "system": ""
+   },
+   "layer2x": "assets/layers2x/hg-3058-cotton-gloves.webp",
+   "image": "assets/products/hg-3058-cotton-gloves.png",
+   "fly": "assets/products/hg-3058-cotton-gloves.png",
+   "copySource": "catalogue REV 7 p. 90"
+  }
+ ]
+}
