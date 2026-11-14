@@ -149,9 +149,13 @@ function buildDesk() {
     const sideTop = { L: 160 + hzl.offsetHeight + 34, R: 156 }, lists = { L: [], R: [] };
     g.querySelectorAll('.bf').forEach((el, j) => { const a = st.anchors[j] || [.5, .5], A = { x: z.l + a[0] * sh.bw, y: z.t + a[1] * sh.bh }, side = a[0] < .5 ? 'L' : 'R';
       gsap.set(el, { width: CW }); lists[side].push({ el, A, y: A.y - 22, h: el.offsetHeight }); });
+    // the left column sits between the hazard block and the product block: a callout that does not fit there moves to the right
+    { const maxL = H - 34 - caps[i].offsetHeight - 30, need = l => l.reduce((s, c) => s + c.h + 26, -26);
+      while (lists.L.length && sideTop.L + need(lists.L) > maxL) lists.R.push(lists.L.sort((x, y) => y.A.x - x.A.x).shift()); }
     for (const side of ['L', 'R']) { const list = lists[side].sort((a, b) => a.y - b.y); let prev = sideTop[side] - 26;
       list.forEach(c => { c.y = Math.max(c.y, prev + 26); prev = c.y + c.h; });
       const maxB = side === 'L' ? H - 34 - caps[i].offsetHeight - 30 : H - 44, over = prev - maxB; if (over > 0) list.forEach(c => { c.y -= over; });
+      { let topY = sideTop[side]; list.forEach(c => { if (c.y < topY) c.y = topY; topY = c.y + c.h + 26; }); }   // never up into the block above
       list.forEach(c => { const x = side === 'R' ? clamp(Math.max(c.A.x + 60, z.r + 30), 0, rackLeft + 24 - CW) : clamp(Math.min(c.A.x - 60, z.l - 30) - CW, 32, W);
         gsap.set(c.el, { left: x, top: c.y }); c.el.dataset.side = side;
         lines.push(side === 'R' ? [x, c.y + .6, x - 24, c.y + .6, c.A.x, c.A.y] : [x + CW, c.y + .6, x + CW + 24, c.y + .6, c.A.x, c.A.y]); }); }
