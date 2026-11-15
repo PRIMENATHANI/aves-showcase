@@ -22,7 +22,8 @@
 <meta name="twitter:title" content="AVES AV-HB25 Ear Muffs: how they work">
 <meta name="twitter:description" content="The AVES® AV-HB25 is a helmet-mounted ear muffs deliver reliable hearing protection and lasting comfort in demanding industrial environments.">
 <meta name="twitter:image" content="https://primenathani.github.io/aves-showcase/exploded/modern-r1/av-hb25/assets/share-card.jpg">
-<link rel="preload" as="image" href="assets/frames/turn/000.webp" fetchpriority="high">
+<link rel="preload" as="image" href="assets/frames/turn/000.webp" fetchpriority="high" media="(min-width: 1024px), (min-width: 760px) and (pointer: fine)">
+<link rel="preload" as="image" href="assets/frames-m/turn/000.webp" fetchpriority="high" media="(max-width: 759px), (max-width: 1023px) and (pointer: coarse)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -594,22 +595,36 @@ img.still{display:block}
   let urgent = [];
   let active = 0;
   let firstPass = 0; // queue entries that outrank the playhead's own requests: turn 6ths, rest frames, the first transition
+  // once the visitor has scrolled past the opening the walk outranks the turn: the turn's remaining in-between frames wait
+  // (live proof, 15 Nov: on the face shield and respirator 5 to 7 MB of turn frames otherwise sat in front of stages 2 to 4)
+  const pastOpening = () => window.scrollY > innerHeight * 0.6;
+  const take = () => {
+    const walkFirst = pastOpening();
+    while (queue.length) {
+      let at = 0;
+      if (walkFirst) {
+        at = queue.findIndex((j) => j[0] !== "turn" && !want[j[0]][j[1]]);
+        if (at < 0) at = 0;
+      }
+      const j = queue.splice(at, 1)[0];
+      if (!want[j[0]][j[1]]) return j;
+    }
+    return null;
+  };
   const pump = () => {
-    while (active < 12) {
+    // up to 12 requests at once; the playhead's own requests (urgent) may use 4 more, so they never wait behind the queue
+    while (active < 16) {
       let job = null;
-      while (!job && firstPass > 0 && queue.length) {
+      while (!job && firstPass > 0 && queue.length && active < 12) {
         firstPass -= 1;
         const j = queue.shift();
         if (!want[j[0]][j[1]]) job = j;
       }
-      while (!job && urgent.length) {
+      while (!job && urgent.length && (firstPass <= 0 || active < 12)) {
         const j = urgent.shift();
         if (!want[j[0]][j[1]] && j[1] >= 0 && j[1] < F[j[0]].n) job = j;
       }
-      while (!job && queue.length) {
-        const j = queue.shift();
-        if (!want[j[0]][j[1]]) job = j;
-      }
+      if (!job && active < 12) job = take();
       if (!job) return;
       active += 1;
       load(job[0], job[1]).then(() => {
