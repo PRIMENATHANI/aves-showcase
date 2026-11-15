@@ -594,9 +594,15 @@ img.still{display:block}
   const queue = [];
   let urgent = [];
   let active = 0;
+  let firstPass = 0; // queue entries that come before the playhead's neighbourhood: stage rest frames, then every 6th frame
   const pump = () => {
     while (active < 6) {
       let job = null;
+      while (!job && firstPass > 0 && queue.length) {
+        firstPass -= 1;
+        const j = queue.shift();
+        if (!want[j[0]][j[1]]) job = j;
+      }
       while (!job && urgent.length) {
         const j = urgent.shift();
         if (!want[j[0]][j[1]] && j[1] >= 0 && j[1] < F[j[0]].n) job = j;
@@ -697,8 +703,12 @@ img.still{display:block}
     const t = f - i;
     const p = rows[i] && rows[i][id];
     const q = t < 0.001 ? p : (rows[j] && rows[j][id]) || p; // on a whole frame only that frame counts
-    if (!p || !q || !p[2] || !q[2]) return null;
-    return [p[0] + (q[0] - p[0]) * t, p[1] + (q[1] - p[1]) * t];
+    const okP = p && p[2];
+    const okQ = q && q[2];
+    if (okP && okQ) return [p[0] + (q[0] - p[0]) * t, p[1] + (q[1] - p[1]) * t];
+    // one side hidden: the nearer whole frame decides (a playhead resting a hair past a stage's last frame keeps its dot)
+    const near = t < 0.5 ? (okP ? p : null) : okQ ? q : null;
+    return near ? [near[0], near[1]] : null;
   };
   function size() {
     const r = inner.getBoundingClientRect();
@@ -731,6 +741,7 @@ img.still{display:block}
   // behind), never advances more than about one frame per display frame, and never onto a frame that is not decoded: it holds
   // on the last decoded frame and asks for the frames ahead, in its direction of travel.
   let uPlay = 0;
+  let firstDraws = 0; // images drawn for the first time (their upload to the GPU happens then): traced to find long frames
   let lastT = 0;
   const trace = (window.hxTrace = { on: false, rows: [] });
   const framesPerU = (u) => {
@@ -742,11 +753,30 @@ img.still{display:block}
     return (Math.max(S[i].played || 8, 24) / Math.max(0.3, span * (1 - c))) * 1.05; // 5 % margin: rounding never adds a frame
   };
   const decoded = (sh) => Boolean(sets[sh.a.set][Math.round(sh.a.f)] && (!sh.b || sets[sh.b.set][Math.round(sh.b.f)]));
+  // the nearest decoded frames at or below and at or above f (a slow line: frames between two rest frames still missing)
+  const bracket = (set, f) => {
+    const list = sets[set];
+    const n = F[set].n;
+    let lo = Math.floor(f);
+    let hi = Math.ceil(f);
+    while (lo >= 0 && !list[lo]) lo -= 1;
+    while (hi < n && !list[hi]) hi += 1;
+    return [lo >= 0 ? lo : -1, hi < n ? hi : -1];
+  };
+  // before any frame of the walk's first set has arrived, its hand-off frame is the turn frame it was rendered from
+  // (and stands in for the whole first set until one of its frames is decoded: on a slow line the walk never shows nothing)
+  const turnStandIn = (fr) => fr.set === HO.set && sets.turn[HO.turnFrame] && (Math.round(fr.f) === (HO.frame || 0) || !sets[fr.set].some(Boolean));
+  const blendable = (fr) => {
+    if (sets[fr.set][Math.round(fr.f)] || turnStandIn(fr)) return true;
+    const [lo, hi] = bracket(fr.set, fr.f);
+    return lo >= 0 || hi >= 0; // any decoded frame of the set: the walk moves on, drawing what it has
+  };
   function stepPlayhead(now) {
     const dt = lastT ? Math.min(64, now - lastT) : 16.7;
     lastT = now;
     const gap = uNow - uPlay;
     let held = false;
+    let blended = false;
     let wanted = uPlay;
     if (reduced || Math.abs(gap) < 1e-4) {
       wanted = uNow;
@@ -758,13 +788,18 @@ img.still{display:block}
     }
     const shW = showAt(wanted);
     if (decoded(shW)) uPlay = wanted;
-    else {
+    else if ((blendable(shW.a) || !sets[shW.a.set].some(Boolean)) && (!shW.b || blendable(shW.b) || !sets[shW.b.set].some(Boolean))) {
+      // not decoded yet, but decoded frames lie on both sides: move on and cross-fade between them (drawWalk), never freeze
+      uPlay = wanted;
+      blended = true;
+      ahead(shW.a.set, shW.a.f, Math.sign(gap) || 1);
+    } else {
       held = true;
       ahead(shW.b && shW.k > 0.5 ? shW.b.set : shW.a.set, shW.b && shW.k > 0.5 ? shW.b.f : shW.a.f, Math.sign(gap) || 1);
     }
     if (trace.on) {
       const d = showAt(uPlay);
-      trace.rows.push([Math.round(now * 10) / 10, d.a.set, Math.round(d.a.f), d.b ? d.b.set : "", d.b ? Math.round(d.b.f) : -1, +uNow.toFixed(4), +uPlay.toFixed(4), held ? Math.abs(Math.round(shW.a.f) - Math.round(d.a.f)) : 0]);
+      trace.rows.push([Math.round(now * 10) / 10, d.a.set, Math.round(d.a.f), d.b ? d.b.set : "", d.b ? Math.round(d.b.f) : -1, +uNow.toFixed(4), +uPlay.toFixed(4), held ? Math.abs(Math.round(shW.a.f) - Math.round(d.a.f)) : 0, held ? 1 : 0, blended ? 1 : 0, firstDraws]);
     }
   }
   function drawWalk() {
@@ -773,13 +808,39 @@ img.still{display:block}
     if (key === drawnKey && !dirty) return sh;
     drawnKey = key;
     dirty = false;
+    const any = (fr) => sets[fr.set].some(Boolean) || turnStandIn(fr);
+    // a camera cut into a set none of whose frames has arrived yet: keep the last picture (the cut starts on the same image)
+    // rather than clear to nothing; the playhead goes on and the new set fades in as its frames decode
+    if (!any(sh.a) && (!sh.b || !any(sh.b))) return sh;
     ctx.clearRect(0, 0, box.w, box.h);
     const paint = (fr, alpha) => {
-      const im = nearest(fr.set, Math.round(fr.f));
-      if (!im || alpha <= 0.002) return;
+      if (alpha <= 0.002) return;
       const pl = placeOf(fr.set, fr.f);
-      ctx.globalAlpha = alpha;
-      ctx.drawImage(im, pl.ox, pl.oy, F[fr.set].w * pl.s, F[fr.set].h * pl.s);
+      const draw = (im, a) => {
+        if (!im.hxDrawn) {
+          im.hxDrawn = true;
+          firstDraws += 1;
+        }
+        ctx.globalAlpha = a;
+        ctx.drawImage(im, pl.ox, pl.oy, F[fr.set].w * pl.s, F[fr.set].h * pl.s);
+      };
+      const exact = sets[fr.set][Math.round(fr.f)];
+      if (exact) return draw(exact, alpha);
+      if (turnStandIn(fr)) {
+        ctx.globalAlpha = alpha;
+        const k = HO.scale || 1;
+        ctx.drawImage(sets.turn[HO.turnFrame], pl.ox + HO.offset[0] * pl.s, pl.oy + HO.offset[1] * pl.s, F.turn.w * pl.s * k, F.turn.h * pl.s * k);
+        return;
+      }
+      const [lo, hi] = bracket(fr.set, fr.f);
+      if (lo >= 0 && hi >= 0 && hi !== lo) {
+        const t = clamp((fr.f - lo) / (hi - lo), 0, 1);
+        draw(sets[fr.set][lo], alpha);
+        draw(sets[fr.set][hi], alpha * t); // the later frame fades in over the earlier: no frame shown that is not decoded
+        return;
+      }
+      const one = lo >= 0 ? sets[fr.set][lo] : hi >= 0 ? sets[fr.set][hi] : null;
+      if (one) draw(one, alpha);
     };
     paint(sh.a, sh.b ? 1 - sh.k : 1);
     if (sh.b) paint(sh.b, sh.k);
@@ -1483,10 +1544,11 @@ img.still{display:block}
     // then the rest; the frames around the playhead always jump the queue (ahead())
     const walkSets = [...new Set(S.map((stage) => stage.set))];
     const push = (set, i) => queue.push([set, ((i % F[set].n) + F[set].n) % F[set].n]);
-    for (let d = 6; d < T.n; d += 6) push("turn", k + d);
-    for (const stage of S) push(stage.set, stage.range[1]);
-    for (const name of ["turn", ...walkSets.filter((n) => n !== "turn")]) for (let i = 0; i < F[name].n; i += 4) push(name, i);
-    for (const name of ["turn", ...walkSets.filter((n) => n !== "turn")]) for (let i = 0; i < F[name].n; i += 1) push(name, i);
+    for (const stage of S) push(stage.set, stage.range[1]); // first the stage rest frames: the walk snaps to them from the start
+    for (const name of ["turn", ...walkSets.filter((n) => n !== "turn")]) for (let i = 0; i < F[name].n; i += 6) push(name, name === "turn" ? k + i : i);
+    firstPass = queue.length;
+    for (const name of ["turn", ...walkSets.filter((n) => n !== "turn")]) for (let i = 0; i < F[name].n; i += 2) push(name, i);
+    for (const name of ["turn", ...walkSets.filter((n) => n !== "turn")]) for (let i = 1; i < F[name].n; i += 2) push(name, i);
     pump();
     const allOf = (name) => sets[name].filter(Boolean).length >= F[name].n;
     await new Promise((done) => {
