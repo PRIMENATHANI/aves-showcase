@@ -150,10 +150,16 @@ overflow:hidden;transform-origin:20% 50%;will-change:transform}
 
 /* ---------- hand-off to the kit page (study 1): the open slice's clip widens to the screen, the kit backdrop rises in it ---------- */
 .handoff{position:fixed;inset:0;z-index:80;pointer-events:none;overflow:hidden}
-.handoff .hclip{position:absolute;inset:0;overflow:hidden;will-change:clip-path}
+.handoff .hclip{position:absolute;left:0;top:0;width:100vw;height:100vh;overflow:hidden;transform-origin:0 0;will-change:transform}
+.handoff .hin{position:absolute;left:0;top:0;width:100vw;height:100vh;transform-origin:0 0;will-change:transform}
+/* cross-document view transition to the kit page: the photo frame carries the same name there (#hoc), the frames are identical */
+@view-transition{navigation:auto}
+/* a held cut, not a crossfade: the old frame stays until the new page's first frame (identical), and the kit page's own
+   hand-over ease is the only motion (a crossfade here blended two pictures while that ease ran) */
+::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none}
 .handoff .hpar{position:absolute;inset:0;will-change:transform}
 .handoff .hpic{position:absolute;left:0;top:0;max-width:none;transform-origin:50% 50%;will-change:transform}
-.handoff .hkit{position:absolute;inset:0;overflow:hidden;will-change:transform}
+.handoff .hkit{position:absolute;inset:0;overflow:hidden;will-change:transform;view-transition-name:kit-photo}   /* flow2: named here, not on .hclip: .hclip is a screen-sized box scaled to the frame, so its snapshot was screen-tall and its lower half showed below the photo for two frames; .hkit is the frame itself */
 .handoff .hkit img{position:absolute;left:50%;top:50%;max-width:none;transform-origin:50% 50%;will-change:transform}
 .handoff .hbrand{display:flex;align-items:center}
 .handoff .hbrand .logo{height:calc(29.9 * var(--u));filter:none}
@@ -283,11 +289,12 @@ body.mode-kit .kit{display:block}
 .toast{position:fixed;left:50%;bottom:28px;z-index:90;transform:translate(-50%,12px);opacity:0;background:var(--ink);color:var(--bg);font-weight:600;font-size:14px;padding:10px 16px;border-radius:2px;pointer-events:none;transition:opacity .2s ease,transform .2s ease;max-width:calc(100vw - 32px)}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 
-/* ================= v0.3.4 compact picker (< 1024; comp picker-390x844): the first industry as the open card, the other
-   seventeen as list rows (picture, number, name, icon) under their sector rails; every row is a pick ================= */
+/* ================= v0.3.4 compact picker (< 1024), 2026-11-15, owner's note from his phone ("they should all be equal in size"):
+   all 18 industries as EQUAL picture tiles under their sector rails. Phone: two per row, 16 px margins, 10 px gap, 4:5.
+   Tablet (600 to 1023): three per row, four from 800. A sector with an odd count leaves the last cell empty. ================= */
 @media (max-width:1023px){
   .picker{--s:1;--u:1px;height:auto;min-height:0;overflow:visible;--top:0;--bot:0;--ppad:16px;padding:0 0 32px}
-  .p-head{position:relative;left:auto;right:auto;top:auto;padding:20px 16px 0;max-width:600px;margin:0 auto}
+  .p-head{position:relative;left:auto;right:auto;top:auto;padding:20px 16px 0;max-width:960px;margin:0 auto}
   .p-head .logo{height:18px}
   .p-head .brand .tagline{margin-left:14px;font-size:9.5px;line-height:12px;letter-spacing:.14em}
   .p-head .brand .tagline > span{display:block}
@@ -295,45 +302,31 @@ body.mode-kit .kit{display:block}
   .p-head h1 img{height:39px;max-width:100%;object-fit:contain;object-position:0 0}
   .p-head p{margin-top:6px;font-size:13.5px;line-height:1.4;text-align:left}
   .p-head p span{display:inline;white-space:normal}
-  .slices{position:relative;left:auto;right:auto;top:auto;bottom:auto;flex-direction:column;gap:22px;padding:12px 16px 0;max-width:600px;margin:0 auto}
+  .slices{position:relative;left:auto;right:auto;top:auto;bottom:auto;flex-direction:column;gap:22px;padding:12px 16px 0;max-width:960px;margin:0 auto}
   .grp{flex:none;transition:none}
   .grp .gl{height:auto;padding-bottom:8px;margin-bottom:10px;align-items:baseline;font-size:10px;gap:10px}
-  .grp .row{display:flex;flex-direction:column;gap:8px;margin:0}
-  .slice{flex:none;height:44px;transition:transform .18s ease}
-  .slice:active{transform:scale(.985)}
+  .grp .row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0}
+  .slice{flex:none;height:auto;aspect-ratio:4 / 5;transition:transform .16s cubic-bezier(.215,.61,.355,1)}
+  .slice:active{transform:scale(.988)}   /* the press: motion.json study 1, 98.8 %, power2.out */
   .slice.on{flex-grow:0}
   .slice::after{display:none}
-  .slice .clip{right:auto;width:72px}
-  .slice .par{inset:-4px}
+  .slice .clip{inset:0;width:auto}
+  .slice .par{inset:-6px}
   .slice .foc{transform:none}
   .slice .pimg{left:0;width:100%;transform:none}
-  .slice .dim{opacity:.08}
-  .slice .veil,.slice.on .veil{opacity:0}
-  .slice .rest,.slice.on .rest{opacity:1;text-shadow:none}
-  .slice .num{left:88px;right:auto;top:50%;transform:translateY(-50%);text-align:left;font-size:11px;letter-spacing:.06em;text-indent:0;color:var(--t-dim)}
-  .slice .glyph{left:auto;right:4px;top:50%;margin:-11px 0 0;width:22px;height:22px;filter:none}
+  .slice .dim{opacity:.1}
+  .slice .veil,.slice.on .veil{opacity:1}   /* the approved bands: top (number, icon) and foot (name) */
+  .slice .rest,.slice.on .rest{opacity:1}
+  .slice .num{left:10px;right:auto;top:10px;text-align:left;font-size:11px;letter-spacing:.12em;text-indent:0}
+  .slice .glyph{left:auto;right:9px;top:8px;margin:0;width:22px;height:22px}
   .slice .vname{display:none}
-  .slice .hname{display:block;position:absolute;left:116px;right:40px;top:50%;transform:translateY(-50%);font-weight:900;text-transform:uppercase;letter-spacing:.08em;font-size:13px;line-height:1.15;color:#fff}
+  .slice .hname{display:block;position:absolute;left:10px;right:8px;bottom:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:12px;line-height:1.2;color:#fff;white-space:nowrap}
+  .slice .hname span{display:block}
   .slice .info{display:none}
-  /* the open card: kit 01 */
-  .grp:first-child .slice:first-child{height:302px;margin-bottom:12px}
-  .grp:first-child .slice:first-child::after{display:block;bottom:-10px;height:4px;transform:scaleX(1);transition:none}
-  .grp:first-child .slice:first-child .clip{width:auto;right:0}
-  .grp:first-child .slice:first-child .veil{opacity:.55}
-  .grp:first-child .slice:first-child .dim{opacity:0}
-  .grp:first-child .slice:first-child .rest{display:none}
-  .grp:first-child .slice:first-child .info{display:grid;visibility:visible;grid-template-columns:auto 1fr;align-items:center;column-gap:14px;left:16px;right:16px;bottom:18px;width:auto}
-  .grp:first-child .slice:first-child .info > :not(.tile):not(.kn){grid-column:1 / -1}
-  .slice .tile{width:32px;height:32px;margin:0}
-  .slice .info .kn{font-size:9.5px}
-  .slice .info .nm{margin-top:12px}
-  .slice .info .nm img{height:calc(var(--nh) * 28px)}
-  .slice .info .hz{margin-top:4px;font-size:11.5px;line-height:1.35}
-  .slice .info .hz li{display:inline}
-  .slice .info .hz li + li::before{content:" · "}
-  .slice .go{justify-self:start;margin-top:12px;font-size:11px;gap:10px;padding-bottom:4px;border-bottom-width:2px}
-  .slice .go svg{width:12px;height:8px}
+  .slice:focus-visible .clip{outline:2px solid var(--t-brandOn);outline-offset:2px}
 }
+@media (min-width:600px) and (max-width:1023px){ .grp .row{grid-template-columns:repeat(3,minmax(0,1fr))} .slice .hname{font-size:13px} }
+@media (min-width:800px) and (max-width:1023px){ .grp .row{grid-template-columns:repeat(4,minmax(0,1fr))} }
 
 /* ================= phone (comp 04) ================= */
 @media (max-width:759px){

@@ -6,13 +6,16 @@
 // Debug: ?kit=<id>&step=intro|1..n|end&d=<s>&t=<s>&det=<n>&tab=<n>&m=1|0&gl=0&rm=1
 (async () => {
 'use strict';
+performance.mark('k:script');   // v0.9 flow timing marks (v0.9/NOTES.md, flow section)
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const AB = new URL('.', document.baseURI).href, TB = new URL('../../v0.9/experience/assets/type/', document.baseURI).href;
 const q = new URLSearchParams(location.search), clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const KIT = q.get('kit') || 'oil-gas';
 const [D, TYPE, LINES] = await Promise.all([fetch(`data/${KIT}.json`).then(r => r.json()), fetch('assets/type/type.json').then(r => r.json()), fetch(TB + 'lines.json').then(r => r.json())]);
-const steps = D.steps, N = steps.length, F = D.frame, kit = D.kit;
+performance.mark('k:data'); const steps = D.steps, N = steps.length, F = D.frame, kit = D.kit;
+// flow2: the kit tile and kit-name lines start now, alongside the pictogram fetches below (they were requested only after them)
+const early = [kit.tile, ...Object.entries((LINES['kit-' + kit.id] || { sets: {} }).sets).flatMap(([n, s]) => s.map((_, i) => `${TB}kit-${kit.id}-${n}-${i}.png`))].map(u => { const im = new Image(); im.src = u; return im; });
 const SLOT = { head: 'Head', eye: 'Eye', face: 'Face', hearing: 'Hearing', respiratory: 'Respiratory', vest: 'Hi-vis', fall: 'Fall', dropped: 'Dropped objects', hand: 'Hand', 'cryo-body': 'Body' };
 document.title = `The AVES Experience: ${kit.name}`; $$('.ktile').forEach(im => { im.src = kit.tile; });
 const num = i => String(i + 1).padStart(2, '0');
@@ -39,8 +42,8 @@ const rm = matchMedia('(prefers-reduced-motion: reduce)').matches || q.has('rm')
 const isPhone = () => innerWidth < 820 || innerWidth / innerHeight < .9;
 const PH = q.get('m') === '1' || (q.get('m') !== '0' && isPhone());
 document.documentElement.classList.toggle('m', PH);
-const HZSVG = {}; await Promise.all((D.hz || []).map(id => fetch(`assets/hz/${id}.svg`).then(r => r.ok ? r.text() : '').then(t => { const m = t.match(/<svg[\s\S]*<\/svg>/); if (m) HZSVG[id] = m[0].replace(/<svg/, '<svg aria-hidden="true" focusable="false"'); }).catch(() => {})));
-const hzi = id => HZSVG[id] ? `<i class="hzi sv">${HZSVG[id]}</i>` : '<i class="hzi tri"></i>';
+const HZSVG = {}; await Promise.all((D.hz || []).map(id => fetch(`assets/hz/${id}.svg`).then(r => r.ok ? r.text() : '').then(t => { const m = t.match(/<svg[\s\S]*<\/svg>/); if (m) HZSVG[id] = m[0].replace(/<svg/, '<svg aria-hidden="true" focusable="false"'); }).catch(() => {})).concat(early.slice(1).map(im => im.decode ? im.decode().catch(() => 0) : 0)));   // flow2: the kit-name lines load and decode alongside (the tile is requested, not waited for)
+performance.mark('k:hz'); const hzi = id => HZSVG[id] ? `<i class="hzi sv">${HZSVG[id]}</i>` : '<i class="hzi tri"></i>';
 const kHz = i => (kit.hazardIcons || [])[i] || '';
 // framing windows per item category, art units (896 x 1536), from comps v0.1 tokens.json. face and cryo-body have no window in the
 // tokens: face = bust, cryo-body = full body. Where the worn item lies outside its window (the face-worn half masks under
@@ -51,11 +54,18 @@ const winFor = st => { const w = WIN[st.slot] || FULL, b = st.box, inside = x =>
 
 // ---------- static DOM (shared)
 $('#bdA').src = D.backdrop;
-const manEl = $('#man'); if (HI && D.base2x) manEl.querySelector('.base').src = D.base2x;
-const lys = steps.map(st => { const im = new Image(); im.className = 'ly'; im.alt = ''; im.src = layerSrc(st); im.style.zIndex = st.z; manEl.appendChild(im); return im; });
+const manEl = $('#man'); if (!PH && HI && D.base2x && !manEl.querySelector('.base').src.endsWith(D.base2x)) manEl.querySelector('.base').src = D.base2x;   // phone: index.html set the phone file
+// flow2 (owner: picker to kit "not smooth enough"): pictures the intro does not draw are held (data-ls, no src) and released after
+// the intro's own are in, in the order the steps need them (ls / later / stepPics below). Phone: product pictures from assets/phone/
+// (360 px WebP, v0.3.4/xtools/phone_assets.py); desktop keeps the full files.
+const PIC = p => PH && p ? '../../v0.9/experience/assets/phone/' + encodeURIComponent(p.split('/').pop().replace(/\.\w+$/, '')) + '.webp' : p;
+const LS = p => `data-ls="${esc(p)}"`;
+const ls = el => { if (el && el.dataset.ls) { if (el.closest && el.closest('#mRail')) { el.classList.add('ldg'); el.addEventListener('load', () => el.classList.remove('ldg'), { once: true }); }   // strip pictures fade in when they arrive (app.css)
+  el.src = el.dataset.ls; delete el.dataset.ls; } return el; };
+const lys = steps.map(st => { const im = new Image(); im.className = 'ly'; im.alt = ''; im.dataset.ls = layerSrc(st); im.style.zIndex = st.z; manEl.appendChild(im); return im; });
 const lyMask = () => steps.forEach((st, i) => { lys[i].style.zIndex = st.z; if (st.mask) lys[i].style.cssText += `;-webkit-mask-image:${st.mask};mask-image:${st.mask}`; });
 lyMask();
-$('#fly').innerHTML = steps.map(st => `<div class="f"><img alt="" src="${st.fly || st.image}"></div>`).join('');
+$('#fly').innerHTML = steps.map(st => `<div class="f"><img alt="" ${LS(PIC(st.fly || st.image))}></div>`).join('');
 const NUMW = ['', 'One hazard', 'Two hazards', 'Three hazards', 'Four hazards', 'Five hazards', 'Six hazards', 'Seven hazards'];
 const kickT = `Kit ${num(kit.index - 1)} / ${kit.of} · ${kit.group}`, leadT = kit.intro, hzNT = `${NUMW[kit.hazards.length] || kit.hazards.length + ' hazards'} on this site`;
 const hazLis = kit.hazards.map((h, i) => `<li>${hzi(kHz(i))}<span>${esc(cap1(h))}</span></li>`).join('');
@@ -67,60 +77,90 @@ const bootsT = `Boots: ${D.boots.name} · SKU ${D.boots.sku} · ${D.boots.standa
 $('#kick').textContent = kickT; $('#kname').innerHTML = tyL('kit-' + kit.id); $('#kintro').textContent = leadT; $('#khzN').textContent = hzNT; $('#khz').innerHTML = hazLis;
 $('#kitlnk').textContent = $('#pdKit').textContent = `${kit.name} PPE kit`;
 $('#boardT').innerHTML = ty('end-' + kit.id);
-$('#boardG').innerHTML = steps.map((st, i) => `<li><span class="bp"><img alt="" src="${st.image}"></span><i class="bl"></i><b class="label"><em>${num(i)}</em>${esc(SLOT[st.slot])}</b><span class="bn">${esc(st.name)}</span></li>`).join('');
+$('#boardG').innerHTML = steps.map((st, i) => `<li><span class="bp"><img alt="" ${LS(st.image)}></span><i class="bl"></i><b class="label"><em>${num(i)}</em>${esc(SLOT[st.slot])}</b><span class="bn">${esc(st.name)}</span></li>`).join('');
 $('#hzs').innerHTML = steps.map(st => `<div class="hzb"><p class="hk">${hzi(st.hazard.icon)}<span class="label">The hazard</span></p><p class="ht">${esc(st.hazard.title)}</p><p class="hw">${esc(st.hazard.where)}</p>
   <i class="hl"></i><i class="hd"></i><i class="hp"></i></div>`).join('');
 $('#pbs').innerHTML = steps.map((st, i) => { const c = D.cats[st.cat] || {}, hook = st.mkt && st.mkt.hook;
-  return `<div class="pb"><p class="cat">${c.icon ? `<img class="ci" alt="" src="${c.icon}">` : ''}<b class="cn">${num(i)}</b><span class="cname">${esc(catName(st))}</span></p>
+  return `<div class="pb"><p class="cat">${c.icon ? `<img class="ci" alt="" ${LS(c.icon)}>` : ''}<b class="cn">${num(i)}</b><span class="cname">${esc(catName(st))}</span></p>
   <h3 class="pn">${tyL('name-' + st.product)}</h3><p class="sub">${esc(st.descriptor)}</p><i class="acc"></i>${hook ? `<p class="hook">${esc(hook)}</p>` : ''}
   <ol class="fs">${feats(st).map((f, k) => `<li><i class="dv"></i><i class="dvo"></i><b class="fn">${num(k)}</b><b class="fn on">${num(k)}</b><div class="fx">${f.title ? `<strong class="ft">${esc(f.title)}</strong>` : ''}<span class="fl">${esc(f.line)}</span></div></li>`).join('')}</ol><i class="dv dl"></i>
   <dl class="meta">${st.mkt && st.mkt.system ? `<div class="mw"><dt class="label">Works with</dt><dd>${esc(st.mkt.system)}</dd></div>` : ''}${st.standards ? `<div class="ms"><dt class="label">Standards</dt><dd>${esc(st.standards)}</dd></div>` : ''}</dl>
   <p class="acts"><button class="lnk" data-det="${i}">Product details</button>${st.url ? `<a class="lnk2" href="${esc(st.url)}" target="_blank" rel="noopener">Visit product page<svg class="ne" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5" fill="none" stroke="currentColor" stroke-width="2"/></svg></a>` : ''}<span class="sku">SKU ${esc(st.sku)}</span></p></div>`; }).join('');
 $('#cnts').innerHTML = steps.concat([0]).map((_, i) => `<i>${i} / ${N}</i>`).join('');
 $('#segs').innerHTML = steps.map(() => '<i class="sb"><i class="so"></i></i>').join('');
-$('#rl').innerHTML = steps.map((st, i) => `<li><b class="rn">${num(i)}</b><b class="rn on">${num(i)}</b><span class="rt"><img alt="" src="${st.image}"></span><span class="rm"><span class="rnm">${esc(st.name)}</span><span class="rnm on">${esc(st.name)}</span></span></li>`).join('');
+$('#rl').innerHTML = steps.map((st, i) => `<li><b class="rn">${num(i)}</b><b class="rn on">${num(i)}</b><span class="rt"><img alt="" ${LS(st.image)}></span><span class="rm"><span class="rnm">${esc(st.name)}</span><span class="rnm on">${esc(st.name)}</span></span></li>`).join('');
 $('#endT').innerHTML = tyL('end-' + kit.id); $('#sis').textContent = sisT; $('#boots').textContent = bootsT;
-$('#endList').innerHTML = steps.map((st, i) => `<li><b class="en">${num(i)}</b><span class="et2"><img alt="" src="${st.image}"></span><span class="ex"><b>${esc(st.name)}</b><span>${esc(SLOT[st.slot])} · SKU ${esc(st.sku)}</span></span><button class="ed label" data-det="${i}">Details</button></li>`).join('');
+$('#endList').innerHTML = steps.map((st, i) => `<li><b class="en">${num(i)}</b><span class="et2"><img alt="" ${LS(st.image)}></span><span class="ex"><b>${esc(st.name)}</b><span>${esc(SLOT[st.slot])} · SKU ${esc(st.sku)}</span></span><button class="ed label" data-det="${i}">Details</button></li>`).join('');
 
 // ---------- phone DOM
 $('#mKick').textContent = kickT; $('#mName').innerHTML = tyL('kit-' + kit.id); $('#mLead').textContent = leadT; $('#mHzN').textContent = hzNT; $('#mHz').innerHTML = hazLis;
 $('#mKitT').textContent = (TYPE['end-' + kit.id] || { text: kit.title }).text; $('#mCntN').textContent = N;
-$('#mRail').innerHTML = steps.map((st, i) => `<li data-go="${i}"><span class="ph"><img alt="" src="${st.image}"></span></li>`).join('');
+$('#mRail').innerHTML = steps.map((st, i) => `<li data-go="${i}"><span class="ph"><img alt="" ${LS(PIC(st.image))}></span></li>`).join('');
 $('#mSteps').innerHTML = steps.map((st, i) => { const c = D.cats[st.cat] || {}, hook = st.mkt && st.mkt.hook;
   return `<article class="m-step"><div class="m-tabs" role="tablist"><button class="on" data-tab="0">The item</button><button data-tab="1">Benefits</button>${c.why ? '<button data-tab="2">Why AVES</button>' : ''}</div>
   <div class="m-pages">
     <div class="m-pg on"><div class="m-hz">${hzi(st.hazard.icon)}<div><p class="label hk">The hazard</p><p class="ht">${esc(st.hazard.title)}</p><p class="hw">${esc(st.hazard.where)}</p></div></div>
-      <p class="cat">${c.icon ? `<img class="ci" alt="" src="${c.icon}">` : ''}<b class="cn">${num(i)}</b><span class="cname">${esc(catName(st))}</span></p>
+      <p class="cat">${c.icon ? `<img class="ci" alt="" ${LS(c.icon)}>` : ''}<b class="cn">${num(i)}</b><span class="cname">${esc(catName(st))}</span></p>
       <h3 class="pn">${tyL('name-' + st.product)}</h3><p class="sub">${esc(st.descriptor)}</p>${hook ? `<p class="hook">${esc(hook)}</p>` : ''}
       <p class="acts"><button class="lnk" data-det="${i}">Product details</button>${st.url ? `<a class="lnk2" href="${esc(st.url)}" target="_blank" rel="noopener">Product page<svg class="ne" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9 9 3M4 3h5v5" fill="none" stroke="currentColor" stroke-width="2"/></svg></a>` : ''}</p></div>
     <div class="m-pg"><ol class="m-bf">${feats(st).map((f, k) => `<li><b class="fn">${num(k)}</b><b class="fn on">${num(k)}</b><div class="fx">${f.title ? `<strong class="ft">${esc(f.title)}</strong>` : ''}<span class="fl">${esc(f.line)}</span></div></li>`).join('')}</ol>
       <dl class="meta">${st.mkt && st.mkt.system ? `<div><dt class="label">Works with</dt><dd>${esc(st.mkt.system)}</dd></div>` : ''}${st.standards ? `<div><dt class="label">Standards</dt><dd>${esc(st.standards)}</dd></div>` : ''}<div><dt class="label">SKU</dt><dd>${esc(st.sku)}</dd></div></dl></div>
-    ${c.why ? `<div class="m-pg"><div class="m-why">${ty('why-' + st.cat, 'h4')}<ol class="m-wc">${c.why.items.slice(0, 3).map(x => `<li><b>${esc(x.h)}</b><p>${esc(firstSentence(x.t))}</p></li>`).join('')}</ol>${c.approach ? `<img class="apr-art" src="${c.approach.art}" alt="The AVES Approach: ${esc(c.approach.word)}">` : ''}</div></div>` : ''}
+    ${c.why ? `<div class="m-pg"><div class="m-why">${ty('why-' + st.cat, 'h4')}<ol class="m-wc">${c.why.items.slice(0, 3).map(x => `<li><b>${esc(x.h)}</b><p>${esc(firstSentence(x.t))}</p></li>`).join('')}</ol>${c.approach ? `<img class="apr-art" ${LS(c.approach.art)} alt="The AVES Approach: ${esc(c.approach.word)}">` : ''}</div></div>` : ''}
   </div></article>`; }).join('');
 $('#mEndT').innerHTML = tyL('end-' + kit.id);
 $('#mEndL').innerHTML = steps.map((st, i) => `<li><button data-det="${i}"><i>${num(i)}</i><b>${esc(st.name)}</b><span>${esc(SLOT[st.slot])}</span></button></li>`).join('');
 $('#mBoots').textContent = `${bootsT}. ${sisT}`;
 
 // everything decoded before the first frame, including the line pictures (CSS masks are not in document.images)
-const keys = ['kit-' + kit.id, 'end-' + kit.id, ...steps.map(s => 'name-' + s.product)], pre = [];
-keys.forEach(k => { const t = LINES[k]; if (t) Object.entries(t.sets).forEach(([n, s]) => s.forEach((_, i) => { const im = new Image(); im.src = `${TB}${k}-${n}-${i}.png`; pre.push(im); })); });
-const imgs = [...document.images, ...pre];
-await Promise.all(imgs.map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; })));
-await Promise.all(imgs.map(im => im.decode ? im.decode().catch(() => 0) : 0));
-if (document.fonts && document.fonts.ready) await document.fonts.ready;
+const linePics = k => { const t = LINES[k], o = []; if (t) Object.entries(t.sets).forEach(([n, s]) => s.forEach((_, i) => { const im = new Image(); im.dataset.ls = `${TB}${k}-${n}-${i}.png`; o.push(im); })); return o; };
+// flow2: the intro waits only for what it draws: backdrop, worker base, hand-over picture, kit tile, kit-name lines (+ the desktop
+// kit board). Everything else has no src until released: the phone strip at once after these, the rest after the intro is at rest,
+// step by step (stepPics), next step first; ?step= (debug, screenshots) releases and awaits everything as before.
+const DBG = !!q.get('step');
+const queue = []; let active = 0, rested = false;
+const pump = () => { while (active < 4 && queue.length) { const el = queue.shift(); if (!el.dataset.ls) continue; active++; ls(el);
+  const fin = () => { active--; pump(); }; if (el.complete) fin(); else { el.addEventListener('load', fin, { once: true }); el.addEventListener('error', fin, { once: true }); } } };
+const later = (els, front) => { els = els.filter(e => e && e.dataset.ls); if (front) queue.unshift(...els); else queue.push(...els); pump(); };
+const namePics = steps.map(s => linePics('name-' + s.product)), endPics = linePics('end-' + kit.id);
+const stepPics = i => !steps[i] ? [] : [lys[i], $$('#fly img')[i], ...(PH ? $$('#mSteps .m-step')[i].querySelectorAll('.ci') : $$('#pbs .pb')[i].querySelectorAll('.ci')), ...namePics[i]];
+const crit = [$('#bdA'), manEl.querySelector('.base'), ...$$('.ktile'), ...linePics('kit-' + kit.id), ...(PH ? [] : $$('#boardG img, #rl img, #endList img'))];
+if (window.__ho) crit.push($('#hoI'));
+crit.forEach(ls);
+const allPics = () => [...(PH ? $$('#mRail img') : []), ...steps.flatMap((_, i) => stepPics(i)), ...endPics];
+if (DBG) allPics().forEach(ls);
+const imgs = DBG ? [...crit, ...allPics()] : crit;
+const inPic = im => (im.complete && (im.naturalWidth || !im.src) ? Promise.resolve() : new Promise(r => { im.addEventListener('load', r, { once: true }); im.addEventListener('error', r, { once: true }); })).then(() => im.decode && im.src ? im.decode().catch(() => 0) : 0);
+// phone: the text does not wait for the worker's picture; he rises when it is decoded (critReady, in the arrival below)
+const baseIm = manEl.querySelector('.base'), early1 = PH && !DBG ? imgs.filter(im => im !== baseIm && im.id !== 'bdA' && im.id !== 'hoI' && !im.classList.contains('ktile')) : imgs;   // nor for the backdrop: the hand-over waits for it on its own (below)
+const critReady = Promise.all(imgs.map(inPic));
+await Promise.all(early1.map(inPic));
+// fonts: the stylesheet is non-blocking, so fonts.ready alone can resolve before Nunito Sans is even declared; the phone band is
+// measured from text heights, so wait (cap 1.2 s) until the face is declared and loaded
+if (document.fonts && document.fonts.check) { const t0 = performance.now(), dec = () => [...document.fonts].some(f => /Nunito/.test(f.family));
+  while (!dec() && performance.now() - t0 < 1200) await new Promise(r => setTimeout(r, 30));
+  if (dec()) await Promise.race([Promise.all(['400', '700', '800', '900'].map(w => document.fonts.load(`${w} 16px "Nunito Sans"`))).catch(() => 0), new Promise(r => setTimeout(r, Math.max(0, 1200 - (performance.now() - t0))))]); }
+if (PH) later($$('#mRail img'));   // the strip enters 0.5 s into the intro: next in line
+performance.mark('k:images'); if (document.fonts && document.fonts.ready) await document.fonts.ready;
+performance.mark('k:fonts'); 
 
 // ---------- shared geometry
 const stage = $('#stage'), cam = $('#cam'), bd = $('#bd'), bdw = $('#bdw'), track = $('#track'), flies = $$('#fly .f');
 let tl, st0, landAt = [], lastN = -1, builtW = 0, builtH = 0, builtIW = 0, builtIH = 0, U = 1, pgH = [];
-const site = (rm || q.get('gl') === '0' || !window.SiteGL || !D.fx) ? null : await SiteGL.create({ host: bd, img: $('#bdA'), fx: D.fx,
-  res: () => U, time: q.has('t') ? +q.get('t') : null, fine: matchMedia('(hover: hover) and (pointer: fine)').matches });
-const GL = !!(site && site.ok); document.documentElement.dataset.dbg = GL ? 'gl' : 'static';
+// flow2: WebGL starts after the intro is at rest (afterRest; before the build only for ?step= screenshots). Until then the static
+// backdrop shows; the canvas fades in over it (site-gl.js) on the geometry the build last set (glArgs)
+let site = null, GL = false, glArgs = null, glBusy = false; document.documentElement.dataset.dbg = 'static';
+async function startGL() { if (glBusy || rm || q.get('gl') === '0' || !window.SiteGL || !D.fx) return; glBusy = true;
+  await inPic($('#bdA')); if (!$('#bdA').naturalWidth) return;   // the canvas is drawn from the backdrop: never before it is in (Slow 4G)
+  site = await SiteGL.create({ host: bd, img: $('#bdA'), fx: D.fx, res: () => U, time: q.has('t') ? +q.get('t') : null, fine: matchMedia('(hover: hover) and (pointer: fine)').matches });
+  GL = !!(site && site.ok); document.documentElement.dataset.dbg = GL ? 'gl' : 'static'; performance.mark('k:gl');
+  if (GL && glArgs) { setGeomGL(...glArgs); site.start(); } }
+if (DBG) await startGL();
 gsap.set(manEl, { left: 0, top: 0, width: F.w, height: F.h });
 // ambient: the backdrop drifts (motion.json ambient.kitBackdrop: 147 % -> 150 %, x 0 -> -18 of 2560, 16 s yoyo); paused when hidden
 const drift = rm ? null : gsap.fromTo(bdw, { scale: 1, x: 0 }, { scale: 150 / 147, x: -18 / 2560 * 100 + 'vw', duration: 16, ease: 'sine.inOut', repeat: -1, yoyo: true });
 document.addEventListener('visibilitychange', () => drift && (document.hidden ? drift.pause() : drift.resume()));
 function clearAll() { gsap.set($$('#stage *').filter(e => e.getAttribute('style') && !e.classList.contains('ty') && !e.classList.contains('tl') && e !== bdw && !e.classList.contains('bd-gl') && e.id !== 'bdA'), { clearProps: 'all' }); lyMask(); gsap.set(manEl, { left: 0, top: 0, width: F.w, height: F.h }); }
-const setGeomGL = (W, H, px, fr) => { if (!GL) return null;
+const setGeomGL = (W, H, px, fr) => { glArgs = [W, H, px, fr]; if (!GL) return null;
   const o = { x: -.10 * W, y: -.16 * H }, bw0 = 1.2 * W, bh0 = 1.32 * H, bim = $('#bdA'), cs = Math.max(bw0 / bim.naturalWidth, bh0 / bim.naturalHeight), iw = bim.naturalWidth * cs, ih = bim.naturalHeight * cs;
   const iox = (bw0 - iw) * px, ioy = (bh0 - ih) * .58, fx = fr.x + F.w / 2 * fr.s, fy = fr.y + .9577 * F.h * fr.s;
   site.setGeom({ bw: bw0, bh: bh0, ox: iox, oy: ioy, iw, ih, o, Fp: { x: fx, y: .43 * H }, feet: { x: (fx - o.x - iox) / iw, y: (fy - o.y - ioy) / ih } }); return o; };
@@ -353,7 +393,7 @@ const build = () => PH ? buildPhone() : buildDesk();
 let lastLab = '', mTween = null;
 const labelList = () => Object.entries(tl.labels).sort((a, b) => a[1] - b[1]);
 const curIdx = () => { const L = labelList(), tt = mTween ? mTween.vars.time : tl.time(); let k = 0; L.forEach((l, n) => { if (tt >= l[1] - .01) k = n; }); return k; };
-function mGo(n) { const L = labelList(); n = clamp(n, 0, L.length - 1); const to = L[n][1], dist = Math.abs(to - tl.time()); if (dist < .01) return;
+function mGo(n) { const L = labelList(); n = clamp(n, 0, L.length - 1); later(stepPics(n - 1), true); const to = L[n][1], dist = Math.abs(to - tl.time()); if (dist < .01) return;
   mTween && mTween.kill(); const back = to < tl.time();
   mTween = tl.tweenTo(to, { duration: rm ? 0 : back ? Math.min(dist, 1.2) : Math.min(dist, 2.6), ease: 'none', onComplete: () => { mTween = null; } }); mTween.vars.time = to; mNavState(n); }
 function mNavState(n) { const L = labelList(); $('#mBack').disabled = n === 0; $('#mNav').classList.toggle('at-end', n === L.length - 1); $('#mNav').classList.toggle('at-intro', n === 0);
@@ -378,11 +418,11 @@ function setTab(stepEl, n) { if (!stepEl) return; const tabs = [...stepEl.queryS
 function sync() {
   const tt = tl.time(), n = landAt.filter(x => tt >= x).length;
   if (PH) { const lab = String(curIdx()); if (lab !== lastLab) { lastLab = lab; mNavState(+lab); $$('#mSteps .m-step').forEach(e => { const on = e.querySelector('.m-tabs .on'); if (on && on.dataset.tab !== '0') setTab(e, 0); }); } }
-  if (n === lastN) return; lastN = n;
+  if (n === lastN) return; lastN = n; if (rested) later(stepPics(n), true);   // flow2: the next step's pictures to the front of the queue
   $('#mCntI').textContent = n; $$('#mRail li').forEach((e, i) => { e.classList.toggle('gone', i < n); e.classList.toggle('on', i === n - 1); });
 }
 build();
-if (GL) site.start();
+if (GL) site.start();   // ?step= only (otherwise startGL starts it after rest)
 if (PH) {
   $('#mNext').addEventListener('click', () => { const L = labelList(), k = curIdx(); mGo(k === L.length - 1 ? 0 : k + 1); });
   $('#mBack').addEventListener('click', () => mGo(curIdx() - 1));
@@ -452,11 +492,22 @@ addEventListener('keydown', e => { if (e.key === 'Escape') closeDet(); });
 for (const ev of ['wheel', 'touchmove']) pd.addEventListener(ev, e => { if (!e.target.closest('#pdB') || $('#pdB').scrollHeight <= $('#pdB').clientHeight) e.preventDefault(); e.stopPropagation(); }, { passive: false });
 if (q.get('det') && steps[+q.get('det') - 1]) openDet(steps[+q.get('det') - 1], null, true);
 // study 1, arrival half: when the page opens (from the picker) the worker rises in, then kit name, lead, hazards, the kit board, the cue
-if (!rm && !q.get('step')) {
-  const A = gsap.timeline({ defaults: { ease: E.o } });
-  A.fromTo(manEl, { y: 140 / 1.6 / (+gsap.getProperty(cam, 'scale') || 1) }, { y: 0, duration: 1 }, .05).fromTo(manEl, { opacity: 0 }, { opacity: 1, duration: .35, ease: E.o1 }, .05);
+// prerendered by the picker (speculation rules, at the tap): data, pictures and WebGL are ready; the intro and the hand-over
+// start only when the visitor arrives (activation)
+if (document.prerendering) await new Promise(r => document.addEventListener('prerenderingchange', r, { once: true }));
+// flow2: at rest, the held pictures load in step order (a step reached early is moved to the front: sync / mGo), then WebGL starts in idle time
+const afterRest = () => { if (rested) return; rested = true; performance.mark('k:rest'); later(allPics());
+  (window.requestIdleCallback || (f => setTimeout(f, 300)))(() => startGL(), { timeout: 1500 }); };
+performance.mark('k:built'); if (rm || q.get('step')) critReady.then(afterRest); else {
+  if (!PH) await critReady;   // desktop: the kit board's pictures are part of its intro
+  // the worker rises when his picture is decoded (phone: at once if it is cached, else as soon as it arrives); rest = both done
+  let nA = 2; const one = () => { if (--nA === 0) afterRest(); };
+  const A = gsap.timeline({ defaults: { ease: E.o }, onStart: () => performance.mark('k:arrive'), onComplete: one });
+  gsap.set(manEl, { opacity: 0 });
+  inPic(baseIm).then(() => { performance.mark('k:worker'); gsap.timeline({ defaults: { ease: E.o }, onComplete: one })
+    .fromTo(manEl, { y: 140 / 1.6 / (+gsap.getProperty(cam, 'scale') || 1) }, { y: 0, duration: 1 }, .05).fromTo(manEl, { opacity: 0 }, { opacity: 1, duration: .35, ease: E.o1 }, .05); });
   A.fromTo('.kits', { opacity: 0 }, { opacity: 1, duration: .5 }, 0);
-  if (PH) { A.from('#mIntro > *', { y: 16, opacity: 0, duration: .6, stagger: .05 }, .2).from('#mStrip li', { y: 16, opacity: 0, duration: .6, stagger: .04 }, .5).from('#mNav', { y: 16, opacity: 0, duration: .5 }, .7); }
+  if (PH) { A.from('#mIntro > *', { y: 16, opacity: 0, duration: .6, stagger: .04 }, 0).from('#mStrip li', { y: 16, opacity: 0, duration: .6, stagger: .03 }, .25).from('#mNav', { y: 16, opacity: 0, duration: .5 }, .4); }   // flow2: text from the first frame, strip and bar sooner (was .2 / .5 / .7: rest 1.34 s after the start, now 1.06)
   else if (scrollY < 4) {
     ['.intro .kicker .ktile', '.intro .kicker .eyebrow', '#kname', '#kintro'].forEach((s, k) => A.from(s, { y: 28 / 1.6, opacity: 0, duration: .8 }, .2 + k * .07));
     A.from('#khzN', { y: 20 / 1.6, opacity: 0, duration: .7 }, .5); A.from('#khz li', { y: 20 / 1.6, opacity: 0, duration: .7, stagger: .06 }, .57);
@@ -472,6 +523,7 @@ if (window.__ho && document.documentElement.classList.contains('ho')) {
   const hoEl = $('#ho'), hoc = $('#hoc'), hoI = $('#hoI'), bim = $('#bdA'), fadeEl = $('#pha .pha-fade');
   const done = () => { hoEl.style.display = 'none'; bdw.style.scale = ''; bdw.style.translate = ''; if (fadeEl) fadeEl.style.translate = ''; document.documentElement.classList.remove('ho', 'ho-m'); };
   const go2 = () => {
+    if (window.__hoDrift) { try { window.__hoDrift.commitStyles(); } catch (e) {} window.__hoDrift.cancel(); window.__hoDrift = null; }   // flow2: the held frame's drift stops where it is
     const sr = stage.getBoundingClientRect(), Ut = sr.width / stage.offsetWidth || 1;
     const br = bim.getBoundingClientRect(), k = br.width / bim.offsetWidth || 1, nw = bim.naturalWidth, nh = bim.naturalHeight;
     const cs = Math.max(bim.offsetWidth / nw, bim.offsetHeight / nh), op = (getComputedStyle(bim).objectPosition || '50% 50%').split(' ').map(v => parseFloat(v) / 100);
@@ -491,7 +543,9 @@ if (window.__ho && document.documentElement.classList.contains('ho')) {
       .to(hoEl, { opacity: 0, duration: .5, ease: 'power1.inOut' }, .05)
       .to(PH ? '.hdr' : [], { opacity: 1, duration: .5, ease: E.o1 }, .15);
   };
-  if (!bim.naturalWidth || !hoI.complete) { hoEl.style.display = 'none'; done(); } else go2();
+  // flow2: on the phone the text no longer waits for the backdrop: the held photo (drifting) stays until both copies are in
+  const hoGo = () => { if (!bim.naturalWidth || !hoI.naturalWidth) { hoEl.style.display = 'none'; done(); } else go2(); };
+  if (bim.complete && hoI.complete) hoGo(); else Promise.all([inPic(bim), inPic(hoI)]).then(hoGo);
 }
 Object.defineProperty(window, '__kitTl', { get: () => tl });   // test hook: frame-pacing probes read the timeline time
 document.documentElement.dataset.ready = '1';

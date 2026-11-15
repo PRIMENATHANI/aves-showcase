@@ -97,6 +97,7 @@ async function create(o) {
   const dc = document.createElement('canvas'); dc.width = dim.naturalWidth; dc.height = dim.naturalHeight;
   const dx = dc.getContext('2d', { willReadFrequently: true }); dx.drawImage(dim, 0, 0);
   const dd = dx.getImageData(0, 0, dc.width, dc.height).data, DW = dc.width, DH = dc.height;
+  const Y = () => new Promise(r => setTimeout(r, 0)); await Y();   // flow2: it starts after the intro, while the drift runs: the heavy steps are separate tasks, not one long frame
   const depthAt = (fx, fy) => { const x = Math.round(Math.max(0, Math.min(1, fx)) * (DW - 1)), y = Math.round(Math.max(0, Math.min(1, fy)) * (DH - 1)); return dd[(y * DW + x) * 4] / 255; };
   api.depthAt = depthAt;
   const K = FX.k, D0 = K.d0;
@@ -118,14 +119,14 @@ async function create(o) {
   let pr;
   try { pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(pr);
     if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(pr)); } catch (e) { window.__errs && window.__errs.push('gl: ' + e.message); return api; }
-  gl.useProgram(pr);
+  await Y(); gl.useProgram(pr);
   const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
   const ap = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(ap); gl.vertexAttribPointer(ap, 2, gl.FLOAT, false, 0, 0);
   const tex = (im, unit) => { const t = gl.createTexture(); gl.activeTexture(gl.TEXTURE0 + unit); gl.bindTexture(gl.TEXTURE_2D, t);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, im); return t; };
-  tex(o.img, 0); tex(dim, 1); tex(skim, 2);
+  tex(o.img, 0); await Y(); tex(dim, 1); await Y(); tex(skim, 2); await Y();
   const U = n => gl.getUniformLocation(pr, n);
   const u = Object.fromEntries(['uImg', 'uDep', 'uSky', 'uBox', 'uImgO', 'uImgS', 'uL', 'uPan', 'uPtr', 'uZoom', 'uKp', 'uKz', 'uD0', 'uDp', 'uT', 'uFx', 'uPl', 'uPw', 'uPd[0]', 'uHz', 'uHzC', 'uSmC', 'uGlC', 'uGl'].map(n => [n, U(n)]));
   gl.uniform1i(u.uImg, 0); gl.uniform1i(u.uDep, 1); gl.uniform1i(u.uSky, 2); gl.uniform1f(u.uKp, K.pan); gl.uniform1f(u.uKz, K.zoom); gl.uniform1f(u.uD0, D0); gl.uniform1f(u.uFx, 1);
@@ -170,7 +171,7 @@ async function create(o) {
     gl.uniform2f(u.uL, c.L.x, c.L.y); gl.uniform2f(u.uPan, c.pan.x, c.pan.y); gl.uniform1f(u.uZoom, c.zoom); gl.uniform2f(u.uPtr, uPtr.x, uPtr.y); gl.uniform1f(u.uT, T + 40);
     const s = performance.now(); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     api.stats.frames++; api.stats.ms += performance.now() - s;
-    if (first) { first = false; cv.style.opacity = 1; o.img.style.visibility = 'hidden'; }
+    if (first) { first = false; cv.style.transition = 'opacity .8s'; cv.style.opacity = 1; setTimeout(() => { if (!lost) o.img.style.visibility = 'hidden'; }, 850); }   // flow2: fades in over the static picture (it starts after the intro)
     api.onFrame && api.onFrame(b);
     raf = requestAnimationFrame(frame);
   }

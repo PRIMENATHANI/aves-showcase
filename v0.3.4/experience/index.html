@@ -21,7 +21,7 @@ window.__errs = [];
 // v0.3.2 arrival: the intro (hero) shows on a fresh visit. Debug queries skip it (no-hero). Coming back from a kit page
 // (#industries, or the flag pick() sets before it navigates) lands on the picker: to-picker, scrolled below before paint.
 (function(){var d=document.documentElement,q=location.search,nh=/[?&](hover|pick|kit|step|nohero)(=|&|$)/.test(q),tp=location.hash==='#industries';
-try{if(sessionStorage.getItem('aves-picked')){tp=true;sessionStorage.removeItem('aves-picked');}}catch(e){}
+try{if(sessionStorage.getItem('aves-picked')){tp=true;sessionStorage.removeItem('aves-picked');var ry=sessionStorage.getItem('aves-pick-y');sessionStorage.removeItem('aves-pick-y');if(ry!==null&&innerWidth<1024)window.__returnY=+ry;}}catch(e){}
 if(nh)d.classList.add('no-hero');else if(tp)d.classList.add('to-picker');
 if('scrollRestoration' in history)history.scrollRestoration='manual';})();
 </script>
@@ -73,7 +73,8 @@ if('scrollRestoration' in history)history.scrollRestoration='manual';})();
 </section>
 <script>
 // to-picker: start at the picker, before first paint (no intro replay)
-if (document.documentElement.classList.contains('to-picker')) window.scrollTo(0, document.getElementById('picker').offsetTop);
+// v0.3.4: on the phone, back to where the page was when the tile was picked (window.__returnY, from the pick)
+if (document.documentElement.classList.contains('to-picker')) window.scrollTo(0, window.__returnY != null ? window.__returnY : document.getElementById('picker').offsetTop);
 </script>
 
 <header class="hdr" id="hdr">

@@ -314,3 +314,12 @@ html.m.pd-open .stage{touch-action:auto;-webkit-user-select:text;user-select:tex
 @media (orientation:landscape) and (max-height:500px) and (pointer:coarse){.turn{position:fixed;z-index:200;inset:0;display:grid;place-items:center;background:#07090c;color:#fff;font-weight:800;font-size:14px;letter-spacing:.14em;text-transform:uppercase}}
 @media (prefers-reduced-motion: reduce){*{scroll-behavior:auto !important}}
 @media (min-width:600px){html.m .m-intro,html.m .m-end,html.m .m-step{max-width:560px}}
+
+/* cross-document view transition from the picker: its photo frame and #hoc share the name; the two frames are identical */
+@view-transition{navigation:auto}
+html.ho #hoc{view-transition-name:kit-photo}
+/* a held cut, not a crossfade: the old frame stays until the new page's first frame (identical), and the kit page's own
+   hand-over ease is the only motion (a crossfade here blended two pictures while that ease ran) */
+::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none}
+/* flow2: a strip picture released after the intro's own fades in when it arrives, never pops */
+.m-strip .ph img{transition:opacity .35s ease-out}.m-strip .ph img.ldg{opacity:0}

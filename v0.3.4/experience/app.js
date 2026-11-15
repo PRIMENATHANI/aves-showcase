@@ -84,14 +84,14 @@ const FOCUS = { manufacturing: 0.21 };   // v0.3.4: 0.27 x the v0.3.3 picture = 
 const G_OPEN = 10.65;        // v0.3.4: open slice = 10.65 rest slices wide (comp: 831 px open, 78 px rest at 2560)
 const ARROW = '<svg viewBox="0 0 18 12" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
 function pimgHTML(k, cls, n) {
-  const lazy = n > 6 && compact() ? ' loading="lazy"' : '';   // compact layout scrolls: pictures past the first six load as they near the screen
-  if (PIMG.has(k.id)) return `<img class="${cls}" alt="" decoding="async"${lazy} src="${PICK}${k.id}-1024.webp" srcset="${PICK}${k.id}-512.webp 512w, ${PICK}${k.id}-1024.webp 1024w" sizes="${compact() ? (n === 1 ? '100vw' : '72px') : '560px'}" data-pk="${k.id}">`;
+  const lazy = n > 4 && compact() ? ' loading="lazy"' : '';   // compact layout scrolls: pictures past the first six load as they near the screen
+  if (PIMG.has(k.id)) return `<img class="${cls}" alt="" decoding="async"${lazy} src="${PICK}${k.id}-1024.webp" srcset="${PICK}${k.id}-512.webp 512w, ${PICK}${k.id}-1024.webp 1024w" sizes="${compact() ? '45vw' : '560px'}" data-pk="${k.id}">`;
   return bdHTML(k, false).replace('<img ', `<img class="${cls} old" `);
 }
 
-const spineLines = name => {
+const spineLines = (name, max = 11) => {
   const t = name.toUpperCase(), w = t.split(' ');
-  if (t.length <= 11 || w.length < 2) return [t];
+  if (t.length <= max || w.length < 2) return [t];
   let best = null;
   for (let i = 1; i < w.length; i++) { const a = w.slice(0, i).join(' '), b = w.slice(i).join(' '), m = Math.max(a.length, b.length); if (!best || m < best[0]) best = [m, [a, b]]; }
   return best[1];
@@ -114,7 +114,7 @@ function buildPicker() {
     const num = String(n).padStart(2, '0'), ic = ICON[k.id];
     return `<button class="slice" type="button" data-id="${k.id}" aria-label="${esc(k.name)}, kit ${n} of ${N}: ${esc(k.hazards.slice(0, 3).join(', '))}">` +
       `<span class="clip"><span class="rev"><span class="foc"${FOCUS[k.id] ? ` style="--fx:${FOCUS[k.id]}"` : ''}><span class="par">${pimgHTML(k, 'pimg', n)}</span></span><span class="dim"></span><span class="veil"></span><span class="pool"></span></span></span>` +
-      `<span class="rest" aria-hidden="true"><span class="num">${num}</span>${ic ? `<img class="glyph" alt="" src="${ICONS}${ic}-glyph.png">` : ''}<span class="vname">${spineLines(k.name).map(l => `<span>${esc(l)}</span>`).join('')}</span><span class="hname">${esc(k.name)}</span></span>` +
+      `<span class="rest" aria-hidden="true"><span class="num">${num}</span>${ic ? `<img class="glyph" alt="" src="${ICONS}${ic}-glyph.png">` : ''}<span class="vname">${spineLines(k.name).map(l => `<span>${esc(l)}</span>`).join('')}</span><span class="hname">${spineLines(k.name, 12).map(l => `<span>${esc(l)}</span>`).join('')}</span></span>` +
       `<span class="info" aria-hidden="true">${ic ? `<img class="tile" alt="" src="${ICONS}${ic}-tile.png" data-num="${num}">` : `<span class="tile ntile">${num}</span>`}<span class="kn">Kit ${num}<i>·</i>${esc(G.g)}</span>${nameHTML(k)}<ul class="hz">${k.hazards.slice(0, 3).map(h => `<li>${esc(h.charAt(0).toUpperCase() + h.slice(1))}</li>`).join('')}</ul><span class="go">Dress the kit${ARROW}</span></span>` +
     `</button>`; }).join('')}</div></div>`).join('');
   const btns = [...host.querySelectorAll('.slice')];
@@ -381,25 +381,55 @@ addEventListener('pageshow', e => {
 // hard edge (never two photos half transparent), and the kit page takes over. Desktop 2.0 s, phone 1.65 s (motion.json phone).
 // Transform and opacity only, plus the one clip-path inset on the slice clip.
 function pick(k, btn) {
-  if (picking || !k) return; picking = true;
-  try { sessionStorage.setItem('aves-picked', '1'); } catch (e) {}   // coming back (All kits -> site root -> here) lands on the picker, not the intro
+  if (picking || !k) return; picking = true; const tPick = performance.now();
+  try { sessionStorage.setItem('aves-picked', '1'); sessionStorage.setItem('aves-pick-y', String(Math.round(scrollY))); } catch (e) {}   // coming back lands on the picker (phone: where the page was), not the intro
   const url = kitURL(k.id);
-  const pf = document.createElement('link'); pf.rel = 'prefetch'; pf.href = url; document.head.appendChild(pf);
+  // from the tap: the kit page and what its first seconds need are fetched while the hand-off plays (the page itself by speculation-rules
+  // prefetch where supported); the hand-off holds its last frame until they are in (cap 8 s: leaving earlier cancels them), then the page changes
   const kb = preloadKit(k.id);
-  const go = () => { if (!window.__noNav) location.href = url; };   // __noNav: set only by the frame tools (xtools/handoff.mjs)
+  const abs = u => new URL(u, location.href).href;
+  // speculation rules on https, or on Chromium (it accepts them on a local http server; WebKit refuses there and logs errors)
+  if (HTMLScriptElement.supports && HTMLScriptElement.supports('speculationrules') && (location.protocol === 'https:' || navigator.userAgentData)) {
+    const sr = document.createElement('script'); sr.type = 'speculationrules';
+    // prefetch, not prerender: a prerendered kit page boots in the picker's renderer and its long tasks stalled the hand-off
+    // (measured 233 to 2233 ms gaps at CPU 4x); the kit page runs nothing until it is opened
+    sr.textContent = JSON.stringify({ prefetch: [{ source: 'list', urls: [abs(url)], eagerness: 'immediate' }] }); document.head.appendChild(sr);
+  }   // elsewhere (Safari) the fetch() of the page below warms the cache; <link rel=prefetch> logs errors there on http
+  const V9 = '../../v0.9/experience/', V6 = '../../v0.6/experience/';
+  const need = [url, V9 + 'app.css', V9 + 'app.js', V9 + 'site-gl.js', V6 + 'assets/type/type.json', V6 + 'assets/brand/aves-logo-rev.png', 'https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800;6..12,900&display=swap'];   // flow2: the backdrop is not fetched here: the Image the hand-off draws (preloadKit, kb.decode below) is the one download; a second fetch() halved its speed on Slow 4G   // flow2: + the kit page's own font stylesheet (its URL differs from this page's)   // what the kit page's first frame and its build need (base.png is not used on 2x screens: left out)
+  const get = (u, low) => fetch(u, { credentials: 'same-origin', ...(low ? { priority: 'low' } : {}) }), blob = u => get(u).then(r => r.blob()).catch(() => 0);
+  // flow2: and exactly what the kit intro waits for (v0.9 app.js crit): its hazard pictograms, kit tile, kit-name lines, phone worker
+  // flow2: and exactly what the kit intro waits for (v0.9 app.js crit): its hazard pictograms, kit tile, kit-name lines, phone worker
+  const intro = Promise.all([get(V6 + 'data/' + k.id + '.json').then(r => r.json()).catch(() => null), get(V9 + 'assets/type/lines.json').then(r => r.json()).catch(() => null)]).then(([d, L]) => {
+    if (!d) return 0; const t = (L && L['kit-' + k.id]) || { sets: {} };
+    const u = [...(d.hz || []).map(h => V6 + 'assets/hz/' + h + '.svg'), V6 + d.kit.tile, ...Object.entries(t.sets).flatMap(([n, s]) => s.map((_, i) => V9 + 'assets/type/kit-' + k.id + '-' + n + '-' + i + '.png'))];
+    const held = Promise.all(u.map(blob));
+    // then, not waited for: the phone worker picture and the kit strip's phone pictures (the text never waits for them)
+    // (after the backdrop too: started earlier they shared its bandwidth and pushed it past the 8 s cap on Slow 4G)
+    Promise.all([held, kb.decode ? kb.decode().catch(() => 0) : 0]).then(() => { if (!compact()) return; get(V9 + 'assets/phone/base2x.webp', 1).then(r => r.blob()).catch(() => 0); (d.steps || []).forEach(st => get(V9 + 'assets/phone/' + encodeURIComponent(String(st.image).split('/').pop().replace(/\.\w+$/, '')) + '.webp', 1).then(r => r.blob()).catch(() => 0)); });
+    return held; });
+  // the font stylesheet is requested exactly as the kit page asks for it (a style preload): Google varies it on Sec-Fetch-Dest, so a fetch() never matches
+  const css = u => Promise.race([new Promise(r => { const l = document.createElement('link'); l.rel = 'preload'; l.as = 'style'; l.href = u; l.onload = l.onerror = r; document.head.appendChild(l); }), new Promise(r => setTimeout(r, 1500))]);   // never holds the pick past 1.5 s
+  const ready = Promise.race([Promise.all(need.map(u => /^https:/.test(u) ? css(u) : blob(u)).concat(intro, kb.decode ? kb.decode().catch(() => 0) : [])), new Promise(r => setTimeout(r, 8000))]);
+  // while it holds, the photo keeps the study's ambient drift (scale 147 -> 150 %, x -18, 2.8 s sine) so the screen never stands
+  // still; the drift state goes to the kit page (sessionStorage aves-ho-drift), which opens with the same transform
+  let readyDone = false; ready.then(() => { readyDone = true; });
+  const go = () => { if (window.__noNav) return;   // __noNav: set only by the frame tools
+    if (!readyDone && phone) gsap.to(kimg, { scale: 1.0204, x: -18 * vw / 2560, duration: 2.8, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+    ready.then(() => { try { sessionStorage.setItem('aves-ho-drift', JSON.stringify({ s: +gsap.getProperty(kimg, 'scale') || 1, x: +gsap.getProperty(kimg, 'x') || 0 })); } catch (e) {} location.href = url; }); };
   const phone = compact(), vw = innerWidth, vh = innerHeight, f = phone ? 1 : uScale() / 1.6;   // f: comp px at 2560 -> page px
   const clipEl = btn.querySelector('.clip'), pim = btn.querySelector('.pimg');
   const r = clipEl.getBoundingClientRect();
   const H = phone ? Math.min(430, Math.round(vh * .51)) : vh;   // hand-off frame: the whole screen; phone: the photo zone at the top
   // overlay: clip (inset from the slice box to the frame) > parallax wrapper > the slice's own picture; the kit backdrop above it
   const o = document.createElement('div'); o.className = 'handoff'; o.setAttribute('aria-hidden', 'true');
-  o.innerHTML = `<div class="hclip"><div class="hpar"><img class="hpic" alt="" src="${pim ? (pim.currentSrc || pim.src) : ''}"></div><div class="hkit"><img alt="" src="${KIT_BD(k.id)}"></div>${phone ? '<div class="hfade"></div>' : ''}</div>`;
+  o.innerHTML = `<div class="hclip"><div class="hin"><div class="hpar"><img class="hpic" alt="" src="${pim ? (pim.currentSrc || pim.src) : ''}"></div><div class="hkit"><img alt="" src="${KIT_BD(k.id)}"></div>${phone ? '<div class="hfade"></div>' : ''}</div></div>`;
   // the logo and tagline never move (study note: the anchor that says this is the same page): a copy rides above the overlay
   const brand = document.querySelector('.p-head .brand');
   if (brand && !phone) { const br = brand.getBoundingClientRect(), c = brand.cloneNode(true); c.classList.add('hbrand'); c.removeAttribute('id');
     Object.assign(c.style, { position: 'absolute', left: br.left + 'px', top: br.top + 'px', width: br.width + 'px', height: br.height + 'px', margin: 0, fontSize: getComputedStyle(brand).fontSize });
     c.style.setProperty('--u', getComputedStyle(document.querySelector('.picker')).getPropertyValue('--u')); o.appendChild(c); }
-  const hclip = o.firstChild, hpar = hclip.firstChild, hpic = hpar.firstChild, hkit = hclip.querySelector('.hkit'), kimg = hkit.firstChild;
+  const hclip = o.firstChild, hin = hclip.firstChild, hpar = hin.firstChild, hpic = hpar.firstChild, hkit = hclip.querySelector('.hkit'), kimg = hkit.firstChild;
   // picture end box: cover of the frame, centred (comp: 1024 x 1280 at 250 % = 2560 x 3200 round the screen centre)
   const nw = (pim && pim.naturalWidth) || 1024, nh = (pim && pim.naturalHeight) || 1280;
   const kE = Math.max(vw / nw, H / nh), eW = nw * kE, eH = nh * kE;
@@ -407,14 +437,14 @@ function pick(k, btn) {
   // start: exactly the picture the slice draws at the moment the overlay takes over (object-fit cover in its drifting,
   // scaled, possibly still widening box); place() runs then, so a click right after a hover shows no step
   const C = {};
-  // measured with the press scale taken out (it is applied once, to the overlay clip, round the same centre)
+  // the clip rect measured with the press taken out (PR.s puts it back, round the same centre)
   const place = () => {
     const q = clipEl.getBoundingClientRect(), sc = +gsap.getProperty(clipEl, 'scale') || 1, ox = q.left + q.width / 2, oy = q.top + q.height / 2;
-    if (pim) { const b = pim.getBoundingClientRect(), kd = Math.max(b.width / nw, b.height / nh) / sc;
-      gsap.set(hpic, { x: ox + (b.left + b.width / 2 - ox) / sc - vw / 2, y: oy + (b.top + b.height / 2 - oy) / sc - H / 2, scale: kd / kE }); }
+    // the picture as measured, pressed size included (the clip's press is in PR.s, which the inner layer cancels for the content)
+    if (pim) { const b = pim.getBoundingClientRect(), kd = Math.max(b.width / nw, b.height / nh);
+      gsap.set(hpic, { x: b.left + b.width / 2 - vw / 2, y: b.top + b.height / 2 - H / 2, scale: kd / kE }); }
     const hw = q.width / sc / 2, hh = q.height / sc / 2;
-    Object.assign(C, { t: oy - hh, r: vw - (ox + hw), b: vh - (oy + hh), l: ox - hw }); setClip();
-    gsap.set(hclip, { transformOrigin: `${ox}px ${oy}px` });
+    Object.assign(C, { t: oy - hh, r: vw - (ox + hw), b: vh - (oy + hh), l: ox - hw }); PR.s = sc; setClip();
   };
   // kit backdrop: cover of the frame x 1.029 (comp: 147 % of 1792 x 1024 on 2560 x 1440), starts one frame below
   const kw = kb.naturalWidth || 1792, kh = kb.naturalHeight || 1024, kK = Math.max(vw / kw, H / kh) * 1.029;
@@ -427,7 +457,15 @@ function pick(k, btn) {
   gsap.set(hkit, { y: H + 2 });
   const ins = (t, rr, b, l) => `inset(${t}px ${rr}px ${b}px ${l}px)`;
   const to = { t: 0, r: 0, b: vh - H, l: 0 };
-  const setClip = () => { hclip.style.clipPath = ins(C.t, C.r, C.b, C.l); };
+  // v0.3.4 (owner, iPhone: "not smooth enough"): no clip-path animation. The clip is a box the size of the screen, scaled and moved
+  // to the clip rect (overflow hidden, origin 0 0), and its inner layer scaled back, so everything inside keeps screen coordinates:
+  // transform only, composited. PR.s = the press scale round the rect's centre (study 1: 98.8 %).
+  const PR = { s: 1 };
+  const setClip = () => { let l = C.l, t = C.t, w = vw - C.l - C.r, h = vh - C.t - C.b;
+    if (PR.s !== 1) { const cx = l + w / 2, cy = t + h / 2; w *= PR.s; h *= PR.s; l = cx - w / 2; t = cy - h / 2; }
+    const sx = Math.max(w, .5) / vw, sy = Math.max(h, .5) / vh;
+    hclip.style.transform = `translate(${l.toFixed(2)}px,${t.toFixed(2)}px) scale(${sx.toFixed(5)},${sy.toFixed(5)})`;
+    hin.style.transform = `scale(${(1 / sx).toFixed(5)},${(1 / sy).toFixed(5)}) translate(${(-l).toFixed(2)}px,${(-t).toFixed(2)}px)`; };
   place();
 
   if (RM) {   // reduced motion: straight to the kit, a 200 ms fade
@@ -454,8 +492,8 @@ function pick(k, btn) {
     kids.forEach((el, i) => tl.to(el, { y: -16 * f, autoAlpha: 0, duration: 0.34, ease: 'power2.in' }, 0.4 + i * 0.025));
     tl.fromTo(btn, { '--barO': 1 }, { '--barO': 0, duration: 0.3, ease: 'power2.in' }, 0.45);
     // 0.55 s: the overlay takes the slice (same picture, same box, the press already over its steepest part), the clip widens
-    tl.add(() => { place(); gsap.set(hclip, { scale: gsap.getProperty(clipEl, 'scale') }); document.body.appendChild(o); }, 0.55)
-      .to(hclip, { scale: 1, duration: 0.46, ease: 'power3.out' }, 0.55)
+    tl.add(() => { place(); document.body.appendChild(o); }, 0.55)
+      .to(PR, { s: 1, duration: 0.46, ease: 'power3.out', onUpdate: setClip }, 0.55)
       .to(C, { ...to, duration: 1.1, ease: 'power3.inOut', onUpdate: setClip }, 0.55)
       .to(hpic, { x: 0, y: -140 * f, scale: 1, duration: 1.1, ease: 'power3.inOut' }, 0.55);
     // closed slices slide off: those right of the open one to the right edge and beyond, those left of it to the left
@@ -471,11 +509,11 @@ function pick(k, btn) {
     document.body.appendChild(o);
     gsap.set(clipEl, { autoAlpha: 0 });
     const above = ['.p-head', ...[...document.querySelectorAll('.grp .gl, .slice')].filter(el => el !== btn && el.getBoundingClientRect().bottom <= r.top + 1)];
-    const below = [...document.querySelectorAll('.grp .gl, .slice')].filter(el => el !== btn && el.getBoundingClientRect().top >= r.bottom - 1);
+    const below = [...document.querySelectorAll('.grp .gl, .slice')].filter(el => el !== btn && el.getBoundingClientRect().bottom > r.top + 1);   // the same row and everything after it
     tl.to(above, { y: -12, autoAlpha: 0, duration: 0.3, ease: 'power2.in', stagger: 0.02 }, 0.3)
       .to(btn.querySelectorAll('.info, .rest'), { autoAlpha: 0, duration: 0.25, ease: 'power2.in' }, 0.3)
       .fromTo(btn, { '--barO': 1 }, { '--barO': 0, duration: 0.25, ease: 'power2.in' }, 0.3)
-      .to(below, { y: vh - r.bottom + 4, duration: 1.0, ease: 'power3.inOut' }, 0.3)
+      .to(below, { y: Math.max(vh - r.top + 4, H - r.top + 4), duration: 1.0, ease: 'power3.inOut' }, 0.3)
       .to(C, { ...to, duration: 1.0, ease: 'power3.inOut', onUpdate: setClip }, 0.3)
       .to(hpic, { x: 0, y: 0, scale: 1, duration: 1.0, ease: 'power3.inOut' }, 0.3)
       .to(o.querySelector('.hfade'), { opacity: 1, duration: 0.4, ease: 'power1.out' }, 0.9)
@@ -484,7 +522,7 @@ function pick(k, btn) {
     tl.eventCallback('onComplete', null);
     tl.call(go, null, 1.65);
   }
-  window.__handoff = { tl, o };
+  window.__handoff = { tl, o, pickMs: +(performance.now() - tPick).toFixed(1) };
 }
 
 
@@ -895,7 +933,7 @@ async function boot() {
   // fonts arrive, so land on the picker again then (unless the visitor has already moved)
   if (document.documentElement.classList.contains('to-picker')) {
     let moved = false; ['wheel', 'touchstart', 'keydown'].forEach(t => addEventListener(t, () => { moved = true; }, { once: true, passive: true }));
-    const land = () => { if (moved) return; const y = $('#picker').offsetTop; window.scrollTo(0, y); if (lenis) lenis.scrollTo(y, { immediate: true, force: true }); ScrollTrigger.refresh(); };
+    const land = () => { if (moved) return; const y = window.__returnY != null ? window.__returnY : $('#picker').offsetTop; window.scrollTo(0, y); if (lenis) lenis.scrollTo(y, { immediate: true, force: true }); ScrollTrigger.refresh(); };
     land(); document.fonts.ready.then(land); addEventListener('load', land, { once: true }); setTimeout(land, 600);
   }
   heroEntrance();
