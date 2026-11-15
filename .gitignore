@@ -91,6 +91,10 @@ v0.3.4/*
 !v0.3.4/experience/
 v0.3.4/experience/tools/
 v0.3.4/experience/shots/
+v0.3.5/*
+!v0.3.5/experience/
+v0.3.5/experience/tools/
+v0.3.5/experience/shots/
 v0.9/*
 !v0.9/experience/
 v0.3.2/root-test.html

@@ -467,6 +467,14 @@ img.still{display:block}
 .doc .dm-f{fill:var(--panel)}
 .doc .dm-l{fill:none;opacity:.55}
 
+/* ---- feature tiles: the name sits on its own strip above the picture, never over it (FORMAT.md section 4; 15 Nov 2026: names were unreadable over dark close-ups) */
+.dt{padding:0}
+.dt h3{order:0;max-width:none;padding:20px 22px 12px;text-shadow:none;background:var(--panel);z-index:1}
+.dt img.still{position:relative;inset:auto;order:1;flex:1 1 0;min-height:0;width:100%;height:0;padding:0 8% 18px}
+.dt img.still.cover{padding:0}
+.dt .go{position:absolute;left:22px;bottom:22px;z-index:2}
+@media (max-width:1000px){.dt img.still{padding:2% 12% 84px}.dt img.still.cover{padding:0}}
+
 </style>
 </head><body data-theme="light">
 <section class="op" id="top" aria-label="AV-942 RETRACTABLE FALL ARRESTER - 2 METER">

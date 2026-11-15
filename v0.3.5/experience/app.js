@@ -1,0 +1,950 @@
+/* The AVES Experience v0.3.1 (picker and header redesigned; stage as v0.3): picker -> walk-on -> pinned outfitting stage -> close.
+   Data-driven from data/kits.json, data/products.json and assets/dress/manifest.json.
+   Debug queries: ?kit=<id> (deep link), ?pick=<id> (picker, then auto-pick), ?hover=<id>,
+   ?step=walk|<1..n>|close|more (jump the scroll; no Lenis, scrub locked), ?rm (force reduced motion). */
+// Sister-brand items on the figure (Salman, 2026-11-06: no links; the same name / SKU / standards / why data as the AVES products).
+// Facts from the PTFs (spikes/dress-v0.2-bench/refs-v2/<item>/description.txt). Never called AVES.
+const SISTER = {
+  vest:  { brand: 'Scuta', name: 'Reflector Safety Vest', sku: '3116RR71', standards: 'EN ISO 20471:2013+A1:2016 Class 2',
+           why: 'Class 2 hi-vis waistcoat, two 5 cm reflective bands round the torso and one over each shoulder' },
+  boots: { brand: 'Cavalier', name: 'Captain 8713-4 HC', sku: '73110CV214', standards: 'EN ISO 20345:2011 S3 · EN 12568:2010 non-metallic midplate',
+           why: 'High-cut waterproof leather safety boot, composite toe cap, anti-static slip-resistant PU sole' },
+};
+
+(() => {
+'use strict';
+gsap.registerPlugin(ScrollTrigger, SplitText);
+
+const $ = s => document.querySelector(s);
+const Q = new URLSearchParams(location.search);
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches || Q.has('rm');
+const STEP = Q.get('step');
+const DEBUG = STEP !== null || Q.has('hover');
+const ROOT = '../../';
+const DRESS = ROOT + 'assets/dress/';
+const FALLBACK_BASE = ROOT + 'spikes/dress-v0.2/frames/00.jpg';
+// Donning order (Salman's concept): sister-brand vest goes on in the sequence.
+const ORDER = ['head', 'eye', 'hearing', 'respiratory', 'face', 'vest', 'fall', 'dropped', 'hand', 'cryo-body'];
+const GROUPS = ['Energy', 'Build', 'Make', 'Move', 'Extract & Handle'];
+const FRAME = { w: 896, h: 1536 };
+const UNIT_VH = 70;          // scroll length per timeline unit, in viewport heights (%)
+
+let kits = [], kitById = {}, products = {}, manifest = null;
+let lenis = null, tl = null, steps = [], K = null;
+const bdState = {};          // kitId -> 'ok' | 'missing'
+
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const lerp = (a, b, t) => a + (b - a) * t;
+const isPhone = () => matchMedia('(max-width:759px)').matches;
+// v0.3.2 scale: 1 at 1440 x 900 and below, then min(w/1440, h/900), capped 2.2 (the head script sets it before first paint)
+const calcScale = () => (matchMedia('(max-width:1023px)').matches ? 1 : Math.max(1, Math.min(2.2, innerWidth / 1440, innerHeight / 900)));
+const uScale = () => +getComputedStyle(document.documentElement).getPropertyValue('--s') || 1;
+addEventListener('resize', () => document.documentElement.style.setProperty('--s', calcScale().toFixed(4)));
+const dispName = p => { let n = (p.name || p.id).replace(/\s+[–-]\s+/g, '-'); if (p.sku && /^\d{5,}/.test(p.sku) && n.startsWith(p.sku + ' ')) n = n.slice(p.sku.length + 1); return n; };
+const hue = id => { let h = 0; for (const c of id) h = (h * 31 + c.charCodeAt(0)) >>> 0; return 190 + (h % 70); }; // cool, muted range
+const getJSON = async (url, optional) => {
+  try { const r = await fetch(url, { cache: 'no-cache' }); if (!r.ok) throw new Error(url + ' ' + r.status); return await r.json(); }
+  catch (e) { if (optional) return null; throw e; }
+};
+const loadImg = src => new Promise(res => { const im = new Image(); im.decoding = 'async'; im.onload = () => res(im); im.onerror = () => res(null); im.src = src; });
+const timeout = (p, ms) => Promise.race([p, new Promise(r => setTimeout(r, ms))]);
+const offsetRel = (el, anc) => { let x = 0, y = 0; while (el && el !== anc) { x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; } return { x, y }; };
+
+/* ---------- backdrops ---------- */
+const gradHTML = k => `<div class="grad" style="--h:${hue(k.id)}"><span class="gname">${esc(k.name)}</span></div>`;
+function bdHTML(k, lazy) {
+  const listed = manifest && Array.isArray(manifest.backdrops) ? manifest.backdrops.includes(k.id) : null;
+  if (bdState[k.id] === 'missing' || listed === false) return gradHTML(k);
+  return `<img src="${DRESS}backdrops/${k.id}.jpg" alt="" ${lazy ? 'loading="lazy"' : ''} decoding="async" data-bd="${k.id}">`;
+}
+// A missing backdrop file swaps itself for the gradient; remembered so it is not requested again.
+document.addEventListener('error', e => {
+  const im = e.target;
+  if (!(im instanceof HTMLImageElement) || !im.dataset.bd) return;
+  const k = kitById[im.dataset.bd]; bdState[k.id] = 'missing';
+  im.insertAdjacentHTML('afterend', gradHTML(k)); im.remove();
+}, true);
+document.addEventListener('load', e => { const im = e.target; if (im instanceof HTMLImageElement && im.dataset.bd) bdState[im.dataset.bd] = 'ok'; }, true);
+document.addEventListener('click', e => { const a = e.target.closest('a[data-todo]'); if (a) e.preventDefault(); });
+
+/* ================= picker (v0.3.1) ================= */
+// Picker images: own set (v0.3.1/experience/assets/picker/<id>-{512,1024}.webp). Kits not listed yet fall back to
+// the stage backdrop with a lift grade. The stage itself always uses assets/dress/backdrops.
+const PIMG = new Set(['oil-gas', 'rig-drilling', 'electrical', 'construction', 'heavy-machinery', 'demolition', 'manufacturing', 'assembly-line', 'woodworking', 'mechanical', 'power-tool', 'welding', 'logistics', 'aviation', 'railway', 'mining', 'forestry', 'cryogenic']);
+// Industry icons (see NOTES.md: 9 AVES brand tiles/ADS glyphs + 9 new drawings pending brand approval).
+// A missing file falls back to the kit number in the same place (onerror below).
+const ICON = Object.assign(Object.fromEntries(['oil-gas', 'rig-drilling', 'electrical', 'construction', 'heavy-machinery', 'demolition', 'manufacturing', 'assembly-line', 'woodworking', 'mechanical', 'power-tool', 'welding', 'logistics', 'aviation', 'railway', 'mining', 'forestry', 'cryogenic'].map(k => [k, k])), Q.has('noicon') ? { [Q.get('noicon')]: 'missing-test' } : {});   // kit -> icon file stem; drop a kit to fall back to its number
+const PICK = 'assets/picker/', ICONS = 'assets/icons/';
+const SLOWTEST = () => Q.has('slowtest') ? performance.now() + (parseFloat(Q.get('slowtest')) || 8000) : 0;   // debug: force the slow-frame drop path after n ms
+const compact = () => matchMedia('(max-width:1023px)').matches;   // picker switches to rows of named slices below 1024
+// Rest-strip focus: where the subject sits off centre, the closed slice shows it; opening pans back to the full frame.
+// Value = shift as a fraction of the picture width (+ moves the picture right, showing its left part).
+const FOCUS = { manufacturing: 0.21 };   // v0.3.4: 0.27 x the v0.3.3 picture = 0.21 x the wider v0.3.4 one: the same travel in pixels
+const G_OPEN = 10.65;        // v0.3.4: open slice = 10.65 rest slices wide (comp: 831 px open, 78 px rest at 2560)
+const ARROW = '<svg viewBox="0 0 18 12" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
+function pimgHTML(k, cls, n) {
+  const lazy = n > 4 && compact() ? ' loading="lazy"' : '';   // compact layout scrolls: pictures past the first six load as they near the screen
+  if (PIMG.has(k.id)) return `<img class="${cls}" alt="" decoding="async"${lazy} src="${PICK}${k.id}-1024.webp" srcset="${PICK}${k.id}-512.webp 512w, ${PICK}${k.id}-1024.webp 1024w" sizes="${compact() ? '45vw' : '560px'}" data-pk="${k.id}">`;
+  return bdHTML(k, false).replace('<img ', `<img class="${cls} old" `);
+}
+
+const spineLines = (name, max = 11) => {
+  const t = name.toUpperCase(), w = t.split(' ');
+  if (t.length <= max || w.length < 2) return [t];
+  let best = null;
+  for (let i = 1; i < w.length; i++) { const a = w.slice(0, i).join(' '), b = w.slice(i).join(' '), m = Math.max(a.length, b.length); if (!best || m < best[0]) best = [m, [a, b]]; }
+  return best[1];
+};
+const NT = window.NAME_TYPE || {};
+const nameHTML = k => { const t = NT[k.id]; return t ? `<span class="nm"><img alt="${esc(k.name)}" src="assets/type/name-${k.id}.png" style="--nh:${(t.h / t.cap).toFixed(4)}"></span>` : `<span class="nm nm-txt">${esc(k.name)}</span>`; };
+function pickerOrder() {
+  const out = [];
+  GROUPS.forEach(g => kits.filter(k => k.group === g).forEach((k, i) => out.push({ k, g, first: i === 0 })));
+  kits.filter(k => !GROUPS.includes(k.group)).forEach((k, i) => out.push({ k, g: k.group || 'Other', first: i === 0 }));
+  return out;
+}
+
+function buildPicker() {
+  const host = $('#slices'), picker = $('#picker'), order = pickerOrder(), N = order.length;
+  const groups = [];
+  order.forEach((o, i) => { o.n = i + 1; if (o.first) groups.push({ g: o.g, items: [] }); groups[groups.length - 1].items.push(o); });
+  host.style.setProperty('--G', G_OPEN);
+  host.innerHTML = groups.map((G, gi) => `<div class="grp" style="--n:${G.items.length}"><div class="gl lab" aria-hidden="true"><b>${String(gi + 1).padStart(2, '0')}</b><span>${esc(G.g)}</span></div><div class="row">${G.items.map(({ k, n }) => {
+    const num = String(n).padStart(2, '0'), ic = ICON[k.id];
+    return `<button class="slice" type="button" data-id="${k.id}" aria-label="${esc(k.name)}, kit ${n} of ${N}: ${esc(k.hazards.slice(0, 3).join(', '))}">` +
+      `<span class="clip"><span class="rev"><span class="foc"${FOCUS[k.id] ? ` style="--fx:${FOCUS[k.id]}"` : ''}><span class="par">${pimgHTML(k, 'pimg', n)}</span></span><span class="dim"></span><span class="veil"></span><span class="pool"></span></span></span>` +
+      `<span class="rest" aria-hidden="true"><span class="num">${num}</span>${ic ? `<img class="glyph" alt="" src="${ICONS}${ic}-glyph.png">` : ''}<span class="vname">${spineLines(k.name).map(l => `<span>${esc(l)}</span>`).join('')}</span><span class="hname">${spineLines(k.name, 12).map(l => `<span>${esc(l)}</span>`).join('')}</span></span>` +
+      `<span class="info" aria-hidden="true">${ic ? `<img class="tile" alt="" src="${ICONS}${ic}-tile.png" data-num="${num}">` : `<span class="tile ntile">${num}</span>`}<span class="kn">Kit ${num}<i>·</i>${esc(G.g)}</span>${nameHTML(k)}<ul class="hz">${k.hazards.slice(0, 3).map(h => `<li>${esc(h.charAt(0).toUpperCase() + h.slice(1))}</li>`).join('')}</ul><span class="go">Dress the kit${ARROW}</span></span>` +
+    `</button>`; }).join('')}</div></div>`).join('');
+  const btns = [...host.querySelectorAll('.slice')];
+  let cur = null;
+
+  // fixed image width = the open width (or 4:5 of the row height if wider): the open only moves the clip edge,
+  // the picture never rescales mid-open
+  const size = () => {
+    if (compact()) { host.style.removeProperty('--imgW'); return; }
+    const S = uScale();
+    const gaps = (groups.length - 1) * 20 * S + (N - groups.length) * 2 * S;
+    const unit = (host.clientWidth - gaps) / (N - 1 + G_OPEN);
+    const openW = unit * G_OPEN, rowH = host.querySelector('.row').clientHeight;
+    // +80u: room for the drift travel and the pointer depth on the open slice, so the picture never shows an edge
+    host.style.setProperty('--imgW', Math.ceil(Math.max(openW, rowH * 0.8) + 80 * S) + 'px');
+    host.style.setProperty('--infoW', Math.floor(openW - 60 * S) + 'px');
+    P.imgW = Math.ceil(Math.max(openW, rowH * 0.8) + 80 * S); P.rowH = rowH;
+  };
+  const P = { btns: null, groups };
+  size(); addEventListener('resize', size);
+
+  const infoIn = b => {
+    if (RM || compact()) return;
+    const kids = b.querySelectorAll('.info > *');
+    gsap.killTweensOf(kids);
+    gsap.fromTo(kids, { y: 22, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, ease: 'expo.out', stagger: 0.045, delay: 0.14, overwrite: true });
+    // v0.3.3: the picture no longer re-zooms on open. v0.3.2 set .rev to scale 1.07 in one frame and eased it back, a 7 %
+    // size jump of the picture on every slice change (the owner's "flicker"). The picture now only drifts and widens.
+  };
+  const setOn = (b, instant) => {
+    if (b === cur) return;
+    gsap.set([cur, b].filter(Boolean).map(x => x.querySelector('.rest')), { clearProps: 'opacity,visibility' });   // CSS decides again (the entrance may have set them)
+    cur = b;
+    btns.forEach(x => x.classList.toggle('on', x === b));
+    host.querySelectorAll('.grp').forEach(g => g.classList.toggle('has-on', !!b && g.contains(b)));
+    if (b && !instant) infoIn(b);
+    if (b && instant) gsap.set(b.querySelectorAll('.info > *'), { y: 0, autoAlpha: 1 });
+    if (P.onOn) P.onOn(b);
+  };
+  let hoverT = 0;
+  btns.forEach((b, i) => {
+    // a short intent delay so a fast sweep across the row does not open every slice on the way
+    b.addEventListener('mouseenter', () => { clearTimeout(hoverT); if (!picking) hoverT = setTimeout(() => { if (!picking) setOn(b); }, 70); });
+    b.addEventListener('mouseleave', () => clearTimeout(hoverT));
+    b.addEventListener('focus', () => { if (!picking) setOn(b); });
+    b.addEventListener('click', () => pick(kitById[b.dataset.id], b));
+    b.addEventListener('keydown', e => {
+      const map = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
+      let j = null;
+      if (e.key in map) j = clamp(i + map[e.key], 0, btns.length - 1);
+      if (e.key === 'Home') j = 0;
+      if (e.key === 'End') j = btns.length - 1;
+      if (j !== null) { e.preventDefault(); btns[j].focus(); }
+    });
+  });
+  P.btns = btns; P.setOn = setOn; P.picker = picker; P.host = host; P.size = size; P.cur = () => cur;
+  return P;
+}
+
+// Life in the picker: slow drift inside each slice, pointer depth between picture and label, one entrance.
+function animatePicker(P) {
+  const { btns, picker, host } = P;
+  const imgs = btns.map(b => b.querySelector('.pimg'));
+  if (RM) return;
+  // drift: each picture pans and breathes on its own slow clock (transform only), paused when off screen.
+  // Rebuilt when the layout crosses 1024 px (the base offset differs: centred fixed-width picture vs full-width).
+  let drift = [];
+  const startDrift = () => {
+    drift.forEach(t => t && t.kill());
+    drift = imgs.map((im, i) => {
+      if (!im) return null;
+      // v0.3.2: real travel. Desktop: 6 to 9 % of the picture width side to side, 3 % up and down, a slow push in;
+      // 9 to 13 s per leg, every slice on its own phase so the wall is never still. Phone tiles: the gentle v0.3.1 drift.
+      const c = compact(), base = c ? 0 : -50, sg = i % 2 ? 1 : -1;
+      const d = sg * (c ? 2.2 + (i * 7 % 5) * 0.35 : 6 + (i * 7 % 5) * 0.8), dy = c ? 0 : -sg * 3;
+      gsap.set(im, { xPercent: base - d / 2, yPercent: -dy / 2, scale: c ? 1.05 : 1.06, transformOrigin: '50% 60%' });
+      return gsap.to(im, { xPercent: base + d / 2, yPercent: dy / 2, scale: c ? 1.1 : 1.13, duration: c ? 15 + (i * 11 % 9) : 9 + (i * 11 % 5), ease: 'sine.inOut', yoyo: true, repeat: -1, delay: -(i * 3.7 % 12) });
+    });
+  };
+  startDrift();
+  matchMedia('(max-width:1023px)').addEventListener('change', startDrift);
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { const t = drift[btns.indexOf(e.target)]; if (t) e.isIntersecting ? t.resume() : t.pause(); }));
+    btns.forEach(b => io.observe(b));
+  }
+  // pointer depth (desktop layout, fine pointer): the pictures slide against the pointer, the labels stay put
+  if (matchMedia('(pointer:fine)').matches) {
+    const pars = btns.map(b => b.querySelector('.par'));
+    const qx = pars.map(p => gsap.quickTo(p, 'x', { duration: 0.9, ease: 'power3.out' }));
+    const qy = pars.map(p => gsap.quickTo(p, 'y', { duration: 0.9, ease: 'power3.out' }));
+    picker.addEventListener('pointermove', e => {
+      const on = !compact(), nx = on ? e.clientX / innerWidth * 2 - 1 : 0, ny = on ? e.clientY / innerHeight * 2 - 1 : 0;
+      const S = uScale(); for (let i = 0; i < pars.length; i++) { qx[i](-nx * 16 * S); qy[i](-ny * 10 * S); }
+    });
+    picker.addEventListener('pointerleave', () => { for (let i = 0; i < pars.length; i++) { qx[i](0); qy[i](0); } });
+  }
+  if (DEBUG || Q.has('pick')) return;
+  // v0.3.2: below the hero. Coming back (to-picker): the wall is simply there. From the hero on desktop: the entrance
+  // is scroll-linked, the wall rising as the hero recedes (whole slices move, so the open/rest label rules stay CSS's).
+  const heroMode = HERO();
+  if (heroMode && document.documentElement.classList.contains('to-picker')) return;
+  if (heroMode && !compact()) {
+    gsap.timeline({ scrollTrigger: { trigger: picker, start: 'top bottom', end: 'top top', scrub: 0.6 } })
+      .fromTo('.p-title', { y: 70, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .45, ease: 'power2.out' }, .4)
+      .fromTo('.p-head .brand', { autoAlpha: 0 }, { autoAlpha: 1, duration: .3 }, .55)
+      .fromTo('.grp .gl', { autoAlpha: 0, x: -14 }, { autoAlpha: 1, x: 0, duration: .3, ease: 'power2.out', stagger: .05 }, .5)
+      .fromTo(btns, { yPercent: 55, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: .55, ease: 'power2.out', stagger: .02 }, .1);
+    return;
+  }
+  // entrance: title, sector rails, then the slices rise left to right, labels last
+  picker.classList.add('pre');
+  const first = imgs.slice(0, compact() ? 6 : 18).filter(Boolean).map(im => im.decode ? im.decode().catch(() => {}) : null);
+  timeout(Promise.all(first.concat(document.fonts.ready)), 1600).then(() => {
+    // compact (scrolling) layout: slices below the fold rise as they scroll in, not unseen at load
+    const below = compact() ? btns.filter(b => b.getBoundingClientRect().top > innerHeight) : [];
+    const revs = btns.filter(b => !below.includes(b)).map(b => b.querySelector('.rev'));
+    if (below.length) {
+      const bRev = below.map(b => b.querySelector('.rev')), bRest = below.map(b => b.querySelector('.rest'));
+      gsap.set(bRev, { y: 0, yPercent: 101 }); gsap.set(bRest, { autoAlpha: 0 });
+      ScrollTrigger.batch(below, { start: 'top 92%', once: true, onEnter: els => {
+        gsap.to(els.map(b => b.querySelector('.rev')), { yPercent: 0, duration: 0.9, ease: 'expo.out', stagger: 0.06, overwrite: true });
+        gsap.to(els.map(b => b.querySelector('.rest')), { autoAlpha: 1, duration: 0.5, delay: 0.35, stagger: 0.06 });
+      } });
+    }
+    const tl = gsap.timeline({ onComplete: () => gsap.set(btns.filter(b => !below.includes(b)).map(b => b.querySelector('.rest')), { clearProps: 'opacity,visibility' }) });
+    if (revs.length) gsap.set(revs, { y: 0, yPercent: 101 }); picker.classList.remove('pre');   // y:0 drops the px offset GSAP reads from the .pre CSS transform
+    gsap.set(['.p-title', '.grp .gl', '.slice:not(.on) .rest', '.slice.on .info > *'], { autoAlpha: 0 });
+    const restsIn = btns.filter(b => !b.classList.contains('on') && !below.includes(b)).map(b => b.querySelector('.rest'));
+    tl.set('.p-title', { autoAlpha: 1 })
+      .from('#ptitle img', { y: 30, autoAlpha: 0, duration: 0.8, ease: 'expo.out' }, 0)
+      .from('#phint', { y: 10, autoAlpha: 0, duration: 0.6, ease: 'power2.out' }, 0.25)
+      .fromTo('.grp .gl', { autoAlpha: 0, x: -12 }, { autoAlpha: 1, x: 0, duration: 0.6, ease: 'power2.out', stagger: 0.07 }, 0.2)
+      .to(revs.length ? revs : {}, { yPercent: 0, duration: 1.05, ease: 'expo.out', stagger: compact() ? 0.05 : 0.035 }, 0.15)
+      .to(restsIn.length ? restsIn : {}, { autoAlpha: 1, duration: 0.5, ease: 'power1.out', stagger: 0.025 }, 0.75)
+      .fromTo('.slice.on .info > *', { y: 22, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, ease: 'expo.out', stagger: 0.05 }, 0.95);
+    if (heroMode) { tl.pause(); ScrollTrigger.create({ trigger: picker, start: 'top 80%', once: true, onEnter: () => tl.play() }); }   // phone: plays as the picker comes up
+  });
+}
+
+// Living photograph on the OPEN slice: one WebGL canvas (living-gl.js) that sits in the open slice exactly over its
+// picture (same box, same drift transform copied every frame after GSAP has moved the picture), so at camera rest it is
+// pixel-identical to the <img> under it.
+// v0.3.3 hand-over, every change continuous (no swaps):
+//   in:    the canvas is moved to the new slice while invisible, draws its first frame at camera rest (= the <img>),
+//          fades in (opacity driven here, per frame, not by a CSS transition), and only once fully in does the camera
+//          start its loop.
+//   out:   the camera and the effects ease back to rest FIRST (the canvas still opaque, the picture still moving
+//          smoothly), then the canvas fades out over a picture identical to it: no double image.
+//   slow frames / no WebGL: the same out path, then the canvas goes and the CSS drift carries on alone.
+function livingPicker(P) {
+  if (RM || !window.LivingGL || Q.has('nogl') || compact()) return null;   // phone / tablet tiles: CSS drift only, nothing loads
+  const cv = document.createElement('canvas'); cv.className = 'lgl'; cv.setAttribute('aria-hidden', 'true');
+  const L = LivingGL.create(cv, { maxScale: 1.25, maxH: 1500, fixedTime: Q.has('t'), forceSlow: SLOWTEST() });
+  if (!L.ok) return null;
+  const FX = window.LIVING_FX || {};
+  const urls = id => [PICK + id + '-1024.webp', 'assets/living/' + id + '-depth.webp'];
+  let slot = null, want = null, img = null, kit = null, amp = 0, ampT = 0, op = 0, opT = 0, leaving = false, failing = false, dead = false, t0 = performance.now(), loadFor = null;
+  const T_FIX = Q.has('t') ? parseFloat(Q.get('t')) : null;
+  const FADE = 0.3;                     // s, canvas fade in / out (over an identical picture)
+  const sync = () => { if (slot && img && img.style.transform) { cv.style.transform = img.style.transform; cv.style.transformOrigin = img.style.transformOrigin; } };
+  gsap.ticker.add(sync);                // after GSAP's own render in the same frame: the canvas never lags its picture
+  const setOp = v => { op = v; cv.style.opacity = v.toFixed(3); cv.classList.toggle('in', v > 0); };
+  setOp(0);
+  const sizeCv = () => { if (slot) L.setSize(cv.clientWidth || P.imgW, cv.clientHeight || P.rowH); };   // setSize redraws at once (no cleared frame)
+  addEventListener('resize', sizeCv);
+  const attach = b => {
+    slot = b; img = b.querySelector('.pimg'); kit = b.dataset.id;
+    img.after(cv); amp = 0; ampT = 0; setOp(0); opT = 0; sync(); sizeCv();
+    t0 = performance.now();
+  };
+  const go = () => {
+    if (dead || failing || !want || op > 0) return;
+    const b = want, id = b.dataset.id;
+    if (!FX[id] || slot === b) return;
+    loadFor = b;
+    L.load(id, ...urls(id)).then(() => { if (want === b && loadFor === b && op === 0 && !dead && !failing) attach(b); });
+  };
+  // first drawn frame after an attach (camera at rest = the <img>): fade in
+  L.afterDraw = ok => { if (ok && slot && slot === want && !leaving && !failing && opT === 0 && op === 0) opT = 1; };
+  P.onOn = b => {
+    want = b; if (dead || compact()) return;
+    if (slot === b) { if (leaving) { leaving = false; opT = 1; if (op >= 1) ampT = 1; } return; }
+    if (slot && op > 0) { leaving = true; ampT = 0; }     // ease back to rest, then fade (frame below), then move
+    else go();
+  };
+  L.onFail = why => {   // slow or lost: leave the same continuous way, then stop for good
+    if (dead) return; failing = true; ampT = 0; leaving = true;
+    if (why === 'lost' || op === 0) { dead = true; L.stop(); cv.remove(); }
+  };
+  L.frame = (now, dt) => {
+    if (!slot || compact()) return null;
+    if (!L.ready(kit)) return null;
+    // the camera eases in over about 2.5 s once the canvas is fully in, and back to rest in about 0.45 s
+    amp += (ampT - amp) * (1 - Math.exp(-dt * (ampT > amp ? 1.1 : 10)));
+    if (leaving && amp < .015) { amp = 0; opT = 0; }
+    if (op !== opT) {
+      setOp(opT > op ? Math.min(opT, op + dt / FADE) : Math.max(opT, op - dt / FADE));
+      if (op >= 1 && !leaving) ampT = 1;
+      if (op <= 0 && leaving) {
+        leaving = false;
+        if (failing) { dead = true; L.stop(); cv.remove(); return null; }
+        if (want !== slot) go();
+      }
+    }
+    const F = FX[kit] || {}, cam = F.cam || {};
+    const w = cv.clientWidth, h = cv.clientHeight, t = T_FIX != null ? T_FIX : (performance.now() - t0) / 1000;
+    const om = Math.PI * 2 / (cam.T || 12), m = Math.min(w, h), A = (cam.amp || .04) * m * amp;
+    if (Q.has('amp0')) amp = 0;   // debug: zero travel and no effects (alignment check against the <img>)
+    const ph = om * t;
+    // the camera loop: a slow figure-eight pan and a dolly in and out on the same period, so it never visibly resets
+    const pan = { x: A * Math.sin(ph), y: A * .45 * Math.sin(2 * ph + .7) };
+    const zoom = (cam.zoom || .06) * amp * (.5 - .5 * Math.cos(ph));
+    // the picture is drawn exactly as object-fit: cover draws it in the same box
+    const k = Math.max(w / 1024, h / 1280), iw = 1024 * k, ih = 1280 * k;
+    return [{ kit, fx: F, x: 0, y: 0, w, h, cover: { ox: (w - iw) / 2, oy: (h - ih) / 2, iw, ih }, pan, zoom, d0: cam.d0 == null ? .2 : cam.d0, edge: 36, t: t + 5, amp: Math.min(1, amp * 1.6) }];
+  };
+  // pictures go to the GPU after the entrance, one per frame, nearest the open slice first
+  const preload = () => {
+    if (dead) return;
+    const order = P.btns.map((b, i) => ({ id: b.dataset.id, i })), ci = Math.max(0, P.btns.indexOf(want));
+    order.sort((a, b) => Math.abs(a.i - ci) - Math.abs(b.i - ci)).forEach(o => { if (FX[o.id]) L.load(o.id, ...urls(o.id)); });
+  };
+  const api = {
+    L, cv,
+    rest() { ampT = 0; },
+    wake() { if (slot && op >= 1) ampT = 1; },   // back from a kit page (bfcache): the camera eases in again   // v0.3.4: the hand-off: camera and effects back to rest, the canvas stays (it then equals the picture)
+    start() { if (!dead) { L.start(); } }, stop() { L.stop(); },
+    preload, state: () => ({ kit, amp: +amp.toFixed(3), op: +op.toFixed(3), in: op > 0, leaving, q: L.q, fx: L.fx, frames: L.stats.frames, slow: L.stats.slow, dead }),
+  };
+  window.__living = api;
+  return api;
+}
+
+// a missing icon file: the rest glyph goes (the number above it stays); the open tile becomes a number tile of the same footprint
+document.addEventListener('error', e => {
+  const im = e.target;
+  if (!(im instanceof HTMLImageElement)) return;
+  if (im.classList.contains('glyph')) im.remove();
+  else if (im.classList.contains('tile')) { im.insertAdjacentHTML('afterend', `<span class="tile ntile">${im.dataset.num}</span>`); im.remove(); }
+}, true);
+
+let picking = false, handoffTl = null, P_LIVE = null;
+// v0.3.4: THE kit page target, one constant (v0.9 since 2026-11-15; was v0.8).
+const KIT_PAGE = '../../v0.9/experience/';
+const kitURL = id => KIT_PAGE + '?kit=' + encodeURIComponent(id);
+const KIT_BD = id => '../../v0.6/experience/assets/site/' + id + '.jpg';   // the kit page's backdrop (v0.6 data: assets/site/<kit>.jpg)
+const bdCache = {};
+const preloadKit = id => { if (bdCache[id]) return bdCache[id]; const im = new Image(); im.decoding = 'async'; im.src = KIT_BD(id); bdCache[id] = im; return im; };
+// Back to this page from a kit (bfcache): the hand-off overlay and every moved element go back to rest
+addEventListener('pageshow', e => {
+  picking = false;
+  if (!e.persisted) return;
+  if (handoffTl) { handoffTl.kill(); handoffTl = null; }
+  document.querySelectorAll('.handoff').forEach(o => o.remove());
+  const moved = ['#ptitle', '#phint', '.p-head', '.grp .gl', '.slice', '.slice .clip', '.slice .info', '.slice .info > *', '.slice .rest'].flatMap(s => [...document.querySelectorAll(s)]);
+  gsap.killTweensOf(moved);
+  gsap.set(moved, { clearProps: 'transform,opacity,visibility' });
+  document.querySelectorAll('.slice').forEach(b => b.style.removeProperty('--barO'));
+  if (P_LIVE && P_LIVE.wake) P_LIVE.wake();   // the open slice lives again
+  if (lenis) lenis.start();
+});
+// Study 1 (motion.json, study-1-industry-opens) up to the hand-over: the open slice is pressed, its clip widens to the whole
+// screen while the closed slices slide off and the headings lift away, then the kit backdrop rises inside the same clip with a
+// hard edge (never two photos half transparent), and the kit page takes over. Desktop 2.0 s, phone 1.65 s (motion.json phone).
+// Transform and opacity only, plus the one clip-path inset on the slice clip.
+function pick(k, btn) {
+  if (picking || !k) return; picking = true; const tPick = performance.now();
+  try { sessionStorage.setItem('aves-picked', '1'); sessionStorage.setItem('aves-pick-y', String(Math.round(scrollY))); } catch (e) {}   // coming back lands on the picker (phone: where the page was), not the intro
+  const url = kitURL(k.id);
+  // from the tap: the kit page and what its first seconds need are fetched while the hand-off plays (the page itself by speculation-rules
+  // prefetch where supported); the hand-off holds its last frame until they are in (cap 8 s: leaving earlier cancels them), then the page changes
+  const kb = preloadKit(k.id);
+  const abs = u => new URL(u, location.href).href;
+  // speculation rules on https, or on Chromium (it accepts them on a local http server; WebKit refuses there and logs errors)
+  if (HTMLScriptElement.supports && HTMLScriptElement.supports('speculationrules') && (location.protocol === 'https:' || navigator.userAgentData)) {
+    const sr = document.createElement('script'); sr.type = 'speculationrules';
+    // prefetch, not prerender: a prerendered kit page boots in the picker's renderer and its long tasks stalled the hand-off
+    // (measured 233 to 2233 ms gaps at CPU 4x); the kit page runs nothing until it is opened
+    sr.textContent = JSON.stringify({ prefetch: [{ source: 'list', urls: [abs(url)], eagerness: 'immediate' }] }); document.head.appendChild(sr);
+  }   // elsewhere (Safari) the fetch() of the page below warms the cache; <link rel=prefetch> logs errors there on http
+  const V9 = '../../v0.9/experience/', V6 = '../../v0.6/experience/';
+  const need = [url, V9 + 'app.css', V9 + 'app.js', V9 + 'site-gl.js', V6 + 'assets/type/type.json', V6 + 'assets/brand/aves-logo-rev.png', 'https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800;6..12,900&display=swap'];   // flow2: the backdrop is not fetched here: the Image the hand-off draws (preloadKit, kb.decode below) is the one download; a second fetch() halved its speed on Slow 4G   // flow2: + the kit page's own font stylesheet (its URL differs from this page's)   // what the kit page's first frame and its build need (base.png is not used on 2x screens: left out)
+  const get = (u, low) => fetch(u, { credentials: 'same-origin', ...(low ? { priority: 'low' } : {}) }), blob = u => get(u).then(r => r.blob()).catch(() => 0);
+  // flow2: and exactly what the kit intro waits for (v0.9 app.js crit): its hazard pictograms, kit tile, kit-name lines, phone worker
+  // flow2: and exactly what the kit intro waits for (v0.9 app.js crit): its hazard pictograms, kit tile, kit-name lines, phone worker
+  const intro = Promise.all([get(V6 + 'data/' + k.id + '.json').then(r => r.json()).catch(() => null), get(V9 + 'assets/type/lines.json').then(r => r.json()).catch(() => null)]).then(([d, L]) => {
+    if (!d) return 0; const t = (L && L['kit-' + k.id]) || { sets: {} };
+    const u = [...(d.hz || []).map(h => V6 + 'assets/hz/' + h + '.svg'), V6 + d.kit.tile, ...Object.entries(t.sets).flatMap(([n, s]) => s.map((_, i) => V9 + 'assets/type/kit-' + k.id + '-' + n + '-' + i + '.png'))];
+    const held = Promise.all(u.map(blob));
+    // then, not waited for: the phone worker picture and the kit strip's phone pictures (the text never waits for them)
+    // (after the backdrop too: started earlier they shared its bandwidth and pushed it past the 8 s cap on Slow 4G)
+    Promise.all([held, kb.decode ? kb.decode().catch(() => 0) : 0]).then(() => { if (!compact()) return; get(V9 + 'assets/phone/base2x.webp', 1).then(r => r.blob()).catch(() => 0); (d.steps || []).forEach(st => get(V9 + 'assets/phone/' + encodeURIComponent(String(st.image).split('/').pop().replace(/\.\w+$/, '')) + '.webp', 1).then(r => r.blob()).catch(() => 0)); });
+    return held; });
+  // the font stylesheet is requested exactly as the kit page asks for it (a style preload): Google varies it on Sec-Fetch-Dest, so a fetch() never matches
+  const css = u => Promise.race([new Promise(r => { const l = document.createElement('link'); l.rel = 'preload'; l.as = 'style'; l.href = u; l.onload = l.onerror = r; document.head.appendChild(l); }), new Promise(r => setTimeout(r, 1500))]);   // never holds the pick past 1.5 s
+  const ready = Promise.race([Promise.all(need.map(u => /^https:/.test(u) ? css(u) : blob(u)).concat(intro, kb.decode ? kb.decode().catch(() => 0) : [])), new Promise(r => setTimeout(r, 8000))]);
+  // while it holds, the photo keeps the study's ambient drift (scale 147 -> 150 %, x -18, 2.8 s sine) so the screen never stands
+  // still; the drift state goes to the kit page (sessionStorage aves-ho-drift), which opens with the same transform
+  let readyDone = false; ready.then(() => { readyDone = true; });
+  const go = () => { if (window.__noNav) return;   // __noNav: set only by the frame tools
+    if (!readyDone && phone) gsap.to(kimg, { scale: 1.0204, x: -18 * vw / 2560, duration: 2.8, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+    ready.then(() => { try { sessionStorage.setItem('aves-ho-drift', JSON.stringify({ s: +gsap.getProperty(kimg, 'scale') || 1, x: +gsap.getProperty(kimg, 'x') || 0 })); } catch (e) {} location.href = url; }); };
+  const phone = compact(), vw = innerWidth, vh = innerHeight, f = phone ? 1 : uScale() / 1.6;   // f: comp px at 2560 -> page px
+  const clipEl = btn.querySelector('.clip'), pim = btn.querySelector('.pimg');
+  const r = clipEl.getBoundingClientRect();
+  const H = phone ? Math.min(430, Math.round(vh * .51)) : vh;   // hand-off frame: the whole screen; phone: the photo zone at the top
+  // overlay: clip (inset from the slice box to the frame) > parallax wrapper > the slice's own picture; the kit backdrop above it
+  const o = document.createElement('div'); o.className = 'handoff'; o.setAttribute('aria-hidden', 'true');
+  o.innerHTML = `<div class="hclip"><div class="hin"><div class="hpar"><img class="hpic" alt="" src="${pim ? (pim.currentSrc || pim.src) : ''}"></div><div class="hkit"><img alt="" src="${KIT_BD(k.id)}"></div>${phone ? '<div class="hfade"></div>' : ''}</div></div>`;
+  // the logo and tagline never move (study note: the anchor that says this is the same page): a copy rides above the overlay
+  const brand = document.querySelector('.p-head .brand');
+  if (brand && !phone) { const br = brand.getBoundingClientRect(), c = brand.cloneNode(true); c.classList.add('hbrand'); c.removeAttribute('id');
+    Object.assign(c.style, { position: 'absolute', left: br.left + 'px', top: br.top + 'px', width: br.width + 'px', height: br.height + 'px', margin: 0, fontSize: getComputedStyle(brand).fontSize });
+    c.style.setProperty('--u', getComputedStyle(document.querySelector('.picker')).getPropertyValue('--u')); o.appendChild(c); }
+  const hclip = o.firstChild, hin = hclip.firstChild, hpar = hin.firstChild, hpic = hpar.firstChild, hkit = hclip.querySelector('.hkit'), kimg = hkit.firstChild;
+  // picture end box: cover of the frame, centred (comp: 1024 x 1280 at 250 % = 2560 x 3200 round the screen centre)
+  const nw = (pim && pim.naturalWidth) || 1024, nh = (pim && pim.naturalHeight) || 1280;
+  const kE = Math.max(vw / nw, H / nh), eW = nw * kE, eH = nh * kE;
+  gsap.set(hpic, { width: eW, height: eH, left: (vw - eW) / 2, top: (H - eH) / 2 });
+  // start: exactly the picture the slice draws at the moment the overlay takes over (object-fit cover in its drifting,
+  // scaled, possibly still widening box); place() runs then, so a click right after a hover shows no step
+  const C = {};
+  // the clip rect measured with the press taken out (PR.s puts it back, round the same centre)
+  const place = () => {
+    const q = clipEl.getBoundingClientRect(), sc = +gsap.getProperty(clipEl, 'scale') || 1, ox = q.left + q.width / 2, oy = q.top + q.height / 2;
+    // the picture as measured, pressed size included (the clip's press is in PR.s, which the inner layer cancels for the content)
+    if (pim) { const b = pim.getBoundingClientRect(), kd = Math.max(b.width / nw, b.height / nh);
+      gsap.set(hpic, { x: b.left + b.width / 2 - vw / 2, y: b.top + b.height / 2 - H / 2, scale: kd / kE }); }
+    const hw = q.width / sc / 2, hh = q.height / sc / 2;
+    Object.assign(C, { t: oy - hh, r: vw - (ox + hw), b: vh - (oy + hh), l: ox - hw }); PR.s = sc; setClip();
+  };
+  // kit backdrop: cover of the frame x 1.029 (comp: 147 % of 1792 x 1024 on 2560 x 1440), starts one frame below
+  const kw = kb.naturalWidth || 1792, kh = kb.naturalHeight || 1024, kK = Math.max(vw / kw, H / kh) * 1.029;
+  if (phone) {   // phone: the agreed last frame (v0.9 index.html hand-over script): the picture in the photo frame of height H, left centred,
+    // top = max(H - h, min(0, H/2 - 0.42 h)), the frame clipped to H, so it covers the whole photo zone from y 0
+    const iw = kw * kK, ih = kh * kK;
+    gsap.set(hkit, { height: H, bottom: 'auto' });
+    gsap.set(kimg, { width: iw, height: ih, left: (vw - iw) / 2, top: Math.max(H - ih, Math.min(0, H / 2 - .42 * ih)), xPercent: 0, yPercent: 0 });
+  } else gsap.set(kimg, { width: kw * kK, height: kh * kK, xPercent: -50, yPercent: -50 });
+  gsap.set(hkit, { y: H + 2 });
+  const ins = (t, rr, b, l) => `inset(${t}px ${rr}px ${b}px ${l}px)`;
+  const to = { t: 0, r: 0, b: vh - H, l: 0 };
+  // v0.3.4 (owner, iPhone: "not smooth enough"): no clip-path animation. The clip is a box the size of the screen, scaled and moved
+  // to the clip rect (overflow hidden, origin 0 0), and its inner layer scaled back, so everything inside keeps screen coordinates:
+  // transform only, composited. PR.s = the press scale round the rect's centre (study 1: 98.8 %).
+  const PR = { s: 1 };
+  const setClip = () => { let l = C.l, t = C.t, w = vw - C.l - C.r, h = vh - C.t - C.b;
+    if (PR.s !== 1) { const cx = l + w / 2, cy = t + h / 2; w *= PR.s; h *= PR.s; l = cx - w / 2; t = cy - h / 2; }
+    const sx = Math.max(w, .5) / vw, sy = Math.max(h, .5) / vh;
+    hclip.style.transform = `translate(${l.toFixed(2)}px,${t.toFixed(2)}px) scale(${sx.toFixed(5)},${sy.toFixed(5)})`;
+    hin.style.transform = `scale(${(1 / sx).toFixed(5)},${(1 / sy).toFixed(5)}) translate(${(-l).toFixed(2)}px,${(-t).toFixed(2)}px)`; };
+  place();
+
+  if (RM) {   // reduced motion: straight to the kit, a 200 ms fade
+    gsap.set(hpic, { autoAlpha: 0 }); gsap.set(hkit, { y: 0 }); C.t = 0; C.r = 0; C.b = vh - H; C.l = 0; setClip();
+    gsap.set(o, { autoAlpha: 0 }); document.body.appendChild(o);
+    gsap.to(o, { autoAlpha: 1, duration: 0.2, ease: 'power1.out', onComplete: go });
+    return;
+  }
+  if (lenis) lenis.stop();                     // motion.json page_mapping: Lenis stopped while study 1 runs
+  if (P_LIVE && P_LIVE.rest) P_LIVE.rest();   // the living camera eases back to rest, so the canvas equals the picture the overlay copies
+  const tl = handoffTl = gsap.timeline({ onComplete: go });
+  const all = [...document.querySelectorAll('.slice')], mine = all.indexOf(btn);
+  const info = btn.querySelector('.info');
+  if (!phone) {
+    // 0.38 s: title, intro, then each sector rail (number, name, rule) lift 16 and fade, 12 ms apart per element
+    const heads = ['#ptitle', '#phint'];
+    heads.forEach((sel, i) => tl.to(sel, { y: -16 * f, autoAlpha: 0, duration: 0.36, ease: 'power2.in' }, 0.38 + i * 0.012));
+    document.querySelectorAll('.grp .gl').forEach((g, i) => tl.to(g, { y: -16 * f, autoAlpha: 0, duration: 0.36, ease: 'power2.in' }, 0.404 + i * 0.036));
+    // 0.35 s: the press (the clip, 98.8 % and back)
+    tl.fromTo(clipEl, { scale: 1 }, { scale: 0.988, duration: 0.16, ease: 'power2.out' }, 0.35)
+      .to(clipEl, { scale: 1, duration: 0.5, ease: 'power3.out' }, 0.51);
+    // 0.4 s: the open label lifts and fades, 25 ms apart
+    const kids = info ? [...info.children] : [];
+    kids.forEach((el, i) => tl.to(el, { y: -16 * f, autoAlpha: 0, duration: 0.34, ease: 'power2.in' }, 0.4 + i * 0.025));
+    tl.fromTo(btn, { '--barO': 1 }, { '--barO': 0, duration: 0.3, ease: 'power2.in' }, 0.45);
+    // 0.55 s: the overlay takes the slice (same picture, same box, the press already over its steepest part), the clip widens
+    tl.add(() => { place(); document.body.appendChild(o); }, 0.55)
+      .to(PR, { s: 1, duration: 0.46, ease: 'power3.out', onUpdate: setClip }, 0.55)
+      .to(C, { ...to, duration: 1.1, ease: 'power3.inOut', onUpdate: setClip }, 0.55)
+      .to(hpic, { x: 0, y: -140 * f, scale: 1, duration: 1.1, ease: 'power3.inOut' }, 0.55);
+    // closed slices slide off: those right of the open one to the right edge and beyond, those left of it to the left
+    all.forEach((b, i) => { if (b === btn) return; tl.to(b, { x: () => i > mine ? vw - clipEl.getBoundingClientRect().right + 2 : -clipEl.getBoundingClientRect().left - 2, duration: 1.1, ease: 'power3.inOut' }, 0.55); });
+    // 1.0 s: the kit backdrop rises inside the clip (hard edge), the picker picture parallaxes up behind it
+    tl.to(hkit, { y: 0, duration: 1, ease: 'power3.inOut' }, 1.0)
+      .to(hpar, { y: -500 * f, duration: 1, ease: 'power3.inOut' }, 1.0)
+      .to(kimg, { scale: 1.0204, x: -18 * f, duration: 2.8, ease: 'sine.inOut' }, 2.0);   // ambient drift begins; the page changes under it
+    tl.eventCallback('onComplete', null);
+    tl.call(go, null, 2.0);
+  } else {
+    // phone: the source (card or row) clip opens to the photo zone; what is above lifts away, what is below rides down
+    document.body.appendChild(o);
+    gsap.set(clipEl, { autoAlpha: 0 });
+    const above = ['.p-head', ...[...document.querySelectorAll('.grp .gl, .slice')].filter(el => el !== btn && el.getBoundingClientRect().bottom <= r.top + 1)];
+    const below = [...document.querySelectorAll('.grp .gl, .slice')].filter(el => el !== btn && el.getBoundingClientRect().bottom > r.top + 1);   // the same row and everything after it
+    tl.to(above, { y: -12, autoAlpha: 0, duration: 0.3, ease: 'power2.in', stagger: 0.02 }, 0.3)
+      .to(btn.querySelectorAll('.info, .rest'), { autoAlpha: 0, duration: 0.25, ease: 'power2.in' }, 0.3)
+      .fromTo(btn, { '--barO': 1 }, { '--barO': 0, duration: 0.25, ease: 'power2.in' }, 0.3)
+      .to(below, { y: Math.max(vh - r.top + 4, H - r.top + 4), duration: 1.0, ease: 'power3.inOut' }, 0.3)
+      .to(C, { ...to, duration: 1.0, ease: 'power3.inOut', onUpdate: setClip }, 0.3)
+      .to(hpic, { x: 0, y: 0, scale: 1, duration: 1.0, ease: 'power3.inOut' }, 0.3)
+      .to(o.querySelector('.hfade'), { opacity: 1, duration: 0.4, ease: 'power1.out' }, 0.9)
+      .to(hkit, { y: 0, duration: 0.9, ease: 'power3.inOut' }, 0.75)
+      .to(hpar, { y: -150, duration: 0.9, ease: 'power3.inOut' }, 0.75);
+    tl.eventCallback('onComplete', null);
+    tl.call(go, null, 1.65);
+  }
+  window.__handoff = { tl, o, pickMs: +(performance.now() - tPick).toFixed(1) };
+}
+
+
+/* ================= hero (v0.3.2) ================= */
+// The strip behind the words: twelve of the industry pictures as tall panels, passing slowly right to left like a
+// tracking shot. With WebGL each panel is a living photograph (living-gl.js): its depth parallax follows its place on
+// the screen (near things overtake far ones as the panel crosses), with the same ambient effects as the open slice.
+// Without WebGL (or slow frames) the same strip moves as plain pictures; reduced motion = still.
+const HERO_KITS = ['oil-gas', 'welding', 'aviation', 'construction', 'forestry', 'power-tool', 'cryogenic', 'mining', 'rig-drilling', 'railway', 'demolition', 'manufacturing'];
+const HERO = () => !document.documentElement.classList.contains('no-hero');
+function buildHero() {
+  const hero = $('#hero'); if (!hero || !HERO()) return null;
+  const strip = $('#hstrip'), bg = $('#hbg');
+  const phone = isPhone();
+  const S = () => uScale();
+  const H = () => bg.clientHeight, PW = () => H() * (phone ? .474 : .258), GAP = () => (phone ? 3 : 3.75 * S());   // v0.3.4: comp panels (371 x 1440 at 2560; 128 x 270 on the phone)
+  // CSS strip: two copies of the set, so the loop is seamless
+  // v0.3.3: each picture in its own clip, zoomed 1.07 like the GL panels, so the CSS strip and the living strip frame the
+  // pictures the same way (the cross-fade between them is not a zoom)
+  strip.innerHTML = HERO_KITS.concat(HERO_KITS).map((id, i) => `<span class="hp"><img alt="" decoding="async"${i > 3 ? ' loading="lazy"' : ''} src="${PICK}${id}-${phone ? 512 : 1024}.webp"></span>`).join('');
+  const setHH = () => hero.style.setProperty('--hh', H() + 'px');
+  setHH(); addEventListener('resize', setHH);
+  const speed = () => 12 * Math.min(S(), H() / 900) * (phone ? .8 : 1);   // px per second (v0.3.4: slower, the panels are narrower)
+  let off = 0, cssTween = null, gl = null, glOn = false, visible = true;
+  if (Q.has('hoff')) off = (parseFloat(Q.get('hoff')) || 0) * (PW() + GAP());   // debug: start the strip n panels on
+  const loopW = () => HERO_KITS.length * (PW() + GAP());
+  // CSS motion (fallback): a linear GSAP ticker drives the strip
+  const cssTick = (t, dt) => { if (glOn || !visible) return; off = (off + speed() * dt / 1000) % loopW(); gsap.set(strip, { x: -off }); };
+  if (!RM) gsap.ticker.add(cssTick);
+  // living strip
+  if (!RM && window.LivingGL && !Q.has('nogl')) {
+    const cv = document.createElement('canvas'); cv.className = 'h-gl'; cv.setAttribute('aria-hidden', 'true');
+    const L = LivingGL.create(cv, { maxScale: phone ? 1.5 : 1.25, maxH: 1500, fixedTime: Q.has('t'), forceSlow: SLOWTEST() });
+    if (L.ok) {
+      bg.appendChild(cv);
+      const FX = window.LIVING_FX || {}, T_FIX = Q.has('t') ? parseFloat(Q.get('t')) : null;
+      const size = () => L.setSize(cv.clientWidth, cv.clientHeight);
+      size(); addEventListener('resize', size);
+      // desktop: the five first panels at once, the rest after a beat; phone: the 512 pictures, only the panel on
+      // screen and the next two (one panel takes about 30 s to cross)
+      const ld = id => L.load(id, PICK + id + (phone ? '-512.webp' : '-1024.webp'), 'assets/living/' + id + '-depth.webp');
+      const ahead = () => { const step = PW() + GAP(), i0 = Math.floor(off / step); for (let i = i0; i < i0 + 3; i++) ld(HERO_KITS[((i % HERO_KITS.length) + HERO_KITS.length) % HERO_KITS.length]); };
+      if (phone) { ahead(); setInterval(ahead, 4000); }
+      else { HERO_KITS.slice(0, 5).forEach(ld); setTimeout(() => HERO_KITS.forEach(ld), 1200); }
+      let t0 = performance.now();
+      L.frame = (now, dt) => {
+        const t = T_FIX != null ? T_FIX : (performance.now() - t0) / 1000;
+        if (T_FIX == null && glOn) off = (off + speed() * dt) % loopW();
+        const w = cv.clientWidth, h = cv.clientHeight, pw = PW(), g = GAP(), step = pw + g, N = HERO_KITS.length;
+        const out = [];
+        const i0 = Math.floor(off / step);
+        if (glOn) gsap.set(strip, { x: -off });   // v0.3.3: the hidden CSS strip stays in step, ready if the canvas ever has to go
+        for (let i = i0; i * step - off < w; i++) {
+          const x = i * step - off, id = HERO_KITS[((i % N) + N) % N];
+          if (x + pw < 0) continue;
+          if (!L.ready(id)) return null;   // v0.3.3: a picture not on the GPU yet: hold the last frame, never draw a hole
+          const F = FX[id] || {}, cam = F.cam || {};
+          // panel position on screen, -1 (left edge) .. 1 (right edge): near things lead as the panel crosses
+          const c = (x + pw / 2 - w / 2) / (w / 2 + pw / 2);
+          const A = (cam.amp || .04) * pw;
+          const k = Math.max(pw / 1024, h / 1280) * 1.07, iw = 1024 * k, ih = 1280 * k;
+          const ph = Math.PI * 2 * t / (cam.T || 12) + i;
+          out.push({ kit: id, fx: F, x, y: 0, w: pw, h, cover: { ox: (pw - iw) / 2, oy: (h - ih) / 2, iw, ih },
+            pan: { x: c * A, y: A * .25 * Math.sin(ph) }, zoom: (cam.zoom || .06) * .5 * (.5 - .5 * Math.cos(ph)), d0: cam.d0 == null ? .2 : cam.d0, edge: 0, t: t + i * 3.1, amp: 1 });
+        }
+        return out;
+      };
+      L.afterDraw = all => { if (all && !glOn) { glOn = true; cv.classList.add('in'); setTimeout(() => { if (glOn) strip.style.visibility = 'hidden'; }, 950); } };
+      // v0.3.3: dropping the living strip is a cross-fade to the CSS strip at the same place, not a swap
+      L.onFail = why => { gsap.set(strip, { x: -off }); strip.style.visibility = '';
+        const done = () => { glOn = false; L.stop(); cv.remove(); };
+        if (why === 'lost') done(); else { cv.style.transition = 'none'; gsap.fromTo(cv, { opacity: +getComputedStyle(cv).opacity }, { opacity: 0, duration: .9, ease: 'power1.inOut', onComplete: done }); } };
+      gl = L;
+      window.__hero = { L, state: () => ({ glOn, off: Math.round(off), q: L.q, fx: L.fx, frames: L.stats.frames, slow: L.stats.slow }) };
+    }
+  }
+  const api = {
+    hero,
+    run(on) { visible = on; if (gl) on ? gl.start() : gl.stop(); },
+  };
+  return api;
+}
+
+// entrance of the hero: picture up from black, then the words in sequence
+function heroEntrance() {
+  const hero = $('#hero');
+  if (RM || !hero || !HERO() || document.documentElement.classList.contains('to-picker')) return;
+  hero.classList.add('h-pre');
+  timeout(document.fonts.ready, 1500).then(() => {
+    hero.classList.remove('h-pre');
+    const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
+    tl.fromTo('#hbg', { autoAlpha: 0, scale: 1.08 }, { autoAlpha: 1, scale: 1, duration: 2.4, ease: 'power2.out' }, 0)
+      .from('.h-logo', { y: 18, autoAlpha: 0, duration: .9 }, .25)
+      .from('.h-tag span', { y: 14, autoAlpha: 0, duration: .7, stagger: .06 }, .4)
+      .from('#htitle .ln img', { yPercent: 105, duration: 1.1, stagger: .09 }, .5)
+      .from('#hlede', { y: 18, autoAlpha: 0, duration: .9 }, .95)
+      .from('#hrange .lbl', { autoAlpha: 0, duration: .6 }, 1.2)
+      .from('#hrange li', { y: 16, autoAlpha: 0, duration: .7, stagger: .05 }, 1.25)
+      .from('.h-next', { y: 14, autoAlpha: 0, duration: .8 }, 1.6);
+  });
+}
+
+// the hero recedes as the wall of industries rises: scroll-linked (scrubbed, no snapping), transform + opacity only
+function heroScroll(H, P, LV) {
+  const hero = $('#hero'), picker = $('#picker');
+  if (!hero || !HERO()) return;
+  const runFor = () => {
+    const y = scrollY, hh = hero.offsetHeight, pt = picker.offsetTop;
+    H && H.run(y < pt - 2);                                // the strip stops once the picker covers it
+    if (LV) (y > pt - innerHeight * .6) ? LV.start() : LV.stop();   // the open slice lives once the picker is in view
+  };
+  runFor();
+  addEventListener('scroll', runFor, { passive: true });
+  // Back from a kit page restored from the bfcache: loops running again, the return flag spent
+  addEventListener('pageshow', e => { if (!e.persisted) return; try { sessionStorage.removeItem('aves-picked'); } catch (x) {} H && H.run(false); LV && LV.stop(); runFor(); });
+  if (RM) return;
+  gsap.timeline({ scrollTrigger: { trigger: picker, start: 'top bottom', end: 'top top', scrub: true } })
+    .to('#hin', { yPercent: -10, scale: .96, transformOrigin: '0% 50%', ease: 'power1.in', duration: 1 }, 0)
+    .to('#hin', { autoAlpha: 0, ease: 'power1.in', duration: .58 }, 0)
+    .to('.h-next', { autoAlpha: 0, y: -30, ease: 'power1.in', duration: .5 }, 0)
+    .to('#hbg', { scale: 1.06, ease: 'none', duration: 1 }, 0)
+    .to('#hdark', { opacity: .75, ease: 'none', duration: 1 }, 0);
+  $('#hnext').addEventListener('click', e => {
+    e.preventDefault();
+    if (lenis) lenis.scrollTo(picker, { duration: 1.6, easing: t => 1 - Math.pow(1 - t, 4) });
+    else window.scrollTo({ top: picker.offsetTop, behavior: RM ? 'auto' : 'smooth' });
+  });
+}
+
+/* ================= kit ================= */
+function buildSteps(k) {
+  const mk = manifest && manifest.kits && manifest.kits[k.id];
+  const layers = mk && Array.isArray(mk.order) ? mk.order.map(id => (manifest.layers || []).find(l => l.id === id)).filter(Boolean) : [];
+  const bySlot = Object.fromEntries(k.slots.map(s => [s.slot, s]));
+  const out = [];
+  const slotList = ORDER.concat(k.slots.map(s => s.slot).filter(s => !ORDER.includes(s)));
+  slotList.forEach(slot => {
+    if (slot === 'vest') { out.push({ slot, label: 'Hi-vis', vest: true, layer: layers.find(l => l.slot === 'vest') || null }); return; }
+    const s = bySlot[slot]; if (!s) return;
+    out.push({ slot, label: s.label, s, p: products[s.primary] || { id: s.primary, name: s.primary, sku: '', standards: '' }, layer: layers.find(l => l.product === s.primary) || null });
+  });
+  return out;
+}
+
+
+function cropHTML(layer) {
+  // the worn layer, cropped to its box; SVG keeps the aspect in any cell size
+  const [x0, y0, x1, y1] = layer.box;
+  return `<svg class="crop-box" viewBox="${x0} ${y0} ${x1 - x0} ${y1 - y0}" preserveAspectRatio="xMidYMax meet" aria-hidden="true"><image href="${DRESS}layers/${encodeURIComponent(layer.id)}.png" x="0" y="0" width="${FRAME.w}" height="${FRAME.h}"/></svg>`;
+}
+
+
+function thumbHTML(st) {
+  if (st.p) return `<img class="cut" alt="" src="${ROOT}assets/cut/${encodeURIComponent(st.p.id)}.png" data-ph="${esc(st.label)}">`;
+  if (st.layer && st.onMan) return cropHTML(st.layer);
+  return `<span class="ph">${esc(st.label)}</span>`;
+}
+
+document.addEventListener('error', e => {
+  const im = e.target;
+  if (!(im instanceof HTMLImageElement) || !im.dataset.ph) return;
+  const i = im.closest('[data-i]'); const st = i ? steps[+i.dataset.i] : null;
+  if (im.classList.contains('cut') && st && st.layer && st.onMan) { im.insertAdjacentHTML('afterend', cropHTML(st.layer)); im.remove(); return; }
+  const cb = im.closest('.crop-box'); if (cb) { cb.insertAdjacentHTML('afterend', `<span class="ph">${esc(im.dataset.ph)}</span>`); cb.remove(); return; }
+  if (im.classList.contains('alt-cut')) { im.remove(); return; }
+  im.insertAdjacentHTML('afterend', `<span class="ph">${esc(im.dataset.ph)}</span>`); im.remove();
+}, true);
+
+const SISTER_NOTE = 'sister brand, not part of the AVES range';
+
+const altLabel = a => esc(dispName(a)) + (a.sku && a.sku !== dispName(a) ? ' · ' + esc(a.sku) : '');
+// "one worn, the rest options": the slot's alternates as ghost cutouts (desktop) or a one-line list (phone)
+function altsHTML(s) {
+  const alts = (s.alternates || []).map(id => products[id]).filter(Boolean);
+  if (!alts.length) return '';
+  return `<div class="alts"><span class="lbl">Options</span><ul>${alts.map(a =>
+    `<li><img class="alt-cut" alt="" src="${ROOT}assets/cut/${encodeURIComponent(a.id)}.png" data-ph="x" loading="lazy"><span>${altLabel(a)}</span></li>`).join('')}</ul>` +
+    `<p class="alt-line"><span class="lbl">Options</span>${alts.map(altLabel).join(', ')}</p></div>`;
+}
+function detailHTML(st, i) {
+  const num = String(i + 1).padStart(2, '0');
+  const off = st.onMan ? '' : `<p class="skip">${st.layer && st.layer.status === 'skipped' ? 'Stays on the shelf: not drawn on the figure with this kit.' : 'On the shelf only: not drawn on the figure yet.'}</p>`;
+  if (st.vest) { const v = SISTER.vest; return `<div class="dt" data-i="${i}">
+    <div class="sl2 lbl"><b>${num}</b>Hi-vis</div>
+    <h3 class="nm disp">${esc(v.brand + ' ' + v.name)}</h3>
+    <p class="sku"><b>SKU</b>${esc(v.sku)}</p>
+    <p class="std"><span class="lbl">Standards</span>${esc(v.standards)}</p>
+    <p class="why">${esc(v.why)}. By ${esc(v.brand)}: ${SISTER_NOTE}.</p>${off}</div>`; }
+  const p = st.p, s = st.s;
+  return `<div class="dt" data-i="${i}">
+    <div class="sl2 lbl"><b>${num}</b>${esc(st.label)}</div>
+    <h3 class="nm disp">${esc(dispName(p))}</h3>
+    ${p.sku ? `<p class="sku"><b>SKU</b>${esc(p.sku)}</p>` : ''}
+    <p class="std"><span class="lbl">Standards</span>${p.standards ? esc(p.standards) : 'None listed in the catalogue data'}</p>
+    <p class="why">${esc(s.why)}</p>${off}
+    ${altsHTML(s)}
+  </div>`;
+}
+
+
+function itemHTML(st, i) {
+  const num = String(i + 1).padStart(2, '0');
+  const txt = st.vest ? `Hi-vis vest<span class="by">by Scuta</span>` : esc(st.label);
+  return `<li class="si" data-i="${i}"><span class="ca">${thumbHTML(st)}<span class="bar"></span></span><span class="sl"><b>${num}</b><span class="t">${txt}</span></span></li>`;
+}
+
+async function resolveBase(k) {
+  const mk = manifest && manifest.kits && manifest.kits[k.id];
+  const cands = [];
+  if (mk && mk.base) cands.push(DRESS + mk.base);            // optional per-kit override, declared in the manifest
+  cands.push(DRESS + 'base.png');
+  for (const c of cands) { const im = await loadImg(c); if (im) return { src: c, jpg: false }; }
+  return { src: FALLBACK_BASE, jpg: true };
+}
+
+async function openKit(k, zoom) {
+  K = k;
+  document.title = k.name + ' · The AVES Experience';
+  steps = buildSteps(k);
+  const n = steps.length;
+
+  // texts
+  $('#kt').textContent = k.title;
+  $('#ki').textContent = k.intro;
+  $('#hzl').innerHTML = k.hazards.slice(0, 3).map(h => `<li>${esc(h)}</li>`).join('');
+  $('#kn').textContent = k.name;
+  $('#bd').innerHTML = bdHTML(k, false);
+  $('#aftT').textContent = k.title;
+  const prim = steps.filter(s => s.p);
+  $('#aftS').textContent = `${prim.length} AVES products, one per slot. Hi-vis by Scuta, boots by Cavalier: sister brands, not part of the AVES range.`;
+  const sisterRows = [['Hi-vis', SISTER.vest], ['Boots', SISTER.boots]].map(([l, v]) => `<li class="sister"><span class="s">${l}</span><span class="n">${esc(v.brand + ' ' + v.name)}</span><span class="k">${esc(v.sku)}</span></li>`);
+  $('#plist').innerHTML = prim.map(s => `<li><span class="s">${esc(s.label)}</span><span class="n">${esc(dispName(s.p))}</span><span class="k">${esc(s.p.sku)}</span></li>`).concat(sisterRows).join('');
+  $('#orow').innerHTML = pickerOrder().filter(o => o.k.id !== k.id).map(({ k: o }) =>
+    `<a class="oslice" href="?pick=${encodeURIComponent(o.id)}" aria-label="${esc(o.name)}">${bdHTML(o, true)}<span class="veil"></span><span class="vname">${esc(o.name)}</span></a>`).join('');
+
+  // the man: base + this kit's layers only (nothing else preloads)
+  const man = $('#man');
+  const base = await resolveBase(k);
+  man.classList.toggle('fallback-jpg', base.jpg);
+  man.innerHTML = `<img class="base" alt="Worker in coverall and boots" src="${base.src}">`;
+  const okLayers = steps.filter(s => s.layer && s.layer.status === 'ok');
+  const loaded = await timeout(Promise.all(okLayers.map(s => loadImg(DRESS + 'layers/' + encodeURIComponent(s.layer.id) + '.png').then(im => { s.img = im; }))), 15000);
+  const onIds = new Set();
+  steps.forEach(s => { s.onMan = !!(s.layer && s.layer.status === 'ok' && s.img); if (s.onMan) onIds.add(s.layer.product); });
+  // a dependent layer (earmuffs on the helmet, tether on the harness) needs its host on the figure
+  steps.forEach(s => { if (s.onMan && s.layer.dependsOn && !onIds.has(s.layer.dependsOn)) s.onMan = false; });
+  steps.forEach((s, i) => {
+    if (!s.onMan) return;
+    const im = document.createElement('img');
+    im.className = 'ly'; im.alt = ''; im.src = s.img.src; im.dataset.i = i;
+    im.style.zIndex = String(s.layer.z || (i + 1));
+    man.appendChild(im); s.ly = im;
+  });
+
+  // shelf
+  const b = SISTER.boots;
+  $('#shbase').innerHTML = `<span class="lbl">Boots</span><b>${esc(b.brand + ' ' + b.name)}</b> · SKU ${esc(b.sku)}<span class="std"> · EN ISO 20345 S3</span>`;   // one line; standards hidden on phone; full standards + sister-brand note in the close list
+  $('#grid').innerHTML = steps.map(itemHTML).join('');
+  const rows = Math.ceil(steps.length / 2);
+  if (!isPhone()) $('#grid').style.setProperty('--cellH', (rows <= 4 ? 106 : rows === 5 ? 86 : 74) + 'px');
+  $('#prog').innerHTML = steps.map(() => '<span></span>').join('');
+  $('#shdetail').innerHTML = steps.map(detailHTML).join('');
+  const theatre = $('#theatre');
+  theatre.querySelectorAll('.fly').forEach(f => f.remove());
+  steps.forEach((s, i) => {
+    if (!s.onMan || RM) return;
+    const f = document.createElement('div');
+    f.className = 'fly'; f.setAttribute('aria-hidden', 'true');
+    f.innerHTML = s.p ? `<img class="cut" alt="" src="${ROOT}assets/cut/${encodeURIComponent(s.p.id)}.png" data-ph="${esc(s.label)}">` : cropHTML(s.layer);
+    f.dataset.i = i; theatre.appendChild(f); s.fly = f;
+  });
+
+  document.body.classList.remove('mode-pick');
+  document.body.classList.add('mode-kit');
+  window.scrollTo(0, 0);
+  if (lenis) lenis.scrollTo(0, { immediate: true });
+  if (zoom) gsap.to(zoom, { autoAlpha: 0, duration: 0.35, delay: 0.1, onComplete: () => zoom.remove() });
+
+  await timeout(document.fonts.ready, 3000);
+  buildTimeline();
+  walkOn();
+  ScrollTrigger.refresh();
+  // late images (shelf cutouts, backdrop) can change nothing in layout, but refresh once more when everything is in
+  window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
+  if (STEP !== null) jump(STEP);
+  document.documentElement.dataset.ready = '1';
+}
+
+
+function buildTimeline() {
+  const theatre = $('#theatre'), n = steps.length;
+  const items = [...document.querySelectorAll('.si')];
+  const D = v => (RM ? 0.01 : v);
+  const total = 1 + n + 1.4;
+  gsap.set('#shelf', { autoAlpha: 0, x: RM ? 0 : 24 });
+  gsap.set('#closeline', { autoAlpha: 0, y: RM ? 0 : 16 });
+  steps.forEach(s => { if (s.ly) gsap.set(s.ly, { autoAlpha: 0, y: RM ? 0 : 8 }); if (s.fly) gsap.set(s.fly, { autoAlpha: 0 }); });
+
+  tl = gsap.timeline({
+    defaults: { ease: 'none' },
+    scrollTrigger: {
+      trigger: theatre, start: 'top top',
+      end: () => '+=' + Math.round(total * UNIT_VH / 100 * innerHeight),
+      scrub: DEBUG || RM ? true : 1, pin: true, anticipatePin: 1, invalidateOnRefresh: true,
+      onUpdate: self => count(self.progress * total),
+    },
+  });
+  tl.to('#cue', { autoAlpha: 0, duration: D(0.25) }, 0)
+    .to('#intro', { autoAlpha: 0, y: RM ? 0 : -16, duration: D(0.45) }, 0.15)
+    .to('#shelf', { autoAlpha: 1, x: 0, duration: D(0.45) }, 0.45);
+  if (!RM) tl.fromTo('#bd', { yPercent: 0 }, { yPercent: -6, duration: total }, 0);
+
+  // shelf cutout -> its layer box on the man (desktop; the phone row scrolls, so no fly there)
+  const startXY = i => { const ca = items[i].querySelector('.ca'), f = steps[i].fly, o = offsetRel(ca, theatre); return { x: o.x + (ca.offsetWidth - f.offsetWidth) / 2, y: o.y + ca.offsetHeight - 4 - f.offsetHeight }; };
+  const target = s => {
+    const walk = $('#walk'), sc = walk.offsetWidth / FRAME.w;
+    const [x0, y0, x1, y1] = s.layer.box, fw = s.fly.offsetWidth, fh = s.fly.offsetHeight;
+    return { x: walk.offsetLeft + (x0 + x1) / 2 * sc - fw / 2, y: walk.offsetTop + (y0 + y1) / 2 * sc - fh / 2, s: clamp((x1 - x0) * sc / fw, 0.6, 2.6) };
+  };
+  steps.forEach((s, i) => {
+    const t = 1 + i;
+    if (s.fly) {
+      tl.fromTo(s.fly, { x: () => startXY(i).x, y: () => startXY(i).y, scale: 1 },
+        { x: () => target(s).x, y: () => target(s).y, scale: () => target(s).s, duration: 0.55, ease: 'power1.inOut', immediateRender: false }, t + 0.05)
+        .to(s.fly, { autoAlpha: 1, duration: 0.08 }, t + 0.05)
+        .to(s.fly, { autoAlpha: 0, duration: 0.16 }, t + 0.5);
+    }
+    if (s.ly) tl.to(s.ly, { autoAlpha: 1, y: 0, duration: D(0.35), ease: 'power1.out' }, t + (RM ? 0 : 0.45));
+  });
+  const tc = 1 + n;
+  tl.to('#shelf', { autoAlpha: 0, x: RM ? 0 : 16, duration: D(0.4) }, tc + 0.1)
+    .to('#dark', { opacity: 0.55, duration: D(0.6) }, tc + 0.1)
+    .to('#closeline', { autoAlpha: 1, y: 0, duration: D(0.5) }, tc + 0.45)
+    .to({}, { duration: 0.01 }, total - 0.01);
+  count(0);
+}
+
+let lastK = -1;
+
+function count(t) {
+  const n = steps.length;
+  // active step index: -1 before the first step, n after the last (close)
+  const a = t < 1 ? -1 : Math.min(n, Math.floor(t - 1));
+  if (a === lastK) return; lastK = a;
+  const shown = clamp(a + 1, 0, n);
+  $('#cnt').innerHTML = `<i>${shown}</i>/ ${n}`;
+  document.querySelectorAll('.si').forEach((el, i) => { el.classList.toggle('on', i === a); el.classList.toggle('past', i < a); });
+  document.querySelectorAll('.dt').forEach((el, i) => el.classList.toggle('on', i === clamp(a, 0, n - 1)));
+  document.querySelectorAll('#prog span').forEach((el, i) => el.classList.toggle('on', i <= a && a < n || a >= n));
+  if (isPhone() && a >= 0 && a < n) {
+    const g = $('#grid'), cell = g.children[a];
+    g.scrollTo({ left: Math.max(0, cell.offsetLeft - 16 - 2 * 64), behavior: RM || DEBUG ? 'auto' : 'smooth' });
+  }
+}
+
+function walkOn() {
+  if (RM || STEP !== null) return;
+  const walk = $('#walk');
+  gsap.fromTo(walk, { x: () => innerWidth - walk.offsetLeft + 40 }, { x: 0, duration: 0.9, ease: 'power2.out' });
+  const split = SplitText.create('#kt', { type: 'words' });
+  gsap.from(split.words, { y: 22, autoAlpha: 0, duration: 0.5, stagger: 0.05, delay: 0.55, ease: 'power2.out', onComplete: () => split.revert() });
+  gsap.from(['#ki', '.intro .hzh', '#hzl li'], { y: 12, autoAlpha: 0, duration: 0.45, stagger: 0.06, delay: 0.85, ease: 'power2.out' });
+  gsap.from('#cue', { autoAlpha: 0, duration: 0.4, delay: 1.3 });
+}
+
+function jump(step) {
+  const st = tl.scrollTrigger, n = steps.length, total = 1 + n + 1.4;
+  if (step === 'more') { window.scrollTo(0, $('#after').getBoundingClientRect().top + scrollY); ScrollTrigger.update(); return; }
+  let t = 0;
+  if (step === 'close') t = total;
+  else if (step !== 'walk') t = clamp(parseInt(step, 10) || 1, 1, n) + 0.92;
+  window.scrollTo(0, Math.round(st.start + (st.end - st.start) * (t / total)));
+  ScrollTrigger.update();
+  tl.progress(t / total);
+  document.documentElement.dataset.dbg = JSON.stringify({ y: Math.round(scrollY), start: Math.round(st.start), end: Math.round(st.end), p: +(t / total).toFixed(3), h: document.documentElement.scrollHeight });
+}
+
+/* ================= boot ================= */
+async function boot() {
+  if (RM) document.body.classList.add('rm');
+  const [k, p, m] = await Promise.all([getJSON(ROOT + 'data/kits.json'), getJSON(ROOT + 'data/products.json'), getJSON(DRESS + 'manifest.json', true)]);
+  kits = k; manifest = m;
+  kits.forEach(x => { kitById[x.id] = x; });
+  p.forEach(x => { products[x.id] = x; });
+  if (manifest && Array.isArray(manifest.backdrops)) kits.forEach(x => { if (!manifest.backdrops.includes(x.id)) bdState[x.id] = 'missing'; });
+
+  if (!RM && !DEBUG) {
+    lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(t => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+  }
+  const toast = () => { const t = $('#toast'); t.classList.add('on'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), 2200); };
+  $('#addq').addEventListener('click', toast);
+  $('#addq2').addEventListener('click', toast);
+  window.addEventListener('popstate', () => location.reload());
+
+  const deep = Q.get('kit');
+  if (deep && kitById[deep]) { openKit(kitById[deep], null); return; }
+  const P = buildPicker();
+  const hv = Q.get('hover');
+  P.setOn((hv && kitById[hv] && P.btns.find(b => b.dataset.id === hv)) || P.btns[0], true);
+  animatePicker(P);
+  const LV = P_LIVE = livingPicker(P);
+  if (LV) { P.onOn(P.cur()); LV.start(); setTimeout(LV.preload, DEBUG ? 0 : 2200); }
+  const H = buildHero();
+  // to-picker: the inline script scrolled before paint; on the phone the hero's height can still change once the
+  // fonts arrive, so land on the picker again then (unless the visitor has already moved)
+  if (document.documentElement.classList.contains('to-picker')) {
+    let moved = false; ['wheel', 'touchstart', 'keydown'].forEach(t => addEventListener(t, () => { moved = true; }, { once: true, passive: true }));
+    const land = () => { if (moved) return; const y = window.__returnY != null ? window.__returnY : $('#picker').offsetTop; window.scrollTo(0, y); if (lenis) lenis.scrollTo(y, { immediate: true, force: true }); ScrollTrigger.refresh(); };
+    land(); document.fonts.ready.then(land); addEventListener('load', land, { once: true }); setTimeout(land, 600);
+  }
+  heroEntrance();
+  heroScroll(H, P, LV);
+  document.documentElement.dataset.ready = '1';
+  const pk = Q.get('pick');
+  if (pk && kitById[pk]) {
+    const b = P.btns.find(x => x.dataset.id === pk);
+    P.setOn(b); b.focus({ preventScroll: true });
+    setTimeout(() => pick(kitById[pk], b), RM ? 0 : 450);
+  }
+}
+boot().catch(e => console.error(e && e.stack || e));
+})();
