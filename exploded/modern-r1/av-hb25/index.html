@@ -572,17 +572,85 @@ img.still{display:block}
   const want = Object.fromEntries(SETS.map((k) => [k, []]));
   const small = Object.fromEntries(SETS.map((k) => [k, false]));
   const src = (set, i) => `assets/frames${small[set] ? "-m" : ""}/${set}/${String(i).padStart(3, "0")}.webp`;
+  // Frames are fetched as bytes and turned into ImageBitmaps by createImageBitmap, which decodes OFF the main thread.
+  // (live proof, 15 Nov: an <img> decoded by img.decode() was decoded AGAIN on the main thread when the canvas first drew
+  // it, "Decode Image" inside Commit, 3 ms median, 13 ms p90 at CPU 4x: the respirator's dropped frames.) Bitmaps are
+  // kept only in a window round the playhead (maintain(), below) plus the stage rest frames and the hand-off frame, so a
+  // phone never holds every decoded frame; the bytes of every frame stay in memory (a few MB) for quick re-decoding.
+  const blobs = Object.fromEntries(SETS.map((k) => [k, []]));
+  const bmWant = Object.fromEntries(SETS.map((k) => [k, []]));
+  const canBitmap = typeof createImageBitmap === "function" && typeof fetch === "function";
+  let bmCount = 0;
+  let bmId = 0;
+  let decoding = 0;
+  let decodeQ = [];
+  const keepPic = (set, i, pic) => {
+    pic.hxId = ++bmId;
+    sets[set][i] = pic;
+    dirty = true;
+    if (window.__dec) window.__dec.push([src(set, i), performance.now()]);
+  };
+  const pumpDecode = () => {
+    while (decoding < 4 && decodeQ.length) {
+      const [set, i, done] = decodeQ.shift();
+      if (sets[set][i] || !blobs[set][i]) {
+        done(Boolean(sets[set][i]));
+        continue;
+      }
+      decoding += 1;
+      createImageBitmap(blobs[set][i]).then((bm) => {
+        decoding -= 1;
+        if (sets[set][i]) bm.close();
+        else {
+          keepPic(set, i, bm);
+          bmCount += 1;
+        }
+        bmWant[set][i] = null;
+        done(true);
+        pumpDecode();
+      }, () => {
+        decoding -= 1;
+        bmWant[set][i] = null;
+        done(false);
+        pumpDecode();
+      });
+    }
+  };
+  const toBitmap = (set, i, urgent) => {
+    if (sets[set][i]) return Promise.resolve(true);
+    if (bmWant[set][i]) return bmWant[set][i];
+    return (bmWant[set][i] = new Promise((done) => {
+      if (urgent) decodeQ.unshift([set, i, done]);
+      else decodeQ.push([set, i, done]);
+      pumpDecode();
+    }));
+  };
+  const drop = (set, i) => {
+    const pic = sets[set][i];
+    if (!pic || !pic.close) return;
+    sets[set][i] = undefined;
+    pic.close();
+    bmCount -= 1;
+  };
   const load = (set, i) => {
     if (i < 0 || i >= F[set].n) return Promise.resolve(false);
     if (want[set][i]) return want[set][i];
+    if (canBitmap) {
+      return (want[set][i] = fetch(src(set, i)).then((r) => (r.ok ? r.blob() : null)).then((b) => {
+        if (!b) return false;
+        blobs[set][i] = b;
+        if (pinned(set, i) || hot(set, i)) toBitmap(set, i, false);
+        return true;
+      }, () => false));
+    }
     return (want[set][i] = new Promise((done) => {
       const im = new Image();
       im.decoding = "async";
       im.onload = () => {
         const keep = () => {
-          sets[set][i] = im;
+          blobs[set][i] = true;
+          keepPic(set, i, im);
           done(true);
-          dirty = true;
         };
         im.decode ? im.decode().then(keep, keep) : keep();
       };
@@ -590,6 +658,9 @@ img.still{display:block}
       im.src = src(set, i);
     }));
   };
+  // a frame with its bytes in, drawable: the opening frame and the hand-off frame are awaited this way
+  const ready = (set, i) => load(set, i).then((ok) => (ok && canBitmap ? toBitmap(set, i, true) : ok));
+  const fetchedOf = (name) => blobs[name].filter(Boolean).length;
   // the pool: up to 12 requests at once (HTTP/2 on the live host: one round trip carries 12 frames, not 6); the frames just ahead of the playhead (in its direction of travel) jump the queue
   const queue = [];
   let urgent = [];
@@ -971,8 +1042,69 @@ img.still{display:block}
     nav.forEach((el, at) => (at === index ? el.setAttribute("data-on", "") : el.removeAttribute("data-on")));
     if (live) live.textContent = S[index].label;
   }
+  // ---------------------------------------------------------------- the decoded window: which frames hold a bitmap
+  // The walk keeps the next 48 frames along the playhead's direction of travel (following the stages across cuts) and the
+  // 16 behind; the turn keeps all its frames while the opening is in view, only its hand-off frame after. The stage rest
+  // frames are always kept. Anything else is closed once the count passes the window plus a margin.
+  let hotSet = new Set();
+  let travel = 1;
+  let maintainAt = -1;
+  const pinnedSet = new Set(S.map((stage) => `${stage.set}:${stage.range[1]}`).concat([`turn:${HO.turnFrame}`, `${HO.set || "apart"}:${HO.frame || 0}`]));
+  function pinned(set, i) { return pinnedSet.has(`${set}:${i}`); }
+  function hot(set, i) { return hotSet.has(`${set}:${i}`); }
+  function maintain() {
+    if (!canBitmap) return;
+    const gap = uNow - uPlay;
+    if (Math.abs(gap) > 1e-4) travel = Math.sign(gap);
+    const key = `${Math.round(uPlay * 200)}|${travel}|${pastOpening() ? 1 : 0}|${sp.shown}`;
+    if (key === maintainAt) return;
+    maintainAt = key;
+    const want2 = [];
+    const add = (set, f) => {
+      const i = Math.round(f);
+      if (i >= 0 && i < F[set].n) want2.push([set, i]);
+    };
+    const walkOf = (dir, count) => {
+      let u = uPlay;
+      for (let n = 0; n < count; n += 1) {
+        const sh = showAt(u);
+        add(sh.a.set, sh.a.f);
+        if (sh.b) add(sh.b.set, sh.b.f);
+        const nu = u + dir / Math.max(1, framesPerU(Math.max(0, u)));
+        if (nu < 0 || nu > TOTAL) break;
+        u = nu;
+      }
+    };
+    walkOf(travel, 48);
+    walkOf(-travel, 16);
+    if (!pastOpening()) {
+      const c = sp.shown >= 0 ? sp.shown : HO.turnFrame;
+      for (let d = 0; d <= T.n / 2; d += 1) {
+        add("turn", (c + d) % T.n);
+        add("turn", (c - d + T.n) % T.n);
+      }
+    }
+    hotSet = new Set(want2.map(([set, i]) => `${set}:${i}`));
+    let urgentN = 0;
+    for (const [set, i] of want2) {
+      if (sets[set][i] || bmWant[set][i] || !blobs[set][i]) continue;
+      toBitmap(set, i, urgentN < 3);
+      urgentN += 1;
+    }
+    decodeQ = decodeQ.filter(([set, i, done]) => {
+      if (hot(set, i) || pinned(set, i)) return true;
+      bmWant[set][i] = null;
+      done(false);
+      return false;
+    });
+    if (bmCount > hotSet.size + pinnedSet.size + 24) {
+      for (const set of SETS) for (let i = 0; i < F[set].n; i += 1) if (sets[set][i] && !hot(set, i) && !pinned(set, i)) drop(set, i);
+    }
+  }
+  window.hxBitmaps = () => ({ count: bmCount, queued: decodeQ.length, decoding, hot: hotSet.size, hotReady: [...hotSet].filter((k) => { const [set, i] = k.split(":"); return Boolean(sets[set][+i]); }).length, hotFetched: [...hotSet].filter((k) => { const [set, i] = k.split(":"); return Boolean(blobs[set][+i]); }).length });
   function tick() {
     stepPlayhead(performance.now());
+    maintain();
     markStage();
     if (cvs.style.visibility === "hidden") {
       layout({ a: restOf(0), b: null, k: 0 });
@@ -995,6 +1127,7 @@ img.still{display:block}
     return reduced ? stops.reduce((best, s) => (Math.abs(s - u) < Math.abs(best - u) ? s : best), 0) : u;
   };
   const snapTo = stops.map((stop) => (stop / TOTAL) * HOLD);
+  let lastSizeKey = "";
   const trigger = ScrollTrigger.create({
     trigger: hx,
     start: "top top",
@@ -1010,7 +1143,11 @@ img.still{display:block}
     onRefresh: (self) => {
       size();
       uNow = uOf(self.progress);
-      uPlay = uNow; // a resize is not a motion: no catch-up
+      // a resize is not a motion: no catch-up. Only a real size change moves the playhead at once; the refreshes that fire
+      // mid-scroll for other reasons (window load, fonts) leave it easing (live proof, 15 Nov: the glove jumped 5 frames)
+      const sizeKey = String(innerWidth); // width only: a phone toolbar changes the height on the first scroll
+      if (sizeKey !== lastSizeKey) uPlay = uNow;
+      lastSizeKey = sizeKey;
       markStage();
     },
   });
@@ -1319,7 +1456,7 @@ img.still{display:block}
     const idx = Math.round(norm(angle) / STEP) % T.n;
     const im = turnImg(idx);
     if (!im) return;
-    const key = `${idx}|${cv.width}|${im.src}`;
+    const key = `${idx}|${cv.width}|${im.hxId || im.src}`;
     if (key === sp.key) return;
     sp.key = key;
     sp.shown = idx;
@@ -1517,8 +1654,8 @@ img.still{display:block}
     slot.toggleAttribute("data-colour", colourOn());
     sp.form = "";
   });
-  window.hxSpin = { state: () => ({ angle: norm(sp.angle), frame: sp.shown, loaded: sets.turn.filter(Boolean).length, handed: Boolean(sp.handed), cue: Boolean(cueEl && cueEl.hasAttribute("data-on")) }) };
-  window.hxWalk = { state: () => ({ u: uNow, uPlay, total: TOTAL, stops, show: showAt(uPlay), stage: shownStage, loaded: Object.fromEntries(SETS.map((k) => [k, sets[k].filter(Boolean).length])) }), go: (i) => go(stops[i]), place: placeOf, area, trigger: () => ({ start: trigger.start, end: trigger.end }) };
+  window.hxSpin = { state: () => ({ angle: norm(sp.angle), frame: sp.shown, loaded: fetchedOf("turn"), handed: Boolean(sp.handed), cue: Boolean(cueEl && cueEl.hasAttribute("data-on")) }) };
+  window.hxWalk = { state: () => ({ u: uNow, uPlay, total: TOTAL, stops, show: showAt(uPlay), stage: shownStage, loaded: Object.fromEntries(SETS.map((k) => [k, fetchedOf(k)])), bitmaps: bmCount }), go: (i) => go(stops[i]), place: placeOf, area, trigger: () => ({ start: trigger.start, end: trigger.end }) };
   // ---------------------------------------------------------------- boot: the settle frame first, then every third, then the rest
   cvs.style.visibility = "hidden";
   size();
@@ -1551,7 +1688,7 @@ img.still{display:block}
   addEventListener("resize", measure);
   (async () => {
     const k = HO.turnFrame;
-    if (await load("turn", k)) {
+    if (await ready("turn", k)) {
       sp.ready = true;
       sp.handed = null;
       measure();
@@ -1560,7 +1697,7 @@ img.still{display:block}
       if (cueEl) cueEl.setAttribute("data-on", "");
       root.dataset.spin = "load";
     }
-    load(HO.set || "apart", HO.frame || 0);
+    ready(HO.set || "apart", HO.frame || 0);
     // the load order for smoothness: the turn at every 6th frame, the stage rest frames, every 4th frame of everything,
     // then the rest; the frames around the playhead always jump the queue (ahead())
     const walkSets = [...new Set(S.map((stage) => stage.set))];
@@ -1584,7 +1721,7 @@ img.still{display:block}
     for (const [set, a, b] of trans.slice(1)) for (let i = a; i <= b; i += 1) push(set, i);
     for (const name of walkSets) for (let i = 0; i < F[name].n; i += 1) push(name, i); // frames outside every stage range
     pump();
-    const allOf = (name) => sets[name].filter(Boolean).length >= F[name].n;
+    const allOf = (name) => fetchedOf(name) >= F[name].n;
     await new Promise((done) => {
       const check = () => (allOf("turn") ? done() : setTimeout(check, 120));
       check();
@@ -1594,7 +1731,7 @@ img.still{display:block}
       const check = () => (SETS.every(allOf) ? done() : setTimeout(check, 200));
       check();
     });
-    if (!reduced && sp.ready && !sp.touched && window.scrollY < 4 && sets.turn.filter(Boolean).length === T.n) {
+    if (!reduced && sp.ready && !sp.touched && window.scrollY < 4 && fetchedOf("turn") === T.n) {
       root.dataset.spin = "idle";
       const from = sp.angle;
       sp.tween = gsap.to(sp, { angle: from + 360, duration: 9, delay: 0.5, ease: "sine.inOut", onComplete: () => {
