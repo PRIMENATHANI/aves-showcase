@@ -22,8 +22,8 @@
 <meta name="twitter:title" content="AVES HG-2919 Assembly Gloves: the features, shown on the glove">
 <meta name="twitter:description" content="The AVES® HG-2919 Assembly Gloves combine A-grade goatskin leather across the palm and fingers with a flexible orange elastic-cotton back for comfortable handling during assembly and light industrial tasks.">
 <meta name="twitter:image" content="https://primenathani.github.io/aves-showcase/exploded/modern-r1/hg-2919/assets/share-card.jpg">
-<link rel="preload" as="image" href="assets/frames/turn/000.webp" fetchpriority="high" media="(min-width: 1024px), (min-width: 760px) and (pointer: fine)">
-<link rel="preload" as="image" href="assets/frames-m/turn/000.webp" fetchpriority="high" media="(max-width: 759px), (max-width: 1023px) and (pointer: coarse)">
+<link rel="preload" as="fetch" crossorigin="anonymous" href="assets/frames/turn/000.webp" fetchpriority="high" media="(min-width: 1024px), (min-width: 760px) and (pointer: fine)">
+<link rel="preload" as="fetch" crossorigin="anonymous" href="assets/frames-m/turn/000.webp" fetchpriority="high" media="(max-width: 759px), (max-width: 1023px) and (pointer: coarse)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -930,8 +930,15 @@ Elastic Cotton (Back Liner)</dd><dt>Leather Thickness</dt><dd>0.6 - 0.8 mm</dd><
       const one = lo >= 0 ? sets[fr.set][lo] : hi >= 0 ? sets[fr.set][hi] : null;
       if (one) draw(one, alpha);
     };
-    paint(sh.a, sh.b ? 1 - sh.k : 1);
-    if (sh.b) paint(sh.b, sh.k);
+    // at a camera cut both sides cross-fade only when both have something to draw; a side with nothing yet (a slow line)
+    // leaves the other at full strength, so the picture never fades out to an empty stage (live proof, Slow 4G, 15 Nov)
+    const can = (fr) => Boolean(sets[fr.set][Math.round(fr.f)] || turnStandIn(fr) || bracket(fr.set, fr.f).some((x) => x >= 0));
+    if (sh.b && !can(sh.b)) paint(sh.a, 1);
+    else if (sh.b && !can(sh.a)) paint(sh.b, 1);
+    else {
+      paint(sh.a, sh.b ? 1 - sh.k : 1);
+      if (sh.b) paint(sh.b, sh.k);
+    }
     ctx.globalAlpha = 1;
     ahead(sh.a.set, sh.a.f, Math.sign(uNow - uPlay) || 1); // keep the neighbourhood of the playhead decoded
     return sh;
@@ -1104,7 +1111,7 @@ Elastic Cotton (Back Liner)</dd><dt>Leather Thickness</dt><dd>0.6 - 0.8 mm</dd><
       for (const set of SETS) for (let i = 0; i < F[set].n; i += 1) if (sets[set][i] && !hot(set, i) && !pinned(set, i)) drop(set, i);
     }
   }
-  window.hxBitmaps = () => ({ count: bmCount, queued: decodeQ.length, decoding, hot: hotSet.size, hotReady: [...hotSet].filter((k) => { const [set, i] = k.split(":"); return Boolean(sets[set][+i]); }).length, hotFetched: [...hotSet].filter((k) => { const [set, i] = k.split(":"); return Boolean(blobs[set][+i]); }).length });
+  window.hxBitmaps = () => ({ count: bmCount, queued: decodeQ.length, decoding, hot: hotSet.size, hotReady: [...hotSet].filter((k) => { const [set, i] = k.split(":"); return Boolean(sets[set][+i]); }).length, hotFetched: [...hotSet].filter((k) => { const [set, i] = k.split(":"); return Boolean(blobs[set][+i]); }).length, have: Object.fromEntries(SETS.map((k) => [k, sets[k].map((v, i) => (v ? i : -1)).filter((i) => i >= 0).slice(0, 12)])), cv: [cvs.width, cvs.height, cvs.style.visibility], show: showAt(uPlay) });
   function tick() {
     stepPlayhead(performance.now());
     maintain();
