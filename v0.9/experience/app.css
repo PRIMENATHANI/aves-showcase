@@ -323,3 +323,6 @@ html.ho #hoc{view-transition-name:kit-photo}
 ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none}
 /* flow2: a strip picture released after the intro's own fades in when it arrives, never pops */
 .m-strip .ph img{transition:opacity .35s ease-out}.m-strip .ph img.ldg{opacity:0}
+/* flow2 regression: nothing of the stage but the photo and the header shows before the page is built (a direct visit showed every step's text overlapping while pictures loaded); the board's pictures fade in */
+html:not([data-ready]) .stage>:not(.pha):not(.hdr),html:not([data-ready]) .cam,html:not([data-ready]) .hdr .kitlnk{visibility:hidden}
+.bp img{transition:opacity .35s ease-out}.bp img.ldg{opacity:0}

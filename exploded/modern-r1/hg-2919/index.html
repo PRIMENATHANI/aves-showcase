@@ -592,13 +592,13 @@ Elastic Cotton (Back Liner)</dd><dt>Leather Thickness</dt><dd>0.6 - 0.8 mm</dd><
       im.src = src(set, i);
     }));
   };
-  // the pool: up to 6 decodes at once; the frames just ahead of the playhead (in its direction of travel) jump the queue
+  // the pool: up to 12 requests at once (HTTP/2 on the live host: one round trip carries 12 frames, not 6); the frames just ahead of the playhead (in its direction of travel) jump the queue
   const queue = [];
   let urgent = [];
   let active = 0;
-  let firstPass = 0; // queue entries that come before the playhead's neighbourhood: stage rest frames, then every 6th frame
+  let firstPass = 0; // queue entries that outrank the playhead's own requests: turn 6ths, rest frames, the first transition
   const pump = () => {
-    while (active < 6) {
+    while (active < 12) {
       let job = null;
       while (!job && firstPass > 0 && queue.length) {
         firstPass -= 1;
@@ -1511,12 +1511,19 @@ Elastic Cotton (Back Liner)</dd><dt>Leather Thickness</dt><dd>0.6 - 0.8 mm</dd><
   cvs.style.visibility = "hidden";
   size();
   measure();
-  // which size set each frame set uses: the phone set when the canvas needs no more device pixels than it holds (+10 %)
+  // which size set each frame set uses (lead, 15 Nov): by the DEVICE. A viewport under 760 CSS px, or a coarse pointer under
+  // 1024 px, always gets the phone set whatever its DPR (a DPR 3 phone otherwise downloaded the whole desktop weight); a wide
+  // viewport uses the phone set only when the canvas needs no more device pixels than it holds (+10 %)
   {
     const dpr = Math.min(window.devicePixelRatio || 1, 3);
+    const phone = innerWidth < 760 || (matchMedia("(pointer: coarse)").matches && innerWidth < 1024);
     for (const name of SETS) {
       const m = F[name].m;
       if (!m) continue;
+      if (phone) {
+        small[name] = true;
+        continue;
+      }
       let need;
       if (name === "turn") need = sp.geo ? Math.max(sp.geo.aw, sp.geo.bw) * dpr : Infinity;
       else {
@@ -1546,11 +1553,24 @@ Elastic Cotton (Back Liner)</dd><dt>Leather Thickness</dt><dd>0.6 - 0.8 mm</dd><
     // then the rest; the frames around the playhead always jump the queue (ahead())
     const walkSets = [...new Set(S.map((stage) => stage.set))];
     const push = (set, i) => queue.push([set, ((i % F[set].n) + F[set].n) % F[set].n]);
-    for (const stage of S) push(stage.set, stage.range[1]); // first the stage rest frames: the walk snaps to them from the start
-    for (const name of ["turn", ...walkSets.filter((n) => n !== "turn")]) for (let i = 0; i < F[name].n; i += 6) push(name, name === "turn" ? k + i : i);
+    // (live proof, 15 Nov: on a phone over Fast 4G the old order, turn and every set by halves, left the first transition
+    // incomplete for 30 s.) The order follows what the visitor does next: the opening frame (above), the turn at every 6th
+    // frame (a drag works at once), the stage rest frames (the walk snaps to them), EVERY frame of the first transition,
+    // then the rest of the turn, then each later transition in scroll order. Nothing of a later stage is requested before
+    // the first transition is complete (firstPass outranks the playhead's own requests); after that the frames around the
+    // playhead, in its direction of travel, always jump the queue (ahead()).
+    for (let i = 0; i < F.turn.n; i += 6) push("turn", k + i);
+    for (const stage of S) push(stage.set, stage.range[1]);
+    const trans = S.slice(1).map((stage, j) => {
+      const prev = S[j];
+      const a = prev.set === stage.set ? Math.min(prev.range[1], stage.range[0]) : stage.range[0];
+      return [stage.set, a, stage.range[1]];
+    });
+    if (trans.length) for (let i = trans[0][1]; i <= trans[0][2]; i += 1) push(trans[0][0], i);
     firstPass = queue.length;
-    for (const name of ["turn", ...walkSets.filter((n) => n !== "turn")]) for (let i = 0; i < F[name].n; i += 2) push(name, i);
-    for (const name of ["turn", ...walkSets.filter((n) => n !== "turn")]) for (let i = 1; i < F[name].n; i += 2) push(name, i);
+    for (let i = 0; i < F.turn.n; i += 1) push("turn", k + i);
+    for (const [set, a, b] of trans.slice(1)) for (let i = a; i <= b; i += 1) push(set, i);
+    for (const name of walkSets) for (let i = 0; i < F[name].n; i += 1) push(name, i); // frames outside every stage range
     pump();
     const allOf = (name) => sets[name].filter(Boolean).length >= F[name].n;
     await new Promise((done) => {

@@ -60,12 +60,14 @@ const manEl = $('#man'); if (!PH && HI && D.base2x && !manEl.querySelector('.bas
 // (360 px WebP, v0.3.4/xtools/phone_assets.py); desktop keeps the full files.
 const PIC = p => PH && p ? '../../v0.9/experience/assets/phone/' + encodeURIComponent(p.split('/').pop().replace(/\.\w+$/, '')) + '.webp' : p;
 const LS = p => `data-ls="${esc(p)}"`;
-const ls = el => { if (el && el.dataset.ls) { if (el.closest && el.closest('#mRail')) { el.classList.add('ldg'); el.addEventListener('load', () => el.classList.remove('ldg'), { once: true }); }   // strip pictures fade in when they arrive (app.css)
+const LSP = p => LS(PIC(p)) + (PH && p ? ` data-full="${esc(p)}"` : '');   // a phone picture that is missing falls back to the full file (ls)
+const ls = el => { if (el && el.dataset.ls) { if (el.closest && el.closest('#mRail, #boardG')) { el.classList.add('ldg'); el.addEventListener('load', () => el.classList.remove('ldg'), { once: true }); }   // strip pictures fade in when they arrive (app.css)
+  if (el.dataset.full) el.addEventListener('error', () => { const f = new URL(el.dataset.full, document.baseURI).href; if (el.src !== f) el.src = f; }, { once: true });
   el.src = el.dataset.ls; delete el.dataset.ls; } return el; };
 const lys = steps.map(st => { const im = new Image(); im.className = 'ly'; im.alt = ''; im.dataset.ls = layerSrc(st); im.style.zIndex = st.z; manEl.appendChild(im); return im; });
 const lyMask = () => steps.forEach((st, i) => { lys[i].style.zIndex = st.z; if (st.mask) lys[i].style.cssText += `;-webkit-mask-image:${st.mask};mask-image:${st.mask}`; });
 lyMask();
-$('#fly').innerHTML = steps.map(st => `<div class="f"><img alt="" ${LS(PIC(st.fly || st.image))}></div>`).join('');
+$('#fly').innerHTML = steps.map(st => `<div class="f"><img alt="" ${LSP(st.fly || st.image)}></div>`).join('');
 const NUMW = ['', 'One hazard', 'Two hazards', 'Three hazards', 'Four hazards', 'Five hazards', 'Six hazards', 'Seven hazards'];
 const kickT = `Kit ${num(kit.index - 1)} / ${kit.of} · ${kit.group}`, leadT = kit.intro, hzNT = `${NUMW[kit.hazards.length] || kit.hazards.length + ' hazards'} on this site`;
 const hazLis = kit.hazards.map((h, i) => `<li>${hzi(kHz(i))}<span>${esc(cap1(h))}</span></li>`).join('');
@@ -95,7 +97,7 @@ $('#endList').innerHTML = steps.map((st, i) => `<li><b class="en">${num(i)}</b><
 // ---------- phone DOM
 $('#mKick').textContent = kickT; $('#mName').innerHTML = tyL('kit-' + kit.id); $('#mLead').textContent = leadT; $('#mHzN').textContent = hzNT; $('#mHz').innerHTML = hazLis;
 $('#mKitT').textContent = (TYPE['end-' + kit.id] || { text: kit.title }).text; $('#mCntN').textContent = N;
-$('#mRail').innerHTML = steps.map((st, i) => `<li data-go="${i}"><span class="ph"><img alt="" ${LS(PIC(st.image))}></span></li>`).join('');
+$('#mRail').innerHTML = steps.map((st, i) => `<li data-go="${i}"><span class="ph"><img alt="" ${LSP(st.image)}></span></li>`).join('');
 $('#mSteps').innerHTML = steps.map((st, i) => { const c = D.cats[st.cat] || {}, hook = st.mkt && st.mkt.hook;
   return `<article class="m-step"><div class="m-tabs" role="tablist"><button class="on" data-tab="0">The item</button><button data-tab="1">Benefits</button>${c.why ? '<button data-tab="2">Why AVES</button>' : ''}</div>
   <div class="m-pages">
@@ -131,7 +133,7 @@ if (DBG) allPics().forEach(ls);
 const imgs = DBG ? [...crit, ...allPics()] : crit;
 const inPic = im => (im.complete && (im.naturalWidth || !im.src) ? Promise.resolve() : new Promise(r => { im.addEventListener('load', r, { once: true }); im.addEventListener('error', r, { once: true }); })).then(() => im.decode && im.src ? im.decode().catch(() => 0) : 0);
 // phone: the text does not wait for the worker's picture; he rises when it is decoded (critReady, in the arrival below)
-const baseIm = manEl.querySelector('.base'), early1 = PH && !DBG ? imgs.filter(im => im !== baseIm && im.id !== 'bdA' && im.id !== 'hoI' && !im.classList.contains('ktile')) : imgs;   // nor for the backdrop: the hand-over waits for it on its own (below)
+const baseIm = manEl.querySelector('.base'), early1 = !DBG ? imgs.filter(im => im !== baseIm && im.id !== 'bdA' && im.id !== 'hoI' && !im.classList.contains('ktile') && !im.closest('#boardG, #rl, #endList')) : imgs;   // nor for the backdrop (the hand-over waits for it on its own, below); desktop: nor for the kit board (its pictures fade in; waiting held the build 7 s on Fast 4G)
 const critReady = Promise.all(imgs.map(inPic));
 await Promise.all(early1.map(inPic));
 // fonts: the stylesheet is non-blocking, so fonts.ready alone can resolve before Nunito Sans is even declared; the phone band is
@@ -313,7 +315,7 @@ function buildDesk() {
   lastN = -1; sync();
   const dbg = q.get('step');
   if (dbg) { const lab = /^[a-z]/.test(dbg) ? dbg : 's' + dbg; tl.seek(tl.labels[lab] + parseFloat(q.get('d') || 0), false); sync(); return; }
-  st0 = ScrollTrigger.create({ animation: tl, trigger: track, start: 'top top', end: 'bottom bottom', scrub: .6,
+  st0 = ScrollTrigger.create({ animation: tl, trigger: track, start: 'top top', end: 'bottom bottom', scrub: .6, onUpdate: s => { if (arrivalTl && s.progress > 0) { const a = arrivalTl; arrivalTl = null; a.progress(1); } },   // scrolled on before the arrival ended: finish it first (mGo does the same on the phone)
     snap: { snapTo: 'labelsDirectional', duration: { min: .6, max: 2.2 }, delay: .15, ease: 'power1.inOut' } });
   if (keep > 0) { ScrollTrigger.refresh(); const y = st0.start + (st0.end - st0.start) * keep; lenis ? lenis.scrollTo(y, { immediate: true, force: true }) : scrollTo(0, y); tl.progress(keep); }
 }
@@ -390,10 +392,10 @@ function buildPhone() {
 }
 const build = () => PH ? buildPhone() : buildDesk();
 // phone stepping: every label is a stop (intro, s1..sN, end), played in real time so the moves keep their motion.json durations
-let lastLab = '', mTween = null;
+let lastLab = '', mTween = null, arrivalTl = null;   // arrivalTl: the intro's arrival, finished at once if the visitor steps on before it ends (else it set the intro back on screen over the step: Slow 4G, CPU 4x)
 const labelList = () => Object.entries(tl.labels).sort((a, b) => a[1] - b[1]);
 const curIdx = () => { const L = labelList(), tt = mTween ? mTween.vars.time : tl.time(); let k = 0; L.forEach((l, n) => { if (tt >= l[1] - .01) k = n; }); return k; };
-function mGo(n) { const L = labelList(); n = clamp(n, 0, L.length - 1); later(stepPics(n - 1), true); const to = L[n][1], dist = Math.abs(to - tl.time()); if (dist < .01) return;
+function mGo(n) { const L = labelList(); n = clamp(n, 0, L.length - 1); if (arrivalTl) { const a = arrivalTl; arrivalTl = null; a.progress(1); } later(stepPics(n - 1), true); const to = L[n][1], dist = Math.abs(to - tl.time()); if (dist < .01) return;
   mTween && mTween.kill(); const back = to < tl.time();
   mTween = tl.tweenTo(to, { duration: rm ? 0 : back ? Math.min(dist, 1.2) : Math.min(dist, 2.6), ease: 'none', onComplete: () => { mTween = null; } }); mTween.vars.time = to; mNavState(n); }
 function mNavState(n) { const L = labelList(); $('#mBack').disabled = n === 0; $('#mNav').classList.toggle('at-end', n === L.length - 1); $('#mNav').classList.toggle('at-intro', n === 0);
@@ -499,10 +501,9 @@ if (document.prerendering) await new Promise(r => document.addEventListener('pre
 const afterRest = () => { if (rested) return; rested = true; performance.mark('k:rest'); later(allPics());
   (window.requestIdleCallback || (f => setTimeout(f, 300)))(() => startGL(), { timeout: 1500 }); };
 performance.mark('k:built'); if (rm || q.get('step')) critReady.then(afterRest); else {
-  if (!PH) await critReady;   // desktop: the kit board's pictures are part of its intro
   // the worker rises when his picture is decoded (phone: at once if it is cached, else as soon as it arrives); rest = both done
   let nA = 2; const one = () => { if (--nA === 0) afterRest(); };
-  const A = gsap.timeline({ defaults: { ease: E.o }, onStart: () => performance.mark('k:arrive'), onComplete: one });
+  const A = gsap.timeline({ defaults: { ease: E.o }, onStart: () => performance.mark('k:arrive'), onComplete: one }); arrivalTl = A;
   gsap.set(manEl, { opacity: 0 });
   inPic(baseIm).then(() => { performance.mark('k:worker'); gsap.timeline({ defaults: { ease: E.o }, onComplete: one })
     .fromTo(manEl, { y: 140 / 1.6 / (+gsap.getProperty(cam, 'scale') || 1) }, { y: 0, duration: 1 }, .05).fromTo(manEl, { opacity: 0 }, { opacity: 1, duration: .35, ease: E.o1 }, .05); });
