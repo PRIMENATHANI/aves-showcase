@@ -263,6 +263,12 @@
     318,
     1418
    ],
+   "land": [
+    228,
+    1270,
+    421,
+    1463
+   ],
    "product": "cav-8414-3",
    "slot": "boots",
    "std": true,
@@ -943,7 +949,7 @@
   },
   "scuta": {
    "name": "Scuta",
-   "tagline": "BE Seen BE Safe",
+   "tagline": "Be seen. Stay safe.",
    "logo": "../../v0.10/experience/assets/brand/scuta-logo.svg",
    "logoRev": "../../v0.10/experience/assets/brand/scuta-logo-rev.svg"
   }

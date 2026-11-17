@@ -551,5 +551,42 @@
 }
 ]
 }
+},
+"tag-std-scuta": {
+"text": "BE SEEN. STAY SAFE.",
+"h": 161,
+"cap": 121,
+"sets": {
+"1": [
+{
+"t": "BE SEEN. STAY SAFE.",
+"w": 1658
+}
+],
+"2": [
+{
+"t": "BE SEEN.",
+"w": 704
+},
+{
+"t": "STAY SAFE.",
+"w": 895
+}
+],
+"3": [
+{
+"t": "BE SEEN.",
+"w": 704
+},
+{
+"t": "STAY",
+"w": 406
+},
+{
+"t": "SAFE.",
+"w": 442
+}
+]
+}
 }
 }
