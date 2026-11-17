@@ -697,39 +697,31 @@
   },
   {
    "n": 5,
-   "layer": "av-hm3093-cap-earmuffs__on-aves-victor-av-845r-v",
-   "product": "av-hm3093-cap-earmuffs",
+   "product": "av-311-reusable-earplugs",
    "slot": "hearing",
-   "box": [
-    320,
-    111,
-    573,
-    313
-   ],
-   "z": 80,
    "cat": "hearing",
-   "name": "AV-HM3093",
-   "descriptor": "Helmet-mounted earmuff",
-   "sku": "2536AV594",
-   "standards": "ANSI S3.19-1974, CE, EN-352-1",
+   "name": "AV-311RE",
+   "descriptor": "Reusable triple-flange plug",
+   "sku": "2474AV510",
+   "standards": "ANSI S12.6, ANSI S3.19-1974, CE, EN-352-2",
    "bullets": [
-    "28 dB NRR certified to ANSI S3.19-1974 for effective noise reduction",
-    "31 dB SNR certified to CE EN 352-3:2020 for high sound attenuation",
-    "Durable, corrosion- and heat-resistant plastic arms with excellent weldability",
-    "Heavy-duty 4-point suspension evenly distributes cup pressure",
-    "Oval double-foam ear cups enhance sound insulation and attenuation",
-    "Reinforced hardware provides secure mounting on most hard hats",
-    "Lightweight design with broad foam cushions for a snug, comfortable fit and extended wear"
+    "Soft 3-flange TPR design adapts to ear canal for all-day comfort",
+    "Firm built-in handle allows easy insertion and removal",
+    "Reusable and washable without losing attenuation effectiveness",
+    "Non-allergenic TPR material resists earwax and body oils, lasting longer than PVC plugs",
+    "Corded design prevents loss and ensures convenient storage",
+    "Translucent orange color allows easy inspection and compliance checks",
+    "Universal size self-contours to fit various ear shapes for diverse workforce needs"
    ],
    "short": [
-    "28 dB NRR certified to ANSI S3.19-1974 for effective noise reduction",
-    "31 dB SNR certified to CE EN 352-3:2020 for high sound attenuation",
-    "Durable, corrosion- and heat-resistant plastic arms with excellent weldability"
+    "Soft 3-flange TPR design adapts to ear canal for all-day comfort",
+    "Firm built-in handle allows easy insertion and removal",
+    "Reusable and washable without losing attenuation effectiveness"
    ],
-   "material": "ABS",
-   "colour": "Black, Green",
-   "why": "Helmet-mounted earmuff, 28 dB NRR, for plant and breaker noise",
-   "url": "https://aves-safety.com/products/ear-protection/ear-muffs/av-hm3093-cap-earmuffs/",
+   "material": "Thermoplastic Rubber",
+   "colour": "Hi-viz Orange",
+   "why": "",
+   "url": "https://aves-safety.com/products/ear-protection/ear-plugs/av-311-reusable-earplugs/",
    "sister": false,
    "sisterNote": "",
    "hazard": {
@@ -741,6 +733,42 @@
     ],
     "icon": "hearing"
    },
+   "pack": {
+    "src": "assets/packs/av-311-reusable-earplugs.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mkt": {
+    "hook": "Reusable plugs engineered for long-term industrial use",
+    "features": [
+     {
+      "title": "Three Flanges, One Seal",
+      "line": "A contoured triple-flange shape gives a secure, comfortable seal"
+     },
+     {
+      "title": "Wash and Wear Again",
+      "line": "Washable and reusable without losing attenuation or effectiveness"
+     },
+     {
+      "title": "Inspect at a Glance",
+      "line": "A translucent hi-vis finish makes inspection easy and shows the plugs are being worn"
+     }
+    ],
+    "system": ""
+   },
+   "image": "assets/products/av-311-reusable-earplugs.png",
+   "fly": "assets/products/av-311-reusable-earplugs.png",
+   "copySource": "catalogue REV 7 p. 60",
+   "layer": "av-311-reusable-earplugs",
+   "layer2x": "assets/layers2x/av-311-reusable-earplugs.webp",
+   "box": [
+    352,
+    201,
+    539,
+    489
+   ],
+   "z": 80,
+   "mask": null,
    "anchors": [
     [
      0.12,
@@ -760,34 +788,7 @@
     0,
     124
    ],
-   "pack": {
-    "src": "assets/packs/earmuffs.png",
-    "h": 140,
-    "dx": -100
-   },
-   "mask": null,
-   "mkt": {
-    "hook": "Cap-mounted earmuff for long shifts in loud places",
-    "features": [
-     {
-      "title": "Double Foam Structure",
-      "line": "A double-foam structure insulates sound and spreads pressure evenly around the ear"
-     },
-     {
-      "title": "Four Arms, Even Pressure",
-      "line": "Quad-support arms hold the cups on four points, so pressure stays even on the ear"
-     },
-     {
-      "title": "Flip Up Between Tasks",
-      "line": "Low-profile cups sit under the brim when needed and flip up when they are not"
-     }
-    ],
-    "system": "Clips onto most slotted safety helmets with a removable slot adaptor"
-   },
-   "layer2x": "assets/layers2x/av-hm3093-cap-earmuffs__on-aves-victor-av-845r-v.webp",
-   "image": "assets/products/av-hm3093-cap-earmuffs.png",
-   "fly": "assets/products/av-hm3093-cap-earmuffs.png",
-   "copySource": "catalogue REV 7 p. 57"
+   "ruling": 8
   },
   {
    "n": 6,

@@ -507,97 +507,6 @@
   },
   {
    "n": 3,
-   "layer": "aves-victor-av-717r-nv",
-   "product": "aves-victor-av-717r-nv",
-   "slot": "head",
-   "box": [
-    345,
-    71,
-    545,
-    228
-   ],
-   "z": 70,
-   "cat": "head",
-   "name": "VICTOR® AV-717R NV",
-   "descriptor": "Non-vented shell keeps sparks out",
-   "sku": "1891AV717R",
-   "standards": "",
-   "bullets": [
-    "HDPE helmet with short brim, vented shell, and low-profile design for comfort and visibility",
-    "6-point ratchet suspension with flex points, nape cushion, and replaceable brow pad",
-    "Accessory slots and chin strap included for added functionality",
-    "ANSI/ISEA Z89.1-2014 TYPE I, Class E & G and EN 397:2012+A1:2012"
-   ],
-   "short": [
-    "HDPE helmet with short brim, vented shell, and low-profile design for comfort and visibility",
-    "6-point ratchet suspension with flex points, nape cushion, and replaceable brow pad",
-    "Accessory slots and chin strap included for added functionality"
-   ],
-   "material": "",
-   "colour": "",
-   "why": "Non-vented shell keeps sparks out; Z89.1 Type I Class E&G",
-   "url": "https://aves-safety.com/products/head-protection/safety-helmets/aves-victor-av-717r-nv/",
-   "sister": false,
-   "sisterNote": "",
-   "hazard": {
-    "title": "Sparks and spatter from above",
-    "where": "Overhead and positional welding",
-    "at": [
-     0.43,
-     0.54
-    ],
-    "icon": "sparks"
-   },
-   "anchors": [
-    [
-     0.5,
-     0.2
-    ],
-    [
-     0.86,
-     0.5
-    ],
-    [
-     0.1,
-     0.76
-    ]
-   ],
-   "place": [
-    0,
-    0,
-    100
-   ],
-   "pack": {
-    "src": "assets/packs/aves-victor-av-717r-nv.png",
-    "h": 140,
-    "dx": -100
-   },
-   "mask": null,
-   "mkt": {
-    "hook": "Non-vented cap helmet for electrical and overhead hazards",
-    "features": [
-     {
-      "title": "Low Center of Gravity",
-      "line": "A low center of gravity keeps it balanced and stable through long wear"
-     },
-     {
-      "title": "Six Points of Support",
-      "line": "Cushioned nape support and flex points improve fit and help distribute impact"
-     },
-     {
-      "title": "Rain Out of Your Eyes",
-      "line": "Rain channels in the shell keep water out of your line of sight"
-     }
-    ],
-    "system": "Slots take AVES AV-HM earmuffs, visors and face shields"
-   },
-   "layer2x": "assets/layers2x/aves-victor-av-717r-nv.webp",
-   "image": "assets/products/aves-victor-av-717r-nv.png",
-   "fly": "assets/products/aves-victor-av-717r-nv.png",
-   "copySource": "catalogue REV 7 p. 14"
-  },
-  {
-   "n": 4,
    "layer": "av-sg25",
    "product": "av-sg25",
    "slot": "eye",
@@ -688,7 +597,7 @@
    "copySource": "catalogue REV 7 p. 21"
   },
   {
-   "n": 5,
+   "n": 4,
    "layer": "av-411re-reusable-earplugs",
    "product": "av-411re-reusable-earplugs",
    "slot": "hearing",
@@ -781,7 +690,7 @@
    "copySource": "catalogue REV 7 p. 60"
   },
   {
-   "n": 6,
+   "n": 5,
    "layer": "ffp3-nr-d-av-557",
    "product": "ffp3-nr-d-av-557",
    "slot": "respiratory",
@@ -875,7 +784,7 @@
    "copySource": "catalogue REV 7 p. 66"
   },
   {
-   "n": 7,
+   "n": 6,
    "layer": "aves-welding-helmet",
    "product": "aves-welding-helmet",
    "slot": "face",
@@ -965,7 +874,7 @@
    "copySource": "catalogue REV 7 p. 34"
   },
   {
-   "n": 8,
+   "n": 7,
    "layer": "hg-3058-cotton-gloves",
    "product": "hg-3058-cotton-gloves",
    "slot": "hand",

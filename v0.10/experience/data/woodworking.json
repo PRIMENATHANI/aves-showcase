@@ -604,39 +604,31 @@
   },
   {
    "n": 4,
-   "layer": "av-hb640-headband-earmuffs__on-aves-titan-av-564r-v",
-   "product": "av-hb640-headband-earmuffs",
+   "product": "av-hm3093-cap-earmuffs",
    "slot": "hearing",
-   "box": [
-    328,
-    78,
-    562,
-    298
-   ],
-   "z": 80,
    "cat": "hearing",
-   "name": "AV-HB640",
-   "descriptor": "Headband earmuff",
-   "sku": "2536AV595",
+   "name": "AV-HM3093",
+   "descriptor": "Helmet-mounted earmuff",
+   "sku": "2536AV594",
    "standards": "ANSI S3.19-1974, CE, EN-352-1",
    "bullets": [
-    "25 dB Certified NRR to ANSI S3.19-1974 for noise reduction",
-    "34 dB Certified SNR to EN 352-1 for high sound attenuation",
-    "Wide, comfortable foam sealing rings provide optimum seal and secure fit",
-    "High-visibility design improves wearer visibility in low-light and busy work areas",
-    "Headband holder design reduces direct ear cushion pressure for less fatigue",
-    "20% lower headband pressure for enhances long-wear usability",
-    "Consistent pressure distribution maintains a balanced fit in all temperatures"
+    "28 dB NRR certified to ANSI S3.19-1974 for effective noise reduction",
+    "31 dB SNR certified to CE EN 352-3:2020 for high sound attenuation",
+    "Durable, corrosion- and heat-resistant plastic arms with excellent weldability",
+    "Heavy-duty 4-point suspension evenly distributes cup pressure",
+    "Oval double-foam ear cups enhance sound insulation and attenuation",
+    "Reinforced hardware provides secure mounting on most hard hats",
+    "Lightweight design with broad foam cushions for a snug, comfortable fit and extended wear"
    ],
    "short": [
-    "25 dB Certified NRR to ANSI S3.19-1974 for noise reduction",
-    "34 dB Certified SNR to EN 352-1 for high sound attenuation",
-    "Wide, comfortable foam sealing rings provide optimum seal and secure fit"
+    "28 dB NRR certified to ANSI S3.19-1974 for effective noise reduction",
+    "31 dB SNR certified to CE EN 352-3:2020 for high sound attenuation",
+    "Durable, corrosion- and heat-resistant plastic arms with excellent weldability"
    ],
    "material": "ABS",
    "colour": "Black, Green",
-   "why": "Headband earmuff, 26 dB NRR, for saw and planer noise",
-   "url": "https://aves-safety.com/products/ear-protection/ear-muffs/av-hb640-headband-earmuffs/",
+   "why": "",
+   "url": "https://aves-safety.com/products/ear-protection/ear-muffs/av-hm3093-cap-earmuffs/",
    "sister": false,
    "sisterNote": "",
    "hazard": {
@@ -648,6 +640,42 @@
     ],
     "icon": "hearing"
    },
+   "pack": {
+    "src": "assets/packs/earmuffs.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mkt": {
+    "hook": "Cap-mounted earmuff for long shifts in loud places",
+    "features": [
+     {
+      "title": "Double Foam Structure",
+      "line": "A double-foam structure insulates sound and spreads pressure evenly around the ear"
+     },
+     {
+      "title": "Four Arms, Even Pressure",
+      "line": "Quad-support arms hold the cups on four points, so pressure stays even on the ear"
+     },
+     {
+      "title": "Flip Up Between Tasks",
+      "line": "Low-profile cups sit under the brim when needed and flip up when they are not"
+     }
+    ],
+    "system": "Clips onto most slotted safety helmets with a removable slot adaptor"
+   },
+   "image": "assets/products/av-hm3093-cap-earmuffs.png",
+   "fly": "assets/products/av-hm3093-cap-earmuffs.png",
+   "copySource": "catalogue REV 7 p. 57",
+   "layer": "av-hm3093-cap-earmuffs__on-aves-victor-av-845r-v",
+   "layer2x": "assets/layers2x/av-hm3093-cap-earmuffs__on-aves-victor-av-845r-v.webp",
+   "box": [
+    320,
+    111,
+    573,
+    313
+   ],
+   "z": 80,
+   "mask": null,
    "anchors": [
     [
      0.12,
@@ -667,34 +695,9 @@
     0,
     124
    ],
-   "pack": {
-    "src": "assets/packs/av-hb640-headband-earmuffs.png",
-    "h": 140,
-    "dx": -100
-   },
-   "mask": null,
-   "mkt": {
-    "hook": "Hi-vis headband earmuff engineered for all-day comfort",
-    "features": [
-     {
-      "title": "Dual Fork Suspension",
-      "line": "Stainless steel dual-fork arms hold a consistent, low-pressure fit"
-     },
-     {
-      "title": "Seen in Dim Light",
-      "line": "Hi-vis green cups stand out in dim or crowded work areas"
-     },
-     {
-      "title": "Extra-Wide Cushions",
-      "line": "Wide, soft cushions improve the seal and ease the pressure around the ears"
-     }
-    ],
-    "system": ""
-   },
-   "layer2x": "assets/layers2x/av-hb640-headband-earmuffs__on-aves-titan-av-564r-v.webp",
-   "image": "assets/products/av-hb640-headband-earmuffs.png",
-   "fly": "assets/products/av-hb640-headband-earmuffs.png",
-   "copySource": "catalogue REV 7 p. 55"
+   "wantedLayer": "av-hm3093-cap-earmuffs__on-aves-titan-av-564r-v",
+   "standIn": true,
+   "ruling": 3
   },
   {
    "n": 5,
@@ -875,7 +878,38 @@
    "layer2x": "assets/layers2x/av-fs18l-cylinder-face-shield__on-aves-titan-av-564r-v.webp",
    "image": "assets/products/av-fs18l-cylinder-face-shield.png",
    "fly": "assets/products/av-fs18l-cylinder-face-shield.png",
-   "copySource": "catalogue REV 7 p. 37"
+   "copySource": "catalogue REV 7 p. 37",
+   "mount": {
+    "parts": [
+     {
+      "id": "av-vb10",
+      "kind": "visor bracket",
+      "name": "AV-VB10 visor bracket",
+      "sku": "34181AV715",
+      "lines": [
+       "Fits most slot adaptors on hard hats and face shields",
+       "Compatible with face shields & earmuffs",
+       "Adjustable tilt for easy visor positioning",
+       "Dielectric & safe for electrical work",
+       "Balanced center design for weight distribution",
+       "Quick visor attachment/removal"
+      ],
+      "material": "Nylon Reinforced Glass",
+      "image": "../../v0.10/experience/assets/mount/av-vb10.png"
+     }
+    ],
+    "line": "Mounted with AV-VB10 visor bracket, Art. No. 34181AV715",
+    "source": [
+     "catalogue-src.nosync/aug18.txt:1696 'AV-FS18 + AV-HM3093 + AV-VB10'",
+     "v0.6/gen/mkt/src/av-fs18l-cylinder-face-shield/ptf.txt:108 'VISOR BRACKET AV-VB10 34181AV715'"
+    ]
+   },
+   "spec": [
+    [
+     "Visor bracket",
+     "AV-VB10 · Art. No. 34181AV715"
+    ]
+   ]
   },
   {
    "n": 7,

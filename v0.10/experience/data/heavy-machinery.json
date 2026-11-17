@@ -663,40 +663,30 @@
   },
   {
    "n": 5,
-   "layer": "aves-av-hm4093__on-aves-titan-av-846r-v",
-   "product": "aves-av-hm4093",
+   "product": "av-gp10-banded-earplugs",
    "slot": "hearing",
-   "box": [
-    325,
-    111,
-    563,
-    294
-   ],
-   "z": 80,
    "cat": "hearing",
-   "name": "AV-HM4093",
-   "descriptor": "Hi-vis helmet-mounted earmuff",
-   "sku": "2536AV596",
-   "standards": "ANSI S3.19-1974, EN 352-3:2002",
+   "name": "AV-GP10",
+   "descriptor": "Banded plug",
+   "sku": "2474AV68",
+   "standards": "CE, EN 352-2:2002",
    "bullets": [
-    "25 dB Certified NRR to ANSI S3.19-1974 for noise reduction",
-    "30 dB Certified SNR to CE EN 352-1:2002 for high sound attenuation",
-    "ABS ear cups with oval-shaped foam padding for superior comfort",
-    "Adjustable & flexible reinforced plastic headband with helmet mount adaptor",
-    "Lightweight pivoting ear cups for an ergonomic fit",
-    "Ear Cushion: PVC for enhanced durability",
-    "Foam Absorber: Polyurethane for effective noise isolation",
-    "Hi-Vis Green for safety visibility"
+    "Soft polyurethane foam earplugs provide all-day comfort and a secure fit",
+    "Ergonomic banded design allows quick insertion and removal",
+    "Lightweight and low-pressure fit reduces ear fatigue for extended wear",
+    "Durable, non-allergenic polypropylene cord ensures added convenience",
+    "Washable and reusable without losing effectiveness",
+    "Ideal for high-noise environments requiring intermittent hearing protection"
    ],
    "short": [
-    "25 dB Certified NRR to ANSI S3.19-1974 for noise reduction",
-    "30 dB Certified SNR to CE EN 352-1:2002 for high sound attenuation",
-    "ABS ear cups with oval-shaped foam padding for superior comfort"
+    "Soft polyurethane foam earplugs provide all-day comfort and a secure fit",
+    "Ergonomic banded design allows quick insertion and removal",
+    "Lightweight and low-pressure fit reduces ear fatigue for extended wear"
    ],
-   "material": "ABS",
-   "colour": "Hi-vis Green",
-   "why": "Hi-vis helmet-mounted earmuff, 25 dB NRR, seen from the cab",
-   "url": "https://aves-safety.com/products/ear-protection/ear-muffs/aves-av-hm4093/",
+   "material": "Styrene-Ethylyne-Butylyne-Stynene (SEBS)",
+   "colour": "Blue",
+   "why": "",
+   "url": "https://aves-safety.com/products/ear-protection/ear-plugs/av-gp10-banded-earplugs/",
    "sister": false,
    "sisterNote": "",
    "hazard": {
@@ -708,6 +698,42 @@
     ],
     "icon": "hearing"
    },
+   "pack": {
+    "src": "assets/packs/av-gp10-banded-earplugs.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mkt": {
+    "hook": "Banded silicone earplugs for frequent on-and-off use",
+    "features": [
+     {
+      "title": "Bell-Shaped Silicone Tips",
+      "line": "Soft bell-shaped tips give a snug seal with low pressure in the ear"
+     },
+     {
+      "title": "In and Out Fast",
+      "line": "The band keeps the plugs at your neck when off and quick to put back in"
+     },
+     {
+      "title": "Gentle on Skin",
+      "line": "Hypoallergenic silicone, latex-free and gentle on sensitive skin"
+     }
+    ],
+    "system": ""
+   },
+   "image": "assets/products/av-gp10-banded-earplugs.png",
+   "fly": "assets/products/av-gp10-banded-earplugs.png",
+   "copySource": "catalogue REV 7 p. 61",
+   "layer": "av-gp10-banded-earplugs",
+   "layer2x": "assets/layers2x/av-gp10-banded-earplugs.webp",
+   "box": [
+    353,
+    183,
+    537,
+    365
+   ],
+   "z": 80,
+   "mask": null,
    "anchors": [
     [
      0.12,
@@ -727,34 +753,7 @@
     0,
     124
    ],
-   "pack": {
-    "src": "assets/packs/aves-av-hm4093.png",
-    "h": 140,
-    "dx": -100
-   },
-   "mask": null,
-   "mkt": {
-    "hook": "Hi-vis cap earmuff that keeps you seen on site",
-    "features": [
-     {
-      "title": "Seen on Site",
-      "line": "Hi-vis ABS cups with soft PVC cushions, for better visibility on site"
-     },
-     {
-      "title": "Oval Foam Seal",
-      "line": "Oval PU foam inserts improve comfort and the acoustic seal around the ear"
-     },
-     {
-      "title": "Pivots for Long Wear",
-      "line": "Lightweight cups pivot to follow the head, for comfort through long wear"
-     }
-    ],
-    "system": "Mounts on most slotted safety helmets with its helmet-mount adaptor"
-   },
-   "layer2x": "assets/layers2x/aves-av-hm4093__on-aves-titan-av-846r-v.webp",
-   "image": "assets/products/aves-av-hm4093.png",
-   "fly": "assets/products/aves-av-hm4093.png",
-   "copySource": "catalogue REV 7 p. 57"
+   "ruling": 7
   },
   {
    "n": 6,

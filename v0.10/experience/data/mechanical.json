@@ -980,7 +980,38 @@
    "layer2x": "assets/layers2x/av-fs15p__on-aves-titan-av-564r-v.webp",
    "image": "assets/products/av-fs15p.png",
    "fly": "assets/products/av-fs15p.png",
-   "copySource": "catalogue REV 7 p. 36"
+   "copySource": "catalogue REV 7 p. 36",
+   "mount": {
+    "parts": [
+     {
+      "id": "av-vb65",
+      "kind": "visor bracket",
+      "name": "AV-VB65 visor bracket",
+      "sku": "34181AV745",
+      "lines": [
+       "Compatible to almost all face shields and safety helmets",
+       "Quick and easy visor replacement",
+       "Spring suspension ABS Bracket",
+       "Comprehensive protection",
+       "Material: ABS"
+      ],
+      "material": "ABS",
+      "image": "../../v0.10/experience/assets/mount/av-vb65.png"
+     }
+    ],
+    "line": "Mounted with AV-VB65 visor bracket, Art. No. 34181AV745",
+    "source": [
+     "v0.6/gen/mkt/src/aves-titan-av-564r-v/ptf.txt:135 'AV-VB65 34181AV745'",
+     "v0.6/gen/mkt/src/av-fs15p/ads.txt:106-107 'AV-VB65 ... 34181AV745'",
+     "catalogue-src.nosync/aug18.txt:1678 'AV-VB65 + AV-FS15P' (Art. No. 110300AV986)"
+    ]
+   },
+   "spec": [
+    [
+     "Visor bracket",
+     "AV-VB65 · Art. No. 34181AV745"
+    ]
+   ]
   },
   {
    "n": 8,

@@ -689,40 +689,30 @@
   },
   {
    "n": 5,
-   "layer": "av-hb30-ear-muffs__on-aves-victor-av-717r-nv",
-   "product": "av-hb30-ear-muffs",
+   "product": "av-411re-reusable-earplugs",
    "slot": "hearing",
-   "box": [
-    324,
-    77,
-    565,
-    298
-   ],
-   "z": 80,
    "cat": "hearing",
-   "name": "AV-HB30",
-   "descriptor": "Dielectric headband earmuff",
-   "sku": "2536AV593",
-   "standards": "ANSI S3.19-1974, EN 352-1:2020",
+   "name": "AV-411RE",
+   "descriptor": "Reusable plug",
+   "sku": "2474AV57",
+   "standards": "ANSI S3.19-1974, EN 352-3:2002",
    "bullets": [
-    "30 dB Certified NRR to ANSI S3.19-1974 for superior noise reduction",
-    "33 dB Certified SNR to EN 352-1:2020 for high sound attenuation",
-    "ABS ear cups with a rectangular shape for durability",
-    "Soft and pliable PVC ear cushions for comfort",
-    "Polyurethane foam absorber enhances noise blocking",
-    "Padded headband with coated 304 stainless steel for a secure, durable fit",
-    "Lightweight, low headband force for extended wear",
-    "Dielectric construction for electrical insulation"
+    "Soft 4-flange TPR design conforms to the ear canal for a comfortable, secure fit",
+    "Firm built-in handle ensures easy insertion and removal",
+    "Reusable and washable without losing effectiveness",
+    "Non-allergenic TPR material resists earwax and body oils, outlasting PVC plugs",
+    "Metal detectable corded design ensures safety compliance for food industries",
+    "Universal size self-contours to fit various ear shapes and sizes"
    ],
    "short": [
-    "30 dB Certified NRR to ANSI S3.19-1974 for superior noise reduction",
-    "33 dB Certified SNR to EN 352-1:2020 for high sound attenuation",
-    "ABS ear cups with a rectangular shape for durability"
+    "Soft 4-flange TPR design conforms to the ear canal for a comfortable, secure fit",
+    "Firm built-in handle ensures easy insertion and removal",
+    "Reusable and washable without losing effectiveness"
    ],
-   "material": "ABS",
-   "colour": "Black, Navy",
-   "why": "Dielectric headband earmuff, 30 dB NRR, for electrical workspaces",
-   "url": "https://aves-safety.com/products/ear-protection/ear-muffs/av-hb30-ear-muffs/",
+   "material": "Styrene-Ethylyne-Butylyne-Stynene (SEBS)",
+   "colour": "Blue",
+   "why": "",
+   "url": "https://aves-safety.com/products/ear-protection/ear-plugs/av-411re-reusable-earplugs/",
    "sister": false,
    "sisterNote": "",
    "hazard": {
@@ -734,6 +724,42 @@
     ],
     "icon": "hearing"
    },
+   "pack": {
+    "src": "assets/packs/av-411re-reusable-earplugs.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mkt": {
+    "hook": "Four-flange earplugs for high-noise, hygiene-critical work",
+    "features": [
+     {
+      "title": "Four Flanges, Soft Fit",
+      "line": "An ultra-soft four-flange design adapts comfortably to most ear canals"
+     },
+     {
+      "title": "Easy-Grip Stem",
+      "line": "An easy-grip stem places each plug precisely and takes it out just as easily"
+     },
+     {
+      "title": "Stands Up to Water",
+      "line": "Highly water-resistant and washable, made to be worn again and again"
+     }
+    ],
+    "system": ""
+   },
+   "image": "assets/products/av-411re-reusable-earplugs.png",
+   "fly": "assets/products/av-411re-reusable-earplugs.png",
+   "copySource": "catalogue REV 7 p. 60",
+   "layer": "av-411re-reusable-earplugs",
+   "layer2x": "assets/layers2x/av-411re-reusable-earplugs.webp",
+   "box": [
+    352,
+    201,
+    538,
+    366
+   ],
+   "z": 80,
+   "mask": null,
    "anchors": [
     [
      0.12,
@@ -753,34 +779,7 @@
     0,
     124
    ],
-   "pack": {
-    "src": "assets/packs/av-hb30-ear-muffs.png",
-    "h": 140,
-    "dx": -100
-   },
-   "mask": null,
-   "mkt": {
-    "hook": "Double-shell earmuff for extremely noisy work",
-    "features": [
-     {
-      "title": "Double-Shell Cups",
-      "line": "Double-shell ABS ear cups, designed to enhance noise reduction performance"
-     },
-     {
-      "title": "Less Heat Inside the Cup",
-      "line": "Space inside the cup helps reduce heat and moisture buildup during use"
-     },
-     {
-      "title": "Constant, Even Pressure",
-      "line": "A low-profile padded steel headband helps hold a constant pressure"
-     }
-    ],
-    "system": ""
-   },
-   "layer2x": "assets/layers2x/av-hb30-ear-muffs__on-aves-victor-av-717r-nv.webp",
-   "image": "assets/products/av-hb30-ear-muffs.png",
-   "fly": "assets/products/av-hb30-ear-muffs.png",
-   "copySource": "catalogue REV 7 p. 55"
+   "ruling": 2
   },
   {
    "n": 6,
@@ -968,7 +967,58 @@
    "layer2x": "assets/layers2x/av-fs20cp-arc10__on-aves-victor-av-717r-nv.webp",
    "image": "assets/products/av-fs20cp-arc10.png",
    "fly": "assets/products/av-fs20cp-arc10.png",
-   "copySource": "catalogue REV 7 p. 39"
+   "copySource": "catalogue REV 7 p. 39",
+   "mount": {
+    "parts": [
+     {
+      "id": "av-vb10",
+      "kind": "visor bracket",
+      "name": "AV-VB10 visor bracket",
+      "sku": "34181AV715",
+      "lines": [
+       "Fits most slot adaptors on hard hats and face shields",
+       "Compatible with face shields & earmuffs",
+       "Adjustable tilt for easy visor positioning",
+       "Dielectric & safe for electrical work",
+       "Balanced center design for weight distribution",
+       "Quick visor attachment/removal"
+      ],
+      "material": "Nylon Reinforced Glass",
+      "image": "../../v0.10/experience/assets/mount/av-vb10.png"
+     },
+     {
+      "id": "av-sa93",
+      "kind": "slot adaptor",
+      "name": "AV-SA93 slot adaptor",
+      "sku": "34182AV716",
+      "lines": [
+       "Compatible with AVES visor brackets and AVES cap mount ear muffs",
+       "Fits the AVES VICTOR & TITAN safety hard hat range",
+       "Can be used mounting to most major brands of safety hard hats and cap mount for hearing protection"
+      ],
+      "material": "Nylon Reinforced Glass",
+      "image": "../../v0.10/experience/assets/mount/av-sa93.png"
+     }
+    ],
+    "line": "Mounted with AV-VB10 visor bracket, Art. No. 34181AV715 and AV-SA93 slot adaptor, Art. No. 34182AV716",
+    "source": [
+     "catalogue-src.nosync/aug18.txt:1986 'AV-FS20ARC10 AV-VB10 AV-SA93 AV-SG14' (ARC KIT 3)",
+     "data/products.json ARC FLASH PROTECTION - KIT 3: 'Bracket System: AV-VB10 + AV-SA93', 'Hearing: AV-411RE reusable TPR earplugs'",
+     "v0.6/gen/mkt/src/av-fs20cp-arc10/ptf.txt:113 'VISOR BRACKET AV-VB10 34181AV715'",
+     "v0.6/gen/mkt/src/aves-victor-av-717r-nv/ptf.txt:128 'AV-SA93 34182AV716'",
+     "catalogue-src.nosync/pagetext/p035.txt AV-VB10: 'Dielectric & safe for electrical work'"
+    ]
+   },
+   "spec": [
+    [
+     "Visor bracket",
+     "AV-VB10 · Art. No. 34181AV715"
+    ],
+    [
+     "Slot adaptor",
+     "AV-SA93 · Art. No. 34182AV716"
+    ]
+   ]
   },
   {
    "n": 8,

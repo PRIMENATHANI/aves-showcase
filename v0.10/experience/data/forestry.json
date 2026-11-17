@@ -551,37 +551,29 @@
   },
   {
    "n": 3,
-   "layer": "aves-titan-av-841r-nv",
-   "product": "aves-titan-av-841r-nv",
+   "product": "aves-titan-av-585r-nv",
    "slot": "head",
-   "box": [
-    331,
-    79,
-    559,
-    249
-   ],
-   "z": 70,
    "cat": "head",
-   "name": "TITAN® AV-841R NV",
-   "descriptor": "Full-brim non-vented helmet",
-   "sku": "1891AV841R",
+   "name": "TITAN® AV-585R NV",
+   "descriptor": "Non-vented shell",
+   "sku": "1891AV585R",
    "standards": "",
    "bullets": [
-    "Modern low-profile design ensures balance, fit and stability",
-    "Strong HDPE outer shell for impact protection and long-term durability",
-    "Full brim provides 360° protection from sunlight, wind, and impact",
-    "6-Points ratchet suspension system",
-    "Non-vented design"
+    "HDPE helmet with a short peak for improved visibility and a low-profile, non-vented design",
+    "6-point ratchet suspension with vertical adjustment and replaceable brow pad",
+    "Rain channels, universal accessory slots, and adjustable headband (54–62 cm)",
+    "ANSI/ISEA Z89.1-2014 TYPE I, Class E & G, and EN 379 certified",
+    "Non-Vented shell"
    ],
    "short": [
-    "Modern low-profile design ensures balance, fit and stability",
-    "Strong HDPE outer shell for impact protection and long-term durability",
-    "Full brim provides 360° protection from sunlight, wind, and impact"
+    "HDPE helmet with a short peak for improved visibility and a low-profile, non-vented design",
+    "6-point ratchet suspension with vertical adjustment and replaceable brow pad",
+    "Rain channels, universal accessory slots, and adjustable headband (54–62 cm)"
    ],
    "material": "High-Density Polyethylene (HDPE)",
    "colour": "",
-   "why": "Full-brim non-vented helmet, EN 397, for falling branches and rain",
-   "url": "https://aves-safety.com/products/head-protection/safety-helmets/aves-titan-av-841r-nv/",
+   "why": "",
+   "url": "https://aves-safety.com/products/head-protection/safety-helmets/aves-titan-av-585r-nv/",
    "sister": false,
    "sisterNote": "",
    "hazard": {
@@ -593,6 +585,42 @@
     ],
     "icon": "head"
    },
+   "pack": {
+    "src": "assets/packs/aves-titan-av-585r-nv.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mkt": {
+    "hook": "Non-vented, stable helmet for focused industrial tasks",
+    "features": [
+     {
+      "title": "Clear View Upward",
+      "line": "A short visor keeps your view open for upward-facing tasks"
+     },
+     {
+      "title": "Rain Off Your Face",
+      "line": "Rain channels divert rain clear of your face"
+     },
+     {
+      "title": "Cushioned Nape",
+      "line": "Cushioned nape and flex points add comfort to the 6-point suspension"
+     }
+    ],
+    "system": "Slots take AVES AV-HM cap earmuffs, visors and other attachments"
+   },
+   "image": "assets/products/aves-titan-av-585r-nv.png",
+   "fly": "assets/products/aves-titan-av-585r-nv.png",
+   "copySource": "catalogue REV 7 p. 10",
+   "layer": "aves-titan-av-585r-nv",
+   "layer2x": "assets/layers2x/aves-titan-av-585r-nv.webp",
+   "box": [
+    344,
+    73,
+    545,
+    230
+   ],
+   "z": 70,
+   "mask": null,
    "anchors": [
     [
      0.5,
@@ -612,34 +640,7 @@
     0,
     100
    ],
-   "pack": {
-    "src": "assets/packs/helmet.png",
-    "h": 140,
-    "dx": -100
-   },
-   "mask": null,
-   "mkt": {
-    "hook": "Full-brim cover from sun, rain and falling objects",
-    "features": [
-     {
-      "title": "Shade on Every Side",
-      "line": "A 360° brim keeps sun, rain and splashes off you from every direction"
-     },
-     {
-      "title": "Push, Pull, Set",
-      "line": "A 6-point harness with a push-and-pull knob sets a quick, precise fit"
-     },
-     {
-      "title": "Steady in Tight Spaces",
-      "line": "Low-profile, non-vented shell built for stability in tight work environments"
-     }
-    ],
-    "system": "Fits AVES chin straps and a full-brim neck shade"
-   },
-   "layer2x": "assets/layers2x/aves-titan-av-841r-nv.webp",
-   "image": "assets/products/aves-titan-av-841r-nv.png",
-   "fly": "assets/products/aves-titan-av-841r-nv.png",
-   "copySource": "catalogue REV 7 p. 9"
+   "ruling": "5a"
   },
   {
    "n": 4,
@@ -734,16 +735,8 @@
   },
   {
    "n": 5,
-   "layer": "av-hm3093-cap-earmuffs__on-aves-titan-av-841r-nv",
    "product": "av-hm3093-cap-earmuffs",
    "slot": "hearing",
-   "box": [
-    322,
-    111,
-    570,
-    315
-   ],
-   "z": 80,
    "cat": "hearing",
    "name": "AV-HM3093",
    "descriptor": "Helmet-mounted earmuff",
@@ -778,6 +771,42 @@
     ],
     "icon": "hearing"
    },
+   "pack": {
+    "src": "assets/packs/earmuffs.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mkt": {
+    "hook": "Cap-mounted earmuff for long shifts in loud places",
+    "features": [
+     {
+      "title": "Double Foam Structure",
+      "line": "A double-foam structure insulates sound and spreads pressure evenly around the ear"
+     },
+     {
+      "title": "Four Arms, Even Pressure",
+      "line": "Quad-support arms hold the cups on four points, so pressure stays even on the ear"
+     },
+     {
+      "title": "Flip Up Between Tasks",
+      "line": "Low-profile cups sit under the brim when needed and flip up when they are not"
+     }
+    ],
+    "system": "Clips onto most slotted safety helmets with a removable slot adaptor"
+   },
+   "image": "assets/products/av-hm3093-cap-earmuffs.png",
+   "fly": "assets/products/av-hm3093-cap-earmuffs.png",
+   "copySource": "catalogue REV 7 p. 57",
+   "layer": "av-hm3093-cap-earmuffs__on-aves-victor-av-845r-v",
+   "layer2x": "assets/layers2x/av-hm3093-cap-earmuffs__on-aves-victor-av-845r-v.webp",
+   "box": [
+    320,
+    111,
+    573,
+    313
+   ],
+   "z": 80,
+   "mask": null,
    "anchors": [
     [
      0.12,
@@ -797,34 +826,9 @@
     0,
     124
    ],
-   "pack": {
-    "src": "assets/packs/earmuffs.png",
-    "h": 140,
-    "dx": -100
-   },
-   "mask": null,
-   "mkt": {
-    "hook": "Cap-mounted earmuff for long shifts in loud places",
-    "features": [
-     {
-      "title": "Double Foam Structure",
-      "line": "A double-foam structure insulates sound and spreads pressure evenly around the ear"
-     },
-     {
-      "title": "Four Arms, Even Pressure",
-      "line": "Quad-support arms hold the cups on four points, so pressure stays even on the ear"
-     },
-     {
-      "title": "Flip Up Between Tasks",
-      "line": "Low-profile cups sit under the brim when needed and flip up when they are not"
-     }
-    ],
-    "system": "Clips onto most slotted safety helmets with a removable slot adaptor"
-   },
-   "layer2x": "assets/layers2x/av-hm3093-cap-earmuffs__on-aves-titan-av-841r-nv.webp",
-   "image": "assets/products/av-hm3093-cap-earmuffs.png",
-   "fly": "assets/products/av-hm3093-cap-earmuffs.png",
-   "copySource": "catalogue REV 7 p. 57"
+   "wantedLayer": "av-hm3093-cap-earmuffs__on-aves-titan-av-585r-nv",
+   "standIn": true,
+   "ruling": "5b"
   },
   {
    "n": 6,
@@ -920,38 +924,30 @@
   },
   {
    "n": 7,
-   "layer": "av-fs15p__on-aves-titan-av-841r-nv",
-   "product": "av-fs15p",
+   "product": "av-fs16p",
    "slot": "face",
-   "box": [
-    345,
-    147,
-    545,
-    357
-   ],
-   "z": 60,
    "cat": "face",
-   "name": "AV-FS15P",
-   "descriptor": "Clear polycarbonate visor for chips",
-   "sku": "3417AV397",
-   "standards": "ANSI Z87.1-2010",
+   "name": "AV-FS16P",
+   "descriptor": "Clear polycarbonate shield",
+   "sku": "3417FT01-V",
+   "standards": "ANSI Z87.1-2010 CE EN166",
    "bullets": [
-    "Molded Polycarbonate face shield for impact resistance",
-    "8” x 15.5” x 0.07” flat visor for full face protection",
-    "Universal hole pattern fits AV-VB visor brackets & AV-SA slot adaptors",
-    "Scratch-resistant coating enhances durability",
-    "Adjustable ratchet system for a comfortable and secure fit",
-    "Lightweight ABS headgear with a padded brow pad for extended wear"
+    "Durable and lightweight polycarbonate shield",
+    "10 times more impact-resistant than plastic or glass",
+    "Provides full-face protection against impact and",
+    "chemical hazards",
+    "1mm thick clear polycarbonate visor",
+    "Aluminum frame for added stability"
    ],
    "short": [
-    "Molded Polycarbonate face shield for impact resistance",
-    "8” x 15.5” x 0.07” flat visor for full face protection",
-    "Universal hole pattern fits AV-VB visor brackets & AV-SA slot adaptors"
+    "Durable and lightweight polycarbonate shield",
+    "10 times more impact-resistant than plastic or glass",
+    "Provides full-face protection against impact and"
    ],
    "material": "Polycarbonate (PC)",
-   "colour": "Clear",
-   "why": "Clear polycarbonate visor for chips",
-   "url": "https://aves-safety.com/products/face-protection/faceshield/av-fs15p/",
+   "colour": "",
+   "why": "",
+   "url": "https://aves-safety.com/products/face-protection/faceshield/av-fs16p/",
    "sister": false,
    "sisterNote": "",
    "hazard": {
@@ -963,6 +959,42 @@
     ],
     "icon": "eye"
    },
+   "pack": {
+    "src": "assets/packs/av-fs16p.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mkt": {
+    "hook": "Clear face shield with an aluminum-bound edge",
+    "features": [
+     {
+      "title": "Edge That Holds Its Shape",
+      "line": "An aluminum-bound edge reinforces the visor and keeps it dimensionally stable"
+     },
+     {
+      "title": "Clear, Undistorted View",
+      "line": "High optical clarity gives clear, distortion-free vision"
+     },
+     {
+      "title": "Face and Chin Covered",
+      "line": "Full-face cover extends to the chin and helps shield against liquid splashes"
+     }
+    ],
+    "system": "Multi-slot mount fits browguards and helmet-mounted carriers"
+   },
+   "image": "assets/products/av-fs16p.png",
+   "fly": "assets/products/av-fs16p.png",
+   "copySource": "catalogue REV 7 p. 36",
+   "layer": "av-fs16p__on-aves-titan-av-585r-nv",
+   "layer2x": "assets/layers2x/av-fs16p__on-aves-titan-av-585r-nv.webp",
+   "box": [
+    345,
+    148,
+    545,
+    349
+   ],
+   "z": 60,
+   "mask": null,
    "anchors": [
     [
      0.5,
@@ -982,30 +1014,39 @@
     0,
     130
    ],
-   "pack": null,
-   "mask": null,
-   "mkt": {
-    "hook": "Light, flat visor that covers the face to the chin",
-    "features": [
+   "ruling": "5c",
+   "mount": {
+    "parts": [
      {
-      "title": "Wider at the Sides",
-      "line": "Semi-folded side edges extend cover sideways and keep the view wide"
-     },
-     {
-      "title": "Light on the Head",
-      "line": "A lightweight build keeps extended wear comfortable"
-     },
-     {
-      "title": "Splash and Impact Cover",
-      "line": "Clear polycarbonate guards against flying particles and liquid splashes"
+      "id": "av-vb10",
+      "kind": "visor bracket",
+      "name": "AV-VB10 visor bracket",
+      "sku": "34181AV715",
+      "lines": [
+       "Fits most slot adaptors on hard hats and face shields",
+       "Compatible with face shields & earmuffs",
+       "Adjustable tilt for easy visor positioning",
+       "Dielectric & safe for electrical work",
+       "Balanced center design for weight distribution",
+       "Quick visor attachment/removal"
+      ],
+      "material": "Nylon Reinforced Glass",
+      "image": "../../v0.10/experience/assets/mount/av-vb10.png"
      }
     ],
-    "system": "Cap-mounts on helmets through AV-VB visor brackets"
+    "line": "Mounted with AV-VB10 visor bracket, Art. No. 34181AV715",
+    "source": [
+     "catalogue-src.nosync/aug18.txt:1698 'AV-FS16P + AV-HM3093 + AV-VB10'",
+     "v0.6/gen/mkt/src/av-fs16p/ptf.txt:113 'VISOR BRACKET AV-VB10 34181AV715'",
+     "catalogue-src.nosync/pagetext/p035.txt AV-VB10: 'Compatible with face shields & earmuffs'"
+    ]
    },
-   "layer2x": "assets/layers2x/av-fs15p__on-aves-titan-av-841r-nv.webp",
-   "image": "assets/products/av-fs15p.png",
-   "fly": "assets/products/av-fs15p.png",
-   "copySource": "catalogue REV 7 p. 36"
+   "spec": [
+    [
+     "Visor bracket",
+     "AV-VB10 · Art. No. 34181AV715"
+    ]
+   ]
   },
   {
    "n": 8,

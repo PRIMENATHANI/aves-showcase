@@ -29,8 +29,8 @@
   "w": 896,
   "h": 1280
  },
- "backdrop": "assets/site/aviation.jpg",
- "fx": "assets/site/aviation.fx.json",
+ "backdrop": "../../v0.10/experience/assets/site/aviation.jpg",
+ "fx": "../../v0.10/experience/assets/site/aviation.fx.json",
  "phoneX": 0.45,
  "shelf": "assets/site/shelf.jpg",
  "hz": [
@@ -44,7 +44,7 @@
   "respiratory",
   "vest"
  ],
- "base2x": "assets/layers2x/base.webp",
+ "base2x": "../../v0.10/experience/assets/worker/base-1792.webp",
  "cats": {
   "head": {
    "title": "assets/type/cat-head.png",
@@ -405,6 +405,13 @@
    "fly": "../../v0.10/experience/assets/std/cav-81476-4.png",
    "layer1x": "../../v0.10/experience/assets/layers/boots-cav-81476-4.png",
    "layer2x": "../../v0.10/experience/assets/layers2x/boots-cav-81476-4.webp",
+   "layer4x": "../../v0.10/experience/assets/layers4x/boots-cav-81476-4.webp",
+   "box4x": [
+    224.2667,
+    1211.7333,
+    618.6667,
+    1492.2667
+   ],
    "n": 1
   },
   {
@@ -510,7 +517,14 @@
    "pack": null,
    "n": 2,
    "layer1x": "../../v0.10/experience/assets/layers/scuta-vest.png",
-   "final": true
+   "final": true,
+   "layer4x": "../../v0.10/experience/assets/layers4x/scuta-vest.webp",
+   "box4x": [
+    285.3333,
+    324.0,
+    607.7333,
+    794.9333
+   ]
   },
   {
    "n": 3,
@@ -607,7 +621,14 @@
    "fly": "assets/products/aves-victor-av-714r-v.png",
    "copySource": "catalogue REV 7 p. 15",
    "layer1x": "../../v0.10/experience/assets/layers/aves-victor-av-714r-v.png",
-   "final": true
+   "final": true,
+   "layer4x": "../../v0.10/experience/assets/layers4x/aves-victor-av-714r-v.webp",
+   "box4x": [
+    363.7333,
+    55.2,
+    527.7333,
+    210.6667
+   ]
   },
   {
    "n": 4,
@@ -700,43 +721,42 @@
    "fly": "assets/products/av-sg14.png",
    "copySource": "catalogue REV 7 p. 22",
    "layer1x": "../../v0.10/experience/assets/layers/av-sg14.png",
-   "final": true
+   "final": true,
+   "layer4x": "../../v0.10/experience/assets/layers4x/av-sg14.webp",
+   "box4x": [
+    383.4667,
+    185.6,
+    512.5333,
+    228.0
+   ]
   },
   {
    "n": 5,
-   "layer": "av-hb21-headband-earmuffs__on-aves-victor-av-714r-v",
-   "product": "av-hb21-headband-earmuffs",
+   "product": "av-hm3093-cap-earmuffs",
    "slot": "hearing",
-   "box": [
-    324,
-    69,
-    566,
-    297
-   ],
-   "z": 80,
    "cat": "hearing",
-   "name": "AV-HB21",
-   "descriptor": "Headband earmuff",
-   "sku": "2536AV592",
+   "name": "AV-HM3093",
+   "descriptor": "Helmet-mounted earmuff",
+   "sku": "2536AV594",
    "standards": "ANSI S3.19-1974, CE, EN-352-1",
    "bullets": [
-    "28 dB Certified NRR to ANSI S3.19-1974 for effective noise reduction",
-    "32 dB Certified SNR to CE EN 352-1:2020, ensuring high-level sound attenuation",
-    "ABS ear cups with rectangular-shaped foam for superior protection",
-    "Soft and pliable ear cushions (PVC) provide extended comfort",
-    "Polyurethane foam absorber enhances noise blocking",
-    "Padded headband with coated 304 stainless steel for enhanced durability",
-    "Low headband force and lightweight design for prolonged wear"
+    "28 dB NRR certified to ANSI S3.19-1974 for effective noise reduction",
+    "31 dB SNR certified to CE EN 352-3:2020 for high sound attenuation",
+    "Durable, corrosion- and heat-resistant plastic arms with excellent weldability",
+    "Heavy-duty 4-point suspension evenly distributes cup pressure",
+    "Oval double-foam ear cups enhance sound insulation and attenuation",
+    "Reinforced hardware provides secure mounting on most hard hats",
+    "Lightweight design with broad foam cushions for a snug, comfortable fit and extended wear"
    ],
    "short": [
-    "28 dB Certified NRR to ANSI S3.19-1974 for effective noise reduction",
-    "32 dB Certified SNR to CE EN 352-1:2020, ensuring high-level sound attenuation",
-    "ABS ear cups with rectangular-shaped foam for superior protection"
+    "28 dB NRR certified to ANSI S3.19-1974 for effective noise reduction",
+    "31 dB SNR certified to CE EN 352-3:2020 for high sound attenuation",
+    "Durable, corrosion- and heat-resistant plastic arms with excellent weldability"
    ],
    "material": "ABS",
    "colour": "Black, Green",
-   "why": "Headband earmuff, 27 dB NRR; double with plugs near running engines",
-   "url": "https://aves-safety.com/products/ear-protection/ear-muffs/av-hb21-headband-earmuffs/",
+   "why": "",
+   "url": "https://aves-safety.com/products/ear-protection/ear-muffs/av-hm3093-cap-earmuffs/",
    "sister": false,
    "sisterNote": "",
    "hazard": {
@@ -748,6 +768,41 @@
     ],
     "icon": "hearing"
    },
+   "pack": {
+    "src": "assets/packs/earmuffs.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mkt": {
+    "hook": "Cap-mounted earmuff for long shifts in loud places",
+    "features": [
+     {
+      "title": "Double Foam Structure",
+      "line": "A double-foam structure insulates sound and spreads pressure evenly around the ear"
+     },
+     {
+      "title": "Four Arms, Even Pressure",
+      "line": "Quad-support arms hold the cups on four points, so pressure stays even on the ear"
+     },
+     {
+      "title": "Flip Up Between Tasks",
+      "line": "Low-profile cups sit under the brim when needed and flip up when they are not"
+     }
+    ],
+    "system": "Clips onto most slotted safety helmets with a removable slot adaptor"
+   },
+   "image": "assets/products/av-hm3093-cap-earmuffs.png",
+   "fly": "assets/products/av-hm3093-cap-earmuffs.png",
+   "copySource": "catalogue REV 7 p. 57",
+   "layer": "av-hm3093-cap-earmuffs__on-aves-victor-av-714r-v",
+   "box": [
+    339,
+    110,
+    553,
+    265
+   ],
+   "z": 80,
+   "mask": null,
    "anchors": [
     [
      0.12,
@@ -767,36 +822,17 @@
     0,
     124
    ],
-   "pack": {
-    "src": "assets/packs/av-hb21-headband-earmuffs.png",
-    "h": 140,
-    "dx": -100
-   },
-   "mask": null,
-   "mkt": {
-    "hook": "Low-pressure earmuff for long shifts in high-noise zones",
-    "features": [
-     {
-      "title": "Low Headband Force",
-      "line": "Low headband force and a lightweight build make long wear easier"
-     },
-     {
-      "title": "Shaped to Seal",
-      "line": "High-impact ABS cups with an interior shaped for a better acoustic seal"
-     },
-     {
-      "title": "Soft on the Skin",
-      "line": "Skin-friendly, pliable PVC cushions reduce pressure and fatigue"
-     }
-    ],
-    "system": ""
-   },
-   "layer2x": "../../v0.10/experience/assets/layers2x/av-hb21-headband-earmuffs__on-aves-victor-av-714r-v.webp",
-   "image": "assets/products/av-hb21-headband-earmuffs.png",
-   "fly": "assets/products/av-hb21-headband-earmuffs.png",
-   "copySource": "catalogue REV 7 p. 55",
-   "layer1x": "../../v0.10/experience/assets/layers/av-hb21-headband-earmuffs__on-aves-victor-av-714r-v.png",
-   "final": true
+   "ruling": 1,
+   "layer1x": "../../v0.10/experience/assets/layers/av-hm3093-cap-earmuffs__on-aves-victor-av-714r-v.png",
+   "layer2x": "../../v0.10/experience/assets/layers2x/av-hm3093-cap-earmuffs__on-aves-victor-av-714r-v.webp",
+   "final": true,
+   "layer4x": "../../v0.10/experience/assets/layers4x/av-hm3093-cap-earmuffs__on-aves-victor-av-714r-v.webp",
+   "box4x": [
+    341.0667,
+    112.0,
+    550.9333,
+    262.9333
+   ]
   },
   {
    "n": 6,
@@ -891,7 +927,14 @@
    "fly": "assets/products/ffp2-av-449-with-carbon.png",
    "copySource": "catalogue REV 7 p. 66",
    "layer1x": "../../v0.10/experience/assets/layers/ffp2-av-449-with-carbon.png",
-   "final": true
+   "final": true,
+   "layer4x": "../../v0.10/experience/assets/layers4x/ffp2-av-449-with-carbon.webp",
+   "box4x": [
+    385.3333,
+    210.4,
+    510.1333,
+    323.7333
+   ]
   },
   {
    "n": 7,
@@ -984,7 +1027,14 @@
    "fly": "assets/products/full-body-harness-4.png",
    "copySource": "catalogue REV 7 p. 115",
    "layer1x": "../../v0.10/experience/assets/layers/full-body-harness-4.png",
-   "final": true
+   "final": true,
+   "layer4x": "../../v0.10/experience/assets/layers4x/full-body-harness-4.webp",
+   "box4x": [
+    280.8,
+    312.5333,
+    608.8,
+    930.6667
+   ]
   },
   {
    "n": 8,
@@ -1075,7 +1125,14 @@
    "fly": "assets/products/av-101363.png",
    "copySource": "catalogue REV 7 p. 123",
    "layer1x": "../../v0.10/experience/assets/layers/av-101363__on-full-body-harness-4.png",
-   "final": true
+   "final": true,
+   "layer4x": "../../v0.10/experience/assets/layers4x/av-101363__on-full-body-harness-4.webp",
+   "box4x": [
+    544.8,
+    734.9333,
+    596.0,
+    1000.2667
+   ]
   },
   {
    "n": 9,
@@ -1172,9 +1229,18 @@
    "fly": "assets/products/hg-1147-suregrip.png",
    "copySource": "catalogue REV 7 p. 85",
    "layer1x": "../../v0.10/experience/assets/layers/hg-1147-suregrip.png",
-   "final": true
+   "final": true,
+   "layer4x": "../../v0.10/experience/assets/layers4x/hg-1147-suregrip.webp",
+   "box4x": [
+    230.1333,
+    797.6,
+    664.5333,
+    935.2
+   ]
   }
  ],
+ "base4x": "../../v0.10/experience/assets/worker/base-3360.webp",
+ "basePhone": "../../v0.10/experience/assets/worker/base-1792.webp",
  "brands": {
   "cavalier": {
    "name": "Cavalier",

@@ -732,39 +732,31 @@
   },
   {
    "n": 5,
-   "layer": "av-hm7093-cap-earmuffs__on-aves-titan-av-585p-nv",
-   "product": "av-hm7093-cap-earmuffs",
+   "product": "av-hm3093-cap-earmuffs",
    "slot": "hearing",
-   "box": [
-    324,
-    111,
-    564,
-    295
-   ],
-   "z": 80,
    "cat": "hearing",
-   "name": "AV-HM7093",
+   "name": "AV-HM3093",
    "descriptor": "Helmet-mounted earmuff",
-   "sku": "2536AV786",
+   "sku": "2536AV594",
    "standards": "ANSI S3.19-1974, CE, EN-352-1",
    "bullets": [
-    "30 dB NRR certified to ANSI S3.19-1974 for effective noise reduction",
-    "33 dB SNR certified to CE EN 352-3:2020 for high sound attenuation",
+    "28 dB NRR certified to ANSI S3.19-1974 for effective noise reduction",
+    "31 dB SNR certified to CE EN 352-3:2020 for high sound attenuation",
     "Durable, corrosion- and heat-resistant plastic arms with excellent weldability",
-    "Heavy-duty 4-point suspension evenly distributes cushion pressure",
-    "Oval double-foam ear cups provide enhanced sound insulation",
-    "Reinforced hardware ensures secure mounting on most hard hats",
-    "Lightweight design with broad foam cushions and pressure-equalizing air openings for extended-wear comfort"
+    "Heavy-duty 4-point suspension evenly distributes cup pressure",
+    "Oval double-foam ear cups enhance sound insulation and attenuation",
+    "Reinforced hardware provides secure mounting on most hard hats",
+    "Lightweight design with broad foam cushions for a snug, comfortable fit and extended wear"
    ],
    "short": [
-    "30 dB NRR certified to ANSI S3.19-1974 for effective noise reduction",
-    "33 dB SNR certified to CE EN 352-3:2020 for high sound attenuation",
+    "28 dB NRR certified to ANSI S3.19-1974 for effective noise reduction",
+    "31 dB SNR certified to CE EN 352-3:2020 for high sound attenuation",
     "Durable, corrosion- and heat-resistant plastic arms with excellent weldability"
    ],
    "material": "ABS",
    "colour": "Black, Green",
-   "why": "Helmet-mounted earmuff, 30 dB NRR, for breaker and saw noise",
-   "url": "https://aves-safety.com/products/ear-protection/ear-muffs/av-hm7093-cap-earmuffs/",
+   "why": "",
+   "url": "https://aves-safety.com/products/ear-protection/ear-muffs/av-hm3093-cap-earmuffs/",
    "sister": false,
    "sisterNote": "",
    "hazard": {
@@ -776,6 +768,42 @@
     ],
     "icon": "hearing"
    },
+   "pack": {
+    "src": "assets/packs/earmuffs.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mkt": {
+    "hook": "Cap-mounted earmuff for long shifts in loud places",
+    "features": [
+     {
+      "title": "Double Foam Structure",
+      "line": "A double-foam structure insulates sound and spreads pressure evenly around the ear"
+     },
+     {
+      "title": "Four Arms, Even Pressure",
+      "line": "Quad-support arms hold the cups on four points, so pressure stays even on the ear"
+     },
+     {
+      "title": "Flip Up Between Tasks",
+      "line": "Low-profile cups sit under the brim when needed and flip up when they are not"
+     }
+    ],
+    "system": "Clips onto most slotted safety helmets with a removable slot adaptor"
+   },
+   "image": "assets/products/av-hm3093-cap-earmuffs.png",
+   "fly": "assets/products/av-hm3093-cap-earmuffs.png",
+   "copySource": "catalogue REV 7 p. 57",
+   "layer": "av-hm3093-cap-earmuffs__on-aves-victor-av-845r-v",
+   "layer2x": "assets/layers2x/av-hm3093-cap-earmuffs__on-aves-victor-av-845r-v.webp",
+   "box": [
+    320,
+    111,
+    573,
+    313
+   ],
+   "z": 80,
+   "mask": null,
    "anchors": [
     [
      0.12,
@@ -795,34 +823,9 @@
     0,
     124
    ],
-   "pack": {
-    "src": "assets/packs/av-hm7093-cap-earmuffs.png",
-    "h": 140,
-    "dx": -100
-   },
-   "mask": null,
-   "mkt": {
-    "hook": "Cap-mounted earmuff built for extreme-noise work",
-    "features": [
-     {
-      "title": "Vents Ease the Pressure",
-      "line": "Double foam insulation in ABS cups, with vents that equalize pressure inside"
-     },
-     {
-      "title": "Heavy-Duty Suspension",
-      "line": "A reinforced 4-point suspension keeps pressure even and the fit stable"
-     },
-     {
-      "title": "Made for Hard Sites",
-      "line": "Corrosion- and heat-resistant, built for industrial and public works use"
-     }
-    ],
-    "system": "Fits most slotted safety helmets through a removable slot adaptor"
-   },
-   "layer2x": "assets/layers2x/av-hm7093-cap-earmuffs__on-aves-titan-av-585p-nv.webp",
-   "image": "assets/products/av-hm7093-cap-earmuffs.png",
-   "fly": "assets/products/av-hm7093-cap-earmuffs.png",
-   "copySource": "catalogue REV 7 p. 57"
+   "wantedLayer": "av-hm3093-cap-earmuffs__on-aves-titan-av-585p-nv",
+   "standIn": true,
+   "ruling": 10
   },
   {
    "n": 6,
@@ -1006,7 +1009,38 @@
    "layer2x": "assets/layers2x/av-fs18l-cylinder-face-shield__on-aves-titan-av-585p-nv.webp",
    "image": "assets/products/av-fs18l-cylinder-face-shield.png",
    "fly": "assets/products/av-fs18l-cylinder-face-shield.png",
-   "copySource": "catalogue REV 7 p. 37"
+   "copySource": "catalogue REV 7 p. 37",
+   "mount": {
+    "parts": [
+     {
+      "id": "av-vb10",
+      "kind": "visor bracket",
+      "name": "AV-VB10 visor bracket",
+      "sku": "34181AV715",
+      "lines": [
+       "Fits most slot adaptors on hard hats and face shields",
+       "Compatible with face shields & earmuffs",
+       "Adjustable tilt for easy visor positioning",
+       "Dielectric & safe for electrical work",
+       "Balanced center design for weight distribution",
+       "Quick visor attachment/removal"
+      ],
+      "material": "Nylon Reinforced Glass",
+      "image": "../../v0.10/experience/assets/mount/av-vb10.png"
+     }
+    ],
+    "line": "Mounted with AV-VB10 visor bracket, Art. No. 34181AV715",
+    "source": [
+     "catalogue-src.nosync/aug18.txt:1696 'AV-FS18 + AV-HM3093 + AV-VB10'",
+     "v0.6/gen/mkt/src/av-fs18l-cylinder-face-shield/ptf.txt:108 'VISOR BRACKET AV-VB10 34181AV715'"
+    ]
+   },
+   "spec": [
+    [
+     "Visor bracket",
+     "AV-VB10 · Art. No. 34181AV715"
+    ]
+   ]
   },
   {
    "n": 8,

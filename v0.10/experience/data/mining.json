@@ -479,40 +479,29 @@
   },
   {
    "n": 3,
-   "layer": "aves-victor-av-840r-nv",
-   "product": "aves-victor-av-840r-nv",
+   "product": "aves-titan-av-585r-nv",
    "slot": "head",
-   "box": [
-    339,
-    78,
-    548,
-    228
-   ],
-   "z": 70,
    "cat": "head",
-   "name": "VICTOR® AV-840R NV",
-   "descriptor": "Non-vented full brim",
-   "sku": "1891AV840R",
+   "name": "TITAN® AV-585R NV",
+   "descriptor": "Non-vented shell sealed against overhead hazards",
+   "sku": "1891AV585R",
    "standards": "",
    "bullets": [
-    "High-Density Polyethylene shell with  full brim design",
-    "Easy Access Ratchet Suspension",
-    "Durable, lightweight and high impact procetion",
-    "Compatible with 6-Point Suspension nylon straps",
-    "Replaceable BrowPad/Sweatband",
-    "Flex points and nape cushion",
-    "Ratchet System with 6-Point Suspension Nylon straps",
-    "Non - vented design"
+    "HDPE helmet with a short peak for improved visibility and a low-profile, non-vented design",
+    "6-point ratchet suspension with vertical adjustment and replaceable brow pad",
+    "Rain channels, universal accessory slots, and adjustable headband (54–62 cm)",
+    "ANSI/ISEA Z89.1-2014 TYPE I, Class E & G, and EN 379 certified",
+    "Non-Vented shell"
    ],
    "short": [
-    "High-Density Polyethylene shell with  full brim design",
-    "Easy Access Ratchet Suspension",
-    "Durable, lightweight and high impact procetion"
+    "HDPE helmet with a short peak for improved visibility and a low-profile, non-vented design",
+    "6-point ratchet suspension with vertical adjustment and replaceable brow pad",
+    "Rain channels, universal accessory slots, and adjustable headband (54–62 cm)"
    ],
    "material": "High-Density Polyethylene (HDPE)",
    "colour": "",
-   "why": "Non-vented full brim, Class E&G, accessory slots",
-   "url": "https://aves-safety.com/products/head-protection/victor/aves-victor-av-840r-nv/",
+   "why": "",
+   "url": "https://aves-safety.com/products/head-protection/safety-helmets/aves-titan-av-585r-nv/",
    "sister": false,
    "sisterNote": "",
    "hazard": {
@@ -524,6 +513,42 @@
     ],
     "icon": "head"
    },
+   "pack": {
+    "src": "assets/packs/aves-titan-av-585r-nv.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mkt": {
+    "hook": "Non-vented, stable helmet for focused industrial tasks",
+    "features": [
+     {
+      "title": "Clear View Upward",
+      "line": "A short visor keeps your view open for upward-facing tasks"
+     },
+     {
+      "title": "Rain Off Your Face",
+      "line": "Rain channels divert rain clear of your face"
+     },
+     {
+      "title": "Cushioned Nape",
+      "line": "Cushioned nape and flex points add comfort to the 6-point suspension"
+     }
+    ],
+    "system": "Slots take AVES AV-HM cap earmuffs, visors and other attachments"
+   },
+   "image": "assets/products/aves-titan-av-585r-nv.png",
+   "fly": "assets/products/aves-titan-av-585r-nv.png",
+   "copySource": "catalogue REV 7 p. 10",
+   "layer": "aves-titan-av-585r-nv",
+   "layer2x": "assets/layers2x/aves-titan-av-585r-nv.webp",
+   "box": [
+    344,
+    73,
+    545,
+    230
+   ],
+   "z": 70,
+   "mask": null,
    "anchors": [
     [
      0.5,
@@ -543,34 +568,7 @@
     0,
     100
    ],
-   "pack": {
-    "src": "assets/packs/aves-victor-av-840r-nv.png",
-    "h": 140,
-    "dx": -100
-   },
-   "mask": null,
-   "mkt": {
-    "hook": "Non-vented full brim for demanding industrial work",
-    "features": [
-     {
-      "title": "Barrier Without Gaps",
-      "line": "A non-vented shell keeps the protective barrier whole under overhead impact risk"
-     },
-     {
-      "title": "Cross-Rib Top",
-      "line": "A cross-rib top and strong HDPE shell, built for robust top impact protection"
-     },
-     {
-      "title": "Renewable Comfort",
-      "line": "Replaceable brow pad and sweatband support long-term hygiene and use"
-     }
-    ],
-    "system": "Takes AVES quick-release chin straps and a full-brim neck shade"
-   },
-   "layer2x": "assets/layers2x/aves-victor-av-840r-nv.webp",
-   "image": "assets/products/aves-victor-av-840r-nv.png",
-   "fly": "assets/products/aves-victor-av-840r-nv.png",
-   "copySource": "catalogue REV 7 p. 13"
+   "ruling": "6a"
   },
   {
    "n": 4,
@@ -668,16 +666,8 @@
   },
   {
    "n": 5,
-   "layer": "av-hm7093-cap-earmuffs__on-aves-victor-av-840r-nv",
    "product": "av-hm7093-cap-earmuffs",
    "slot": "hearing",
-   "box": [
-    324,
-    111,
-    564,
-    295
-   ],
-   "z": 80,
    "cat": "hearing",
    "name": "AV-HM7093",
    "descriptor": "Helmet-mounted earmuff",
@@ -712,6 +702,42 @@
     ],
     "icon": "hearing"
    },
+   "pack": {
+    "src": "assets/packs/av-hm7093-cap-earmuffs.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mkt": {
+    "hook": "Cap-mounted earmuff built for extreme-noise work",
+    "features": [
+     {
+      "title": "Vents Ease the Pressure",
+      "line": "Double foam insulation in ABS cups, with vents that equalize pressure inside"
+     },
+     {
+      "title": "Heavy-Duty Suspension",
+      "line": "A reinforced 4-point suspension keeps pressure even and the fit stable"
+     },
+     {
+      "title": "Made for Hard Sites",
+      "line": "Corrosion- and heat-resistant, built for industrial and public works use"
+     }
+    ],
+    "system": "Fits most slotted safety helmets through a removable slot adaptor"
+   },
+   "image": "assets/products/av-hm7093-cap-earmuffs.png",
+   "fly": "assets/products/av-hm7093-cap-earmuffs.png",
+   "copySource": "catalogue REV 7 p. 57",
+   "layer": "av-hm7093-cap-earmuffs__on-aves-titan-av-585r-nv",
+   "layer2x": "assets/layers2x/av-hm7093-cap-earmuffs__on-aves-titan-av-585r-nv.webp",
+   "box": [
+    323,
+    111,
+    567,
+    294
+   ],
+   "z": 80,
+   "mask": null,
    "anchors": [
     [
      0.12,
@@ -731,34 +757,7 @@
     0,
     124
    ],
-   "pack": {
-    "src": "assets/packs/av-hm7093-cap-earmuffs.png",
-    "h": 140,
-    "dx": -100
-   },
-   "mask": null,
-   "mkt": {
-    "hook": "Cap-mounted earmuff built for extreme-noise work",
-    "features": [
-     {
-      "title": "Vents Ease the Pressure",
-      "line": "Double foam insulation in ABS cups, with vents that equalize pressure inside"
-     },
-     {
-      "title": "Heavy-Duty Suspension",
-      "line": "A reinforced 4-point suspension keeps pressure even and the fit stable"
-     },
-     {
-      "title": "Made for Hard Sites",
-      "line": "Corrosion- and heat-resistant, built for industrial and public works use"
-     }
-    ],
-    "system": "Fits most slotted safety helmets through a removable slot adaptor"
-   },
-   "layer2x": "assets/layers2x/av-hm7093-cap-earmuffs__on-aves-victor-av-840r-nv.webp",
-   "image": "assets/products/av-hm7093-cap-earmuffs.png",
-   "fly": "assets/products/av-hm7093-cap-earmuffs.png",
-   "copySource": "catalogue REV 7 p. 57"
+   "ruling": "6b"
   },
   {
    "n": 6,

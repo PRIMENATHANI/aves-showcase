@@ -412,36 +412,34 @@
   },
   {
    "n": 2,
-   "layer": "aves-victor-av-845r-v",
-   "product": "aves-victor-av-845r-v",
+   "product": "aves-titan-av-564r-v",
    "slot": "head",
-   "box": [
-    338,
-    83,
-    554,
-    232
-   ],
-   "z": 70,
    "cat": "head",
-   "name": "VICTOR® AV-845R V",
-   "descriptor": "Vented helmet with accessory slots for visor and earmuffs",
-   "sku": "1891AV845R",
+   "name": "TITAN® AV-564R V",
+   "descriptor": "Vented short-peak helmet",
+   "sku": "1891AV564R",
    "standards": "",
    "bullets": [
-    "Full-brim HDPE helmet with vented design for 360° impact               and weather protection",
-    "Lightweight and durable with 6-point ratchet suspension",
-    "Includes replaceable brow pad, flex points, and easy-lock            ratchet knob",
-    "Vented design"
+    "Made from High-Density Polyethylene (HDPE)",
+    "Lightweight and durable for long wear",
+    "Short peak improves visibility",
+    "Low-profile for balance and retention",
+    "Universal slots for attaching ear muffs and other accessories",
+    "Channels divert moisture",
+    "Replaceable brow pads and suspension",
+    "Adjustable height with two levels",
+    "Ratchet System with 6-Point Suspension Nylon straps",
+    "Vented shell"
    ],
    "short": [
-    "Lightweight and durable with 6-point ratchet suspension",
-    "Includes replaceable brow pad, flex points, and easy-lock            ratchet knob",
-    "Vented design"
+    "Made from High-Density Polyethylene (HDPE)",
+    "Lightweight and durable for long wear",
+    "Short peak improves visibility"
    ],
    "material": "High-Density Polyethylene (HDPE)",
    "colour": "",
-   "why": "Vented helmet with accessory slots for visor and earmuffs, EN 397",
-   "url": "https://aves-safety.com/products/head-protection/safety-helmets/aves-victor-av-845r-v/",
+   "why": "",
+   "url": "https://aves-safety.com/products/head-protection/safety-helmets/aves-titan-av-564r-v/",
    "sister": false,
    "sisterNote": "",
    "hazard": {
@@ -453,6 +451,42 @@
     ],
     "icon": "head"
    },
+   "pack": {
+    "src": "assets/packs/aves-titan-av-564r-v.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mkt": {
+    "hook": "Vented helmet that adapts to varied worksite conditions",
+    "features": [
+     {
+      "title": "Comfort-Focused Interior",
+      "line": "Nylon straps, a poly brow pad, flex points and a cushioned nape line the inside"
+     },
+     {
+      "title": "Made for Humid Days",
+      "line": "A low-profile, rain-channeled shell wears well in humid or rainy conditions"
+     },
+     {
+      "title": "Press to Lock",
+      "line": "The 6-point ratchet locks with a press and releases with a pull"
+     }
+    ],
+    "system": "Slots take visors, face shields and AVES AV-HM cap earmuffs"
+   },
+   "image": "assets/products/aves-titan-av-564r-v.png",
+   "fly": "assets/products/aves-titan-av-564r-v.png",
+   "copySource": "catalogue REV 7 p. 10",
+   "layer": "aves-titan-av-564r-v",
+   "layer2x": "assets/layers2x/aves-titan-av-564r-v.webp",
+   "box": [
+    346,
+    73,
+    545,
+    235
+   ],
+   "z": 70,
+   "mask": null,
    "anchors": [
     [
      0.5,
@@ -472,34 +506,7 @@
     0,
     100
    ],
-   "pack": {
-    "src": "assets/packs/aves-victor-av-845r-v.png",
-    "h": 140,
-    "dx": -100
-   },
-   "mask": null,
-   "mkt": {
-    "hook": "Vented full brim for long shifts in heat and humidity",
-    "features": [
-     {
-      "title": "Air Moves Through",
-      "line": "Vents let air move through the shell for comfort in high temperatures"
-     },
-     {
-      "title": "Pressure-Balanced Fit",
-      "line": "The 6-point suspension gives a secure, pressure-balanced fit"
-     },
-     {
-      "title": "Easy-Turn Knob",
-      "line": "A press-to-lock ratchet with an easy-turn knob makes fit changes quick"
-     }
-    ],
-    "system": "Add an AVES 2- or 4-point chin strap or a full-brim neck shade"
-   },
-   "layer2x": "assets/layers2x/aves-victor-av-845r-v.webp",
-   "image": "assets/products/aves-victor-av-845r-v.png",
-   "fly": "assets/products/aves-victor-av-845r-v.png",
-   "copySource": "catalogue REV 7 p. 13"
+   "ruling": "9a"
   },
   {
    "n": 3,
@@ -594,39 +601,31 @@
   },
   {
    "n": 4,
-   "layer": "av-hm7093-cap-earmuffs__on-aves-victor-av-845r-v",
-   "product": "av-hm7093-cap-earmuffs",
+   "product": "av-hm3093-cap-earmuffs",
    "slot": "hearing",
-   "box": [
-    323,
-    111,
-    565,
-    295
-   ],
-   "z": 80,
    "cat": "hearing",
-   "name": "AV-HM7093",
+   "name": "AV-HM3093",
    "descriptor": "Helmet-mounted earmuff",
-   "sku": "2536AV786",
+   "sku": "2536AV594",
    "standards": "ANSI S3.19-1974, CE, EN-352-1",
    "bullets": [
-    "30 dB NRR certified to ANSI S3.19-1974 for effective noise reduction",
-    "33 dB SNR certified to CE EN 352-3:2020 for high sound attenuation",
+    "28 dB NRR certified to ANSI S3.19-1974 for effective noise reduction",
+    "31 dB SNR certified to CE EN 352-3:2020 for high sound attenuation",
     "Durable, corrosion- and heat-resistant plastic arms with excellent weldability",
-    "Heavy-duty 4-point suspension evenly distributes cushion pressure",
-    "Oval double-foam ear cups provide enhanced sound insulation",
-    "Reinforced hardware ensures secure mounting on most hard hats",
-    "Lightweight design with broad foam cushions and pressure-equalizing air openings for extended-wear comfort"
+    "Heavy-duty 4-point suspension evenly distributes cup pressure",
+    "Oval double-foam ear cups enhance sound insulation and attenuation",
+    "Reinforced hardware provides secure mounting on most hard hats",
+    "Lightweight design with broad foam cushions for a snug, comfortable fit and extended wear"
    ],
    "short": [
-    "30 dB NRR certified to ANSI S3.19-1974 for effective noise reduction",
-    "33 dB SNR certified to CE EN 352-3:2020 for high sound attenuation",
+    "28 dB NRR certified to ANSI S3.19-1974 for effective noise reduction",
+    "31 dB SNR certified to CE EN 352-3:2020 for high sound attenuation",
     "Durable, corrosion- and heat-resistant plastic arms with excellent weldability"
    ],
    "material": "ABS",
    "colour": "Black, Green",
-   "why": "Helmet-mounted earmuff, 30 dB NRR, for grinder and saw noise",
-   "url": "https://aves-safety.com/products/ear-protection/ear-muffs/av-hm7093-cap-earmuffs/",
+   "why": "",
+   "url": "https://aves-safety.com/products/ear-protection/ear-muffs/av-hm3093-cap-earmuffs/",
    "sister": false,
    "sisterNote": "",
    "hazard": {
@@ -638,6 +637,42 @@
     ],
     "icon": "hearing"
    },
+   "pack": {
+    "src": "assets/packs/earmuffs.png",
+    "h": 140,
+    "dx": -100
+   },
+   "mkt": {
+    "hook": "Cap-mounted earmuff for long shifts in loud places",
+    "features": [
+     {
+      "title": "Double Foam Structure",
+      "line": "A double-foam structure insulates sound and spreads pressure evenly around the ear"
+     },
+     {
+      "title": "Four Arms, Even Pressure",
+      "line": "Quad-support arms hold the cups on four points, so pressure stays even on the ear"
+     },
+     {
+      "title": "Flip Up Between Tasks",
+      "line": "Low-profile cups sit under the brim when needed and flip up when they are not"
+     }
+    ],
+    "system": "Clips onto most slotted safety helmets with a removable slot adaptor"
+   },
+   "image": "assets/products/av-hm3093-cap-earmuffs.png",
+   "fly": "assets/products/av-hm3093-cap-earmuffs.png",
+   "copySource": "catalogue REV 7 p. 57",
+   "layer": "av-hm3093-cap-earmuffs__on-aves-victor-av-845r-v",
+   "layer2x": "assets/layers2x/av-hm3093-cap-earmuffs__on-aves-victor-av-845r-v.webp",
+   "box": [
+    320,
+    111,
+    573,
+    313
+   ],
+   "z": 80,
+   "mask": null,
    "anchors": [
     [
      0.12,
@@ -657,34 +692,9 @@
     0,
     124
    ],
-   "pack": {
-    "src": "assets/packs/av-hm7093-cap-earmuffs.png",
-    "h": 140,
-    "dx": -100
-   },
-   "mask": null,
-   "mkt": {
-    "hook": "Cap-mounted earmuff built for extreme-noise work",
-    "features": [
-     {
-      "title": "Vents Ease the Pressure",
-      "line": "Double foam insulation in ABS cups, with vents that equalize pressure inside"
-     },
-     {
-      "title": "Heavy-Duty Suspension",
-      "line": "A reinforced 4-point suspension keeps pressure even and the fit stable"
-     },
-     {
-      "title": "Made for Hard Sites",
-      "line": "Corrosion- and heat-resistant, built for industrial and public works use"
-     }
-    ],
-    "system": "Fits most slotted safety helmets through a removable slot adaptor"
-   },
-   "layer2x": "assets/layers2x/av-hm7093-cap-earmuffs__on-aves-victor-av-845r-v.webp",
-   "image": "assets/products/av-hm7093-cap-earmuffs.png",
-   "fly": "assets/products/av-hm7093-cap-earmuffs.png",
-   "copySource": "catalogue REV 7 p. 57"
+   "wantedLayer": "av-hm3093-cap-earmuffs__on-aves-titan-av-564r-v",
+   "standIn": true,
+   "ruling": "9b"
   },
   {
    "n": 5,
@@ -780,16 +790,8 @@
   },
   {
    "n": 6,
-   "layer": "av-fs12__on-aves-victor-av-845r-v",
    "product": "av-fs12",
    "slot": "face",
-   "box": [
-    342,
-    145,
-    547,
-    350
-   ],
-   "z": 60,
    "cat": "face",
    "name": "AV-FS12L",
    "descriptor": "Compact 8 x 12 inch visor",
@@ -824,6 +826,38 @@
     ],
     "icon": "sparks"
    },
+   "pack": null,
+   "mkt": {
+    "hook": "Heat-resistant cylindrical visor with a wide view",
+    "features": [
+     {
+      "title": "Handles the Heat",
+      "line": "A visor suited to work near elevated ambient or radiant heat"
+     },
+     {
+      "title": "Curved for a Wider View",
+      "line": "A molded cylindrical profile widens the field of view and covers more face"
+     },
+     {
+      "title": "Wraps Around the Face",
+      "line": "A wraparound design helps shield against splashes and impact"
+     }
+    ],
+    "system": "Mounts on slotted helmets through the AVES visor bracket range"
+   },
+   "image": "assets/products/av-fs12.png",
+   "fly": "assets/products/av-fs12.png",
+   "copySource": "catalogue REV 7 p. 37",
+   "layer": "av-fs12__on-aves-victor-av-845r-v",
+   "layer2x": "assets/layers2x/av-fs12__on-aves-victor-av-845r-v.webp",
+   "box": [
+    342,
+    145,
+    547,
+    350
+   ],
+   "z": 60,
+   "mask": null,
    "anchors": [
     [
      0.5,
@@ -843,30 +877,40 @@
     0,
     130
    ],
-   "pack": null,
-   "mask": null,
-   "mkt": {
-    "hook": "Heat-resistant cylindrical visor with a wide view",
-    "features": [
+   "wantedLayer": "av-fs12__on-aves-titan-av-564r-v",
+   "standIn": true,
+   "ruling": "9c",
+   "mount": {
+    "parts": [
      {
-      "title": "Handles the Heat",
-      "line": "A visor suited to work near elevated ambient or radiant heat"
-     },
-     {
-      "title": "Curved for a Wider View",
-      "line": "A molded cylindrical profile widens the field of view and covers more face"
-     },
-     {
-      "title": "Wraps Around the Face",
-      "line": "A wraparound design helps shield against splashes and impact"
+      "id": "av-vb10",
+      "kind": "visor bracket",
+      "name": "AV-VB10 visor bracket",
+      "sku": "34181AV715",
+      "lines": [
+       "Fits most slot adaptors on hard hats and face shields",
+       "Compatible with face shields & earmuffs",
+       "Adjustable tilt for easy visor positioning",
+       "Dielectric & safe for electrical work",
+       "Balanced center design for weight distribution",
+       "Quick visor attachment/removal"
+      ],
+      "material": "Nylon Reinforced Glass",
+      "image": "../../v0.10/experience/assets/mount/av-vb10.png"
      }
     ],
-    "system": "Mounts on slotted helmets through the AVES visor bracket range"
+    "line": "Mounted with AV-VB10 visor bracket, Art. No. 34181AV715",
+    "source": [
+     "catalogue-src.nosync/aug18.txt:1742 'AV-FS12 + AV-HM3093 + AV-VB10' (Art. No. 110300AV991)",
+     "data/products.json AV-FS12: 'Compatible with AV-VB10 bracket and AV-SA93 slot adapter'"
+    ]
    },
-   "layer2x": "assets/layers2x/av-fs12__on-aves-victor-av-845r-v.webp",
-   "image": "assets/products/av-fs12.png",
-   "fly": "assets/products/av-fs12.png",
-   "copySource": "catalogue REV 7 p. 37"
+   "spec": [
+    [
+     "Visor bracket",
+     "AV-VB10 · Art. No. 34181AV715"
+    ]
+   ]
   },
   {
    "n": 7,
