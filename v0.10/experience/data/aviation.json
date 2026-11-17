@@ -602,10 +602,12 @@
     ],
     "system": "Slots take AVES cap-mounted earmuffs and AV-VB visor brackets"
    },
-   "layer2x": "assets/layers2x/aves-victor-av-714r-v.webp",
+   "layer2x": "../../v0.10/experience/assets/layers2x/aves-victor-av-714r-v.webp",
    "image": "assets/products/aves-victor-av-714r-v.png",
    "fly": "assets/products/aves-victor-av-714r-v.png",
-   "copySource": "catalogue REV 7 p. 15"
+   "copySource": "catalogue REV 7 p. 15",
+   "layer1x": "../../v0.10/experience/assets/layers/aves-victor-av-714r-v.png",
+   "final": true
   },
   {
    "n": 4,
@@ -693,10 +695,12 @@
     ],
     "system": ""
    },
-   "layer2x": "assets/layers2x/av-sg14.webp",
+   "layer2x": "../../v0.10/experience/assets/layers2x/av-sg14.webp",
    "image": "assets/products/av-sg14.png",
    "fly": "assets/products/av-sg14.png",
-   "copySource": "catalogue REV 7 p. 22"
+   "copySource": "catalogue REV 7 p. 22",
+   "layer1x": "../../v0.10/experience/assets/layers/av-sg14.png",
+   "final": true
   },
   {
    "n": 5,
@@ -787,10 +791,12 @@
     ],
     "system": ""
    },
-   "layer2x": "assets/layers2x/av-hb21-headband-earmuffs__on-aves-victor-av-714r-v.webp",
+   "layer2x": "../../v0.10/experience/assets/layers2x/av-hb21-headband-earmuffs__on-aves-victor-av-714r-v.webp",
    "image": "assets/products/av-hb21-headband-earmuffs.png",
    "fly": "assets/products/av-hb21-headband-earmuffs.png",
-   "copySource": "catalogue REV 7 p. 55"
+   "copySource": "catalogue REV 7 p. 55",
+   "layer1x": "../../v0.10/experience/assets/layers/av-hb21-headband-earmuffs__on-aves-victor-av-714r-v.png",
+   "final": true
   },
   {
    "n": 6,
@@ -880,10 +886,12 @@
     ],
     "system": ""
    },
-   "layer2x": "assets/layers2x/ffp2-av-449-with-carbon.webp",
+   "layer2x": "../../v0.10/experience/assets/layers2x/ffp2-av-449-with-carbon.webp",
    "image": "assets/products/ffp2-av-449-with-carbon.png",
    "fly": "assets/products/ffp2-av-449-with-carbon.png",
-   "copySource": "catalogue REV 7 p. 66"
+   "copySource": "catalogue REV 7 p. 66",
+   "layer1x": "../../v0.10/experience/assets/layers/ffp2-av-449-with-carbon.png",
+   "final": true
   },
   {
    "n": 7,
@@ -971,10 +979,12 @@
     ],
     "system": ""
    },
-   "layer2x": "assets/layers2x/full-body-harness-4.webp",
+   "layer2x": "../../v0.10/experience/assets/layers2x/full-body-harness-4.webp",
    "image": "assets/products/full-body-harness-4.png",
    "fly": "assets/products/full-body-harness-4.png",
-   "copySource": "catalogue REV 7 p. 115"
+   "copySource": "catalogue REV 7 p. 115",
+   "layer1x": "../../v0.10/experience/assets/layers/full-body-harness-4.png",
+   "final": true
   },
   {
    "n": 8,
@@ -1060,10 +1070,12 @@
     ],
     "system": ""
    },
-   "layer2x": "assets/layers2x/av-101363__on-full-body-harness-4.webp",
+   "layer2x": "../../v0.10/experience/assets/layers2x/av-101363__on-full-body-harness-4.webp",
    "image": "assets/products/av-101363.png",
    "fly": "assets/products/av-101363.png",
-   "copySource": "catalogue REV 7 p. 123"
+   "copySource": "catalogue REV 7 p. 123",
+   "layer1x": "../../v0.10/experience/assets/layers/av-101363__on-full-body-harness-4.png",
+   "final": true
   },
   {
    "n": 9,
@@ -1155,10 +1167,12 @@
     ],
     "system": ""
    },
-   "layer2x": "assets/layers2x/hg-1147-suregrip.webp",
+   "layer2x": "../../v0.10/experience/assets/layers2x/hg-1147-suregrip.webp",
    "image": "assets/products/hg-1147-suregrip.png",
    "fly": "assets/products/hg-1147-suregrip.png",
-   "copySource": "catalogue REV 7 p. 85"
+   "copySource": "catalogue REV 7 p. 85",
+   "layer1x": "../../v0.10/experience/assets/layers/hg-1147-suregrip.png",
+   "final": true
   }
  ],
  "brands": {
