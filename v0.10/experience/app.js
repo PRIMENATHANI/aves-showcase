@@ -263,7 +263,7 @@ function buildDesk() {
     FT(tl, th, { opacity: .8 }, { opacity: .25, duration: .25, ease: E.o2 }, T + .3);
     FT(tl, th, { opacity: .25 }, { opacity: 1, duration: .4, ease: E.o1 }, L);
     // the hazard: icon, label, title, where; then the line draws to the item and the dot lands on it
-    const b = st.box, dot = { x: fr.x + (b[0] + .12 * (b[2] - b[0])) * fr.s, y: fr.y + Math.min(b[1] + .5 * (b[3] - b[1]), b[1] + 90) * fr.s };
+    const b = st.box, dp = st.dot || [b[0] + .12 * (b[2] - b[0]), Math.min(b[1] + .5 * (b[3] - b[1]), b[1] + 90)], dot = { x: fr.x + dp[0] * fr.s, y: fr.y + dp[1] * fr.s };   // st.dot: where the hazard line lands when the box holds two things (the boots)
     { const lab = hz.querySelector('.hk .label'), lr = lab.getBoundingClientRect(), x0 = (lr.right - sr.left) / U + 20, y0 = (lr.top - sr.top + lr.height / 2) / U;
       const dx = dot.x - x0, dy = dot.y - y0, len = Math.hypot(dx, dy), ang = Math.atan2(dy, dx) * 180 / Math.PI, show = dx > 40 && Math.abs(ang) < 22;   // a steep line would cross the hazard text: then the dot and its ping mark the item alone
       gsap.set(hz.querySelector('.hl'), { left: x0, top: y0 - 1, width: Math.max(0, len - 6), rotation: ang, display: show ? '' : 'none' });

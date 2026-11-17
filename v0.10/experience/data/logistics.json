@@ -259,6 +259,10 @@
     1495
    ],
    "z": 4,
+   "dot": [
+    318,
+    1418
+   ],
    "product": "cav-8414-3",
    "slot": "boots",
    "std": true,
@@ -274,7 +278,7 @@
    "sku": "74109CV213",
    "standards": "EN ISO 20345:2020 S3L SR",
    "material": "Water-repellent microfiber · metal-free composite toe · anti-perforation textile · PU/PU",
-   "colour": "Black · sizes 36 to 48 (EU)",
+   "colour": "Sizes 36 to 48 (EU)",
    "spec": [
     [
      "Upper",

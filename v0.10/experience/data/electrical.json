@@ -296,6 +296,10 @@
     1495
    ],
    "z": 4,
+   "dot": [
+    318,
+    1418
+   ],
    "product": "cav-8915-4",
    "slot": "boots",
    "std": true,
@@ -347,7 +351,7 @@
     ]
    ],
    "bullets": [
-    "Electrical hazard protection holding up to 20,000 V / 60 Hz",
+    "Electrical Hazard (EH) protection",
     "Metal-free construction eliminates conductive metal components",
     "HRO heat-resistant outsole withstands contact heat up to 300°C",
     "Heat and cold insulation",
@@ -356,7 +360,7 @@
     "Non-metallic eyelets; padded collar"
    ],
    "short": [
-    "Electrical hazard protection holding up to 20,000 V / 60 Hz",
+    "Electrical Hazard (EH) protection",
     "Metal-free construction eliminates conductive metal components",
     "HRO heat-resistant outsole withstands contact heat up to 300°C"
    ],
@@ -366,7 +370,7 @@
     "features": [
      {
       "title": "Electrical Hazard Rated",
-      "line": "EH protection holding up to 20,000 V / 60 Hz helps reduce shock risk"
+      "line": "Electrical Hazard (EH) protection helps reduce the risk of electric shock"
      },
      {
       "title": "No Conductive Metal",
@@ -381,7 +385,7 @@
    },
    "hazard": {
     "label": "Standard spec",
-    "title": "Electric shock through the feet",
+    "title": "Working near live equipment",
     "where": "Switchrooms, substations and live panels",
     "at": [
      -1,
