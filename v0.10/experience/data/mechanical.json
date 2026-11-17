@@ -421,7 +421,7 @@
     859
    ],
    "z": 10,
-   "layer2x": "assets/layers2x/scuta-vest.webp",
+   "layer2x": "../../v0.10/experience/assets/layers2x/scuta-vest.webp",
    "image": "../../v0.10/experience/assets/std/scuta-vest.png",
    "fly": "../../v0.10/experience/assets/std/scuta-vest.png",
    "product": "scuta-vest",
@@ -513,7 +513,9 @@
    "mask": null,
    "copySource": "ADS",
    "pack": null,
-   "n": 2
+   "n": 2,
+   "layer1x": "../../v0.10/experience/assets/layers/scuta-vest.png",
+   "final": true
   },
   {
    "n": 3,
