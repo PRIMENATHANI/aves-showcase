@@ -403,7 +403,8 @@
    "pack": null,
    "image": "../../v0.10/experience/assets/std/cav-81476-4.png",
    "fly": "../../v0.10/experience/assets/std/cav-81476-4.png",
-   "layer1x": "../../v0.10/experience/assets/layers/none.png",
+   "layer1x": "../../v0.10/experience/assets/layers/boots-cav-81476-4.png",
+   "layer2x": "../../v0.10/experience/assets/layers2x/boots-cav-81476-4.webp",
    "n": 1
   },
   {
