@@ -97,7 +97,7 @@ html:not(.m) .kitlnk:empty+.kits,html:not(.m) .kitlnk[style*="hidden"]+.kits{mar
 .hzb .hd{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--amber)}
 .hzb .hp{position:absolute;width:40px;height:40px;border-radius:50%;border:1.5px solid var(--amber)}
 .pb{position:absolute;left:var(--colX);bottom:34px;width:var(--colW);pointer-events:none;--fs:1}
-.pb .acts{pointer-events:auto}
+.pb .acts{pointer-events:auto;visibility:hidden}
 .cat{display:flex;align-items:center;gap:0}
 .cat .ci{width:29px;height:29px;margin-right:16px}
 .cat .cn{font-size:14px;font-weight:900;letter-spacing:.16em;margin-right:18px}

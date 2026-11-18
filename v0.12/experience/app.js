@@ -303,12 +303,14 @@ function buildDesk() {
       if (ft) { FT(tl, ft, { opacity: .35 }, { opacity: 1, duration: .35, ease: E.o1 }, lt + .05); FT(tl, ft, { x: -6 }, { x: 0, duration: .5, ease: E.o }, lt + .05); }
       FT(tl, fl, { opacity: .35 }, { opacity: 1, duration: .35, ease: E.o1 }, lt + .1); });
     enter(tl, [...pb.querySelectorAll('.meta > div, .acts > *')], L + 3.95, 12, .6, .04);
+    FT(tl, pb.querySelector('.acts'), { visibility: 'hidden' }, { visibility: 'visible', duration: .01, ease: 'none' }, L + 3.95);
     landAt[i] = L; tl.addLabel('s' + (i + 1), L + 4.8);
 
     leave(tl, [...pb.querySelectorAll('.cat > *, .pn .ty, .sub, .acc, .hook, .dv, .dvo, .fn, .fx > *, .meta > div, .acts > *')], L + 5);
     FT(tl, hz.querySelector('.hd'), { scale: 1 }, { scale: 0, duration: .2, ease: E.i2 }, L + 5);
     FT(tl, hz.querySelector('.hl'), { scaleX: 1 }, { scaleX: 0, duration: .4, ease: E.io }, L + 5.05);
     [...hz.querySelectorAll('.hk .hzi, .hk .label, .ht, .hw')].forEach((el, k) => { FT(tl, el, { y: 0 }, { y: -16, duration: .35, ease: E.i2 }, L + 5.15 + k * .03); FT(tl, el, { opacity: 1 }, { opacity: 0, duration: .35, ease: E.i2 }, L + 5.15 + k * .03); });
+    FT(tl, pb.querySelector('.acts'), { visibility: 'visible' }, { visibility: 'hidden', duration: .01, ease: 'none' }, L + 5.26);
     t = L + 5.3;
   });
 
