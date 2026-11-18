@@ -6,7 +6,7 @@
 <title>The AVES Experience</title>
 <link rel="icon" href="data:,">
 <script>
-// Error capture for headless verification: mirrored into #errlog.
+
 window.__errs = [];
 (function(){
   var push = function(m){ window.__errs.push(String(m)); var el = document.getElementById('errlog'); if (el) el.textContent = window.__errs.join('\n'); };
@@ -16,10 +16,9 @@ window.__errs = [];
 })();
 </script>
 <script>
-// v0.3.2 scale before first paint (v0.3.4: unchanged): 1 at 1440 x 900 and below, then min(w/1440, h/900), capped 2.2 (picker + hero sizes)
+
 (function(){var w=innerWidth,h=innerHeight,s=w<1024?1:Math.max(1,Math.min(2.2,w/1440,h/900));document.documentElement.style.setProperty('--s',s.toFixed(4));})();
-// v0.3.2 arrival: the intro (hero) shows on a fresh visit. Debug queries skip it (no-hero). Coming back from a kit page
-// (#industries, or the flag pick() sets before it navigates) lands on the picker: to-picker, scrolled below before paint.
+
 (function(){var d=document.documentElement,q=location.search,nh=/[?&](hover|pick|kit|step|nohero)(=|&|$)/.test(q),tp=location.hash==='#industries';
 try{if(sessionStorage.getItem('aves-picked')){tp=true;sessionStorage.removeItem('aves-picked');var ry=sessionStorage.getItem('aves-pick-y');sessionStorage.removeItem('aves-pick-y');if(ry!==null&&innerWidth<1024)window.__returnY=+ry;}}catch(e){}
 if(nh)d.classList.add('no-hero');else if(tp)d.classList.add('to-picker');
@@ -72,8 +71,7 @@ if('scrollRestoration' in history)history.scrollRestoration='manual';})();
   <div class="slices" id="slices" role="list"></div>
 </section>
 <script>
-// to-picker: start at the picker, before first paint (no intro replay)
-// v0.3.4: on the phone, back to where the page was when the tile was picked (window.__returnY, from the pick)
+
 if (document.documentElement.classList.contains('to-picker')) window.scrollTo(0, window.__returnY != null ? window.__returnY : document.getElementById('picker').offsetTop);
 </script>
 

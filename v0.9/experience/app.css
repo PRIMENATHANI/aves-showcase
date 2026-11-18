@@ -1,5 +1,3 @@
-/* The AVES Experience v0.9: kit pages to comps v0.1. Desktop stage designed at 1440 x 900 units and scaled as one piece (--u);
-   at 2560 x 1440 the stage is 1600 x 900, so every comp value at 2560 is divided by 1.6. Phone sizes from tokens.json phone390. */
 :root{--bg:#07090c;--ink:#f4f6f8;--soft:#dfe4e9;--body:#c3cad1;--muted:#a3acb6;--dim:#8a939c;--faint:#6f7882;--brand:#039047;--brand-d:#027a3c;--bod:#3fbf7a;--mint:#e8f3ec;--amber:#ffc46b;
   --rule:rgba(255,255,255,.2);--M:75px;--colX:1000px;--colW:525px;--rp:33.6px}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -23,10 +21,8 @@ html.m .d-only{display:none !important}
 .stage{position:sticky;top:0;width:calc(100% / var(--u,1));height:calc(100vh / var(--u,1));height:calc(100svh / var(--u,1));transform:scale(var(--u,1));transform-origin:0 0;overflow:hidden;background:var(--bg)}
 .pha{position:absolute;inset:0;overflow:hidden}
 .bdw{position:absolute;inset:0;will-change:transform;transform-origin:50% 55%}
-/* the backdrop grade from tokens.json (exposure -0.5, contrast +0.08, saturation -0.15): one uniform grade, no scrims */
 .bd{position:absolute;inset:-16% -10%;will-change:transform;transform-origin:0 0}
 .grade{position:absolute;inset:0;background:rgba(5,7,10,.56);pointer-events:none}
-/* hand-over from the picker: the raw backdrop in the picker's fit, above the graded one and under the worker (index.html) */
 .hov{display:none}
 html.ho .hov{display:block;position:absolute;inset:0;background:var(--bg);pointer-events:none}
 .hoc{position:absolute;left:0;top:0;width:100%;height:100%;overflow:hidden;transform-origin:0 0}
@@ -45,7 +41,6 @@ html.ho:not([data-ready]) .pha-fade{visibility:hidden}
 .fly .f{position:absolute;opacity:0}
 .fly .f img{width:100%;height:100%;object-fit:contain}
 
-/* header */
 .hdr{position:absolute;z-index:70;left:var(--M);right:var(--M);top:46px;height:30px;display:flex;align-items:center;gap:22px}
 .logo{height:30px;width:auto}
 .hdr-tag{font-size:12.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);white-space:nowrap}
@@ -57,7 +52,6 @@ html:not(.m) .kitlnk:empty+.kits,html:not(.m) .kitlnk[style*="hidden"]+.kits{mar
 .hzi.sv svg{display:block;width:100%;height:100%;fill:currentColor}
 .hzi.tri{background:var(--amber);clip-path:polygon(50% 8%,96% 90%,4% 90%)}
 
-/* links: heavy tracked caps with a green underline */
 .lnk{position:relative;display:inline-block;font-size:12.5px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);padding-bottom:6px;white-space:nowrap}
 .lnk::after{content:"";position:absolute;left:0;right:.14em;bottom:0;height:2px;background:var(--brand)}
 .lnk2{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);white-space:nowrap;padding-bottom:6px}
@@ -65,7 +59,6 @@ html:not(.m) .kitlnk:empty+.kits,html:not(.m) .kitlnk[style*="hidden"]+.kits{mar
 .ar{display:inline-block;width:.75em;height:.9em;margin-left:.8em}
 .ar.up{transform:rotate(180deg);margin:0 .7em 0 0}
 
-/* ---------- desktop: kit intro */
 .intro{position:absolute;z-index:20;left:var(--M);top:170px;width:min(500px,34%)}
 .kicker{display:flex;align-items:center;gap:14px;margin-bottom:24px}
 .ktile{width:20px;height:20px;object-fit:contain}
@@ -92,7 +85,6 @@ html:not(.m) .kitlnk:empty+.kits,html:not(.m) .kitlnk[style*="hidden"]+.kits{mar
 .cue .ul{display:block;height:3px;background:var(--brand);margin-top:8px}
 .cue-h{position:absolute;left:0;top:610px;color:var(--muted)}
 
-/* ---------- desktop: the item step */
 .hz-layer,.pb-layer{position:absolute;inset:0;pointer-events:none;z-index:25}
 .hzb{position:absolute;inset:0;padding:186px 0 0 var(--M)}
 .hzb>p{position:relative;max-width:330px}
@@ -148,7 +140,6 @@ html:not(.m) .kitlnk:empty+.kits,html:not(.m) .kitlnk[style*="hidden"]+.kits{mar
 .rnm{position:absolute;left:0;top:0;font-size:10.5px;font-weight:700;letter-spacing:.06em;color:var(--soft);white-space:nowrap;text-transform:uppercase;line-height:16px}
 .rnm.on{font-weight:900;color:var(--ink)}
 
-/* ---------- desktop: the complete kit */
 .end{position:absolute;z-index:22;left:var(--M);top:0;bottom:0;width:min(420px,30%);padding-top:178px}
 .end .et{color:var(--ink)}
 .end .close{font-size:20px;color:var(--ink);margin:30px 0 40px}
@@ -164,7 +155,6 @@ html:not(.m) .kitlnk:empty+.kits,html:not(.m) .kitlnk[style*="hidden"]+.kits{mar
 .ed{color:var(--bod);font-size:8.5px;padding:8px 0 8px 12px;pointer-events:auto}
 .boots{font-size:11px;color:var(--soft);margin-top:18px;line-height:1.4}
 
-/* ---------- product details: a light page */
 .pd{position:absolute;inset:0;z-index:100;background:#f4f6f8;color:#07090c;visibility:hidden;opacity:0}
 .pd-h{position:absolute;left:var(--M);right:var(--M);top:46px;height:30px;display:flex;align-items:center;gap:22px;z-index:2}
 .pd-h .hdr-tag{color:#3a424a}
@@ -191,7 +181,6 @@ html:not(.m) .kitlnk:empty+.kits,html:not(.m) .kitlnk[style*="hidden"]+.kits{mar
 .pd-ft li{display:grid;grid-template-columns:28px 1fr;padding:14px 0;border-top:1px solid rgba(7,9,12,.15);font-size:13px;line-height:1.4}
 .pd-ft li:last-child{border-bottom:1px solid rgba(7,9,12,.15)}
 .pd-ft i{font-style:normal;font-weight:900;color:var(--brand);font-size:11px;padding-top:2px}
-/* the three sourced marketing features (as v0.8), in the step's feature style: green number, heavy title, line; rules, no boxes */
 .pd-mk{margin-bottom:22px}
 .pd-mk li{display:grid;grid-template-columns:28px 1fr;padding:14px 0;border-top:1px solid rgba(7,9,12,.15)}
 .pd-mk i{font-style:normal;font-weight:900;color:var(--brand);font-size:11px;padding-top:5px}
@@ -212,7 +201,6 @@ html.m .pd-mk p{font-size:13px}
 .pd-c3 .apr-art{margin-left:0}
 .pd-b .pn .ty{color:#07090c}
 
-/* ---------- phone */
 html.m,html.m body{height:100%;overflow:hidden;overscroll-behavior:none}
 html.m .track{height:100svh !important}
 html.m .stage{position:fixed;inset:0;width:auto;height:auto;transform:none;touch-action:none;-webkit-user-select:none;user-select:none;--M:16px}
@@ -288,7 +276,6 @@ html.m .lnk,html.m .lnk2{font-size:11px}
 .m-nav.at-intro .m-next{color:var(--ink)}
 .m-back:disabled{opacity:0;pointer-events:none}
 .m-pos{font-size:11px;font-weight:700;letter-spacing:.16em;color:var(--soft)}
-/* small phones: the type steps down so every page fits above the bar */
 .stage.tight .m-step .hook{font-size:15px}
 .stage.tight .m-hz .ht{font-size:17px}
 .stage.tight .m-hz .hw,.stage.tight .m-step .sub{font-size:12px}
@@ -315,14 +302,9 @@ html.m.pd-open .stage{touch-action:auto;-webkit-user-select:text;user-select:tex
 @media (prefers-reduced-motion: reduce){*{scroll-behavior:auto !important}}
 @media (min-width:600px){html.m .m-intro,html.m .m-end,html.m .m-step{max-width:560px}}
 
-/* cross-document view transition from the picker: its photo frame and #hoc share the name; the two frames are identical */
 @view-transition{navigation:auto}
 html.ho #hoc{view-transition-name:kit-photo}
-/* a held cut, not a crossfade: the old frame stays until the new page's first frame (identical), and the kit page's own
-   hand-over ease is the only motion (a crossfade here blended two pictures while that ease ran) */
 ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none}
-/* flow2: a strip picture released after the intro's own fades in when it arrives, never pops */
 .m-strip .ph img{transition:opacity .35s ease-out}.m-strip .ph img.ldg{opacity:0}
-/* flow2 regression: nothing of the stage but the photo and the header shows before the page is built (a direct visit showed every step's text overlapping while pictures loaded); the board's pictures fade in */
 html:not([data-ready]) .stage>:not(.pha):not(.hdr),html:not([data-ready]) .cam,html:not([data-ready]) .hdr .kitlnk{visibility:hidden}
 .bp img{transition:opacity .35s ease-out}.bp img.ldg{opacity:0}

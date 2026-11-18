@@ -1,6 +1,5 @@
-// The AVES Experience v0.4: Oil & Gas. Everything on screen comes from data/<kit>.json (built by ../tools/build_kit.py).
-// Left: the worker on the site, the category band, the hazard, three catalogue benefits pinned to the product, the product block.
-// Right: the stockroom shelf; while an item is held, the category's catalogue card (Why Choose AVES + the Approach artwork).
+
+
 (async () => {
 'use strict';
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
@@ -11,7 +10,7 @@ const [D, TYPE] = await Promise.all([fetch(`data/${KIT}.json`).then(r => r.json(
 const steps = D.steps, N = steps.length, F = D.frame, kit = D.kit;
 const SLOT = { head: 'Head', eye: 'Eye', hearing: 'Hearing', respiratory: 'Respiratory', vest: 'Hi-vis', fall: 'Fall', dropped: 'Dropped objects', hand: 'Hand' };
 const num = i => String(i + 1).padStart(2, '0');
-// a heading as a picture of the words (catalogue title face), usable in any colour
+
 const ty = (key, tag = 'span') => { const t = TYPE[key]; return t ? `<${tag} class="ty" role="img" aria-label="${esc(t.text)}" style="--m:url(assets/type/${key}.png);--ar:${(t.w / t.h).toFixed(4)}"></${tag}>` : ''; };
 const layerSrc = st => 'assets/layers/' + encodeURIComponent(st.layer) + '.png';
 const pic = (st, src) => `<img alt="" src="${src || st.image}">`;
@@ -19,12 +18,10 @@ const gsapOK = !!window.gsap; if (!gsapOK) throw new Error('GSAP did not load');
 gsap.registerPlugin(ScrollTrigger); gsap.config({ nullTargetWarn: false });
 const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// ---------- static DOM
 $('#bdA').src = D.backdrop; $('#rk').src = D.shelf;
 $('#kick').textContent = `Kit ${num(kit.index - 1)} / ${kit.of} · ${kit.group}`;
 $('#kname').innerHTML = ty('kit-' + kit.id); $('#signT').innerHTML = ty('sign-' + kit.id); $('#endT').innerHTML = ty('end-' + kit.id);
-// v0.4.1 item 2: the intro reads at a glance. The sentence's first half is the lead line; its second half repeated the hazards,
-// so the hazards are shown once, as a numbered list. Same facts, nothing added.
+
 const NUMW = ['', 'One hazard', 'Two hazards', 'Three hazards', 'Four hazards', 'Five hazards', 'Six hazards', 'Seven hazards'];
 $('#kintro').textContent = kit.intro.split(':')[0].trim() + '.';
 $('#khzN').textContent = `${NUMW[kit.hazards.length] || kit.hazards.length + ' hazards'} on this site`;
@@ -32,7 +29,7 @@ $('#khz').innerHTML = kit.hazards.map((h, i) => `<li><b>${num(i)}</b><span>${esc
 $('#cntN').textContent = N; $('#prog').innerHTML = steps.map(() => '<span></span>').join('');
 const manEl = $('#man');
 const lys = steps.map(st => { const im = new Image(); im.className = 'ly'; im.alt = ''; im.src = layerSrc(st); im.style.zIndex = st.z;
-  // draft art: the glasses layer has temples sticking out sideways; keep the front
+
   if (st.slot === 'eye') im.style.cssText += ';-webkit-mask-image:linear-gradient(90deg,transparent 41.4%,#000 42.6%,#000 56.6%,transparent 57.8%);mask-image:linear-gradient(90deg,transparent 41.4%,#000 42.6%,#000 56.6%,transparent 57.8%)';
   manEl.appendChild(im); return im; });
 $('#items').innerHTML = steps.map((st, i) => `<li class="it${st.pack ? ' has-pack' : ''}">${st.pack ? `<span class="pack${st.pack.pouch ? ' pouch' : ''}"><img alt="" src="${st.pack.src}"></span>` : ''}<span class="ph">${pic(st)}</span><span class="tag"><b>${num(i)}</b><em>${esc(st.name)}</em></span></li>`).join('');
@@ -57,16 +54,13 @@ const its = $$('.it'), flies = $$('.fly .f'), caps = $$('.cap .c'), cos = $$('#c
 await Promise.all([...document.images].map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; })));
 if (document.fonts && document.fonts.ready) await document.fonts.ready;
 
-// ---------- geometry + timeline (rebuilt on a real resize)
 const stage = $('#stage'), cam = $('#cam'), bd = $('#bd'), rack = $('#rack'), track = $('#track');
 let tl, st0, landAt = [], lastN = -1, builtW = 0, builtH = 0;
-// v0.4.1 item 4: the backdrop drawn in WebGL with depth (site-gl.js). Off under reduced motion or ?gl=0: the static photo.
+
 const site = (rm || q.get('gl') === '0' || !window.SiteGL) ? null : await SiteGL.create({ host: bd, img: $('#bdA'), fx: D.backdrop.replace(/\.jpg$/, '.fx.json'),
   time: q.has('t') ? +q.get('t') : null, fine: matchMedia('(hover: hover) and (pointer: fine)').matches });
 const GL = !!(site && site.ok); document.documentElement.dataset.dbg = GL ? 'gl' : 'static';
-// v0.4.1: the card is sized to its content. Budget = the space under the stockroom's counter; if a category does not fit
-// (small screens), the type steps down to 13 px and then the "full reasons" line goes. The Approach artwork is never scaled
-// below its width, so it stays exactly as printed.
+
 function fitCards() { const H = stage.clientHeight, budget = H - 152 - 24;
   cards.forEach(c => { const b = c.querySelector('.card-b'); if (!b) return; const more = b.querySelector('.more'); let fs = 15;
     gsap.set(c, { visibility: 'inherit' }); more.hidden = false; b.style.setProperty('--fs', fs + 'px'); b.style.setProperty('--th', '20px');
@@ -81,7 +75,7 @@ function build() {
   const manH = .91 * H, k = manH / F.h, manW = F.w * k, feetY = .905 * H, top = feetY - .9577 * manH, cx = .27 * W, left = cx - manW / 2;
   const Fp = { x: .31 * W, y: .43 * H };
   gsap.set(manEl, { left, top, width: manW, height: manH });
-  gsap.set('#cast', { left, top, width: manW, height: manH, skewX: -42, scaleY: .2 });       // sun low behind the camera: a short shadow falling away from it
+  gsap.set('#cast', { left, top, width: manW, height: manH, skewX: -42, scaleY: .2 });
   gsap.set('.contact', { left: cx - manW * .32, top: feetY - 15, width: manW * .64, height: 30 });
   const rw = rack.clientWidth, sc = Math.max(rw / D.rack.w, H / D.rack.h), ox = (rw - D.rack.w * sc) / 2, oy = (H - D.rack.h * sc) / 2, rackLeft = W - rw;
   const pos = steps.map((s, i) => { const [x, y, h] = s.place; const hh = h * sc, im = its[i].querySelector('.ph img'), ww = hh * ((im && im.naturalWidth / im.naturalHeight) || 1);
@@ -92,7 +86,7 @@ function build() {
   const o = { x: -.10 * W, y: -.16 * H }, bw0 = 1.2 * W, bh0 = 1.32 * H, bim = $('#bdA'), cs = Math.max(bw0 / bim.naturalWidth, bh0 / bim.naturalHeight), iw = bim.naturalWidth * cs, ih = bim.naturalHeight * cs;
   const iox = (bw0 - iw) * .5, ioy = (bh0 - ih) * .58;
   if (GL) site.setGeom({ bw: bw0, bh: bh0, ox: iox, oy: ioy, iw, ih, o, Fp, feet: { x: (cx - o.x - iox) / iw, y: (feetY - o.y - ioy) / ih } });
-  // a point of the photo (fractions) on the stage through bd transform b, including the depth displacement the shader draws
+
   const sitePt = (f, b) => { let lx = iox + f[0] * iw, ly = ioy + f[1] * ih;
     if (GL) { const dd = site.dispLocal(lx, ly, site.depthAt(f[0], f[1]), b); lx += dd.x; ly += dd.y; }
     return { x: o.x + lx * b.scale + b.x, y: o.y + ly * b.scale + b.y }; };
@@ -124,7 +118,7 @@ function build() {
   tl = gsap.timeline({ paused: true, defaults: { ease: 'power2.inOut' }, onUpdate: sync });
   tl.addLabel('intro', 0);
   tl.to('#intro', { autoAlpha: 0, x: -50, duration: .35, ease: 'power2.in' }, .15);
-  // v0.4.1 item 5: the stockroom eases in with the scroll (a short drift and a fade), it no longer slams in from the edge
+
   tl.fromTo(rack, { xPercent: 12, autoAlpha: 0 }, { xPercent: 0, autoAlpha: 1, duration: .85, ease: 'sine.inOut' }, .2);
   tl.fromTo('#rk', { scale: 1.05 }, { scale: 1, duration: .85, ease: 'sine.out' }, .2);
   tl.from(its, { y: -22, autoAlpha: 0, stagger: .05, duration: .3, ease: 'power2.out' }, .62);
@@ -148,16 +142,16 @@ function build() {
     tl.fromTo(c, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: .24, ease: 'power2.out' }, t + .74);
     tl.fromTo(c.querySelector('.rule'), { scaleX: 0 }, { scaleX: 1, duration: .24, ease: 'power2.out' }, t + .74);
     tl.fromTo(g, { autoAlpha: 0 }, { autoAlpha: 1, duration: .16, ease: 'power1.out' }, t + .8);
-    // v0.4.1 item 7: the hazard lands as a moment: label, the hazard word by word, a rule that draws, then where it happens.
+
     { const hz = g.querySelector('.hzl');
       tl.fromTo(hz.querySelector('.hk'), { x: -12, opacity: 0 }, { x: 0, opacity: 1, duration: .16, ease: 'power2.out' }, t + .78);
       tl.fromTo(hz.querySelector('.hk .hz'), { scale: .3, rotation: -18 }, { scale: 1, rotation: 0, duration: .22, ease: 'back.out(2.2)' }, t + .78);
       tl.fromTo(hz.querySelectorAll('.ht .w i'), { yPercent: 110 }, { yPercent: 0, duration: .22, stagger: .05, ease: 'power3.out' }, t + .82);
       tl.fromTo(hz.querySelector('.hr'), { scaleX: 0 }, { scaleX: 1, duration: .24, ease: 'power2.out' }, t + .92);
       tl.fromTo(hz.querySelector('.hw'), { y: 8, opacity: 0 }, { y: 0, opacity: 1, duration: .2, ease: 'power2.out' }, t + 1.0);
-      const ring = g.querySelector('.ln circle.s');   // the same amber pin, on the site: one pulse as the "where" line lands
+      const ring = g.querySelector('.ln circle.s');
       if (ring) tl.fromTo(ring, { scale: 2.6, transformOrigin: '50% 50%' }, { scale: 1, duration: .34, ease: 'power2.out' }, t + 1.0); }
-    tl.fromTo(g.querySelectorAll('.ln polyline'), { strokeDashoffset: -1 }, { strokeDashoffset: 0, duration: .2, stagger: .06, ease: 'power1.out' }, t + .84);   // leaders draw outward from the product
+    tl.fromTo(g.querySelectorAll('.ln polyline'), { strokeDashoffset: -1 }, { strokeDashoffset: 0, duration: .2, stagger: .06, ease: 'power1.out' }, t + .84);
     tl.fromTo(g.querySelectorAll('.ln circle'), { opacity: 0 }, { opacity: 1, duration: .1 }, t + .82);
     g.querySelectorAll('.bf').forEach((el, j) => tl.fromTo(el, { x: el.dataset.side === 'R' ? 12 : -12, opacity: 0 }, { x: 0, opacity: 1, duration: .18, ease: 'power2.out' }, t + .92 + j * .06));
     if (hasCard) { tl.to('#rkdim', { opacity: 1, duration: .28, ease: 'power1.out' }, t + 1.0); tl.fromTo(card, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: .3, ease: 'power3.out' }, t + 1.02); }
@@ -177,7 +171,7 @@ function build() {
   lastN = -1; sync();
   const dbg = q.get('step');
   if (dbg) { const lab = /^[a-z]/.test(dbg) ? dbg : 's' + dbg; tl.seek(tl.labels[lab] + parseFloat(q.get('d') || 0), false); sync();
-    if (GL && q.has('par')) { const b = { x: gsap.getProperty(bd, 'x'), y: gsap.getProperty(bd, 'y'), scale: gsap.getProperty(bd, 'scale') };   // debug: parallax in screen px per depth
+    if (GL && q.has('par')) { const b = { x: gsap.getProperty(bd, 'x'), y: gsap.getProperty(bd, 'y'), scale: gsap.getProperty(bd, 'scale') };
       document.documentElement.dataset.dbg = 'gl ' + [['sky', [.5, .15]], ['stack', [.42, .47]], ['red', [.297, .32]], ['rack', [.1, .45]], ['road', [.5, .75]]].map(([n, f]) => { const p = sitePt(f, b);
         let lx = iox + f[0] * iw, ly = ioy + f[1] * ih; const p0 = { x: o.x + lx * b.scale + b.x, y: o.y + ly * b.scale + b.y };
         return `${n}(${site.depthAt(f[0], f[1]).toFixed(2)}):${(p.x - p0.x).toFixed(0)},${(p.y - p0.y).toFixed(0)}`; }).join(' '); }
@@ -196,7 +190,6 @@ function sync() {
 build();
 if (GL) site.start();
 
-// ---------- scroll, keys, clicks
 let lenis = null;
 if (!q.get('step') && !rm && window.Lenis) {
   lenis = new Lenis({ lerp: .1, smoothWheel: true });
@@ -210,11 +203,10 @@ addEventListener('keydown', e => { if (!st0 || pdOpen) return; const L = labels(
   if (['ArrowDown', 'ArrowRight', 'PageDown', ' '].includes(e.key)) { const n = L.find(l => l[1] > now + .05); if (n) { e.preventDefault(); go(n[1]); } }
   if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(e.key)) { const p = L.filter(l => l[1] < now - .05).pop(); if (p) { e.preventDefault(); go(p[1]); } } });
 its.forEach((e, i) => e.addEventListener('click', () => st0 && go(tl.labels['s' + (i + 1)])));
-// phones and tablets fire resize whenever the address bar moves: rebuild only when the stage really changed
+
 let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { if (pdOpen) return;
   if (Math.abs(stage.clientWidth - builtW) < 2 && Math.abs(stage.clientHeight - builtH) < 90) return; build(); }, 200); });
 
-// ---------- product details. The page never scrolls while it is open and returns to exactly where it was.
 const pd = $('#pd'); let pdOpen = false, pdY = 0, pdFrom = null, pdTl = null;
 const stdHTML = s => s.split(/\s*·\s*/).filter(Boolean).map(x => `<li>${esc(x)}</li>`).join('');
 function pdHTML(st) { const c = D.cats[st.cat];
@@ -247,7 +239,7 @@ addEventListener('keydown', e => { if (e.key === 'Escape') closeDet(); });
 for (const ev of ['wheel', 'touchmove']) pd.addEventListener(ev, e => { if (!e.target.closest('#pdB') || $('#pdB').scrollHeight <= $('#pdB').clientHeight) e.preventDefault(); e.stopPropagation(); }, { passive: false });
 $('#quote').addEventListener('click', e => { e.currentTarget.textContent = 'Added (preview)'; });
 if (q.get('det')) openDet(steps[+q.get('det') - 1], null, true);
-// v0.4.1 item 2: the intro arrives once on load (not on the scrub): lead line, then the hazards one by one.
+
 if (!rm && !q.get('step') && scrollY < 4) gsap.timeline({ defaults: { ease: 'power3.out' } })
   .from('.intro .kicker, .intro h1', { y: 18, opacity: 0, duration: .5, stagger: .08 }, .1)
   .from('.intro .ki', { y: 14, opacity: 0, duration: .45 }, .3)

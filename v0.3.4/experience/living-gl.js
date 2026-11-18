@@ -1,11 +1,5 @@
-// The AVES Experience v0.3.2: living photographs. One WebGL context per canvas draws one or more "panels" (a picture
-// with its depth map) and moves a camera through the depth: near things travel further than far ones, so a still reads
-// as a slow cinematic shot. On top: haze bands, smoke / steam / dust plumes, flickering light points, light shafts and
-// particles (sparks, embers, dust motes, falling debris), all set per picture in living-fx.js (image-normalised coords).
-// Depth maps: Depth Anything V2 Small, made locally (../gen/depth_batch.py, after v0.6/tools/depth_map.py).
-// Pattern after v0.6/experience/site-gl.js (fixed-point inverse warp, adaptive quality). Transform-free: the canvas is
-// placed by its owner; the engine only draws. If WebGL is missing or frames run slow, ok goes false and the owner falls
-// back to its CSS motion.
+
+
 (function () {
 'use strict';
 const VS = `attribute vec2 p;uniform vec4 uRect;uniform vec2 uCv;varying vec2 v;
@@ -84,7 +78,7 @@ void main(){
   }
   gl_FragColor=vec4(c,uFade);
 }`;
-// particles: stateless, positions from time + seed; quads (streaks for sparks, soft discs otherwise)
+
 const PVS = `attribute vec2 aC;attribute vec2 aS;
 uniform vec4 uRect;uniform vec2 uCv,uImgO,uImgS,uPan;uniform float uZoom,uD0,uT,uType,uLife,uSize,uCount,uDE,uSc;
 uniform vec4 uEm,uDir;
@@ -149,7 +143,7 @@ function create(cv, opts) {
   const u2 = U(P2, ['uRect', 'uCv', 'uImgO', 'uImgS', 'uPan', 'uZoom', 'uD0', 'uT', 'uType', 'uLife', 'uSize', 'uCount', 'uDE', 'uSc', 'uEm', 'uDir', 'uCol', 'uA', 'uFade']);
   const quad = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, quad); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
   const a1 = gl.getAttribLocation(P1, 'p');
-  // particle buffer: 6 vertices per particle (corner xy, seed index, spare)
+
   const pv = new Float32Array(MAXP * 6 * 4); const C = [[-1, -1], [1, -1], [-1, 1], [-1, 1], [1, -1], [1, 1]];
   for (let i = 0; i < MAXP; i++) for (let j = 0; j < 6; j++) pv.set([C[j][0], C[j][1], i, 0], (i * 6 + j) * 4);
   const pbuf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, pbuf); gl.bufferData(gl.ARRAY_BUFFER, pv, gl.STATIC_DRAW);
@@ -161,8 +155,7 @@ function create(cv, opts) {
   let lost = false;
   cv.addEventListener('webglcontextlost', e => { e.preventDefault(); lost = true; api.ok = false; api.onFail && api.onFail('lost'); });
 
-  // ---- textures: decoded off the main thread where the browser can, uploaded one per frame (never on hover)
-  const pending = [];   // kit records waiting for upload
+  const pending = [];
   const mkTex = (src, fmt) => { const t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
@@ -177,7 +170,7 @@ function create(cv, opts) {
     if (api.kits[id]) return api.kits[id].p;
     const K = { id, ready: false, tex: null, dep: null };
     K.p = Promise.all([decode(imgUrl), decode(depUrl)]).then(([im, dm]) => {
-      // depth for JS: emitter depths
+
       const c = document.createElement('canvas'); c.width = 128; c.height = 160; const x = c.getContext('2d', { willReadFrequently: true });
       x.drawImage(dm, 0, 0, 128, 160); K.dd = x.getImageData(0, 0, 128, 160).data;
       K.im = im; K.dm = dm; K.w = im.width; K.h = im.height;
@@ -192,7 +185,6 @@ function create(cv, opts) {
     K.tex = mkTex(K.im, gl.RGB); K.dep = mkTex(K.dm, gl.LUMINANCE); K.ready = true;
     if (K.im.close) K.im.close(); if (K.dm.close) K.dm.close(); K.im = K.dm = null; K.res(); };
 
-  // ---- size: backing store = css size x min(dpr, maxScale) x q, never above maxH device px tall (the pictures are 1280 tall)
   let cssW = 1, cssH = 1;
   api.setSize = (w, h) => { cssW = Math.max(1, w); cssH = Math.max(1, h); applySize(); };
   function applySize() {
@@ -202,15 +194,13 @@ function create(cv, opts) {
     const changed = cv.width !== W || cv.height !== H;
     if (changed) { cv.width = W; cv.height = H; }
     gl.viewport(0, 0, W, H);
-    // v0.3.3: a resize clears a WebGL canvas; redraw in the same task so a cleared frame never reaches the screen
+
     if (changed && api.drawn && !lost) drawFrame(performance.now(), 0);
   }
 
-  // ---- one panel: { kit, fx (config), x, y, w, h (css px in the canvas), cover: {ox, oy, iw, ih} (local px),
-  //      pan: {x, y} (local px), zoom, d0, edge (px), t (s), fade (0..1), fxOn }
   const fxCache = new WeakMap();
   function prepFx(F, pnl) {
-    // resolve the image-normalised config into the panel's local px (cached per config + cover size)
+
     const cv0 = pnl.cover, key = cv0.ox + ',' + cv0.oy + ',' + cv0.iw + ',' + cv0.ih;
     let c = fxCache.get(F); if (c && c.key === key) return c;
     const L = (x, y) => [cv0.ox + x * cv0.iw, cv0.oy + y * cv0.ih];
@@ -232,7 +222,7 @@ function create(cv, opts) {
     if (x1 <= x0 || y1 <= y0) return true;
     gl.scissor(x0, cv.height - y1, x1 - x0, y1 - y0);
     gl.useProgram(P1);
-    gl.disableVertexAttribArray(aC); gl.disableVertexAttribArray(aS);   // first: the two programs share attribute slots
+    gl.disableVertexAttribArray(aC); gl.disableVertexAttribArray(aS);
     gl.bindBuffer(gl.ARRAY_BUFFER, quad); gl.enableVertexAttribArray(a1); gl.vertexAttribPointer(a1, 2, gl.FLOAT, false, 0, 0);
     gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, K.tex); gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, K.dep);
     gl.uniform4f(u1.uRect, n.x, n.y, n.w, n.h); gl.uniform2f(u1.uCv, cssW, cssH);
@@ -240,7 +230,7 @@ function create(cv, opts) {
     gl.uniform2f(u1.uPan, n.pan.x, n.pan.y); gl.uniform1f(u1.uZoom, n.zoom); gl.uniform1f(u1.uD0, n.d0 == null ? .2 : n.d0);
     gl.uniform1f(u1.uEdge, n.edge || 0); gl.uniform1f(u1.uT, t + 30); gl.uniform1f(u1.uFx, fxOn ? 1 : 0); gl.uniform1f(u1.uFade, 1);
     const HZ = F.haze || { a: 0 };
-    const am = (n.amp == null ? 1 : n.amp) * fxK;   // effects scale with the owner's amp and fade out as one when dropped
+    const am = (n.amp == null ? 1 : n.amp) * fxK;
     gl.uniform3f(u1.uHz, HZ.y || .5, HZ.w || .1, (HZ.a || 0) * am);
     gl.uniform3fv(u1.uHzC, HZ.c || [.9, .9, .9]); gl.uniform3fv(u1.uSmC, F.smoke || [.9, .9, .9]);
     gl.uniform3fv(u1.uGlC, F.glowColor || [1, .8, .5]); gl.uniform3fv(u1.uShC, (F.shafts && F.shafts.c) || BLACK);
@@ -264,7 +254,7 @@ function create(cv, opts) {
         const ty = TY[p.type] || 0;
         gl.blendFunc(gl.SRC_ALPHA, ty === 3 ? gl.ONE_MINUS_SRC_ALPHA : gl.ONE);
         gl.uniform1f(u2.uType, ty); gl.uniform1f(u2.uLife, p.life || 1.2); gl.uniform1f(u2.uSize, p.size || 3);
-        gl.uniform1f(u2.uCount, Math.min(MAXP, Math.round(p.n || 60)));   // v0.3.3: constant (v0.3.2 dropped 40 % of the particles in one frame on a quality step) gl.uniform1f(u2.uDE, de);
+        gl.uniform1f(u2.uCount, Math.min(MAXP, Math.round(p.n || 60)));
         gl.uniform4f(u2.uEm, p.at[0], p.at[1] * (n.cover.ih / n.cover.iw), p.at[2] || 0, (p.at[3] || 0) * (n.cover.ih / n.cover.iw));
         gl.uniform4f(u2.uDir, (p.ang || 0) * Math.PI / 180, (p.cone || 60) * Math.PI / 180, p.speed || .3, p.g || 0);
         gl.uniform3fv(u2.uCol, p.c || [1, .8, .5]); gl.uniform1f(u2.uA, p.a == null ? 1 : p.a);
@@ -275,21 +265,19 @@ function create(cv, opts) {
     return true;
   }
 
-  // ---- loop: the owner's frame(t, dt) returns the panels to draw, or null to keep the last frame
   let raf = 0, last = 0, slowN = 0, frameN = 0, running = false, fxK = 1, failed = false;
   api.frame = null; api.onFail = null; api.drawn = false;
   function tick(now) {
     raf = 0; if (lost || !running || document.hidden) return;
     const dt = Math.min(.1, (now - (last || now)) / 1000); last = now;
     if (pending.length) uploadOne();
-    // smoothness first: slow for ~1 s -> draw smaller (redrawn at once); then the effects fade out over ~1.2 s; then the
-    // owner is told (onFail 'slow') and fades the canvas out to its CSS motion itself. Nothing here is a one-frame swap.
+
     if (dt > 0 && !opts.fixedTime) { slowN = dt > .026 ? slowN + 1 : Math.max(0, slowN - 2); frameN++;
       if (slowN > 50 && frameN > 90) { slowN = 0; frameN = 0; api.stats.slow++;
         if (api.q > .5) { api.q = Math.max(.5, api.q - .25); applySize(); }
         else if (api.fx) api.fx = false;
         else if (!failed) { failed = true; api.ok = false; api.onFail && api.onFail('slow'); } } }
-    if (opts.forceSlow && !failed && performance.now() > opts.forceSlow) { failed = true; api.fx = false; api.ok = false; setTimeout(() => api.onFail && api.onFail('slow'), 1300); }   // debug (?slowtest): the drop path on demand
+    if (opts.forceSlow && !failed && performance.now() > opts.forceSlow) { failed = true; api.fx = false; api.ok = false; setTimeout(() => api.onFail && api.onFail('slow'), 1300); }
     fxK = api.fx ? Math.min(1, fxK + dt / 1.2) : Math.max(0, fxK - dt / 1.2);
     drawFrame(now, dt);
     raf = requestAnimationFrame(tick);
@@ -300,12 +288,12 @@ function create(cv, opts) {
       gl.disable(gl.SCISSOR_TEST); gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
       let all = true; for (const p of panels) all = drawPanel(p, p.t) && all;
       api.drawn = all; api.stats.frames++;
-      if (api.probe) { const px = new Uint8Array(4); gl.readPixels(api.probe[0], cv.height - 1 - api.probe[1], 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px); api.probeVal = Array.from(px); api.probeErr = gl.getError(); }   // debug: one pixel
+      if (api.probe) { const px = new Uint8Array(4); gl.readPixels(api.probe[0], cv.height - 1 - api.probe[1], 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px); api.probeVal = Array.from(px); api.probeErr = gl.getError(); }
       api.afterDraw && api.afterDraw(all);
     }
   }
   function kick() { if (running && !raf && !lost) raf = requestAnimationFrame(tick); }
-  api.start = () => { if (running) return; running = true; last = 0; kick(); };   // idempotent: callers may call it on every scroll event
+  api.start = () => { if (running) return; running = true; last = 0; kick(); };
   api.stop = () => { running = false; if (raf) cancelAnimationFrame(raf); raf = 0; };
   api.running = () => running;
   document.addEventListener('visibilitychange', () => { if (!document.hidden) { last = 0; kick(); } });

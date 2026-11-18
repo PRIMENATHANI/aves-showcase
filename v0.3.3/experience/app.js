@@ -1,9 +1,5 @@
-/* The AVES Experience v0.3.1 (picker and header redesigned; stage as v0.3): picker -> walk-on -> pinned outfitting stage -> close.
-   Data-driven from data/kits.json, data/products.json and assets/dress/manifest.json.
-   Debug queries: ?kit=<id> (deep link), ?pick=<id> (picker, then auto-pick), ?hover=<id>,
-   ?step=walk|<1..n>|close|more (jump the scroll; no Lenis, scrub locked), ?rm (force reduced motion). */
-// Sister-brand items on the figure (Salman, 2026-11-06: no links; the same name / SKU / standards / why data as the AVES products).
-// Facts from the PTFs (spikes/dress-v0.2-bench/refs-v2/<item>/description.txt). Never called AVES.
+
+
 const SISTER = {
   vest:  { brand: 'Scuta', name: 'Reflector Safety Vest', sku: '3116RR71', standards: 'EN ISO 20471:2013+A1:2016 Class 2',
            why: 'Class 2 hi-vis waistcoat, two 5 cm reflective bands round the torso and one over each shoulder' },
@@ -23,26 +19,26 @@ const DEBUG = STEP !== null || Q.has('hover');
 const ROOT = '../../';
 const DRESS = ROOT + 'assets/dress/';
 const FALLBACK_BASE = ROOT + 'spikes/dress-v0.2/frames/00.jpg';
-// Donning order (Salman's concept): sister-brand vest goes on in the sequence.
+
 const ORDER = ['head', 'eye', 'hearing', 'respiratory', 'face', 'vest', 'fall', 'dropped', 'hand', 'cryo-body'];
 const GROUPS = ['Energy', 'Build', 'Make', 'Move', 'Extract & Handle'];
 const FRAME = { w: 896, h: 1536 };
-const UNIT_VH = 70;          // scroll length per timeline unit, in viewport heights (%)
+const UNIT_VH = 70;
 
 let kits = [], kitById = {}, products = {}, manifest = null;
 let lenis = null, tl = null, steps = [], K = null;
-const bdState = {};          // kitId -> 'ok' | 'missing'
+const bdState = {};
 
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const lerp = (a, b, t) => a + (b - a) * t;
 const isPhone = () => matchMedia('(max-width:759px)').matches;
-// v0.3.2 scale: 1 at 1440 x 900 and below, then min(w/1440, h/900), capped 2.2 (the head script sets it before first paint)
+
 const calcScale = () => (matchMedia('(max-width:1023px)').matches ? 1 : Math.max(1, Math.min(2.2, innerWidth / 1440, innerHeight / 900)));
 const uScale = () => +getComputedStyle(document.documentElement).getPropertyValue('--s') || 1;
 addEventListener('resize', () => document.documentElement.style.setProperty('--s', calcScale().toFixed(4)));
 const dispName = p => { let n = (p.name || p.id).replace(/\s+[–-]\s+/g, '-'); if (p.sku && /^\d{5,}/.test(p.sku) && n.startsWith(p.sku + ' ')) n = n.slice(p.sku.length + 1); return n; };
-const hue = id => { let h = 0; for (const c of id) h = (h * 31 + c.charCodeAt(0)) >>> 0; return 190 + (h % 70); }; // cool, muted range
+const hue = id => { let h = 0; for (const c of id) h = (h * 31 + c.charCodeAt(0)) >>> 0; return 190 + (h % 70); };
 const getJSON = async (url, optional) => {
   try { const r = await fetch(url, { cache: 'no-cache' }); if (!r.ok) throw new Error(url + ' ' + r.status); return await r.json(); }
   catch (e) { if (optional) return null; throw e; }
@@ -51,14 +47,13 @@ const loadImg = src => new Promise(res => { const im = new Image(); im.decoding 
 const timeout = (p, ms) => Promise.race([p, new Promise(r => setTimeout(r, ms))]);
 const offsetRel = (el, anc) => { let x = 0, y = 0; while (el && el !== anc) { x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; } return { x, y }; };
 
-/* ---------- backdrops ---------- */
 const gradHTML = k => `<div class="grad" style="--h:${hue(k.id)}"><span class="gname">${esc(k.name)}</span></div>`;
 function bdHTML(k, lazy) {
   const listed = manifest && Array.isArray(manifest.backdrops) ? manifest.backdrops.includes(k.id) : null;
   if (bdState[k.id] === 'missing' || listed === false) return gradHTML(k);
   return `<img src="${DRESS}backdrops/${k.id}.jpg" alt="" ${lazy ? 'loading="lazy"' : ''} decoding="async" data-bd="${k.id}">`;
 }
-// A missing backdrop file swaps itself for the gradient; remembered so it is not requested again.
+
 document.addEventListener('error', e => {
   const im = e.target;
   if (!(im instanceof HTMLImageElement) || !im.dataset.bd) return;
@@ -68,23 +63,18 @@ document.addEventListener('error', e => {
 document.addEventListener('load', e => { const im = e.target; if (im instanceof HTMLImageElement && im.dataset.bd) bdState[im.dataset.bd] = 'ok'; }, true);
 document.addEventListener('click', e => { const a = e.target.closest('a[data-todo]'); if (a) e.preventDefault(); });
 
-/* ================= picker (v0.3.1) ================= */
-// Picker images: own set (v0.3.1/experience/assets/picker/<id>-{512,1024}.webp). Kits not listed yet fall back to
-// the stage backdrop with a lift grade. The stage itself always uses assets/dress/backdrops.
 const PIMG = new Set(['oil-gas', 'rig-drilling', 'electrical', 'construction', 'heavy-machinery', 'demolition', 'manufacturing', 'assembly-line', 'woodworking', 'mechanical', 'power-tool', 'welding', 'logistics', 'aviation', 'railway', 'mining', 'forestry', 'cryogenic']);
-// Industry icons (see NOTES.md: 9 AVES brand tiles/ADS glyphs + 9 new drawings pending brand approval).
-// A missing file falls back to the kit number in the same place (onerror below).
-const ICON = Object.assign(Object.fromEntries(['oil-gas', 'rig-drilling', 'electrical', 'construction', 'heavy-machinery', 'demolition', 'manufacturing', 'assembly-line', 'woodworking', 'mechanical', 'power-tool', 'welding', 'logistics', 'aviation', 'railway', 'mining', 'forestry', 'cryogenic'].map(k => [k, k])), Q.has('noicon') ? { [Q.get('noicon')]: 'missing-test' } : {});   // kit -> icon file stem; drop a kit to fall back to its number
+
+const ICON = Object.assign(Object.fromEntries(['oil-gas', 'rig-drilling', 'electrical', 'construction', 'heavy-machinery', 'demolition', 'manufacturing', 'assembly-line', 'woodworking', 'mechanical', 'power-tool', 'welding', 'logistics', 'aviation', 'railway', 'mining', 'forestry', 'cryogenic'].map(k => [k, k])), Q.has('noicon') ? { [Q.get('noicon')]: 'missing-test' } : {});
 const PICK = 'assets/picker/', ICONS = 'assets/icons/';
-const SLOWTEST = () => Q.has('slowtest') ? performance.now() + (parseFloat(Q.get('slowtest')) || 8000) : 0;   // debug: force the slow-frame drop path after n ms
-const compact = () => matchMedia('(max-width:1023px)').matches;   // picker switches to rows of named slices below 1024
-// Rest-strip focus: where the subject sits off centre, the closed slice shows it; opening pans back to the full frame.
-// Value = shift as a fraction of the picture width (+ moves the picture right, showing its left part).
+const SLOWTEST = () => Q.has('slowtest') ? performance.now() + (parseFloat(Q.get('slowtest')) || 8000) : 0;
+const compact = () => matchMedia('(max-width:1023px)').matches;
+
 const FOCUS = { manufacturing: 0.27 };
-const G_OPEN = 7;            // open slice = 7 rest slices wide
+const G_OPEN = 7;
 const ARROW = '<svg viewBox="0 0 18 12" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
 function pimgHTML(k, cls, n) {
-  const lazy = n > 6 && compact() ? ' loading="lazy"' : '';   // compact layout scrolls: pictures past the first six load as they near the screen
+  const lazy = n > 6 && compact() ? ' loading="lazy"' : '';
   if (PIMG.has(k.id)) return `<img class="${cls}" alt="" decoding="async"${lazy} src="${PICK}${k.id}-1024.webp" srcset="${PICK}${k.id}-512.webp 512w, ${PICK}${k.id}-1024.webp 1024w" sizes="${compact() ? (isPhone() ? '34vw' : '17vw') : '560px'}" data-pk="${k.id}">`;
   return bdHTML(k, false).replace('<img ', `<img class="${cls} old" `);
 }
@@ -111,15 +101,13 @@ function buildPicker() {
   const btns = [...host.querySelectorAll('.slice')];
   let cur = null;
 
-  // fixed image width = the open width (or 4:5 of the row height if wider): the open only moves the clip edge,
-  // the picture never rescales mid-open
   const size = () => {
     if (compact()) { host.style.removeProperty('--imgW'); return; }
     const S = uScale();
     const gaps = (groups.length - 1) * 24 * S + (N - groups.length) * 2 * S;
     const unit = (host.clientWidth - gaps) / (N - 1 + G_OPEN);
     const openW = unit * G_OPEN, rowH = host.querySelector('.row').clientHeight;
-    // +80u: room for the drift travel and the pointer depth on the open slice, so the picture never shows an edge
+
     host.style.setProperty('--imgW', Math.ceil(Math.max(openW, rowH * 0.8) + 80 * S) + 'px');
     host.style.setProperty('--infoW', Math.floor(openW - 48 * S) + 'px');
     P.imgW = Math.ceil(Math.max(openW, rowH * 0.8) + 80 * S); P.rowH = rowH;
@@ -132,12 +120,11 @@ function buildPicker() {
     const kids = b.querySelectorAll('.info > *');
     gsap.killTweensOf(kids);
     gsap.fromTo(kids, { y: 22, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, ease: 'expo.out', stagger: 0.045, delay: 0.14, overwrite: true });
-    // v0.3.3: the picture no longer re-zooms on open. v0.3.2 set .rev to scale 1.07 in one frame and eased it back, a 7 %
-    // size jump of the picture on every slice change (the owner's "flicker"). The picture now only drifts and widens.
+
   };
   const setOn = (b, instant) => {
     if (b === cur) return;
-    gsap.set([cur, b].filter(Boolean).map(x => x.querySelector('.rest')), { clearProps: 'opacity,visibility' });   // CSS decides again (the entrance may have set them)
+    gsap.set([cur, b].filter(Boolean).map(x => x.querySelector('.rest')), { clearProps: 'opacity,visibility' });
     cur = b;
     btns.forEach(x => x.classList.toggle('on', x === b));
     host.querySelectorAll('.grp').forEach(g => g.classList.toggle('has-on', !!b && g.contains(b)));
@@ -147,7 +134,7 @@ function buildPicker() {
   };
   let hoverT = 0;
   btns.forEach((b, i) => {
-    // a short intent delay so a fast sweep across the row does not open every slice on the way
+
     b.addEventListener('mouseenter', () => { clearTimeout(hoverT); hoverT = setTimeout(() => setOn(b), 70); });
     b.addEventListener('mouseleave', () => clearTimeout(hoverT));
     b.addEventListener('focus', () => setOn(b));
@@ -165,20 +152,17 @@ function buildPicker() {
   return P;
 }
 
-// Life in the picker: slow drift inside each slice, pointer depth between picture and label, one entrance.
 function animatePicker(P) {
   const { btns, picker, host } = P;
   const imgs = btns.map(b => b.querySelector('.pimg'));
   if (RM) return;
-  // drift: each picture pans and breathes on its own slow clock (transform only), paused when off screen.
-  // Rebuilt when the layout crosses 1024 px (the base offset differs: centred fixed-width picture vs full-width).
+
   let drift = [];
   const startDrift = () => {
     drift.forEach(t => t && t.kill());
     drift = imgs.map((im, i) => {
       if (!im) return null;
-      // v0.3.2: real travel. Desktop: 6 to 9 % of the picture width side to side, 3 % up and down, a slow push in;
-      // 9 to 13 s per leg, every slice on its own phase so the wall is never still. Phone tiles: the gentle v0.3.1 drift.
+
       const c = compact(), base = c ? 0 : -50, sg = i % 2 ? 1 : -1;
       const d = sg * (c ? 2.2 + (i * 7 % 5) * 0.35 : 6 + (i * 7 % 5) * 0.8), dy = c ? 0 : -sg * 3;
       gsap.set(im, { xPercent: base - d / 2, yPercent: -dy / 2, scale: c ? 1.05 : 1.06, transformOrigin: '50% 60%' });
@@ -191,7 +175,7 @@ function animatePicker(P) {
     const io = new IntersectionObserver(es => es.forEach(e => { const t = drift[btns.indexOf(e.target)]; if (t) e.isIntersecting ? t.resume() : t.pause(); }));
     btns.forEach(b => io.observe(b));
   }
-  // pointer depth (desktop layout, fine pointer): the pictures slide against the pointer, the labels stay put
+
   if (matchMedia('(pointer:fine)').matches) {
     const pars = btns.map(b => b.querySelector('.par'));
     const qx = pars.map(p => gsap.quickTo(p, 'x', { duration: 0.9, ease: 'power3.out' }));
@@ -203,8 +187,7 @@ function animatePicker(P) {
     picker.addEventListener('pointerleave', () => { for (let i = 0; i < pars.length; i++) { qx[i](0); qy[i](0); } });
   }
   if (DEBUG || Q.has('pick')) return;
-  // v0.3.2: below the hero. Coming back (to-picker): the wall is simply there. From the hero on desktop: the entrance
-  // is scroll-linked, the wall rising as the hero recedes (whole slices move, so the open/rest label rules stay CSS's).
+
   const heroMode = HERO();
   if (heroMode && document.documentElement.classList.contains('to-picker')) return;
   if (heroMode && !compact()) {
@@ -215,11 +198,11 @@ function animatePicker(P) {
       .fromTo(btns, { yPercent: 55, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: .55, ease: 'power2.out', stagger: .02 }, .1);
     return;
   }
-  // entrance: title, sector rails, then the slices rise left to right, labels last
+
   picker.classList.add('pre');
   const first = imgs.slice(0, compact() ? 6 : 18).filter(Boolean).map(im => im.decode ? im.decode().catch(() => {}) : null);
   timeout(Promise.all(first.concat(document.fonts.ready)), 1600).then(() => {
-    // compact (scrolling) layout: slices below the fold rise as they scroll in, not unseen at load
+
     const below = compact() ? btns.filter(b => b.getBoundingClientRect().top > innerHeight) : [];
     const revs = btns.filter(b => !below.includes(b)).map(b => b.querySelector('.rev'));
     if (below.length) {
@@ -231,7 +214,7 @@ function animatePicker(P) {
       } });
     }
     const tl = gsap.timeline({ onComplete: () => gsap.set(btns.filter(b => !below.includes(b)).map(b => b.querySelector('.rest')), { clearProps: 'opacity,visibility' }) });
-    if (revs.length) gsap.set(revs, { y: 0, yPercent: 101 }); picker.classList.remove('pre');   // y:0 drops the px offset GSAP reads from the .pre CSS transform
+    if (revs.length) gsap.set(revs, { y: 0, yPercent: 101 }); picker.classList.remove('pre');
     gsap.set(['.p-title', '.grp .gl', '.slice:not(.on) .rest', '.slice.on .info > *'], { autoAlpha: 0 });
     const restsIn = btns.filter(b => !b.classList.contains('on') && !below.includes(b)).map(b => b.querySelector('.rest'));
     const split = SplitText.create('#ptitle', { type: 'chars' });
@@ -242,22 +225,12 @@ function animatePicker(P) {
       .to(revs.length ? revs : {}, { yPercent: 0, duration: 1.05, ease: 'expo.out', stagger: compact() ? 0.05 : 0.035 }, 0.15)
       .to(restsIn.length ? restsIn : {}, { autoAlpha: 1, duration: 0.5, ease: 'power1.out', stagger: 0.025 }, 0.75)
       .fromTo('.slice.on .info > *', { y: 22, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, ease: 'expo.out', stagger: 0.05 }, 0.95);
-    if (heroMode) { tl.pause(); ScrollTrigger.create({ trigger: picker, start: 'top 80%', once: true, onEnter: () => tl.play() }); }   // phone: plays as the picker comes up
+    if (heroMode) { tl.pause(); ScrollTrigger.create({ trigger: picker, start: 'top 80%', once: true, onEnter: () => tl.play() }); }
   });
 }
 
-// Living photograph on the OPEN slice: one WebGL canvas (living-gl.js) that sits in the open slice exactly over its
-// picture (same box, same drift transform copied every frame after GSAP has moved the picture), so at camera rest it is
-// pixel-identical to the <img> under it.
-// v0.3.3 hand-over, every change continuous (no swaps):
-//   in:    the canvas is moved to the new slice while invisible, draws its first frame at camera rest (= the <img>),
-//          fades in (opacity driven here, per frame, not by a CSS transition), and only once fully in does the camera
-//          start its loop.
-//   out:   the camera and the effects ease back to rest FIRST (the canvas still opaque, the picture still moving
-//          smoothly), then the canvas fades out over a picture identical to it: no double image.
-//   slow frames / no WebGL: the same out path, then the canvas goes and the CSS drift carries on alone.
 function livingPicker(P) {
-  if (RM || !window.LivingGL || Q.has('nogl') || compact()) return null;   // phone / tablet tiles: CSS drift only, nothing loads
+  if (RM || !window.LivingGL || Q.has('nogl') || compact()) return null;
   const cv = document.createElement('canvas'); cv.className = 'lgl'; cv.setAttribute('aria-hidden', 'true');
   const L = LivingGL.create(cv, { maxScale: 1.25, maxH: 1500, fixedTime: Q.has('t'), forceSlow: SLOWTEST() });
   if (!L.ok) return null;
@@ -265,12 +238,12 @@ function livingPicker(P) {
   const urls = id => [PICK + id + '-1024.webp', 'assets/living/' + id + '-depth.webp'];
   let slot = null, want = null, img = null, kit = null, amp = 0, ampT = 0, op = 0, opT = 0, leaving = false, failing = false, dead = false, t0 = performance.now(), loadFor = null;
   const T_FIX = Q.has('t') ? parseFloat(Q.get('t')) : null;
-  const FADE = 0.3;                     // s, canvas fade in / out (over an identical picture)
+  const FADE = 0.3;
   const sync = () => { if (slot && img && img.style.transform) { cv.style.transform = img.style.transform; cv.style.transformOrigin = img.style.transformOrigin; } };
-  gsap.ticker.add(sync);                // after GSAP's own render in the same frame: the canvas never lags its picture
+  gsap.ticker.add(sync);
   const setOp = v => { op = v; cv.style.opacity = v.toFixed(3); cv.classList.toggle('in', v > 0); };
   setOp(0);
-  const sizeCv = () => { if (slot) L.setSize(cv.clientWidth || P.imgW, cv.clientHeight || P.rowH); };   // setSize redraws at once (no cleared frame)
+  const sizeCv = () => { if (slot) L.setSize(cv.clientWidth || P.imgW, cv.clientHeight || P.rowH); };
   addEventListener('resize', sizeCv);
   const attach = b => {
     slot = b; img = b.querySelector('.pimg'); kit = b.dataset.id;
@@ -284,22 +257,22 @@ function livingPicker(P) {
     loadFor = b;
     L.load(id, ...urls(id)).then(() => { if (want === b && loadFor === b && op === 0 && !dead && !failing) attach(b); });
   };
-  // first drawn frame after an attach (camera at rest = the <img>): fade in
+
   L.afterDraw = ok => { if (ok && slot && slot === want && !leaving && !failing && opT === 0 && op === 0) opT = 1; };
   P.onOn = b => {
     want = b; if (dead || compact()) return;
     if (slot === b) { if (leaving) { leaving = false; opT = 1; if (op >= 1) ampT = 1; } return; }
-    if (slot && op > 0) { leaving = true; ampT = 0; }     // ease back to rest, then fade (frame below), then move
+    if (slot && op > 0) { leaving = true; ampT = 0; }
     else go();
   };
-  L.onFail = why => {   // slow or lost: leave the same continuous way, then stop for good
+  L.onFail = why => {
     if (dead) return; failing = true; ampT = 0; leaving = true;
     if (why === 'lost' || op === 0) { dead = true; L.stop(); cv.remove(); }
   };
   L.frame = (now, dt) => {
     if (!slot || compact()) return null;
     if (!L.ready(kit)) return null;
-    // the camera eases in over about 2.5 s once the canvas is fully in, and back to rest in about 0.45 s
+
     amp += (ampT - amp) * (1 - Math.exp(-dt * (ampT > amp ? 1.1 : 10)));
     if (leaving && amp < .015) { amp = 0; opT = 0; }
     if (op !== opT) {
@@ -314,16 +287,16 @@ function livingPicker(P) {
     const F = FX[kit] || {}, cam = F.cam || {};
     const w = cv.clientWidth, h = cv.clientHeight, t = T_FIX != null ? T_FIX : (performance.now() - t0) / 1000;
     const om = Math.PI * 2 / (cam.T || 12), m = Math.min(w, h), A = (cam.amp || .04) * m * amp;
-    if (Q.has('amp0')) amp = 0;   // debug: zero travel and no effects (alignment check against the <img>)
+    if (Q.has('amp0')) amp = 0;
     const ph = om * t;
-    // the camera loop: a slow figure-eight pan and a dolly in and out on the same period, so it never visibly resets
+
     const pan = { x: A * Math.sin(ph), y: A * .45 * Math.sin(2 * ph + .7) };
     const zoom = (cam.zoom || .06) * amp * (.5 - .5 * Math.cos(ph));
-    // the picture is drawn exactly as object-fit: cover draws it in the same box
+
     const k = Math.max(w / 1024, h / 1280), iw = 1024 * k, ih = 1280 * k;
     return [{ kit, fx: F, x: 0, y: 0, w, h, cover: { ox: (w - iw) / 2, oy: (h - ih) / 2, iw, ih }, pan, zoom, d0: cam.d0 == null ? .2 : cam.d0, edge: 36, t: t + 5, amp: Math.min(1, amp * 1.6) }];
   };
-  // pictures go to the GPU after the entrance, one per frame, nearest the open slice first
+
   const preload = () => {
     if (dead) return;
     const order = P.btns.map((b, i) => ({ id: b.dataset.id, i })), ci = Math.max(0, P.btns.indexOf(want));
@@ -338,7 +311,6 @@ function livingPicker(P) {
   return api;
 }
 
-// a missing icon file: the rest glyph goes (the number above it stays); the open tile becomes a number tile of the same footprint
 document.addEventListener('error', e => {
   const im = e.target;
   if (!(im instanceof HTMLImageElement)) return;
@@ -347,26 +319,24 @@ document.addEventListener('error', e => {
 }, true);
 
 let picking = false;
-addEventListener('pageshow', () => { picking = false; });   // coming back with the browser's Back button
-// kits rebuilt to the new standard open their own page (the old stage stays reachable with ?kit=<id>)
-const REBUILT = Object.fromEntries(['oil-gas', 'rig-drilling', 'electrical', 'construction', 'heavy-machinery', 'demolition', 'manufacturing', 'assembly-line', 'woodworking', 'mechanical', 'power-tool', 'welding', 'logistics', 'aviation', 'railway', 'mining', 'forestry', 'cryogenic'].map(k => [k, '../../v0.8/experience/?kit=' + k]));   // v0.3.3: all 18 kits open their v0.8 page
+addEventListener('pageshow', () => { picking = false; });
+
+const REBUILT = Object.fromEntries(['oil-gas', 'rig-drilling', 'electrical', 'construction', 'heavy-machinery', 'demolition', 'manufacturing', 'assembly-line', 'woodworking', 'mechanical', 'power-tool', 'welding', 'logistics', 'aviation', 'railway', 'mining', 'forestry', 'cryogenic'].map(k => [k, '../../v0.8/experience/?kit=' + k]));
 function pick(k, btn) {
   if (picking || !k) return; picking = true;
-  try { sessionStorage.setItem('aves-picked', '1'); } catch (e) {}   // coming back (All kits -> site root -> here) lands on the picker, not the intro
+  try { sessionStorage.setItem('aves-picked', '1'); } catch (e) {}
   if (REBUILT[k.id]) { location.href = REBUILT[k.id]; return; }
   history.pushState({ kit: k.id }, '', '?kit=' + encodeURIComponent(k.id));
   if (RM) { openKit(k, null); return; }
   const r = btn.getBoundingClientRect(), vw = innerWidth, vh = innerHeight;
   const zoom = document.createElement('div');
   zoom.className = 'zoom';
-  // the picker picture grows to full screen, then the stage backdrop (with the stage grade) fades in over it,
-  // so when the zoom fades out the stage beneath shows the same picture
+
   zoom.innerHTML = `<div class="zin">${pimgHTML(k, 'zimg').replace(/ sizes="[^"]*"/, ' sizes="100vw"')}<div class="zst">${bdHTML(k, false)}</div></div><div class="zveil"></div>`;
   document.body.appendChild(zoom);
   const zin = zoom.firstChild, zst = zin.querySelector('.zst');
   const s0 = { x: r.left, y: r.top, sx: r.width / vw, sy: r.height / vh };
-  // start the overlay picture exactly where and how large the slice shows it (its box can be wider than the
-  // slice and is drifting), then grow it to cover on the same progress: no jump on click
+
   const pim = btn.querySelector('.pimg'), zim = zin.querySelector('.zimg');
   let z0 = null;
   if (pim && zim && pim.naturalWidth) {
@@ -388,15 +358,9 @@ function pick(k, btn) {
   const pr = { p: 0 };
   gsap.to(pr, { p: 1, duration: 0.8, ease: 'power3.inOut', delay: 0.08, onUpdate: () => apply(pr.p), onComplete: () => openKit(k, zoom) });
   gsap.to(zst, { opacity: 1, duration: 0.45, ease: 'power1.inOut', delay: 0.5 });
-  gsap.to(zoom.querySelector('.zveil'), { opacity: 0, duration: 0.45, ease: 'power1.out', delay: 0.1 });   // the open slice's shade lifts as it grows
+  gsap.to(zoom.querySelector('.zveil'), { opacity: 0, duration: 0.45, ease: 'power1.out', delay: 0.1 });
 }
 
-
-/* ================= hero (v0.3.2) ================= */
-// The strip behind the words: twelve of the industry pictures as tall panels, passing slowly right to left like a
-// tracking shot. With WebGL each panel is a living photograph (living-gl.js): its depth parallax follows its place on
-// the screen (near things overtake far ones as the panel crosses), with the same ambient effects as the open slice.
-// Without WebGL (or slow frames) the same strip moves as plain pictures; reduced motion = still.
 const HERO_KITS = ['oil-gas', 'welding', 'aviation', 'construction', 'forestry', 'power-tool', 'cryogenic', 'mining', 'rig-drilling', 'railway', 'demolition', 'manufacturing'];
 const HERO = () => !document.documentElement.classList.contains('no-hero');
 function buildHero() {
@@ -405,20 +369,18 @@ function buildHero() {
   const phone = isPhone();
   const S = () => uScale();
   const H = () => hero.clientHeight, PW = () => H() * .62, GAP = () => 3 * S();
-  // CSS strip: two copies of the set, so the loop is seamless
-  // v0.3.3: each picture in its own clip, zoomed 1.07 like the GL panels, so the CSS strip and the living strip frame the
-  // pictures the same way (the cross-fade between them is not a zoom)
+
   strip.innerHTML = HERO_KITS.concat(HERO_KITS).map((id, i) => `<span class="hp"><img alt="" decoding="async"${i > 3 ? ' loading="lazy"' : ''} src="${PICK}${id}-${phone ? 512 : 1024}.webp"></span>`).join('');
   const setHH = () => hero.style.setProperty('--hh', H() + 'px');
   setHH(); addEventListener('resize', setHH);
-  const speed = () => 22 * Math.min(S(), H() / 900) * (phone ? .8 : 1);   // px per second
+  const speed = () => 22 * Math.min(S(), H() / 900) * (phone ? .8 : 1);
   let off = 0, cssTween = null, gl = null, glOn = false, visible = true;
-  if (Q.has('hoff')) off = (parseFloat(Q.get('hoff')) || 0) * (PW() + GAP());   // debug: start the strip n panels on
+  if (Q.has('hoff')) off = (parseFloat(Q.get('hoff')) || 0) * (PW() + GAP());
   const loopW = () => HERO_KITS.length * (PW() + GAP());
-  // CSS motion (fallback): a linear GSAP ticker drives the strip
+
   const cssTick = (t, dt) => { if (glOn || !visible) return; off = (off + speed() * dt / 1000) % loopW(); gsap.set(strip, { x: -off }); };
   if (!RM) gsap.ticker.add(cssTick);
-  // living strip
+
   if (!RM && window.LivingGL && !Q.has('nogl')) {
     const cv = document.createElement('canvas'); cv.className = 'h-gl'; cv.setAttribute('aria-hidden', 'true');
     const L = LivingGL.create(cv, { maxScale: phone ? 1.5 : 1.25, maxH: 1500, fixedTime: Q.has('t'), forceSlow: SLOWTEST() });
@@ -427,8 +389,7 @@ function buildHero() {
       const FX = window.LIVING_FX || {}, T_FIX = Q.has('t') ? parseFloat(Q.get('t')) : null;
       const size = () => L.setSize(cv.clientWidth, cv.clientHeight);
       size(); addEventListener('resize', size);
-      // desktop: the five first panels at once, the rest after a beat; phone: the 512 pictures, only the panel on
-      // screen and the next two (one panel takes about 30 s to cross)
+
       const ld = id => L.load(id, PICK + id + (phone ? '-512.webp' : '-1024.webp'), 'assets/living/' + id + '-depth.webp');
       const ahead = () => { const step = PW() + GAP(), i0 = Math.floor(off / step); for (let i = i0; i < i0 + 3; i++) ld(HERO_KITS[((i % HERO_KITS.length) + HERO_KITS.length) % HERO_KITS.length]); };
       if (phone) { ahead(); setInterval(ahead, 4000); }
@@ -440,13 +401,13 @@ function buildHero() {
         const w = cv.clientWidth, h = cv.clientHeight, pw = PW(), g = GAP(), step = pw + g, N = HERO_KITS.length;
         const out = [];
         const i0 = Math.floor(off / step);
-        if (glOn) gsap.set(strip, { x: -off });   // v0.3.3: the hidden CSS strip stays in step, ready if the canvas ever has to go
+        if (glOn) gsap.set(strip, { x: -off });
         for (let i = i0; i * step - off < w; i++) {
           const x = i * step - off, id = HERO_KITS[((i % N) + N) % N];
           if (x + pw < 0) continue;
-          if (!L.ready(id)) return null;   // v0.3.3: a picture not on the GPU yet: hold the last frame, never draw a hole
+          if (!L.ready(id)) return null;
           const F = FX[id] || {}, cam = F.cam || {};
-          // panel position on screen, -1 (left edge) .. 1 (right edge): near things lead as the panel crosses
+
           const c = (x + pw / 2 - w / 2) / (w / 2 + pw / 2);
           const A = (cam.amp || .04) * pw;
           const k = Math.max(pw / 1024, h / 1280) * 1.07, iw = 1024 * k, ih = 1280 * k;
@@ -457,7 +418,7 @@ function buildHero() {
         return out;
       };
       L.afterDraw = all => { if (all && !glOn) { glOn = true; cv.classList.add('in'); setTimeout(() => { if (glOn) strip.style.visibility = 'hidden'; }, 950); } };
-      // v0.3.3: dropping the living strip is a cross-fade to the CSS strip at the same place, not a swap
+
       L.onFail = why => { gsap.set(strip, { x: -off }); strip.style.visibility = '';
         const done = () => { glOn = false; L.stop(); cv.remove(); };
         if (why === 'lost') done(); else { cv.style.transition = 'none'; gsap.fromTo(cv, { opacity: +getComputedStyle(cv).opacity }, { opacity: 0, duration: .9, ease: 'power1.inOut', onComplete: done }); } };
@@ -472,7 +433,6 @@ function buildHero() {
   return api;
 }
 
-// entrance of the hero: picture up from black, then the words in sequence
 function heroEntrance() {
   const hero = $('#hero');
   if (RM || !hero || !HERO() || document.documentElement.classList.contains('to-picker')) return;
@@ -494,18 +454,17 @@ function heroEntrance() {
   });
 }
 
-// the hero recedes as the wall of industries rises: scroll-linked (scrubbed, no snapping), transform + opacity only
 function heroScroll(H, P, LV) {
   const hero = $('#hero'), picker = $('#picker');
   if (!hero || !HERO()) return;
   const runFor = () => {
     const y = scrollY, hh = hero.offsetHeight, pt = picker.offsetTop;
-    H && H.run(y < pt - 2);                                // the strip stops once the picker covers it
-    if (LV) (y > pt - innerHeight * .6) ? LV.start() : LV.stop();   // the open slice lives once the picker is in view
+    H && H.run(y < pt - 2);
+    if (LV) (y > pt - innerHeight * .6) ? LV.start() : LV.stop();
   };
   runFor();
   addEventListener('scroll', runFor, { passive: true });
-  // Back from a kit page restored from the bfcache: loops running again, the return flag spent
+
   addEventListener('pageshow', e => { if (!e.persisted) return; try { sessionStorage.removeItem('aves-picked'); } catch (x) {} H && H.run(false); LV && LV.stop(); runFor(); });
   if (RM) return;
   gsap.timeline({ scrollTrigger: { trigger: picker, start: 'top bottom', end: 'top top', scrub: true } })
@@ -521,7 +480,6 @@ function heroScroll(H, P, LV) {
   });
 }
 
-/* ================= kit ================= */
 function buildSteps(k) {
   const mk = manifest && manifest.kits && manifest.kits[k.id];
   const layers = mk && Array.isArray(mk.order) ? mk.order.map(id => (manifest.layers || []).find(l => l.id === id)).filter(Boolean) : [];
@@ -536,13 +494,11 @@ function buildSteps(k) {
   return out;
 }
 
-
 function cropHTML(layer) {
-  // the worn layer, cropped to its box; SVG keeps the aspect in any cell size
+
   const [x0, y0, x1, y1] = layer.box;
   return `<svg class="crop-box" viewBox="${x0} ${y0} ${x1 - x0} ${y1 - y0}" preserveAspectRatio="xMidYMax meet" aria-hidden="true"><image href="${DRESS}layers/${encodeURIComponent(layer.id)}.png" x="0" y="0" width="${FRAME.w}" height="${FRAME.h}"/></svg>`;
 }
-
 
 function thumbHTML(st) {
   if (st.p) return `<img class="cut" alt="" src="${ROOT}assets/cut/${encodeURIComponent(st.p.id)}.png" data-ph="${esc(st.label)}">`;
@@ -563,7 +519,7 @@ document.addEventListener('error', e => {
 const SISTER_NOTE = 'sister brand, not part of the AVES range';
 
 const altLabel = a => esc(dispName(a)) + (a.sku && a.sku !== dispName(a) ? ' · ' + esc(a.sku) : '');
-// "one worn, the rest options": the slot's alternates as ghost cutouts (desktop) or a one-line list (phone)
+
 function altsHTML(s) {
   const alts = (s.alternates || []).map(id => products[id]).filter(Boolean);
   if (!alts.length) return '';
@@ -591,7 +547,6 @@ function detailHTML(st, i) {
   </div>`;
 }
 
-
 function itemHTML(st, i) {
   const num = String(i + 1).padStart(2, '0');
   const txt = st.vest ? `Hi-vis vest<span class="by">by Scuta</span>` : esc(st.label);
@@ -601,7 +556,7 @@ function itemHTML(st, i) {
 async function resolveBase(k) {
   const mk = manifest && manifest.kits && manifest.kits[k.id];
   const cands = [];
-  if (mk && mk.base) cands.push(DRESS + mk.base);            // optional per-kit override, declared in the manifest
+  if (mk && mk.base) cands.push(DRESS + mk.base);
   cands.push(DRESS + 'base.png');
   for (const c of cands) { const im = await loadImg(c); if (im) return { src: c, jpg: false }; }
   return { src: FALLBACK_BASE, jpg: true };
@@ -613,7 +568,6 @@ async function openKit(k, zoom) {
   steps = buildSteps(k);
   const n = steps.length;
 
-  // texts
   $('#kt').textContent = k.title;
   $('#ki').textContent = k.intro;
   $('#hzl').innerHTML = k.hazards.slice(0, 3).map(h => `<li>${esc(h)}</li>`).join('');
@@ -627,7 +581,6 @@ async function openKit(k, zoom) {
   $('#orow').innerHTML = pickerOrder().filter(o => o.k.id !== k.id).map(({ k: o }) =>
     `<a class="oslice" href="?pick=${encodeURIComponent(o.id)}" aria-label="${esc(o.name)}">${bdHTML(o, true)}<span class="veil"></span><span class="vname">${esc(o.name)}</span></a>`).join('');
 
-  // the man: base + this kit's layers only (nothing else preloads)
   const man = $('#man');
   const base = await resolveBase(k);
   man.classList.toggle('fallback-jpg', base.jpg);
@@ -636,7 +589,7 @@ async function openKit(k, zoom) {
   const loaded = await timeout(Promise.all(okLayers.map(s => loadImg(DRESS + 'layers/' + encodeURIComponent(s.layer.id) + '.png').then(im => { s.img = im; }))), 15000);
   const onIds = new Set();
   steps.forEach(s => { s.onMan = !!(s.layer && s.layer.status === 'ok' && s.img); if (s.onMan) onIds.add(s.layer.product); });
-  // a dependent layer (earmuffs on the helmet, tether on the harness) needs its host on the figure
+
   steps.forEach(s => { if (s.onMan && s.layer.dependsOn && !onIds.has(s.layer.dependsOn)) s.onMan = false; });
   steps.forEach((s, i) => {
     if (!s.onMan) return;
@@ -646,9 +599,8 @@ async function openKit(k, zoom) {
     man.appendChild(im); s.ly = im;
   });
 
-  // shelf
   const b = SISTER.boots;
-  $('#shbase').innerHTML = `<span class="lbl">Boots</span><b>${esc(b.brand + ' ' + b.name)}</b> · SKU ${esc(b.sku)}<span class="std"> · EN ISO 20345 S3</span>`;   // one line; standards hidden on phone; full standards + sister-brand note in the close list
+  $('#shbase').innerHTML = `<span class="lbl">Boots</span><b>${esc(b.brand + ' ' + b.name)}</b> · SKU ${esc(b.sku)}<span class="std"> · EN ISO 20345 S3</span>`;
   $('#grid').innerHTML = steps.map(itemHTML).join('');
   const rows = Math.ceil(steps.length / 2);
   if (!isPhone()) $('#grid').style.setProperty('--cellH', (rows <= 4 ? 106 : rows === 5 ? 86 : 74) + 'px');
@@ -674,12 +626,11 @@ async function openKit(k, zoom) {
   buildTimeline();
   walkOn();
   ScrollTrigger.refresh();
-  // late images (shelf cutouts, backdrop) can change nothing in layout, but refresh once more when everything is in
+
   window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
   if (STEP !== null) jump(STEP);
   document.documentElement.dataset.ready = '1';
 }
-
 
 function buildTimeline() {
   const theatre = $('#theatre'), n = steps.length;
@@ -704,7 +655,6 @@ function buildTimeline() {
     .to('#shelf', { autoAlpha: 1, x: 0, duration: D(0.45) }, 0.45);
   if (!RM) tl.fromTo('#bd', { yPercent: 0 }, { yPercent: -6, duration: total }, 0);
 
-  // shelf cutout -> its layer box on the man (desktop; the phone row scrolls, so no fly there)
   const startXY = i => { const ca = items[i].querySelector('.ca'), f = steps[i].fly, o = offsetRel(ca, theatre); return { x: o.x + (ca.offsetWidth - f.offsetWidth) / 2, y: o.y + ca.offsetHeight - 4 - f.offsetHeight }; };
   const target = s => {
     const walk = $('#walk'), sc = walk.offsetWidth / FRAME.w;
@@ -733,7 +683,7 @@ let lastK = -1;
 
 function count(t) {
   const n = steps.length;
-  // active step index: -1 before the first step, n after the last (close)
+
   const a = t < 1 ? -1 : Math.min(n, Math.floor(t - 1));
   if (a === lastK) return; lastK = a;
   const shown = clamp(a + 1, 0, n);
@@ -769,7 +719,6 @@ function jump(step) {
   document.documentElement.dataset.dbg = JSON.stringify({ y: Math.round(scrollY), start: Math.round(st.start), end: Math.round(st.end), p: +(t / total).toFixed(3), h: document.documentElement.scrollHeight });
 }
 
-/* ================= boot ================= */
 async function boot() {
   if (RM) document.body.classList.add('rm');
   const [k, p, m] = await Promise.all([getJSON(ROOT + 'data/kits.json'), getJSON(ROOT + 'data/products.json'), getJSON(DRESS + 'manifest.json', true)]);
@@ -798,8 +747,7 @@ async function boot() {
   const LV = livingPicker(P);
   if (LV) { P.onOn(P.cur()); LV.start(); setTimeout(LV.preload, DEBUG ? 0 : 2200); }
   const H = buildHero();
-  // to-picker: the inline script scrolled before paint; on the phone the hero's height can still change once the
-  // fonts arrive, so land on the picker again then (unless the visitor has already moved)
+
   if (document.documentElement.classList.contains('to-picker')) {
     let moved = false; ['wheel', 'touchstart', 'keydown'].forEach(t => addEventListener(t, () => { moved = true; }, { once: true, passive: true }));
     const land = () => { if (moved) return; const y = $('#picker').offsetTop; window.scrollTo(0, y); if (lenis) lenis.scrollTo(y, { immediate: true, force: true }); ScrollTrigger.refresh(); };

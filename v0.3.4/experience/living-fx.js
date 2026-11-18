@@ -1,10 +1,5 @@
-// v0.3.2 living photographs: per-picture motion, image-normalised coordinates (x 0..1 left to right, y 0..1 top to
-// bottom of the 1024 x 1280 picture). Placed by looking at each picture (shots in ../gen/living/).
-// Thin structures (wires, masts, lattices, trunks) bend under large travel, so those pictures move less (checked at peak travel, 2x).
-// cam: amp (pan, fraction of the short side, at full depth), zoom (dolly), d0 (depth that stays put), T (loop seconds)
-// haze: y, w (band), a, c   plumes: at (source), len (fraction of height), lean (deg, + = left), w0/w1 (widths), a
-// glows: at, r (fraction of height), a   shafts: at (source), ang (deg, 0 = straight down, + = toward the right), spread (rad), len, a, c
-// parts: type sparks|embers|motes|debris, at [x, y, w, h] (motes: a box from x,y), ang (deg, 0 = up, + = right), cone (deg), speed (picture widths / s), g, life, size (px at 1024), n, c, a
+
+
 window.LIVING_FX = {
   'oil-gas': {
     cam: { amp: .045, zoom: .07, d0: .15, T: 13 },
@@ -80,6 +75,6 @@ Object.assign(window.LIVING_FX, {
     plumes: [{ at: [.55, .14], len: .32, lean: -10, w0: .05, w1: .16, a: .55 }, { at: [.86, .3], len: .3, lean: 12, w0: .05, w1: .15, a: .5 }, { at: [.3, .5], len: .22, lean: -6, w0: .04, w1: .12, a: .35 }], smoke: [.93, .96, 1],
     parts: [{ type: 'motes', at: [0, .05, 1, .9], speed: .015, size: 1.6, n: 60, c: [.9, .96, 1], a: .55 }] },
 });
-// every picture lives: kits without a hand-placed entry get the camera move alone
+
 ['oil-gas', 'rig-drilling', 'electrical', 'construction', 'heavy-machinery', 'demolition', 'manufacturing', 'assembly-line', 'woodworking', 'mechanical', 'power-tool', 'welding', 'logistics', 'aviation', 'railway', 'mining', 'forestry', 'cryogenic']
   .forEach(k => { if (!window.LIVING_FX[k]) window.LIVING_FX[k] = { cam: { amp: .04, zoom: .06, d0: .2, T: 12 } }; });

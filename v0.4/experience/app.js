@@ -1,6 +1,5 @@
-// The AVES Experience v0.4: Oil & Gas. Everything on screen comes from data/<kit>.json (built by ../tools/build_kit.py).
-// Left: the worker on the site, the category band, the hazard, three catalogue benefits pinned to the product, the product block.
-// Right: the stockroom shelf; while an item is held, the category's catalogue card (Why Choose AVES + the Approach artwork).
+
+
 (async () => {
 'use strict';
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
@@ -11,7 +10,7 @@ const [D, TYPE] = await Promise.all([fetch(`data/${KIT}.json`).then(r => r.json(
 const steps = D.steps, N = steps.length, F = D.frame, kit = D.kit;
 const SLOT = { head: 'Head', eye: 'Eye', hearing: 'Hearing', respiratory: 'Respiratory', vest: 'Hi-vis', fall: 'Fall', dropped: 'Dropped objects', hand: 'Hand' };
 const num = i => String(i + 1).padStart(2, '0');
-// a heading as a picture of the words (catalogue title face), usable in any colour
+
 const ty = (key, tag = 'span') => { const t = TYPE[key]; return t ? `<${tag} class="ty" role="img" aria-label="${esc(t.text)}" style="--m:url(assets/type/${key}.png);--ar:${(t.w / t.h).toFixed(4)}"></${tag}>` : ''; };
 const layerSrc = st => 'assets/layers/' + encodeURIComponent(st.layer) + '.png';
 const pic = (st, src) => `<img alt="" src="${src || st.image}">`;
@@ -19,7 +18,6 @@ const gsapOK = !!window.gsap; if (!gsapOK) throw new Error('GSAP did not load');
 gsap.registerPlugin(ScrollTrigger); gsap.config({ nullTargetWarn: false });
 const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// ---------- static DOM
 $('#bdA').src = D.backdrop; $('#rk').src = D.shelf;
 $('#kick').textContent = `Kit ${num(kit.index - 1)} / ${kit.of} · ${kit.group}`;
 $('#kname').innerHTML = ty('kit-' + kit.id); $('#signT').innerHTML = ty('sign-' + kit.id); $('#endT').innerHTML = ty('end-' + kit.id);
@@ -27,7 +25,7 @@ $('#kintro').textContent = kit.intro; $('#khz').innerHTML = kit.hazards.map(h =>
 $('#cntN').textContent = N; $('#prog').innerHTML = steps.map(() => '<span></span>').join('');
 const manEl = $('#man');
 const lys = steps.map(st => { const im = new Image(); im.className = 'ly'; im.alt = ''; im.src = layerSrc(st); im.style.zIndex = st.z;
-  // draft art: the glasses layer has temples sticking out sideways; keep the front
+
   if (st.slot === 'eye') im.style.cssText += ';-webkit-mask-image:linear-gradient(90deg,transparent 41.4%,#000 42.6%,#000 56.6%,transparent 57.8%);mask-image:linear-gradient(90deg,transparent 41.4%,#000 42.6%,#000 56.6%,transparent 57.8%)';
   manEl.appendChild(im); return im; });
 $('#items').innerHTML = steps.map((st, i) => `<li class="it${st.pack ? ' has-pack' : ''}">${st.pack ? `<span class="pack${st.pack.pouch ? ' pouch' : ''}"><img alt="" src="${st.pack.src}"></span>` : ''}<span class="ph">${pic(st)}</span><span class="tag"><b>${num(i)}</b><em>${esc(st.name)}</em></span></li>`).join('');
@@ -49,11 +47,9 @@ const its = $$('.it'), flies = $$('.fly .f'), caps = $$('.cap .c'), cos = $$('#c
 await Promise.all([...document.images].map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; })));
 if (document.fonts && document.fonts.ready) await document.fonts.ready;
 
-// ---------- geometry + timeline (rebuilt on a real resize)
 const stage = $('#stage'), cam = $('#cam'), bd = $('#bd'), rack = $('#rack'), track = $('#track');
 let tl, st0, landAt = [], lastN = -1, builtW = 0, builtH = 0;
-// The card must stay readable: type never goes under 13 px. When a category's text is longer than the card (eye has seven
-// points), the card shows the points that fit and says how many more are in Product details, where the full text always is.
+
 function fitCards() { cards.forEach(c => { const b = c.querySelector('.card-b'); if (!b) return; const ps = [...b.querySelectorAll('.wc p')], more = b.querySelector('.more'); let fs = 17;
   gsap.set(c, { visibility: 'inherit' }); ps.forEach(p => { p.hidden = false; }); more.hidden = true; b.style.setProperty('--fs', fs + 'px');
   const over = () => b.scrollHeight > b.clientHeight + 1;
@@ -67,7 +63,7 @@ function build() {
   const manH = .91 * H, k = manH / F.h, manW = F.w * k, feetY = .905 * H, top = feetY - .9577 * manH, cx = .27 * W, left = cx - manW / 2;
   const Fp = { x: .31 * W, y: .43 * H };
   gsap.set(manEl, { left, top, width: manW, height: manH });
-  gsap.set('#cast', { left, top, width: manW, height: manH, skewX: -52, scaleY: .34 });       // sun behind the camera: the shadow falls away, up and to the left
+  gsap.set('#cast', { left, top, width: manW, height: manH, skewX: -52, scaleY: .34 });
   gsap.set('.contact', { left: cx - manW * .32, top: feetY - 15, width: manW * .64, height: 30 });
   const rw = rack.clientWidth, sc = Math.max(rw / D.rack.w, H / D.rack.h), ox = (rw - D.rack.w * sc) / 2, oy = (H - D.rack.h * sc) / 2, rackLeft = W - rw;
   const pos = steps.map((s, i) => { const [x, y, h] = s.place; const hh = h * sc, im = its[i].querySelector('.ph img'), ww = hh * ((im && im.naturalWidth / im.naturalHeight) || 1);
@@ -128,7 +124,7 @@ function build() {
     tl.fromTo(c.querySelector('.rule'), { scaleX: 0 }, { scaleX: 1, duration: .24, ease: 'power2.out' }, t + .74);
     tl.fromTo(g, { autoAlpha: 0 }, { autoAlpha: 1, duration: .16, ease: 'power1.out' }, t + .8);
     tl.fromTo(g.querySelector('.hzl'), { x: -14, opacity: 0 }, { x: 0, opacity: 1, duration: .2, ease: 'power2.out' }, t + .8);
-    tl.fromTo(g.querySelectorAll('.ln polyline'), { strokeDashoffset: -1 }, { strokeDashoffset: 0, duration: .2, stagger: .06, ease: 'power1.out' }, t + .84);   // leaders draw outward from the product
+    tl.fromTo(g.querySelectorAll('.ln polyline'), { strokeDashoffset: -1 }, { strokeDashoffset: 0, duration: .2, stagger: .06, ease: 'power1.out' }, t + .84);
     tl.fromTo(g.querySelectorAll('.ln circle'), { opacity: 0 }, { opacity: 1, duration: .1 }, t + .82);
     g.querySelectorAll('.bf').forEach((el, j) => tl.fromTo(el, { x: el.dataset.side === 'R' ? 12 : -12, opacity: 0 }, { x: 0, opacity: 1, duration: .18, ease: 'power2.out' }, t + .92 + j * .06));
     if (hasCard) { tl.to('#rkdim', { opacity: 1, duration: .28, ease: 'power1.out' }, t + 1.0); tl.fromTo(card, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: .3, ease: 'power3.out' }, t + 1.02); }
@@ -161,7 +157,6 @@ function sync() {
 }
 build();
 
-// ---------- scroll, keys, clicks
 let lenis = null;
 if (!q.get('step') && !rm && window.Lenis) {
   lenis = new Lenis({ lerp: .1, smoothWheel: true });
@@ -175,11 +170,10 @@ addEventListener('keydown', e => { if (!st0 || pdOpen) return; const L = labels(
   if (['ArrowDown', 'ArrowRight', 'PageDown', ' '].includes(e.key)) { const n = L.find(l => l[1] > now + .05); if (n) { e.preventDefault(); go(n[1]); } }
   if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(e.key)) { const p = L.filter(l => l[1] < now - .05).pop(); if (p) { e.preventDefault(); go(p[1]); } } });
 its.forEach((e, i) => e.addEventListener('click', () => st0 && go(tl.labels['s' + (i + 1)])));
-// phones and tablets fire resize whenever the address bar moves: rebuild only when the stage really changed
+
 let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { if (pdOpen) return;
   if (Math.abs(stage.clientWidth - builtW) < 2 && Math.abs(stage.clientHeight - builtH) < 90) return; build(); }, 200); });
 
-// ---------- product details. The page never scrolls while it is open and returns to exactly where it was.
 const pd = $('#pd'); let pdOpen = false, pdY = 0, pdFrom = null, pdTl = null;
 const stdHTML = s => s.split(/\s*·\s*/).filter(Boolean).map(x => `<li>${esc(x)}</li>`).join('');
 function pdHTML(st) { const c = D.cats[st.cat];

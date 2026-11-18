@@ -1,9 +1,5 @@
-/* The AVES Experience v0.3: picker -> walk-on -> pinned outfitting stage -> close.
-   Data-driven from data/kits.json, data/products.json and assets/dress/manifest.json.
-   Debug queries: ?kit=<id> (deep link), ?pick=<id> (picker, then auto-pick), ?hover=<id>,
-   ?step=walk|<1..n>|close|more (jump the scroll; no Lenis, scrub locked), ?rm (force reduced motion). */
-// Sister-brand items on the figure (Salman, 2026-11-06: no links; the same name / SKU / standards / why data as the AVES products).
-// Facts from the PTFs (spikes/dress-v0.2-bench/refs-v2/<item>/description.txt). Never called AVES.
+
+
 const SISTER = {
   vest:  { brand: 'Scuta', name: 'Reflector Safety Vest', sku: '3116RR71', standards: 'EN ISO 20471:2013+A1:2016 Class 2',
            why: 'Class 2 hi-vis waistcoat, two 5 cm reflective bands round the torso and one over each shoulder' },
@@ -23,22 +19,22 @@ const DEBUG = STEP !== null || Q.has('hover');
 const ROOT = '../../';
 const DRESS = ROOT + 'assets/dress/';
 const FALLBACK_BASE = ROOT + 'spikes/dress-v0.2/frames/00.jpg';
-// Donning order (Salman's concept): sister-brand vest goes on in the sequence.
+
 const ORDER = ['head', 'eye', 'hearing', 'respiratory', 'face', 'vest', 'fall', 'dropped', 'hand', 'cryo-body'];
 const GROUPS = ['Energy', 'Build', 'Make', 'Move', 'Extract & Handle'];
 const FRAME = { w: 896, h: 1536 };
-const UNIT_VH = 70;          // scroll length per timeline unit, in viewport heights (%)
+const UNIT_VH = 70;
 
 let kits = [], kitById = {}, products = {}, manifest = null;
 let lenis = null, tl = null, steps = [], K = null;
-const bdState = {};          // kitId -> 'ok' | 'missing'
+const bdState = {};
 
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const lerp = (a, b, t) => a + (b - a) * t;
 const isPhone = () => matchMedia('(max-width:759px)').matches;
 const dispName = p => { let n = (p.name || p.id).replace(/\s+[–-]\s+/g, '-'); if (p.sku && /^\d{5,}/.test(p.sku) && n.startsWith(p.sku + ' ')) n = n.slice(p.sku.length + 1); return n; };
-const hue = id => { let h = 0; for (const c of id) h = (h * 31 + c.charCodeAt(0)) >>> 0; return 190 + (h % 70); }; // cool, muted range
+const hue = id => { let h = 0; for (const c of id) h = (h * 31 + c.charCodeAt(0)) >>> 0; return 190 + (h % 70); };
 const getJSON = async (url, optional) => {
   try { const r = await fetch(url, { cache: 'no-cache' }); if (!r.ok) throw new Error(url + ' ' + r.status); return await r.json(); }
   catch (e) { if (optional) return null; throw e; }
@@ -47,14 +43,13 @@ const loadImg = src => new Promise(res => { const im = new Image(); im.decoding 
 const timeout = (p, ms) => Promise.race([p, new Promise(r => setTimeout(r, ms))]);
 const offsetRel = (el, anc) => { let x = 0, y = 0; while (el && el !== anc) { x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; } return { x, y }; };
 
-/* ---------- backdrops ---------- */
 const gradHTML = k => `<div class="grad" style="--h:${hue(k.id)}"><span class="gname">${esc(k.name)}</span></div>`;
 function bdHTML(k, lazy) {
   const listed = manifest && Array.isArray(manifest.backdrops) ? manifest.backdrops.includes(k.id) : null;
   if (bdState[k.id] === 'missing' || listed === false) return gradHTML(k);
   return `<img src="${DRESS}backdrops/${k.id}.jpg" alt="" ${lazy ? 'loading="lazy"' : ''} decoding="async" data-bd="${k.id}">`;
 }
-// A missing backdrop file swaps itself for the gradient; remembered so it is not requested again.
+
 document.addEventListener('error', e => {
   const im = e.target;
   if (!(im instanceof HTMLImageElement) || !im.dataset.bd) return;
@@ -64,7 +59,6 @@ document.addEventListener('error', e => {
 document.addEventListener('load', e => { const im = e.target; if (im instanceof HTMLImageElement && im.dataset.bd) bdState[im.dataset.bd] = 'ok'; }, true);
 document.addEventListener('click', e => { const a = e.target.closest('a[data-todo]'); if (a) e.preventDefault(); });
 
-/* ================= picker ================= */
 function pickerOrder() {
   const out = [];
   GROUPS.forEach(g => kits.filter(k => k.group === g).forEach((k, i) => out.push({ k, g, first: i === 0 })));
@@ -132,7 +126,6 @@ function pick(k, btn) {
   gsap.to(pr, { p: 1, duration: 0.75, ease: 'power3.inOut', delay: 0.08, onUpdate: () => apply(pr.p), onComplete: () => openKit(k, zoom) });
 }
 
-/* ================= kit ================= */
 function buildSteps(k) {
   const mk = manifest && manifest.kits && manifest.kits[k.id];
   const layers = mk && Array.isArray(mk.order) ? mk.order.map(id => (manifest.layers || []).find(l => l.id === id)).filter(Boolean) : [];
@@ -147,13 +140,11 @@ function buildSteps(k) {
   return out;
 }
 
-
 function cropHTML(layer) {
-  // the worn layer, cropped to its box; SVG keeps the aspect in any cell size
+
   const [x0, y0, x1, y1] = layer.box;
   return `<svg class="crop-box" viewBox="${x0} ${y0} ${x1 - x0} ${y1 - y0}" preserveAspectRatio="xMidYMax meet" aria-hidden="true"><image href="${DRESS}layers/${encodeURIComponent(layer.id)}.png" x="0" y="0" width="${FRAME.w}" height="${FRAME.h}"/></svg>`;
 }
-
 
 function thumbHTML(st) {
   if (st.p) return `<img class="cut" alt="" src="${ROOT}assets/cut/${encodeURIComponent(st.p.id)}.png" data-ph="${esc(st.label)}">`;
@@ -174,7 +165,7 @@ document.addEventListener('error', e => {
 const SISTER_NOTE = 'sister brand, not part of the AVES range';
 
 const altLabel = a => esc(dispName(a)) + (a.sku && a.sku !== dispName(a) ? ' · ' + esc(a.sku) : '');
-// "one worn, the rest options": the slot's alternates as ghost cutouts (desktop) or a one-line list (phone)
+
 function altsHTML(s) {
   const alts = (s.alternates || []).map(id => products[id]).filter(Boolean);
   if (!alts.length) return '';
@@ -202,7 +193,6 @@ function detailHTML(st, i) {
   </div>`;
 }
 
-
 function itemHTML(st, i) {
   const num = String(i + 1).padStart(2, '0');
   const txt = st.vest ? `Hi-vis vest<span class="by">by Scuta</span>` : esc(st.label);
@@ -212,7 +202,7 @@ function itemHTML(st, i) {
 async function resolveBase(k) {
   const mk = manifest && manifest.kits && manifest.kits[k.id];
   const cands = [];
-  if (mk && mk.base) cands.push(DRESS + mk.base);            // optional per-kit override, declared in the manifest
+  if (mk && mk.base) cands.push(DRESS + mk.base);
   cands.push(DRESS + 'base.png');
   for (const c of cands) { const im = await loadImg(c); if (im) return { src: c, jpg: false }; }
   return { src: FALLBACK_BASE, jpg: true };
@@ -224,7 +214,6 @@ async function openKit(k, zoom) {
   steps = buildSteps(k);
   const n = steps.length;
 
-  // texts
   $('#kt').textContent = k.title;
   $('#ki').textContent = k.intro;
   $('#hzl').innerHTML = k.hazards.slice(0, 3).map(h => `<li>${esc(h)}</li>`).join('');
@@ -238,7 +227,6 @@ async function openKit(k, zoom) {
   $('#orow').innerHTML = pickerOrder().filter(o => o.k.id !== k.id).map(({ k: o }) =>
     `<a class="oslice" href="?pick=${encodeURIComponent(o.id)}" aria-label="${esc(o.name)}">${bdHTML(o, true)}<span class="veil"></span><span class="vname">${esc(o.name)}</span></a>`).join('');
 
-  // the man: base + this kit's layers only (nothing else preloads)
   const man = $('#man');
   const base = await resolveBase(k);
   man.classList.toggle('fallback-jpg', base.jpg);
@@ -247,7 +235,7 @@ async function openKit(k, zoom) {
   const loaded = await timeout(Promise.all(okLayers.map(s => loadImg(DRESS + 'layers/' + encodeURIComponent(s.layer.id) + '.png').then(im => { s.img = im; }))), 15000);
   const onIds = new Set();
   steps.forEach(s => { s.onMan = !!(s.layer && s.layer.status === 'ok' && s.img); if (s.onMan) onIds.add(s.layer.product); });
-  // a dependent layer (earmuffs on the helmet, tether on the harness) needs its host on the figure
+
   steps.forEach(s => { if (s.onMan && s.layer.dependsOn && !onIds.has(s.layer.dependsOn)) s.onMan = false; });
   steps.forEach((s, i) => {
     if (!s.onMan) return;
@@ -257,9 +245,8 @@ async function openKit(k, zoom) {
     man.appendChild(im); s.ly = im;
   });
 
-  // shelf
   const b = SISTER.boots;
-  $('#shbase').innerHTML = `<span class="lbl">Boots</span><b>${esc(b.brand + ' ' + b.name)}</b> · SKU ${esc(b.sku)}<span class="std"> · EN ISO 20345 S3</span>`;   // one line; standards hidden on phone; full standards + sister-brand note in the close list
+  $('#shbase').innerHTML = `<span class="lbl">Boots</span><b>${esc(b.brand + ' ' + b.name)}</b> · SKU ${esc(b.sku)}<span class="std"> · EN ISO 20345 S3</span>`;
   $('#grid').innerHTML = steps.map(itemHTML).join('');
   const rows = Math.ceil(steps.length / 2);
   if (!isPhone()) $('#grid').style.setProperty('--cellH', (rows <= 4 ? 106 : rows === 5 ? 86 : 74) + 'px');
@@ -285,12 +272,11 @@ async function openKit(k, zoom) {
   buildTimeline();
   walkOn();
   ScrollTrigger.refresh();
-  // late images (shelf cutouts, backdrop) can change nothing in layout, but refresh once more when everything is in
+
   window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
   if (STEP !== null) jump(STEP);
   document.documentElement.dataset.ready = '1';
 }
-
 
 function buildTimeline() {
   const theatre = $('#theatre'), n = steps.length;
@@ -315,7 +301,6 @@ function buildTimeline() {
     .to('#shelf', { autoAlpha: 1, x: 0, duration: D(0.45) }, 0.45);
   if (!RM) tl.fromTo('#bd', { yPercent: 0 }, { yPercent: -6, duration: total }, 0);
 
-  // shelf cutout -> its layer box on the man (desktop; the phone row scrolls, so no fly there)
   const startXY = i => { const ca = items[i].querySelector('.ca'), f = steps[i].fly, o = offsetRel(ca, theatre); return { x: o.x + (ca.offsetWidth - f.offsetWidth) / 2, y: o.y + ca.offsetHeight - 4 - f.offsetHeight }; };
   const target = s => {
     const walk = $('#walk'), sc = walk.offsetWidth / FRAME.w;
@@ -344,7 +329,7 @@ let lastK = -1;
 
 function count(t) {
   const n = steps.length;
-  // active step index: -1 before the first step, n after the last (close)
+
   const a = t < 1 ? -1 : Math.min(n, Math.floor(t - 1));
   if (a === lastK) return; lastK = a;
   const shown = clamp(a + 1, 0, n);
@@ -380,7 +365,6 @@ function jump(step) {
   document.documentElement.dataset.dbg = JSON.stringify({ y: Math.round(scrollY), start: Math.round(st.start), end: Math.round(st.end), p: +(t / total).toFixed(3), h: document.documentElement.scrollHeight });
 }
 
-/* ================= boot ================= */
 async function boot() {
   if (RM) document.body.classList.add('rm');
   const [k, p, m] = await Promise.all([getJSON(ROOT + 'data/kits.json'), getJSON(ROOT + 'data/products.json'), getJSON(DRESS + 'manifest.json', true)]);

@@ -1,4 +1,3 @@
-/* The AVES Experience v0.3: built to the FigCraft comps in ../design (01-04, NOTES.md). */
 :root{
   --bg:#07090c; --ink:#f3f5f8; --muted:#9aa3ae; --soft:#d9dee4; --line:rgba(255,255,255,.13);
   --green:#008048; --green-t:#19b45a;
@@ -20,18 +19,13 @@ ol,ul{list-style:none}
 body.rm *{transition:none !important}
 #errlog{display:none}
 
-/* fallback backdrop: dark gradient tinted per kit, kit name faint */
 .grad{position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 38%,hsl(var(--h) 22% 22%) 0%,hsl(var(--h) 18% 11%) 48%,#07090c 100%)}
 .grad .gname{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;font-size:clamp(64px,13vw,220px);line-height:.9;text-align:center;color:rgba(255,255,255,.05);width:92%}
 
-/* ================= v0.3.4: picker + opening page to the FigCraft comps (aves-experience-redo/comps/v0.1) =================
-   Units: --u = 1px x --s (1 at 1440 x 900, 1.6 at 2560 x 1440). Comp pixels at 2560 / 1.6 = the numbers below.
-   Type: headings in the catalogue face are pictures (assets/type/*.png, xtools/typeset_v034.py); text is Nunito Sans. */
 :root{--t-ink:#f4f6f8;--t-soft:#dfe4e9;--t-body:#c3cad1;--t-muted:#a3acb6;--t-dim:#8a939c;--t-brand:#039047;--t-brandOn:#3fbf7a}
 .picker,.hero,.handoff{font-family:"Nunito Sans",system-ui,sans-serif}
 .lab{font-family:"Nunito Sans",sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:.16em}
 
-/* ---------- brand lockup (picker head) ---------- */
 .brand{display:flex;align-items:center;gap:0;pointer-events:auto}
 .brand .logo{flex:none}
 .brand .rule{flex:none;width:1px;height:18px;margin:0 15px 0 16px;background:rgba(255,255,255,.4)}
@@ -39,7 +33,6 @@ body.rm *{transition:none !important}
 .logo{height:25px;width:auto;filter:brightness(0) invert(1)}
 .picker .logo,.h-logo{filter:none}
 
-/* ---------- picker, desktop ---------- */
 .picker{--u:calc(1px * var(--s,1));position:relative;z-index:2;background:var(--bg);height:100vh;height:100svh;min-height:640px;overflow:hidden;
   --top:calc(237.5 * var(--u)); --bot:calc(62.5 * var(--u)); --gap:calc(20 * var(--u)); --ppad:calc(75 * var(--u))}
 body.mode-kit .picker{display:none}
@@ -51,12 +44,10 @@ body.mode-kit .picker{display:none}
 .p-head h1 img{height:calc(77.8 * var(--u));width:auto}
 .p-head p{flex:0 1 auto;margin-top:calc(16 * var(--u));color:var(--t-body);font-size:calc(15 * var(--u));line-height:calc(17.5 * var(--u));text-align:right}
 .p-head p span{display:block;white-space:nowrap}
-/* narrow desktops (1024 to 1279): the title shrinks to leave the intro a 320-unit column; the intro wraps in it */
 @media (min-width:1024px) and (max-width:1279px){.p-head h1 img{height:min(calc(77.8 * var(--u)),calc((100vw - 150 * var(--u) - 360 * var(--u)) / 8.35))}.p-head p{max-width:calc(320 * var(--u))}.p-head p span{display:inline;white-space:normal}}
 .slices{position:absolute;left:var(--ppad);right:var(--ppad);top:calc(var(--top) - 45.5 * var(--u));bottom:calc(var(--bot) - 9 * var(--u));display:flex;gap:var(--gap)}
 .grp{display:flex;flex-direction:column;min-width:0;flex:var(--n) 1 calc((var(--n) - 1) * 2 * var(--u));transition:flex-grow .6s cubic-bezier(.16,.84,.24,1)}
 .grp.has-on{flex-grow:calc(var(--n) + var(--G) - 1)}
-/* sector rail: number (green) + name, the rule under it */
 .grp .gl{display:flex;align-items:flex-end;gap:calc(13 * var(--u));height:calc(28 * var(--u));padding-bottom:calc(10 * var(--u));border-bottom:1px solid rgba(255,255,255,.2);margin-bottom:calc(17.5 * var(--u));line-height:1;font-size:calc(11.25 * var(--u));color:var(--t-soft);white-space:nowrap;overflow:visible}
 .grp .gl b{flex:none;font-weight:900;color:var(--t-brandOn)}
 .grp .row{position:relative;flex:1 1 auto;display:flex;gap:calc(2 * var(--u));min-height:0;margin-bottom:calc(9 * var(--u))}
@@ -64,26 +55,20 @@ body.mode-kit .picker{display:none}
 .slice.on{flex-grow:var(--G)}
 .slice .clip{position:absolute;inset:0;overflow:hidden;background:#0d1014}
 .slice .rev,.slice .par,.slice .foc{position:absolute;inset:0}
-/* v0.3.3: ease in-out (the v0.3.2 curve started at ~38 px per frame from rest: a visible jump). v0.3.4: 1.0 s, the picture is 28 % wider (wider open slice), so the pan keeps v0.3.3's acceleration or less */
 .slice .foc{transform:translateX(calc(var(--imgW,0px) * var(--fx,0)));transition:transform 1s cubic-bezier(.45,.05,.25,1)}
 .slice.on .foc{transform:none}
 .slice .par{inset:calc(-14 * var(--u)) calc(-18 * var(--u))}
 .slice .pimg,.slice .lgl{position:absolute;top:0;left:50%;height:100%;width:var(--imgW,100%);max-width:none;object-fit:cover;transform:translateX(-50%);will-change:transform}
-.slice .lgl{opacity:0;pointer-events:none}   /* v0.3.3: opacity driven per frame by app.js (livingPicker), never a CSS transition */
-.slice .pimg.old{filter:saturate(1.35) contrast(1.12) brightness(1.04)}
-/* the approved darkening only: a 16 % rest dim, the thin top band (number, icon), the foot band (spine name) */
+.slice .lgl{opacity:0;pointer-events:none}   .slice .pimg.old{filter:saturate(1.35) contrast(1.12) brightness(1.04)}
 .slice .dim{position:absolute;inset:-20px;background:#07090c;opacity:.16;transition:opacity .5s ease}
 .slice.on .dim{opacity:0}
 .slice .veil{position:absolute;inset:-20px;background:
   linear-gradient(to top,rgba(7,9,12,.62) 0%,rgba(7,9,12,.3) 14%,rgba(7,9,12,0) 30%),
   linear-gradient(rgba(7,9,12,.6),rgba(7,9,12,.32) 7%,rgba(7,9,12,0) 15%);transition:opacity .5s ease}
 .slice.on .veil{opacity:.55}
-.slice .pool{display:none}   /* v0.3.4: the v0.3.2 pool behind the label block is gone (no shade behind text, brief) */
-/* the open slice's bar: 6 px green under the slice (comp), transform only */
-.slice::after{content:"";position:absolute;left:0;right:0;bottom:calc(-9 * var(--u));height:calc(3.75 * var(--u));background:var(--t-brand);transform:scaleX(0);transform-origin:0 50%;transition:transform .5s cubic-bezier(.16,.84,.24,1) .1s}
+.slice .pool{display:none}   .slice::after{content:"";position:absolute;left:0;right:0;bottom:calc(-9 * var(--u));height:calc(3.75 * var(--u));background:var(--t-brand);transform:scaleX(0);transform-origin:0 50%;transition:transform .5s cubic-bezier(.16,.84,.24,1) .1s}
 .slice.on::after{transform:scaleX(1)}
 .slice::after{opacity:var(--barO,1)}
-/* rest label: number + icon at the top, the name on the spine (one or two lines, always inside the foot band) */
 .slice .rest{position:absolute;inset:0;transition:opacity .22s ease;text-shadow:0 1px 10px rgba(7,9,12,.8),0 0 3px rgba(7,9,12,.7)}
 .slice.on .rest{opacity:0;transition-delay:0s}
 .slice .num{position:absolute;left:0;right:0;top:calc(15 * var(--u));text-align:center;font-weight:900;font-size:calc(11.25 * var(--u));letter-spacing:.16em;text-indent:.16em;color:#fff;font-variant-numeric:tabular-nums}
@@ -91,7 +76,6 @@ body.mode-kit .picker{display:none}
 .slice .vname{position:absolute;left:50%;bottom:calc(15.6 * var(--u));transform:translateX(-50%) rotate(180deg);writing-mode:vertical-rl;white-space:nowrap;font-weight:900;text-transform:uppercase;letter-spacing:.13em;font-size:calc(10.6 * var(--u));line-height:calc(14 * var(--u));text-align:left}
 .slice .vname span{display:block}
 .slice .hname,.slice .rrow{display:none}
-/* open label */
 .slice .info{position:absolute;left:calc(30 * var(--u));bottom:calc(22 * var(--u));width:var(--infoW,320px);pointer-events:none;visibility:hidden;text-shadow:0 1px 16px rgba(7,9,12,.75),0 0 3px rgba(7,9,12,.45)}
 .slice.on .info{visibility:visible}
 .slice .info > *{display:block}
@@ -108,16 +92,13 @@ body.mode-kit .picker{display:none}
 .slice:hover .go svg,.slice:focus-visible .go svg{transform:translateX(4px)}
 .slice:focus-visible{outline:none}
 .slice:focus-visible .clip{outline:2px solid var(--t-brandOn);outline-offset:-2px}
-/* before the entrance runs (JS adds .pre; removed at once under reduced motion / debug) */
 .picker.pre .rev{transform:translateY(101%)}
 .picker.pre .rest,.picker.pre .gl,.picker.pre .p-title,.picker.pre .info{opacity:0}
 
-/* ---------- opening page (hero), desktop: words on the left on plain ground, living strip of photographs on the right ---------- */
 .hero{--u:calc(1px * var(--s,1));--hu:min(calc(1px * var(--s,1)),.1111vh,.0909vw);position:sticky;top:0;z-index:1;height:100vh;height:100svh;min-height:600px;overflow:hidden;background:var(--bg);isolation:isolate}
 html.no-hero .hero,body.mode-kit .hero{display:none}
 .anchor{position:absolute;top:0;left:0;width:1px;height:1px}
-.h-bg{position:absolute;top:0;bottom:0;left:max(56.25%,calc(75 * var(--u) + 700 * var(--hu) + 48px));right:0;   /* narrow desktops: the strip gives the words their column */
-overflow:hidden;transform-origin:20% 50%;will-change:transform}
+.h-bg{position:absolute;top:0;bottom:0;left:max(56.25%,calc(75 * var(--u) + 700 * var(--hu) + 48px));right:0;   overflow:hidden;transform-origin:20% 50%;will-change:transform}
 .h-strip{position:absolute;top:0;bottom:0;left:0;display:flex;gap:calc(3.75 * var(--u));will-change:transform}
 .h-strip .hp{flex:none;position:relative;height:100%;width:calc(var(--hh,100vh) * .258);overflow:hidden}
 .h-strip img{width:100%;height:100%;object-fit:cover;transform:scale(1.07)}
@@ -144,29 +125,22 @@ overflow:hidden;transform-origin:20% 50%;will-change:transform}
 .h-go{margin-top:calc(20 * var(--hu));display:inline-flex;align-items:center;gap:calc(20 * var(--hu));font-weight:900;text-transform:uppercase;letter-spacing:.1em;font-size:calc(22 * var(--hu));line-height:1;color:#fff;padding-bottom:calc(6 * var(--hu));border-bottom:calc(2.5 * var(--hu)) solid var(--t-brand)}
 .h-go svg{width:calc(10 * var(--hu));height:calc(15 * var(--hu));color:#fff;transition:transform .25s ease}
 .h-next:hover .h-go svg,.h-next:focus-visible .h-go svg{transform:translateY(4px)}
-/* entrance start state (JS removes .h-pre; never set under reduced motion) */
 .hero.h-pre .h-in > *{opacity:0}
 .hero.h-pre .h-bg{opacity:0}
 
-/* ---------- hand-off to the kit page (study 1): the open slice's clip widens to the screen, the kit backdrop rises in it ---------- */
 .handoff{position:fixed;inset:0;z-index:80;pointer-events:none;overflow:hidden}
 .handoff .hclip{position:absolute;left:0;top:0;width:100vw;height:100vh;overflow:hidden;transform-origin:0 0;will-change:transform}
 .handoff .hin{position:absolute;left:0;top:0;width:100vw;height:100vh;transform-origin:0 0;will-change:transform}
-/* cross-document view transition to the kit page: the photo frame carries the same name there (#hoc), the frames are identical */
 @view-transition{navigation:auto}
-/* a held cut, not a crossfade: the old frame stays until the new page's first frame (identical), and the kit page's own
-   hand-over ease is the only motion (a crossfade here blended two pictures while that ease ran) */
 ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none}
 .handoff .hpar{position:absolute;inset:0;will-change:transform}
 .handoff .hpic{position:absolute;left:0;top:0;max-width:none;transform-origin:50% 50%;will-change:transform}
-.handoff .hkit{position:absolute;inset:0;overflow:hidden;will-change:transform;view-transition-name:kit-photo}   /* flow2: named here, not on .hclip: .hclip is a screen-sized box scaled to the frame, so its snapshot was screen-tall and its lower half showed below the photo for two frames; .hkit is the frame itself */
-.handoff .hkit img{position:absolute;left:50%;top:50%;max-width:none;transform-origin:50% 50%;will-change:transform}
+.handoff .hkit{position:absolute;inset:0;overflow:hidden;will-change:transform;view-transition-name:kit-photo}   .handoff .hkit img{position:absolute;left:50%;top:50%;max-width:none;transform-origin:50% 50%;will-change:transform}
 .handoff .hbrand{display:flex;align-items:center}
 .handoff .hbrand .logo{height:calc(29.9 * var(--u));filter:none}
 .handoff .hbrand .tagline{margin-left:calc(25 * var(--u));font-family:"Nunito Sans",sans-serif;font-weight:700;font-size:calc(12 * var(--u));letter-spacing:.165em;color:var(--t-soft)}
 .handoff .hfade{position:absolute;left:0;right:0;bottom:0;height:90px;background:linear-gradient(rgba(7,9,12,0),var(--bg));opacity:0}
 
-/* ================= header (kit) ================= */
 .hdr{position:fixed;z-index:60;left:0;right:0;top:0;padding:30px var(--pad);display:flex;justify-content:space-between;align-items:center;gap:16px;pointer-events:none}
 .hdr::before{content:"";position:absolute;inset:0 0 -20px;z-index:-1;background:linear-gradient(rgba(7,9,12,.7),rgba(7,9,12,0));pointer-events:none}
 body.mode-pick .hdr{display:none}
@@ -174,10 +148,8 @@ body.mode-pick .hdr{display:none}
 .another{flex:none;font-family:"Barlow Condensed",sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.14em;font-size:14px;color:var(--muted);text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(154,163,174,.6);transition:color .18s ease}
 .another:hover{color:var(--ink)}
 
-/* ================= theatre (comp 03) ================= */
 .kit{display:none}
 body.mode-kit .kit{display:block}
-/* figure in base.png spans y 108..1471 of 1536 (88.7 %), feet at 95.8 % */
 .theatre{position:relative;height:100vh;height:100svh;overflow:hidden;--manH:95.4vh;--feet:92.4vh;--cx:32.6vw}
 .bd{position:absolute;left:0;right:0;top:0;height:110%;will-change:transform}
 .bd img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.4) brightness(.5)}
@@ -203,7 +175,6 @@ body.mode-kit .kit{display:block}
 .intro .hzl li::before{content:"";display:inline-block;width:8px;height:2px;background:var(--green-t);vertical-align:middle;margin-right:12px}
 .cue{position:absolute;left:var(--cx);transform:translateX(-50%);bottom:12px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 
-/* shelf column: x 960..1408 at 1440 */
 .shelf{position:absolute;left:66.67vw;right:var(--pad);top:62px;bottom:28px;display:flex;flex-direction:column;opacity:0;visibility:hidden}
 .sh-head{display:flex;justify-content:space-between;align-items:baseline}
 .sh-head .kn{font-size:30px}
@@ -265,7 +236,6 @@ body.mode-kit .kit{display:block}
 .closeline h2 span{display:block}
 .closeline h2 .a{color:var(--green-t)}
 
-/* after: add to quote + other kits */
 .after{position:relative;padding:88px var(--pad) 96px;border-top:1px solid var(--line)}
 .after .row{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:64px}
 .after h3{font-size:clamp(34px,3.2vw,48px)}
@@ -289,9 +259,6 @@ body.mode-kit .kit{display:block}
 .toast{position:fixed;left:50%;bottom:28px;z-index:90;transform:translate(-50%,12px);opacity:0;background:var(--ink);color:var(--bg);font-weight:600;font-size:14px;padding:10px 16px;border-radius:2px;pointer-events:none;transition:opacity .2s ease,transform .2s ease;max-width:calc(100vw - 32px)}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 
-/* ================= v0.3.5 compact picker (< 1024), 2026-11-15, owner: "the choosing industry and images of the industry was
-   horizontal before. I liked that better", after his earlier "they should all be equal in size". So: all 18 industries as EQUAL
-   horizontal rows under their sector rails: a landscape picture, the number, the name, the icon. No larger first card. ================= */
 @media (max-width:1023px){
   .picker{--s:1;--u:1px;height:auto;min-height:0;overflow:visible;--top:0;--bot:0;--ppad:16px;padding:0 0 32px}
   .p-head{position:relative;left:auto;right:auto;top:auto;padding:20px 16px 0;max-width:640px;margin:0 auto}
@@ -307,11 +274,9 @@ body.mode-kit .kit{display:block}
   .grp .gl{height:auto;padding-bottom:8px;margin-bottom:10px;align-items:baseline;font-size:10px;gap:10px}
   .grp .row{display:flex;flex-direction:column;gap:8px;margin:0}
   .slice{flex:none;height:64px;transition:transform .16s cubic-bezier(.215,.61,.355,1)}
-  .slice:active{transform:scale(.988)}   /* the press: motion.json study 1, 98.8 %, power2.out */
-  .slice.on{flex-grow:0}
+  .slice:active{transform:scale(.988)}     .slice.on{flex-grow:0}
   .slice::after{display:none}
-  .slice .clip{left:0;top:0;bottom:0;right:auto;width:112px}   /* the landscape picture, 7:4 */
-  .slice .par{inset:-5px}
+  .slice .clip{left:0;top:0;bottom:0;right:auto;width:112px}     .slice .par{inset:-5px}
   .slice .foc{transform:none}
   .slice .pimg{left:0;width:100%;transform:none}
   .slice .dim{opacity:.06}
@@ -328,18 +293,15 @@ body.mode-kit .kit{display:block}
 }
 @media (min-width:600px) and (max-width:1023px){ .slice{height:72px} .slice .clip{width:126px} .slice .num{left:144px} .slice .hname{left:174px;font-size:14px} }
 
-/* ================= phone (comp 04) ================= */
 @media (max-width:759px){
   :root{--pad:16px}
-  /* brand lockup: two lines beside the logo */
-  .logo{height:19px}
+    .logo{height:19px}
   .brand .rule{height:24px;margin:0 11px 0 12px}
   .brand .tagline{font-size:10.5px;letter-spacing:.13em;line-height:12px}
   .brand .tagline > span{display:block}
 
 
-  /* hero, phone (comp opening-390x844): the living strip on top, the words below; grows past one screen rather than clip */
-  .hero{position:relative;height:auto;min-height:100svh;padding:0 16px 22px}
+    .hero{position:relative;height:auto;min-height:100svh;padding:0 16px 22px}
   .h-bg{left:0;right:0;top:0;bottom:auto;height:min(270px,32svh)}
   .h-strip{gap:3px}
   .h-strip .hp{width:calc(var(--hh,270px) * .474)}
@@ -360,8 +322,7 @@ body.mode-kit .kit{display:block}
   .h-lead{font-size:12px}
   .h-go{font-size:14px;gap:14px;margin-top:12px;padding-bottom:5px;border-bottom-width:2px}
   .h-go svg{width:9px;height:13px}
-  /* stage */
-  .hdr{padding:22px 16px}
+    .hdr{padding:22px 16px}
   .another{font-size:12px;letter-spacing:.1em}
   .theatre{--manH:56.1vh;--feet:62.1vh;--cx:50vw}
   .bd{height:72vh}
@@ -405,8 +366,7 @@ body.mode-kit .kit{display:block}
   .dt .alts > .lbl,.dt .alts ul{display:none}
   .dt .alt-line{display:block;font-size:12px;line-height:1.35;color:var(--muted)}
   .dt .alt-line .lbl{font-size:11px;margin-right:8px}
-  /* phone: only the active block takes space, so the CTA follows it instead of the kit's tallest block */
-  .dt{display:none}
+    .dt{display:none}
   .dt.on{display:block;animation:dtin .3s ease}
   @keyframes dtin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
   .q{margin-top:10px;font-size:15px}

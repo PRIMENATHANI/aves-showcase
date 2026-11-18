@@ -1,13 +1,5 @@
-// The AVES Experience v0.4.1: the site backdrop as a place with depth (owner's comment 4, 2026-11-13).
-// A WebGL canvas inside #bd draws the site photo displaced by a depth map (Depth Anything V2 Small, made locally:
-// ../tools/depth_map.py). Three inputs move it:
-//   1. the scroll scrub, which already tweens #bd (x, y, scale): read back every frame and turned into a camera pan and
-//      dolly, so near pipework travels further than the far stacks (real parallax on top of the CSS move);
-//   2. the pointer (desktop only), on its own uniform, pivoted at the depth where the worker's boots stand;
-//   3. time: smoke drifting from the stacks and a slow haze along the horizon. (DESIGN.md: "nothing loops" is lifted for
-//      the backdrop only, at the owner's request.)
-// The same displacement maths is exported (dispLocal) so hazard pins placed by sitePt() land where the shader draws.
-// Reduced motion, no WebGL, or a lost context = the static <img> exactly as before.
+
+
 (function () {
 'use strict';
 const VS = `attribute vec2 p;varying vec2 v;void main(){v=vec2(p.x*.5+.5,.5-p.y*.5);gl_Position=vec4(p,0.,1.);}`;
@@ -88,24 +80,24 @@ void main(){
 function load(src) { return new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = () => rej(new Error('load ' + src)); im.src = src; }); }
 
 async function create(o) {
-  // o: { host, img, fx (url of the site fx json), time (fixed seconds or null), fine (pointer allowed) }
+
   const api = { ok: false, ptr: { x: 0, y: 0 }, depthAt: () => 0, dispLocal: () => ({ x: 0, y: 0 }), ptrLocal: () => ({ x: 0, y: 0 }), setGeom() {}, onFrame: null, stats: { frames: 0, ms: 0 } };
   let FX;
   try { FX = await (await fetch(o.fx)).json(); } catch (e) { return api; }
   const [dim, skim] = await Promise.all([load(FX.depth), load(FX.sky)]).catch(() => [null, null]); if (!dim || !skim) return api;
-  // depth for JS (pins): read the map once into an array
+
   const dc = document.createElement('canvas'); dc.width = dim.naturalWidth; dc.height = dim.naturalHeight;
   const dx = dc.getContext('2d', { willReadFrequently: true }); dx.drawImage(dim, 0, 0);
   const dd = dx.getImageData(0, 0, dc.width, dc.height).data, DW = dc.width, DH = dc.height;
-  const Y = () => new Promise(r => setTimeout(r, 0)); await Y();   // flow2: it starts after the intro, while the drift runs: the heavy steps are separate tasks, not one long frame
+  const Y = () => new Promise(r => setTimeout(r, 0)); await Y();
   const depthAt = (fx, fy) => { const x = Math.round(Math.max(0, Math.min(1, fx)) * (DW - 1)), y = Math.round(Math.max(0, Math.min(1, fy)) * (DH - 1)); return dd[(y * DW + x) * 4] / 255; };
   api.depthAt = depthAt;
   const K = FX.k, D0 = K.d0;
   const eff = d => d < D0 ? d : D0 + (1 - Math.exp(-(d - D0) * 1.8)) / 1.8;
-  let G = null;    // geometry from app.js: box, image cover, o (box offset on the stage), Fp (camera focus on the stage)
+  let G = null;
   const camOf = b => { const L = { x: (G.Fp.x - G.o.x - b.x) / b.scale, y: (G.Fp.y - G.o.y - b.y) / b.scale }, L0 = { x: G.Fp.x - G.o.x, y: G.Fp.y - G.o.y };
     return { L, pan: { x: L.x - L0.x, y: L.y - L0.y }, zoom: b.scale - 1 }; };
-  // displacement of a point of the photo (local px of the box) seen through bd transform b: the forward form of the shader
+
   api.dispLocal = (lx, ly, d, b) => { if (!api.ok || !G) return { x: 0, y: 0 }; const c = camOf(b), e = eff(d) - D0;
     return { x: e * (-K.pan * c.pan.x + K.zoom * c.zoom * (lx - c.L.x)), y: e * (-K.pan * c.pan.y + K.zoom * c.zoom * (ly - c.L.y)) }; };
   let uPtr = { x: 0, y: 0 }, Dp = K.dp;
@@ -133,10 +125,10 @@ async function create(o) {
   if (gl.getError() !== gl.NO_ERROR) return api;
   o.host.appendChild(cv);
 
-  const HZ = FX.haze || {}, GLW = (FX.glows || []).slice(0, 2); let q = 1;   // q: adaptive render scale
+  const HZ = FX.haze || {}, GLW = (FX.glows || []).slice(0, 2); let q = 1;
   gl.uniform3f(u.uHz, HZ.y == null ? .565 : HZ.y, HZ.w || .075, HZ.a == null ? .16 : HZ.a);
   gl.uniform3fv(u.uHzC, new Float32Array(HZ.color || [.95, .87, .77])); gl.uniform3fv(u.uSmC, new Float32Array(FX.smoke || [.97, .94, .90])); gl.uniform3fv(u.uGlC, new Float32Array(FX.glowColor || [1, .86, .62]));
-  function resize() { if (!G) return; const r = Math.min((window.devicePixelRatio || 1) * (o.res ? o.res() : 1), o.res && o.res() > 1 ? 1.6 : 1.25) * q;   // a scaled-up stage draws more pixels, within a cap
+  function resize() { if (!G) return; const r = Math.min((window.devicePixelRatio || 1) * (o.res ? o.res() : 1), o.res && o.res() > 1 ? 1.6 : 1.25) * q;
     cv.width = Math.round(G.bw * r); cv.height = Math.round(G.bh * r); gl.viewport(0, 0, cv.width, cv.height);
     gl.uniform2f(u.uBox, G.bw, G.bh); gl.uniform2f(u.uImgO, G.ox, G.oy); gl.uniform2f(u.uImgS, G.iw, G.ih);
     Dp = depthAt(G.feet.x, G.feet.y); gl.uniform1f(u.uDp, Dp);
@@ -146,7 +138,6 @@ async function create(o) {
     const gw = new Float32Array(8); GLW.forEach((g, i) => gw.set([G.ox + g.at[0] * G.iw, G.oy + g.at[1] * G.ih, (g.r || .05) * G.ih, g.a == null ? .5 : g.a], i * 4)); gl.uniform4fv(u.uGl, gw);
     gl.uniform1fv(u['uPd[0]'], new Float32Array([0, 1, 2, 3].map(i => { const p = FX.plumes[i]; return p ? depthAt(p.at[0], p.at[1] + .01) : 0; }))); }
 
-  // pointer: desktop only, eased; amplitude in local px at one unit of depth difference
   const tgt = { x: 0, y: 0 };
   if (o.fine) addEventListener('pointermove', e => { if (e.pointerType !== 'mouse') return; tgt.x = e.clientX / innerWidth * 2 - 1; tgt.y = e.clientY / innerHeight * 2 - 1; }, { passive: true });
   if (o.fine) document.documentElement.addEventListener('mouseleave', () => { tgt.x = 0; tgt.y = 0; });
@@ -158,9 +149,9 @@ async function create(o) {
     raf = 0; if (lost || document.hidden) return;
     const dt = Math.min(.1, (now - (last || now)) / 1000); last = now;
     const a = 1 - Math.exp(-dt * 3.2); P.x += (tgt.x - P.x) * a; P.y += (tgt.y - P.y) * a;
-    const T0 = o.time != null ? o.time : (now - t0) / 1000, sw = K.sway == null ? .4 : K.sway;   // the place breathes: a slow sway, pointer or not
+    const T0 = o.time != null ? o.time : (now - t0) / 1000, sw = K.sway == null ? .4 : K.sway;
     const amp = K.ptr * Math.min(G.bw, G.bh); uPtr = { x: -(P.x + sw * Math.sin(T0 * .23)) * amp, y: -(P.y * .6 + sw * .5 * Math.sin(T0 * .17 + 1.3)) * amp };
-    // smoothness first: if frames run slow for a second, draw smaller; if that is not enough, drop the effects; then hand back to the photo
+
     if (o.time == null && dt > 0) { slowN = dt > .026 ? slowN + 1 : Math.max(0, slowN - 2); frameN++;
       if (slowN > 45 && frameN > 90) { slowN = 0; frameN = 0;
         if (q > .5) { q = Math.max(.5, q - .25); resize(); } else if (fxOn) { fxOn = false; gl.uniform1f(u.uFx, 0); }
@@ -171,7 +162,7 @@ async function create(o) {
     gl.uniform2f(u.uL, c.L.x, c.L.y); gl.uniform2f(u.uPan, c.pan.x, c.pan.y); gl.uniform1f(u.uZoom, c.zoom); gl.uniform2f(u.uPtr, uPtr.x, uPtr.y); gl.uniform1f(u.uT, T + 40);
     const s = performance.now(); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     api.stats.frames++; api.stats.ms += performance.now() - s;
-    if (first) { first = false; cv.style.transition = 'opacity .8s'; cv.style.opacity = 1; setTimeout(() => { if (!lost) o.img.style.visibility = 'hidden'; }, 850); }   // flow2: fades in over the static picture (it starts after the intro)
+    if (first) { first = false; cv.style.transition = 'opacity .8s'; cv.style.opacity = 1; setTimeout(() => { if (!lost) o.img.style.visibility = 'hidden'; }, 850); }
     api.onFrame && api.onFrame(b);
     raf = requestAnimationFrame(frame);
   }

@@ -1,5 +1,3 @@
-/* The AVES Experience v0.4: Oil & Gas. Composition decided 2026-11-11 (see ../DESIGN.md).
-   Catalogue DNA: green band title, mint catalogue card, the Approach artwork, Avenir Black headings (as pictures). */
 :root{--brand:#039047;--brand-d:#027a3c;--mint:#e8f3ec;--amber:#ffc46b;--bg:#07090c;--ink:#f4f6f8;--soft:#dfe4e9;--muted:#a3acb6;--line:rgba(255,255,255,.18);--pad:32px;--rackW:40vw}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:var(--bg);color:var(--ink)}
@@ -12,7 +10,6 @@ a{color:inherit}
 :focus-visible{outline:2px solid #5fe39c;outline-offset:3px}
 .eyebrow{font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
 .eyebrow.g{color:#5fe39c}
-/* a heading set in the catalogue's title face: a picture of the words used as a mask, so one file takes any colour */
 .ty{display:block;background:currentColor;-webkit-mask:var(--m) left center/contain no-repeat;mask:var(--m) left center/contain no-repeat;height:var(--h,24px);width:calc(var(--h,24px) * var(--ar));max-width:100%}
 
 .track{position:relative}
@@ -27,8 +24,6 @@ a{color:inherit}
 .man{position:absolute;isolation:isolate;filter:contrast(1.04) saturate(1.02)}
 .man img{position:absolute;inset:0;width:100%;height:100%}
 .man .ly{opacity:0}
-/* v0.4.1 item 3: a short, soft cast shadow. The silhouette mask is intersected with a fade so the shadow is darkest at the boots
-   and dies out by the knees' worth of length; the gradient runs in the element's own frame (feet at 95.77 %) before the skew. */
 .cast{position:absolute;background:#0a0d10;opacity:.5;filter:blur(4px);transform-origin:50% 95.77%;
   -webkit-mask:url(assets/base.png) center/100% 100% no-repeat,linear-gradient(0deg,#000 4.2%,rgba(0,0,0,.7) 40%,rgba(0,0,0,0) 88%);-webkit-mask-composite:source-in;
   mask:url(assets/base.png) center/100% 100% no-repeat,linear-gradient(0deg,#000 4.2%,rgba(0,0,0,.7) 40%,rgba(0,0,0,0) 88%);mask-composite:intersect}
@@ -37,7 +32,6 @@ a{color:inherit}
 .hdr{position:absolute;z-index:75;left:var(--pad);top:26px;height:26px;display:flex;align-items:center;gap:16px;pointer-events:none}
 .logo{height:26px;width:auto}
 .hdr::before{content:"";position:absolute;z-index:-1;left:-150px;top:-36px;width:860px;height:98px;background:radial-gradient(closest-side,rgba(5,8,12,.74),rgba(5,8,12,.5) 50%,rgba(5,8,12,0))}
-/* v0.4.1 item 8: the tagline beside the logo, at every step and over Product details */
 .hdr-rule{display:block;width:1px;height:18px;background:rgba(255,255,255,.4)}
 .hdr-tag{font-size:12.5px;line-height:1;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.88);white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.55),0 0 14px rgba(0,0,0,.45);padding-top:1px}
 
@@ -46,7 +40,6 @@ a{color:inherit}
 .kicker{display:flex;align-items:center;gap:12px}
 .kicker img{width:38px;height:38px;border-radius:3px}
 .intro h1{margin-top:18px;color:#fff;--h:clamp(44px,5.2vw,76px)}
-/* v0.4.1 item 2: a lead line, then the hazards as a numbered list on hairlines. No boxes. */
 .intro .ki{margin-top:clamp(14px,2.4vh,24px);font-size:clamp(18px,1.55vw,23px);line-height:1.34;font-weight:700;color:#fff;max-width:24em;text-wrap:balance}
 .intro .hzh{margin-top:clamp(18px,3.4vh,34px);display:flex;align-items:center;gap:10px;color:var(--amber)}
 .intro .hzh .tri{width:15px;height:13px;background:var(--amber);clip-path:polygon(50% 0,100% 100%,0 100%)}
@@ -61,7 +54,6 @@ a{color:inherit}
 @keyframes cue{0%{transform:translateY(-10px)}70%,100%{transform:translateY(26px)}}
 @media (prefers-reduced-motion: reduce){.intro .cue i::after{animation:none;transform:translateY(8px)}}
 
-/* ---- category band: the catalogue's header, bleeding off the left edge */
 .bands{position:absolute;inset:0;z-index:41;pointer-events:none}
 .band{position:absolute;left:0;top:72px;height:66px;display:flex;align-items:center;padding:0 62px 0 var(--pad);background:var(--brand);border-radius:0 10px 10px 0;box-shadow:0 14px 34px rgba(0,0,0,.4);opacity:0;visibility:hidden;color:#fff}
 .band .ty{--h:27px}
@@ -69,7 +61,6 @@ a{color:inherit}
 .band .ci{position:absolute;right:-30px;top:-9px;width:84px;height:84px;border-radius:50%;background:#fff;box-shadow:0 0 0 6px var(--brand),0 0 0 8px #fff,0 10px 22px rgba(0,0,0,.4)}
 .band.noicon{padding-right:34px}
 
-/* ---- callouts: catalogue anatomy plate. A node on the product, a thin leader, type on a rule. No boxes, no blobs. */
 .co{position:absolute;inset:0;z-index:39;pointer-events:none}
 .co .g{position:absolute;inset:0;opacity:0;visibility:hidden}
 .co .ln{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
@@ -78,8 +69,6 @@ a{color:inherit}
 .co .ln circle{fill:var(--brand);stroke:#fff;stroke-width:1.75}
 .co .ln circle.s{fill:none;stroke:var(--amber);stroke-width:1.75}
 .co .ln circle.sd{fill:var(--amber);stroke:none}
-/* v0.4.1 item 7: the hazard as a glanceable moment: amber label, the hazard in large type, a rule, then where on this site
-   (marked with the same amber pin that sits on the place in the picture). */
 .co .hzl{position:absolute;left:var(--pad);top:160px;max-width:min(430px,31vw);color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.9),0 0 18px rgba(0,0,0,.75)}
 .co .hzl .hk{display:flex;align-items:center;gap:9px;font-size:11.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--amber)}
 .co .hzl .hz{flex:0 0 auto;width:17px;height:15px;background:var(--amber);clip-path:polygon(50% 0,100% 100%,0 100%);transform-origin:50% 70%}
@@ -94,7 +83,6 @@ a{color:inherit}
 .co .bf .k{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 1.5px #fff;font-weight:800;font-size:12px;line-height:1;color:#fff}
 .co .bf p{font-size:14.5px;line-height:1.36;font-weight:700;color:#fff;text-shadow:0 1px 2px #000,0 0 6px rgba(0,0,0,.9),0 0 18px rgba(0,0,0,.8)}
 
-/* ---- product block, bottom left */
 .cap{position:absolute;z-index:40;left:var(--pad);bottom:34px;width:min(520px,36vw);pointer-events:none}
 .cap .c{position:absolute;left:0;bottom:0;width:100%;opacity:0;visibility:hidden;pointer-events:auto}
 .cap .c .rule{display:block;width:44px;height:3px;background:#5fe39c;margin-bottom:14px;transform-origin:0 50%}
@@ -112,10 +100,7 @@ a{color:inherit}
 .lnk{font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:13px;color:#fff;border-bottom:2px solid #5fe39c;padding-bottom:3px;text-decoration:none}
 a.lnk::after{content:" \2197"}
 
-/* ---- stockroom */
 .rack{position:absolute;z-index:30;right:0;top:0;bottom:0;width:var(--rackW);will-change:transform;visibility:hidden}
-/* v0.4.1 item 5: a calmer stockroom. Narrower (40vw), the photo toned down, and no dark slab: its left, top and bottom edges
-   dissolve into the site so the room reads as a window on the site rather than a panel over it. */
 .rack .rk{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.86) saturate(.82) contrast(.94);
   -webkit-mask:linear-gradient(90deg,transparent 0,#000 13%),linear-gradient(180deg,transparent 0,rgba(0,0,0,.6) 9%,#000 20%,#000 92%,transparent 100%);-webkit-mask-composite:source-in;
   mask:linear-gradient(90deg,transparent 0,#000 13%),linear-gradient(180deg,transparent 0,rgba(0,0,0,.6) 9%,#000 20%,#000 92%,transparent 100%);mask-composite:intersect}
@@ -156,9 +141,6 @@ a.lnk::after{content:" \2197"}
 .it.gone .tag{opacity:0}
 .it.gone::after{opacity:0}
 
-/* ---- the catalogue card (v0.4.1 item 6): sized to its content and anchored to the foot of the stockroom, so the shelf
-   above stays in view. The card names each "Why Choose AVES" point (the catalogue's own headings); the full sentences
-   are in Product details. The Approach artwork sits at the bottom exactly as printed. */
 .cards{position:absolute;z-index:5;left:7%;right:var(--pad);bottom:24px;pointer-events:none}
 .card{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;border-radius:12px;overflow:hidden;background:var(--mint);color:#14181d;box-shadow:0 24px 60px rgba(0,0,0,.55);opacity:0;visibility:hidden}
 .card.none{display:none}
@@ -193,7 +175,6 @@ a.lnk::after{content:" \2197"}
 .acts{margin-top:24px;display:flex;gap:28px;align-items:center}
 .end .tagl{display:block;margin-top:30px;height:19px;width:auto;opacity:.92}
 
-/* ---- product focus view */
 .pd{position:absolute;z-index:70;inset:0;visibility:hidden;opacity:0;background:rgba(6,8,11,.86);-webkit-backdrop-filter:blur(22px) saturate(.75);backdrop-filter:blur(22px) saturate(.75)}
 .pd::before{content:"";position:absolute;left:-10vw;top:-10vh;width:70vw;height:120vh;opacity:.07;background:#19b45a;-webkit-mask:url(assets/brand/v.png) center/contain no-repeat;mask:url(assets/brand/v.png) center/contain no-repeat;pointer-events:none}
 .pd-x{position:absolute;z-index:3;right:var(--pad);top:26px;display:flex;align-items:center;gap:14px;color:var(--ink)}

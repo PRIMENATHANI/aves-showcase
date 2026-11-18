@@ -1,13 +1,5 @@
-// The AVES Experience v0.4.1: the site backdrop as a place with depth (owner's comment 4, 2026-11-13).
-// A WebGL canvas inside #bd draws the site photo displaced by a depth map (Depth Anything V2 Small, made locally:
-// ../tools/depth_map.py). Three inputs move it:
-//   1. the scroll scrub, which already tweens #bd (x, y, scale): read back every frame and turned into a camera pan and
-//      dolly, so near pipework travels further than the far stacks (real parallax on top of the CSS move);
-//   2. the pointer (desktop only), on its own uniform, pivoted at the depth where the worker's boots stand;
-//   3. time: smoke drifting from the stacks and a slow haze along the horizon. (DESIGN.md: "nothing loops" is lifted for
-//      the backdrop only, at the owner's request.)
-// The same displacement maths is exported (dispLocal) so hazard pins placed by sitePt() land where the shader draws.
-// Reduced motion, no WebGL, or a lost context = the static <img> exactly as before.
+
+
 (function () {
 'use strict';
 const VS = `attribute vec2 p;varying vec2 v;void main(){v=vec2(p.x*.5+.5,.5-p.y*.5);gl_Position=vec4(p,0.,1.);}`;
@@ -82,12 +74,12 @@ void main(){
 function load(src) { return new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = () => rej(new Error('load ' + src)); im.src = src; }); }
 
 async function create(o) {
-  // o: { host, img, fx (url of the site fx json), time (fixed seconds or null), fine (pointer allowed) }
+
   const api = { ok: false, ptr: { x: 0, y: 0 }, depthAt: () => 0, dispLocal: () => ({ x: 0, y: 0 }), ptrLocal: () => ({ x: 0, y: 0 }), setGeom() {}, onFrame: null, stats: { frames: 0, ms: 0 } };
   let FX;
   try { FX = await (await fetch(o.fx)).json(); } catch (e) { return api; }
   const [dim, skim] = await Promise.all([load(FX.depth), load(FX.sky)]).catch(() => [null, null]); if (!dim || !skim) return api;
-  // depth for JS (pins): read the map once into an array
+
   const dc = document.createElement('canvas'); dc.width = dim.naturalWidth; dc.height = dim.naturalHeight;
   const dx = dc.getContext('2d', { willReadFrequently: true }); dx.drawImage(dim, 0, 0);
   const dd = dx.getImageData(0, 0, dc.width, dc.height).data, DW = dc.width, DH = dc.height;
@@ -95,10 +87,10 @@ async function create(o) {
   api.depthAt = depthAt;
   const K = FX.k, D0 = K.d0;
   const eff = d => d < D0 ? d : D0 + (1 - Math.exp(-(d - D0) * 1.8)) / 1.8;
-  let G = null;    // geometry from app.js: box, image cover, o (box offset on the stage), Fp (camera focus on the stage)
+  let G = null;
   const camOf = b => { const L = { x: (G.Fp.x - G.o.x - b.x) / b.scale, y: (G.Fp.y - G.o.y - b.y) / b.scale }, L0 = { x: G.Fp.x - G.o.x, y: G.Fp.y - G.o.y };
     return { L, pan: { x: L.x - L0.x, y: L.y - L0.y }, zoom: b.scale - 1 }; };
-  // displacement of a point of the photo (local px of the box) seen through bd transform b: the forward form of the shader
+
   api.dispLocal = (lx, ly, d, b) => { if (!api.ok || !G) return { x: 0, y: 0 }; const c = camOf(b), e = eff(d) - D0;
     return { x: e * (-K.pan * c.pan.x + K.zoom * c.zoom * (lx - c.L.x)), y: e * (-K.pan * c.pan.y + K.zoom * c.zoom * (ly - c.L.y)) }; };
   let uPtr = { x: 0, y: 0 }, Dp = K.dp;
@@ -135,7 +127,6 @@ async function create(o) {
     gl.uniform4fv(u.uPl, pl); gl.uniform4fv(u.uPw, pw);
     gl.uniform1fv(u['uPd[0]'], new Float32Array([0, 1, 2, 3].map(i => { const p = FX.plumes[i]; return p ? depthAt(p.at[0], p.at[1] + .01) : 0; }))); }
 
-  // pointer: desktop only, eased; amplitude in local px at one unit of depth difference
   const tgt = { x: 0, y: 0 };
   if (o.fine) addEventListener('pointermove', e => { if (e.pointerType !== 'mouse') return; tgt.x = e.clientX / innerWidth * 2 - 1; tgt.y = e.clientY / innerHeight * 2 - 1; }, { passive: true });
   if (o.fine) document.documentElement.addEventListener('mouseleave', () => { tgt.x = 0; tgt.y = 0; });
